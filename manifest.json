@@ -1,7 +1,7 @@
 {
   "name": "경매 입찰·대출 자금 계산기",
   "short_name": "경매계산기",
-  "description": "경매 입찰가율, 대출, DSR, 필요 자기자본 계산과 저장자료 자동동기화",
+  "description": "경매 입찰가율, 대출, DSR, 지역별 저장폴더와 기기 간 자동동기화",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -19,5 +19,6 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "id": "./index.html"
 }

@@ -9,7 +9,9 @@
   <meta name="apple-mobile-web-app-title" content="경매계산기" />
   <link rel="manifest" href="./manifest.json" />
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
-  <title>경매 입찰·대출 자금 계산기 v1.4</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
+  <link rel="shortcut icon" href="./favicon.ico" />
+  <title>경매 입찰·대출 자금 계산기 v1.5</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -64,7 +66,7 @@
     .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
     .field{display:grid;gap:6px}
     label{font-size:13px;color:#374151;font-weight:700}
-    input[type="text"],input[type="number"],select{
+    input[type="text"],input[type="number"],input[type="date"],input[type="password"],select{
       width:100%;border:1px solid #d1d5db;border-radius:12px;padding:11px 12px;
       background:#fff;color:var(--text);outline:none;
     }
@@ -161,6 +163,37 @@
     .dsr-box .k{font-size:12px;color:#166534}
     .dsr-box .v{font-size:19px;font-weight:950;color:#14532d;margin-top:3px}
     .notice{margin-top:10px;padding:11px 12px;border-radius:12px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;font-size:12px}
+    .collapse-btn{border:1px solid var(--line);background:#fff;color:#475569;border-radius:9px;height:34px;padding:0 8px;font-size:11px;font-weight:900;cursor:pointer}
+    .section-card.collapsed > :not(.section-head){display:none!important}
+    .section-card.collapsed .section-head{margin-bottom:0}
+    .tools-details{width:100%}
+    .tools-details summary{cursor:pointer;color:#475569;font-size:12px;font-weight:800;text-align:right;list-style:none}
+    .tools-details summary::-webkit-details-marker{display:none}
+    .tools-details[open] summary{margin-bottom:7px}
+    .auth-modal{position:fixed;inset:0;background:rgba(15,23,42,.56);z-index:1000;display:flex;align-items:center;justify-content:center;padding:18px}
+    .auth-modal[hidden]{display:none}
+    .auth-dialog{width:min(420px,100%);background:white;border-radius:18px;padding:20px;box-shadow:0 24px 70px rgba(15,23,42,.28)}
+    .auth-dialog h2{margin:0 0 6px}
+    .auth-dialog .field{margin-top:10px}
+    .auth-modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+    .auth-close{float:right;border:none;background:#f3f4f6;border-radius:9px;width:34px;height:34px;cursor:pointer;font-weight:900}
+    .saved-toolbar{display:grid;gap:8px;margin-top:12px}
+    .view-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+    .view-tab{border:1px solid var(--line);background:#f8fafc;color:#475569;border-radius:10px;padding:8px;font-weight:900;cursor:pointer}
+    .view-tab.active{background:#111827;color:white;border-color:#111827}
+    .folder-nav{display:flex;gap:6px;overflow-x:auto;padding:1px 0 4px;scrollbar-width:thin}
+    .folder-chip{white-space:nowrap;border:1px solid #bfdbfe;background:#eff6ff;color:#1e40af;border-radius:999px;padding:6px 9px;font-size:12px;font-weight:900;cursor:pointer}
+    .folder-chip.active{background:#2563eb;color:white;border-color:#2563eb}
+    .sort-row{display:grid;grid-template-columns:1fr 42px;gap:6px}
+    .sort-direction{border:1px solid var(--line);background:#f8fafc;border-radius:10px;font-size:20px;font-weight:900;cursor:pointer}
+    .saved-summary{font-size:12px;color:var(--muted);font-weight:800}
+    .saved-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+    .region-pill{font-size:11px;padding:3px 7px;border-radius:999px;background:#ecfeff;color:#155e75;font-weight:900}
+    .date-pill{font-size:11px;padding:3px 7px;border-radius:999px;background:#f0fdf4;color:#166534;font-weight:900}
+    .equity-pill{font-size:11px;padding:3px 7px;border-radius:999px;background:#fff7ed;color:#9a3412;font-weight:900}
+    .mobile-save-bar{display:none}
+    .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:1200;background:#111827;color:white;padding:11px 15px;border-radius:999px;font-size:13px;font-weight:900;box-shadow:0 10px 30px rgba(15,23,42,.28)}
+    .toast[hidden]{display:none}
     footer{color:var(--muted);font-size:12px;text-align:center;padding:22px 0 4px}
     @media(max-width:980px){
       .layout{grid-template-columns:1fr}
@@ -178,6 +211,71 @@
       .actions .btn{flex:1}
       th,td{font-size:12px;padding:9px 5px}
       .row{gap:8px}
+    }
+    @media(max-width:700px){
+      body{line-height:1.35}
+      .app{padding:6px 6px 82px}
+      header{display:block;margin-bottom:8px}
+      h1{font-size:22px}
+      .sub{display:none}
+      .auth-panel{align-items:stretch;margin-top:7px;min-width:0;gap:5px}
+      .auth-row{justify-content:space-between;gap:5px}
+      .sync-status{text-align:left;font-size:11px}
+      .tools-details summary{text-align:left}
+      .layout{gap:8px}
+      .stack{gap:8px}
+      .order-toolbar{justify-content:flex-start;gap:5px;margin:0 0 6px;flex-wrap:wrap}
+      .order-toolbar .btn{padding:7px 9px;font-size:11px}
+      .card{padding:10px;border-radius:12px;box-shadow:0 3px 12px rgba(15,23,42,.04)}
+      .section-head{margin-bottom:8px;gap:5px}
+      .section-head h2{font-size:15px}
+      .section-controls{gap:3px}
+      .move-btn,.drag-handle{min-width:29px;height:29px;border-radius:8px}
+      .collapse-btn{height:29px;padding:0 6px;font-size:10px}
+      .grid2,.grid3,.recommend,.dsr-summary{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+      .compare{grid-template-columns:1fr;gap:8px}
+      .mobile-span-2{grid-column:1/-1}
+      .field{gap:3px}
+      label{font-size:11.5px}
+      input[type="text"],input[type="number"],input[type="date"],input[type="password"],select{border-radius:9px;padding:8px 8px;font-size:13px}
+      .suffix{right:8px;font-size:11px}
+      .rate-rows{gap:5px}
+      .rate-row{grid-template-columns:1fr 32px;gap:5px}
+      .icon-btn{border-radius:8px}
+      .btn{padding:8px 10px;border-radius:9px;font-size:12px}
+      .helper,.login-note{font-size:10.5px;margin-top:5px}
+      .formula,.cap-explain,.notice{font-size:10.5px;padding:7px 8px;margin-top:6px}
+      .recommend{margin-top:7px}
+      .mini{padding:8px;border-radius:10px}
+      .mini .v{font-size:16px}
+      .slider-card{padding:9px;margin-top:8px;border-radius:11px}
+      .big-rate{font-size:24px}
+      input[type="range"]{margin:8px 0 2px}
+      .loan-head{padding:9px 11px}
+      .loan-head b{font-size:15px}
+      .loan-body{padding:9px 11px}
+      .rows{gap:6px}
+      .row{padding-bottom:5px;gap:6px}
+      .row span:first-child{font-size:11px}
+      .row strong{font-size:12px}
+      .equity{margin-top:7px;padding:8px}
+      .equity .value{font-size:18px}
+      .maxapp{margin-top:7px;padding:8px}
+      .maxapp .v{font-size:17px}
+      .dsr-summary{margin-top:8px}
+      .dsr-box{padding:8px;border-radius:10px}
+      .dsr-box .v{font-size:15px}
+      th,td{font-size:10.5px;padding:7px 4px}
+      .saved-list{max-height:none;gap:6px}
+      .saved-item{padding:9px;border-radius:11px}
+      .saved-meta{font-size:10.5px}
+      .saved-bottom{margin-top:6px}
+      .pill,.region-pill,.date-pill,.equity-pill{font-size:10px}
+      .sticky-side{position:static}
+      .mobile-save-bar{position:fixed;display:grid;grid-template-columns:1fr auto;gap:7px;left:7px;right:7px;bottom:calc(7px + env(safe-area-inset-bottom));z-index:900;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);padding:7px;border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 30px rgba(15,23,42,.18)}
+      .mobile-save-bar .btn{font-size:13px;padding:11px 12px}
+      .auth-dialog{padding:15px;border-radius:14px}
+      footer{padding:12px 0 4px;font-size:10px}
     }
     @media print{
       body{background:white}
@@ -198,23 +296,28 @@
     <div class="auth-panel no-print">
       <div class="auth-row">
         <span class="user-email" id="userEmail">로그인하지 않음</span>
-        <button class="btn" id="loginBtn" type="button">Google 로그인</button>
+        <button class="btn" id="loginBtn" type="button">아이디 로그인</button>
         <button class="btn light" id="logoutBtn" type="button" hidden>로그아웃</button>
       </div>
-      <div class="sync-status" id="syncStatus">Google 로그인 후 PC·핸드폰 자동동기화</div>
-      <div class="actions">
-        <button class="btn light" id="printBtn">인쇄·PDF</button>
-        <button class="btn secondary" id="exportBtn">백업 저장</button>
-        <label class="btn light" id="importLabel" for="importFile" style="display:inline-block">백업 불러오기</label>
-        <input id="importFile" type="file" accept=".json" hidden>
-      </div>
+      <div class="sync-status" id="syncStatus">아이디 로그인 후 PC·핸드폰 자동동기화</div>
+      <details class="tools-details">
+        <summary>백업·인쇄 도구 ▾</summary>
+        <div class="actions" style="margin-top:7px">
+          <button class="btn light" id="printBtn">인쇄·PDF</button>
+          <button class="btn secondary" id="exportBtn">백업 저장</button>
+          <label class="btn light" id="importLabel" for="importFile" style="display:inline-block">백업 불러오기</label>
+          <input id="importFile" type="file" accept=".json" hidden>
+        </div>
+      </details>
     </div>
   </header>
 
   <div class="layout">
     <main class="stack" id="sectionContainer">
       <div class="order-toolbar no-print" id="orderToolbar">
-        <button class="btn light" type="button" id="resetOrderBtn">블록 순서 초기화</button>
+        <button class="btn light" type="button" id="collapseAllBtn">전체 접기</button>
+        <button class="btn light" type="button" id="expandAllBtn">전체 펴기</button>
+        <button class="btn light" type="button" id="resetOrderBtn">순서 초기화</button>
       </div>
       <section class="card section-card" data-section-id="basic" draggable="true">
         <div class="section-head">
@@ -222,6 +325,7 @@
           <div class="section-controls no-print">
             <button class="move-btn" type="button" data-move="up" title="위로 이동">↑</button>
             <button class="move-btn" type="button" data-move="down" title="아래로 이동">↓</button>
+            <button class="collapse-btn" type="button" data-collapse>접기</button>
             <span class="drag-handle" title="끌어서 순서 변경">⠿</span>
           </div>
         </div>
@@ -230,9 +334,23 @@
             <label for="caseNo">사건번호</label>
             <input id="caseNo" type="text" placeholder="예: 2025타경30701">
           </div>
-          <div class="field">
+          <div class="field mobile-span-2">
             <label for="propertyName">물건명·주소</label>
             <input id="propertyName" type="text" placeholder="예: 이편한세상충주 119동 1501호">
+          </div>
+          <div class="field">
+            <label for="region">지역 폴더</label>
+            <input id="region" type="text" list="regionOptions" placeholder="예: 충북·대구·광주">
+            <datalist id="regionOptions">
+              <option value="서울"><option value="경기"><option value="인천"><option value="강원">
+              <option value="대전"><option value="세종"><option value="충북"><option value="충남">
+              <option value="광주"><option value="전북"><option value="전남"><option value="대구">
+              <option value="경북"><option value="부산"><option value="울산"><option value="경남"><option value="제주">
+            </datalist>
+          </div>
+          <div class="field">
+            <label for="auctionDate">경매기일</label>
+            <input id="auctionDate" type="date">
           </div>
           <div class="field">
             <label for="appraisal">감정가</label>
@@ -257,6 +375,7 @@
           <div class="section-controls no-print">
             <button class="move-btn" type="button" data-move="up" title="위로 이동">↑</button>
             <button class="move-btn" type="button" data-move="down" title="아래로 이동">↓</button>
+            <button class="collapse-btn" type="button" data-collapse>접기</button>
             <span class="drag-handle" title="끌어서 순서 변경">⠿</span>
           </div>
         </div>
@@ -325,6 +444,7 @@
           <div class="section-controls no-print">
             <button class="move-btn" type="button" data-move="up" title="위로 이동">↑</button>
             <button class="move-btn" type="button" data-move="down" title="아래로 이동">↓</button>
+            <button class="collapse-btn" type="button" data-collapse>접기</button>
             <span class="drag-handle" title="끌어서 순서 변경">⠿</span>
           </div>
         </div>
@@ -412,6 +532,7 @@
           <div class="section-controls no-print">
             <button class="move-btn" type="button" data-move="up" title="위로 이동">↑</button>
             <button class="move-btn" type="button" data-move="down" title="아래로 이동">↓</button>
+            <button class="collapse-btn" type="button" data-collapse>접기</button>
             <span class="drag-handle" title="끌어서 순서 변경">⠿</span>
           </div>
         </div>
@@ -514,6 +635,7 @@
           <div class="section-controls no-print">
             <button class="move-btn" type="button" data-move="up" title="위로 이동">↑</button>
             <button class="move-btn" type="button" data-move="down" title="아래로 이동">↓</button>
+            <button class="collapse-btn" type="button" data-collapse>접기</button>
             <span class="drag-handle" title="끌어서 순서 변경">⠿</span>
           </div>
         </div>
@@ -581,28 +703,77 @@
     <aside class="sticky-side">
       <section class="card">
         <h2>저장목록</h2>
-        <div class="field">
+        <div class="field" style="margin-top:10px">
           <label for="saveTitle">저장 이름</label>
           <input id="saveTitle" type="text" placeholder="사건번호 또는 물건명">
         </div>
-        <div class="actions no-print" style="margin-top:10px">
-          <button class="btn" id="saveBtn">현재 결과 저장</button>
+        <div class="actions no-print" style="margin-top:8px">
+          <button class="btn" id="saveBtn">최신자료 저장</button>
           <button class="btn light" id="newBtn">새 계산</button>
         </div>
-        <div class="helper" id="savedHelper">Google 로그인 후 어느 PC와 핸드폰에서도 같은 저장자료를 사용합니다.</div>
-        <div id="savedList" class="saved-list" style="margin-top:14px"></div>
+        <div class="helper" id="savedHelper">아이디 로그인 후 어느 PC와 핸드폰에서도 같은 저장자료를 사용합니다.</div>
+
+        <div class="saved-toolbar">
+          <div class="view-tabs">
+            <button class="view-tab active" type="button" data-saved-view="all">전체목록</button>
+            <button class="view-tab" type="button" data-saved-view="folders">지역별 폴더</button>
+          </div>
+          <div id="folderNav" class="folder-nav" hidden></div>
+          <div class="sort-row">
+            <select id="savedSortKey" aria-label="저장목록 정렬기준">
+              <option value="auctionDate">경매기일</option>
+              <option value="minEquity">최소 필요 자기자본</option>
+              <option value="householdEquity">가계대출 필요 자기자본</option>
+              <option value="trustEquity">신탁 필요 자기자본</option>
+              <option value="mortgageEquity">사업자근저당 필요 자기자본</option>
+              <option value="updatedAt">최근 저장일</option>
+            </select>
+            <button class="sort-direction" type="button" id="sortDirectionBtn" title="정렬방향">↑</button>
+          </div>
+          <div class="saved-summary" id="savedListSummary"></div>
+        </div>
+        <div id="savedList" class="saved-list" style="margin-top:9px"></div>
       </section>
     </aside>
   </div>
 
-  <footer>Google 로그인·Firebase 자동동기화 · v1.4 충돌방지 · 대출 한도는 실제 금융사 심사 결과와 다를 수 있습니다.</footer>
+  <div class="mobile-save-bar no-print">
+    <button class="btn" id="mobileSaveBtn" type="button">최신자료 저장</button>
+    <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
+  </div>
+
+  <footer>아이디·비밀번호 로그인 · Firebase 자동동기화 · v1.5 지역폴더·모바일압축 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
+
+<div class="auth-modal no-print" id="authModal" hidden>
+  <div class="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <button class="auth-close" id="authCloseBtn" type="button" aria-label="닫기">×</button>
+    <h2 id="authTitle">아이디 로그인</h2>
+    <div class="login-note">영문·숫자 아이디와 비밀번호로 로그인하면 어느 PC와 핸드폰에서도 같은 자료가 보입니다.</div>
+    <form id="authForm">
+      <div class="field">
+        <label for="authId">아이디</label>
+        <input id="authId" type="text" autocomplete="username" placeholder="영문·숫자 3자 이상" required>
+      </div>
+      <div class="field">
+        <label for="authPassword">비밀번호</label>
+        <input id="authPassword" type="password" autocomplete="current-password" minlength="6" placeholder="6자 이상" required>
+      </div>
+      <div class="auth-modal-actions">
+        <button class="btn" type="submit">로그인</button>
+        <button class="btn secondary" id="signupBtn" type="button">처음 계정 만들기</button>
+      </div>
+    </form>
+    <div class="helper">같은 아이디·비밀번호를 사용해야 같은 저장자료가 열립니다. 비밀번호는 Firebase가 관리하며 페이지 코드에는 저장하지 않습니다.</div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
 import {
-  getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged,
-  setPersistence, browserLocalPersistence
+  getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
+  signOut, onAuthStateChanged, setPersistence, browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
 import {
   getFirestore, collection, doc, getDoc, getDocs, onSnapshot,
@@ -621,16 +792,17 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
-const googleProvider = new GoogleAuthProvider();
-googleProvider.setCustomParameters({ prompt: "select_account" });
 
 (() => {
   const $ = (id) => document.getElementById(id);
   const STORAGE_KEY = "auctionBidCalculator.records.v1";
   const SECTION_ORDER_KEY = "auctionBidCalculator.sectionOrder.v1";
   const DEVICE_ID_KEY = "auctionBidCalculator.deviceId.v1";
+  const COLLAPSE_KEY = "auctionBidCalculator.collapsedSections.v1";
+  const SAVED_VIEW_KEY = "auctionBidCalculator.savedView.v1";
+  const SAVED_SORT_KEY = "auctionBidCalculator.savedSort.v1";
   const DEFAULT_SECTION_ORDER = ["basic","rates","loan","dsr","result"];
-  const APP_SCHEMA_VERSION = 4;
+  const APP_SCHEMA_VERSION = 5;
   const deviceId = localStorage.getItem(DEVICE_ID_KEY) ||
     (crypto.randomUUID ? crypto.randomUUID() : `device-${Date.now()}-${Math.random().toString(36).slice(2)}`);
   localStorage.setItem(DEVICE_ID_KEY, deviceId);
@@ -647,6 +819,11 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
   let suppressSectionSync = false;
   let sectionSyncTimer = null;
   let lastCloudSyncAt = null;
+  let savedViewMode = "all";
+  let selectedFolder = "";
+  let savedSortKey = "auctionDate";
+  let savedSortDirection = "asc";
+  let toastTimer = null;
 
   const num = (id) => {
     const v = parseFloat($(id).value);
@@ -667,6 +844,29 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
     return valid.length ? valid.reduce((a,b)=>a+b,0) / valid.length : null;
   };
   const clamp = (v,min,max) => Math.min(max,Math.max(min,v));
+
+  function showToast(message){
+    const el = $("toast");
+    el.textContent = message;
+    el.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { el.hidden = true; }, 2400);
+  }
+
+  function authEmailFromId(raw){
+    const id = String(raw || "").trim().toLowerCase();
+    if (!/^[a-z0-9._-]{3,30}$/.test(id)) throw new Error("아이디는 영문 소문자·숫자·점·밑줄·하이픈으로 3~30자 입력해주세요.");
+    return `${id}@auction-calculator-ay.local`;
+  }
+
+  function friendlyUserId(user){
+    const email = String(user?.email || "");
+    return email.endsWith("@auction-calculator-ay.local") ? email.split("@")[0] : (email || "로그인됨");
+  }
+
+  function setSaveButtonsDisabled(disabled){
+    [$("saveBtn"), $("mobileSaveBtn")].forEach(btn => { if (btn) btn.disabled = disabled; });
+  }
 
   function annuityPrincipal(monthlyPayment, annualRatePct, years){
     const n = Math.max(1, years * 12);
@@ -817,6 +1017,42 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
     });
     draggedSection = null;
   });
+
+  function collapsedSections(){
+    try{
+      const saved = JSON.parse(localStorage.getItem(COLLAPSE_KEY) || "null");
+      if (Array.isArray(saved)) return saved;
+    } catch {}
+    return window.matchMedia("(max-width: 700px)").matches ? ["loan","dsr"] : [];
+  }
+
+  function applyCollapsedSections(ids){
+    const set = new Set(Array.isArray(ids) ? ids : []);
+    sectionCards().forEach(card => {
+      const collapsed = set.has(card.dataset.sectionId);
+      card.classList.toggle("collapsed", collapsed);
+      const btn = card.querySelector("[data-collapse]");
+      if (btn) btn.textContent = collapsed ? "펼치기" : "접기";
+    });
+  }
+
+  function saveCollapsedSections(){
+    const ids = sectionCards().filter(card => card.classList.contains("collapsed")).map(card => card.dataset.sectionId);
+    localStorage.setItem(COLLAPSE_KEY, JSON.stringify(ids));
+  }
+
+  function toggleSection(card){
+    card.classList.toggle("collapsed");
+    const btn = card.querySelector("[data-collapse]");
+    if (btn) btn.textContent = card.classList.contains("collapsed") ? "펼치기" : "접기";
+    saveCollapsedSections();
+  }
+
+  function setAllSectionsCollapsed(collapsed){
+    sectionCards().forEach(card => card.classList.toggle("collapsed", collapsed));
+    applyCollapsedSections(collapsed ? sectionCards().map(card => card.dataset.sectionId) : []);
+    saveCollapsedSections();
+  }
 
   function renderRateRows(type){
     const arr = type === "same" ? sameRates : nearRates;
@@ -1025,7 +1261,7 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
 
   function getState(){
     const ids = [
-      "caseNo","propertyName","appraisal","capital","sameWeight","nearWeight","safetyAdjust",
+      "caseNo","propertyName","region","auctionDate","appraisal","capital","sameWeight","nearWeight","safetyAdjust",
       "bidRate","autoApply","trustLoanRate","trustExpenseRate","trustBidCap","trustUseCap",
       "mortgageLoanRate","mortgageDeduction","mortgageUseDeduction","mortgageExpenseRate","mortgageBidCap","mortgageUseCap",
       "dsrIncome","dsrLimitRate","matongLimit","matongRate","matongDsrYears","otherAnnualDebt",
@@ -1043,6 +1279,8 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
   function setState(state){
     if (!state) return;
     state.fields = state.fields || {};
+    if (state.fields.region === undefined) state.fields.region = "";
+    if (state.fields.auctionDate === undefined) state.fields.auctionDate = "";
     if (state.fields.mortgageDeduction === undefined) state.fields.mortgageDeduction = "25000000";
     if (state.fields.mortgageUseDeduction === undefined) state.fields.mortgageUseDeduction = true;
     if (state.fields.mortgageLoanRate === undefined || state.fields.mortgageLoanRate === "50") state.fields.mortgageLoanRate = "60";
@@ -1137,7 +1375,7 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
 
   function requireCloudReady(){
     if (!currentUser){
-      alert("먼저 Google 로그인을 해주세요.");
+      alert("먼저 아이디·비밀번호로 로그인해주세요.");
       return false;
     }
     if (!cloudReady){
@@ -1180,29 +1418,145 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
     };
   }
 
+  function stateNumber(item, id, fallback = 0){
+    const value = Number(item?.state?.fields?.[id]);
+    return Number.isFinite(value) ? value : fallback;
+  }
+
+  function stateBool(item, id, fallback = false){
+    const value = item?.state?.fields?.[id];
+    if (value === undefined) return fallback;
+    return value === true || value === "true";
+  }
+
+  function recordRegion(item){
+    return String(item?.state?.fields?.region || "").trim() || "미분류";
+  }
+
+  function recordAuctionDate(item){
+    const raw = String(item?.state?.fields?.auctionDate || "");
+    const time = raw ? Date.parse(`${raw}T00:00:00`) : NaN;
+    return {raw, time:Number.isFinite(time) ? time : null};
+  }
+
+  function recordMetrics(item){
+    const appraisal = stateNumber(item,"appraisal");
+    const bidRate = stateNumber(item,"bidRate",78) / 100;
+    const bid = appraisal * bidRate;
+    const extras = stateNumber(item,"unpaidManagement") + stateNumber(item,"extraExpense");
+
+    const trustAppraisalLoan = appraisal * stateNumber(item,"trustLoanRate",60) / 100;
+    const trustCap = bid * stateNumber(item,"trustBidCap",80) / 100;
+    const trustLoan = stateBool(item,"trustUseCap",true) ? Math.min(trustAppraisalLoan,trustCap) : trustAppraisalLoan;
+    const trustEquity = bid - trustLoan + bid * stateNumber(item,"trustExpenseRate",7) / 100 + extras;
+
+    const mortgageRaw = appraisal * stateNumber(item,"mortgageLoanRate",60) / 100;
+    const deduction = stateBool(item,"mortgageUseDeduction",true) ? stateNumber(item,"mortgageDeduction",25000000) : 0;
+    const mortgageAppraisalLoan = Math.max(0,mortgageRaw-deduction);
+    const mortgageCap = bid * stateNumber(item,"mortgageBidCap",80) / 100;
+    const mortgageLoan = stateBool(item,"mortgageUseCap",true) ? Math.min(mortgageAppraisalLoan,mortgageCap) : mortgageAppraisalLoan;
+    const mortgageEquity = bid - mortgageLoan + bid * stateNumber(item,"mortgageExpenseRate",6) / 100 + extras;
+
+    const income = stateNumber(item,"dsrIncome",30000000);
+    const annualLimit = income * stateNumber(item,"dsrLimitRate",50) / 100;
+    const matong = stateNumber(item,"matongLimit",26000000);
+    const matongYears = Math.max(1,stateNumber(item,"matongDsrYears",5));
+    const existingAnnual = matong/matongYears + matong*stateNumber(item,"matongRate",6)/100 + stateNumber(item,"otherAnnualDebt");
+    const availableAnnual = Math.max(0,annualLimit-existingAnnual);
+    const term = Math.max(1,stateNumber(item,"householdTerm",35));
+    const dsrMaxLoan = annuityPrincipal(availableAnnual/12,stateNumber(item,"householdActualRate",5)+stateNumber(item,"householdStressRate",0.75),term);
+    const householdAppraisalLoan = appraisal * stateNumber(item,"householdLoanRate",60) / 100;
+    const householdCap = bid * stateNumber(item,"householdBidCap",80) / 100;
+    const householdCollateral = stateBool(item,"householdUseCap",true) ? Math.min(householdAppraisalLoan,householdCap) : householdAppraisalLoan;
+    const householdLoan = Math.min(householdCollateral,dsrMaxLoan);
+    const householdEquity = bid - householdLoan + bid * stateNumber(item,"householdExpenseRate",6) / 100 + extras;
+
+    return {appraisal,bidRate,bid,trustEquity,mortgageEquity,householdEquity,minEquity:Math.min(trustEquity,mortgageEquity,householdEquity)};
+  }
+
+  function compareSavedItems(a,b,key,direction){
+    const dir = direction === "desc" ? -1 : 1;
+    if (key === "auctionDate"){
+      const ad = recordAuctionDate(a).time;
+      const bd = recordAuctionDate(b).time;
+      if (ad === null && bd === null) return Number(b.updatedAtMs||0)-Number(a.updatedAtMs||0);
+      if (ad === null) return 1;
+      if (bd === null) return -1;
+      return (ad-bd)*dir;
+    }
+    if (key === "updatedAt") return (Number(a.updatedAtMs||0)-Number(b.updatedAtMs||0))*dir;
+    const am = recordMetrics(a)[key] ?? 0;
+    const bm = recordMetrics(b)[key] ?? 0;
+    return (am-bm)*dir;
+  }
+
+  function saveSavedListPreferences(){
+    localStorage.setItem(SAVED_VIEW_KEY, JSON.stringify({savedViewMode,selectedFolder,savedSortKey,savedSortDirection}));
+  }
+
+  function loadSavedListPreferences(){
+    try{
+      const saved = JSON.parse(localStorage.getItem(SAVED_VIEW_KEY) || "{}");
+      savedViewMode = saved.savedViewMode === "folders" ? "folders" : "all";
+      selectedFolder = String(saved.selectedFolder || "");
+      savedSortKey = ["auctionDate","minEquity","householdEquity","trustEquity","mortgageEquity","updatedAt"].includes(saved.savedSortKey) ? saved.savedSortKey : "auctionDate";
+      savedSortDirection = saved.savedSortDirection === "desc" ? "desc" : "asc";
+    } catch {}
+    $("savedSortKey").value = savedSortKey;
+    $("sortDirectionBtn").textContent = savedSortDirection === "asc" ? "↑" : "↓";
+  }
+
   function renderSaved(){
     const root = $("savedList");
-    const items = records();
+    const folderNav = $("folderNav");
+    const summary = $("savedListSummary");
+    document.querySelectorAll("[data-saved-view]").forEach(btn => btn.classList.toggle("active",btn.dataset.savedView===savedViewMode));
+    folderNav.hidden = savedViewMode !== "folders";
+
+    const allItems = records();
     if (!currentUser){
-      root.innerHTML = `<div class="empty">Google 로그인 후 PC·핸드폰에서 같은 저장목록을 사용할 수 있습니다.</div>`;
+      root.innerHTML = `<div class="empty">아이디 로그인 후 PC·핸드폰에서 같은 저장목록을 사용할 수 있습니다.</div>`;
+      summary.textContent = "";
+      folderNav.innerHTML = "";
       return;
     }
     if (!cloudReady){
       root.innerHTML = `<div class="empty">클라우드 최신자료를 확인하고 있습니다…</div>`;
+      summary.textContent = "";
       return;
     }
-    if (!items.length){
+    if (!allItems.length){
       root.innerHTML = `<div class="empty">아직 저장한 물건이 없습니다.</div>`;
+      summary.textContent = "0건";
+      folderNav.innerHTML = "";
       return;
     }
+
+    const folderCounts = new Map();
+    allItems.forEach(item => folderCounts.set(recordRegion(item),(folderCounts.get(recordRegion(item))||0)+1));
+    const folders = [...folderCounts.keys()].sort((a,b)=>a.localeCompare(b,"ko"));
+    if (savedViewMode === "folders" && !folders.includes(selectedFolder)) selectedFolder = folders[0] || "";
+    folderNav.innerHTML = folders.map(folder => `<button class="folder-chip${folder===selectedFolder?" active":""}" type="button" data-folder="${escapeHtml(folder)}">${escapeHtml(folder)} ${folderCounts.get(folder)}건</button>`).join("");
+
+    let items = savedViewMode === "folders" ? allItems.filter(item => recordRegion(item)===selectedFolder) : [...allItems];
+    items.sort((a,b)=>compareSavedItems(a,b,savedSortKey,savedSortDirection));
+    const sortNames={auctionDate:"경매기일",minEquity:"최소 자기자본",householdEquity:"가계 자기자본",trustEquity:"신탁 자기자본",mortgageEquity:"사업자근저당 자기자본",updatedAt:"저장일"};
+    summary.textContent = `${savedViewMode==="folders"?selectedFolder+" · ":"전체 · "}${items.length}건 · ${sortNames[savedSortKey]} ${savedSortDirection==="asc"?"오름차순":"내림차순"}`;
+
     root.innerHTML = items.map(item => {
-      const appraisal = Number(item.state?.fields?.appraisal || 0);
-      const bidRate = Number(item.state?.fields?.bidRate || 0);
+      const metrics = recordMetrics(item);
+      const date = recordAuctionDate(item).raw;
+      const region = recordRegion(item);
       return `<div class="saved-item" data-load-id="${item.id}">
         <div class="saved-title">${escapeHtml(item.title)}</div>
-        <div class="saved-meta">${formatDateTime(item.updatedAtMs)} · 수정 ${Number(item.revision || 0)}회</div>
+        <div class="saved-tags">
+          <span class="region-pill">${escapeHtml(region)}</span>
+          <span class="date-pill">경매 ${date || "미입력"}</span>
+          <span class="equity-pill">최소자본 ${shortWon(metrics.minEquity)}</span>
+        </div>
+        <div class="saved-meta">감정가 ${shortWon(metrics.appraisal)} · 입찰 ${pct(metrics.bidRate*100)} · ${formatDateTime(item.updatedAtMs)} · 수정 ${Number(item.revision||0)}회</div>
         <div class="saved-bottom">
-          <span class="pill">감정가 ${shortWon(appraisal)} · ${bidRate.toFixed(1)}%</span>
+          <span class="pill">가계 ${shortWon(metrics.householdEquity)} · 신탁 ${shortWon(metrics.trustEquity)}</span>
           <button class="icon-btn no-print" style="width:42px;height:30px" data-delete-id="${item.id}">삭제</button>
         </div>
       </div>`;
@@ -1230,7 +1584,7 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
     const payloadChecksum = checksum({title,state,deleted:false});
 
     setSyncStatus("최신 버전 확인 후 저장 중…", "warn");
-    $("saveBtn").disabled = true;
+    setSaveButtonsDisabled(true);
     try{
       const saved = await runTransaction(db, async transaction => {
         const ref = recordRef(id);
@@ -1257,7 +1611,7 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
       upsertLocalRecord(saved);
       lastCloudSyncAt = new Date();
       setSyncStatus(`자동 동기화 완료 · ${formatDateTime(lastCloudSyncAt)}`, "good");
-      alert("저장하고 자동 동기화했습니다.");
+      showToast("최신자료 저장 완료");
     } catch (error){
       if (error instanceof SyncConflictError){
         await refreshRecordFromCloud(id);
@@ -1271,7 +1625,7 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
         alert(`저장하지 못했습니다. ${error?.message || "인터넷 연결과 Firebase 설정을 확인해주세요."}`);
       }
     } finally {
-      $("saveBtn").disabled = !cloudReady;
+      setSaveButtonsDisabled(!cloudReady);
     }
   }
 
@@ -1364,25 +1718,28 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
 
   function updateAuthUi(){
     const loggedIn = !!currentUser;
-    $("userEmail").textContent = loggedIn ? (currentUser.email || "Google 로그인") : "로그인하지 않음";
+    $("userEmail").textContent = loggedIn ? `아이디: ${friendlyUserId(currentUser)}` : "로그인하지 않음";
     $("loginBtn").hidden = loggedIn;
     $("logoutBtn").hidden = !loggedIn;
-    $("saveBtn").disabled = !cloudReady;
+    setSaveButtonsDisabled(!cloudReady);
     $("importFile").disabled = !cloudReady;
     $("importLabel").style.opacity = cloudReady ? "1" : ".48";
     $("savedHelper").textContent = loggedIn
-      ? "같은 Google 계정으로 로그인하면 어느 PC와 핸드폰에서도 자동으로 동기화됩니다."
-      : "Google 로그인 후 어느 PC와 핸드폰에서도 같은 저장자료를 사용합니다.";
+      ? "같은 아이디로 로그인하면 어느 PC와 핸드폰에서도 자동 동기화됩니다."
+      : "아이디 로그인 후 어느 PC와 핸드폰에서도 같은 저장자료를 사용합니다.";
     renderSaved();
   }
 
   async function migrateLocalRecordsWithoutOverwrite(){
     const migrationKey = `auctionBidCalculator.migrated.${currentUser.uid}.v1`;
     if (localStorage.getItem(migrationKey)) return;
-    const globalRecords = rawLocalRecords(STORAGE_KEY).filter(x => !x.deleted);
-    const userRecords = rawLocalRecords(userStorageKey(currentUser.uid)).filter(x => !x.deleted);
+    const candidateLists = [rawLocalRecords(STORAGE_KEY)];
+    for (let i=0;i<localStorage.length;i++){
+      const key = localStorage.key(i);
+      if (key && key.startsWith(`${STORAGE_KEY}.`)) candidateLists.push(rawLocalRecords(key));
+    }
     const candidatesMap = new Map();
-    [...globalRecords, ...userRecords].forEach(item => {
+    candidateLists.flat().filter(x => !x.deleted).forEach(item => {
       if (item?.id && !candidatesMap.has(item.id)) candidatesMap.set(item.id, item);
     });
     const candidates = [...candidatesMap.values()];
@@ -1509,7 +1866,7 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
     loadedRecordId = null;
     loadedRecordRevision = 0;
     sectionOrderRevision = 0;
-    setSyncStatus("Google 로그인 후 PC·핸드폰 자동동기화", "");
+    setSyncStatus("아이디 로그인 후 PC·핸드폰 자동동기화", "");
     updateAuthUi();
   }
 
@@ -1544,6 +1901,32 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
   document.addEventListener("change", update);
 
   document.addEventListener("click", (e) => {
+    const collapse = e.target.closest("[data-collapse]");
+    if (collapse){
+      const card = collapse.closest(".section-card");
+      if (card) toggleSection(card);
+      return;
+    }
+    const view = e.target.closest("[data-saved-view]");
+    if (view){
+      savedViewMode = view.dataset.savedView;
+      if (savedViewMode === "folders"){
+        savedSortKey = "auctionDate";
+        savedSortDirection = "asc";
+        $("savedSortKey").value = savedSortKey;
+        $("sortDirectionBtn").textContent = "↑";
+      }
+      saveSavedListPreferences();
+      renderSaved();
+      return;
+    }
+    const folder = e.target.closest("[data-folder]");
+    if (folder){
+      selectedFolder = folder.dataset.folder;
+      saveSavedListPreferences();
+      renderSaved();
+      return;
+    }
     const move = e.target.closest("[data-move]");
     if (move){
       const card = move.closest(".section-card");
@@ -1586,37 +1969,77 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
     }
   });
 
+  $("collapseAllBtn").addEventListener("click", () => setAllSectionsCollapsed(true));
+  $("expandAllBtn").addEventListener("click", () => setAllSectionsCollapsed(false));
+  $("sortDirectionBtn").addEventListener("click", () => {
+    savedSortDirection = savedSortDirection === "asc" ? "desc" : "asc";
+    $("sortDirectionBtn").textContent = savedSortDirection === "asc" ? "↑" : "↓";
+    saveSavedListPreferences();
+    renderSaved();
+  });
+  $("savedSortKey").addEventListener("change", () => {
+    savedSortKey = $("savedSortKey").value;
+    saveSavedListPreferences();
+    renderSaved();
+  });
   $("resetOrderBtn").addEventListener("click", () => {
     localStorage.removeItem(SECTION_ORDER_KEY);
     applySectionOrder(DEFAULT_SECTION_ORDER);
     saveSectionOrder();
   });
   $("saveBtn").addEventListener("click", saveCurrent);
-  $("loginBtn").addEventListener("click", async () => {
+  $("mobileSaveBtn").addEventListener("click", saveCurrent);
+  $("loginBtn").addEventListener("click", () => {
+    $("authModal").hidden = false;
+    setTimeout(() => $("authId").focus(), 0);
+  });
+  $("authCloseBtn").addEventListener("click", () => { $("authModal").hidden = true; });
+  $("authModal").addEventListener("click", e => { if (e.target === $("authModal")) $("authModal").hidden = true; });
+  $("authForm").addEventListener("submit", async e => {
+    e.preventDefault();
     try{
-      setSyncStatus("Google 로그인 창 여는 중…", "warn");
-      await signInWithPopup(auth, googleProvider);
-    } catch (error){
+      setSyncStatus("로그인 중…", "warn");
+      await signInWithEmailAndPassword(auth, authEmailFromId($("authId").value), $("authPassword").value);
+      $("authModal").hidden = true;
+      $("authPassword").value = "";
+    } catch(error){
       console.error(error);
-      if (error?.code === "auth/unauthorized-domain"){
-        alert("GitHub Pages 주소의 도메인을 Firebase Authentication > 설정 > 승인된 도메인에 추가해야 합니다.");
-      } else if (error?.code !== "auth/popup-closed-by-user") {
-        alert(`Google 로그인에 실패했습니다. ${error?.message || "다시 시도해주세요."}`);
-      }
-      setSyncStatus("Google 로그인 후 PC·핸드폰 자동동기화", "");
+      const message = ["auth/invalid-credential","auth/user-not-found","auth/wrong-password"].includes(error?.code)
+        ? "아이디 또는 비밀번호가 맞지 않습니다."
+        : (error?.message || "로그인에 실패했습니다.");
+      alert(message);
+      setSyncStatus("로그인 필요", "warn");
+    }
+  });
+  $("signupBtn").addEventListener("click", async () => {
+    if (!confirm("입력한 아이디로 새 계정을 만들까요? 이미 사용 중인 아이디면 만들 수 없습니다.")) return;
+    try{
+      setSyncStatus("계정 만드는 중…", "warn");
+      await createUserWithEmailAndPassword(auth, authEmailFromId($("authId").value), $("authPassword").value);
+      $("authModal").hidden = true;
+      $("authPassword").value = "";
+      showToast("계정 생성과 로그인 완료");
+    } catch(error){
+      console.error(error);
+      const message = error?.code === "auth/email-already-in-use" ? "이미 사용 중인 아이디입니다. 로그인해주세요."
+        : error?.code === "auth/weak-password" ? "비밀번호를 6자 이상 입력해주세요."
+        : (error?.message || "계정을 만들지 못했습니다.");
+      alert(message);
+      setSyncStatus("로그인 필요", "warn");
     }
   });
   $("logoutBtn").addEventListener("click", async () => {
     if (!confirm("로그아웃할까요? 클라우드 자료는 삭제되지 않습니다.")) return;
     await signOut(auth);
   });
+  $("mobileNewBtn").addEventListener("click", () => $("newBtn").click());
   $("newBtn").addEventListener("click", () => {
     loadedRecordId = null;
     loadedRecordRevision = 0;
     setState({
       sameRates:[78,78,78],nearRates:[78,78,78],
       fields:{
-        caseNo:"",propertyName:"",appraisal:"180000000",capital:"44000000",
+        caseNo:"",propertyName:"",region:"",auctionDate:"",appraisal:"180000000",capital:"44000000",
         sameWeight:"60",nearWeight:"40",safetyAdjust:"0",bidRate:"78",autoApply:true,
         trustLoanRate:"60",trustExpenseRate:"7",trustBidCap:"80",trustUseCap:true,
         mortgageLoanRate:"60",mortgageDeduction:"25000000",mortgageUseDeduction:true,mortgageExpenseRate:"6",mortgageBidCap:"80",mortgageUseCap:true,
@@ -1628,7 +2051,7 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.4",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.5",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
@@ -1690,6 +2113,8 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
   });
 
   loadSectionOrder();
+  applyCollapsedSections(collapsedSections());
+  loadSavedListPreferences();
   renderRateRows("same");
   renderRateRows("near");
   renderSaved();
@@ -1701,7 +2126,7 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
   });
   window.addEventListener("offline", () => {
     setSyncStatus("오프라인 · 계산은 가능하지만 저장은 연결 후 가능", "warn");
-    $("saveBtn").disabled = true;
+    setSaveButtonsDisabled(true);
   });
 
   setPersistence(auth, browserLocalPersistence)
