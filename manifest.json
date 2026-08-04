@@ -1,7 +1,7 @@
 {
   "name": "경매 입찰·대출 자금 계산기",
   "short_name": "경매계산기",
-  "description": "경매 입찰가율·대출·DSR·지역별 저장폴더·물건 상세정보·실제 입찰 수익률표",
+  "description": "경매 입찰·대출 자금 계산기 v1.9 - 자동세금·이메일수정",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.8</title>
+  <title>경매 입찰·대출 자금 계산기 v1.9.2</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -30,7 +30,11 @@
       display:flex;justify-content:space-between;align-items:flex-start;gap:12px;
       margin-bottom:12px;
     }
-    h1{margin:0;font-size:clamp(20px,3vw,29px);letter-spacing:-.04em}
+    h1{margin:0;font-size:clamp(20px,3vw,29px);letter-spacing:-.04em;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+    .version-badge{
+      display:inline-flex;align-items:center;padding:3px 7px;border-radius:999px;
+      background:#2563eb;color:#fff;font-size:11px;font-weight:900;letter-spacing:0
+    }
     .sub{color:var(--muted);margin-top:4px;font-size:12.5px}
     .layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:12px}
     .stack{display:grid;gap:12px}
@@ -169,7 +173,12 @@
     .header-tools-row{display:flex;align-items:center;justify-content:flex-end;gap:7px;width:100%}
     .header-tools-row .tools-details{flex:1;min-width:0}
     .header-tools-row > .btn{white-space:nowrap}
-    .tools-details{width:100%}
+    #changeEmailBtn,.email-edit-top{
+      display:inline-flex!important;visibility:visible!important;align-items:center;justify-content:center;
+      border:1px solid #93c5fd!important;background:#dbeafe!important;color:#1d4ed8!important;
+      white-space:nowrap!important;opacity:1
+    }
+    #changeEmailBtn:disabled{display:inline-flex!important;visibility:visible!important;opacity:.45}    .tools-details{width:100%}
     .tools-details summary{cursor:pointer;color:#475569;font-size:12px;font-weight:800;text-align:right;list-style:none}
     .tools-details summary::-webkit-details-marker{display:none}
     .tools-details[open] summary{margin-bottom:7px}
@@ -221,7 +230,9 @@
       body{font-size:12.5px;line-height:1.32}
       .app{padding:6px 6px 82px}
       header{display:block;margin-bottom:8px}
-      h1{font-size:19px}
+      h1{font-size:19px;gap:5px}
+      .version-badge{font-size:9.5px;padding:2px 6px}
+      .email-edit-top{font-size:10.5px!important;padding:6px 8px!important}
       .sub{display:none}
       .auth-panel{align-items:stretch;margin-top:7px;min-width:0;gap:5px}
       .auth-row{justify-content:space-between;gap:5px}
@@ -345,6 +356,29 @@
     .actual-helper{
       font-size:10.5px;color:#64748b;margin-top:7px;line-height:1.45
     }
+    .actual-label-row{display:flex;align-items:center;justify-content:space-between;gap:5px}
+    .actual-mode-select{
+      width:auto;min-width:55px;padding:4px 5px;border-radius:7px;font-size:10.5px;
+      font-weight:800;background:#eff6ff;border-color:#bfdbfe
+    }
+    .actual-auto-note{font-size:9.5px;color:#64748b;line-height:1.25;margin-top:2px;min-height:12px}
+    .actual-manual-disabled{opacity:.48;background:#f1f5f9!important}
+    .actual-income-manual{
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px
+    }
+    .actual-income-manual input{padding:7px 4px!important;font-size:10.5px!important}
+    .email-change-modal{
+      position:fixed;inset:0;background:rgba(15,23,42,.56);z-index:1500;
+      display:flex;align-items:center;justify-content:center;padding:18px
+    }
+    .email-change-modal[hidden]{display:none}
+    .email-change-dialog{
+      width:min(430px,100%);background:white;border-radius:15px;padding:16px;
+      box-shadow:0 24px 70px rgba(15,23,42,.28)
+    }
+    .email-change-dialog h2{margin:0 0 6px;font-size:18px}
+    .email-change-dialog .field{margin-top:9px}
+    .email-change-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:13px}
     body.actual-modal-open{overflow:hidden}
     @media(max-width:900px){
       .compact-property-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
@@ -362,6 +396,9 @@
       .actual-scenario-input input{padding:7px 5px;font-size:11.5px}
       .actual-modal-actions{display:grid;grid-template-columns:1fr 1fr}
       .actual-modal-actions .btn:first-child{grid-column:1/-1}
+      .actual-mode-select{min-width:50px;font-size:9.5px;padding:3px 4px}
+      .actual-auto-note{font-size:9px}
+      .actual-income-manual input{font-size:9.5px!important;padding:6px 3px!important}
     }
 
     @media print{
@@ -377,13 +414,14 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기</h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.9.2</span></h1>
       <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
     </div>
     <div class="auth-panel no-print">
       <div class="auth-row">
         <span class="user-email" id="userEmail">로그인하지 않음</span>
         <button class="btn" id="loginBtn" type="button">이메일 로그인</button>
+        <button class="btn email-edit-top" id="changeEmailBtn" type="button">✎ 이메일 수정</button>
         <button class="btn light" id="logoutBtn" type="button" hidden>로그아웃</button>
       </div>
       <div class="sync-status" id="syncStatus">이메일 로그인 후 PC·핸드폰 자동동기화</div>
@@ -872,7 +910,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.8 물건상세·실제입찰 수익률표 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.9.2 버전표시·이메일수정버튼 확정 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -889,11 +927,23 @@
       <div class="actual-summary" id="actualBidSummary"></div>
       <div class="actual-inputs">
         <div class="field"><label for="actualMinPrice">최저가</label><input id="actualMinPrice" data-actual-input type="number" min="0" step="100000"></div>
-        <div class="field"><label for="actualAcquisitionTaxRate">취등록세율</label><div class="money-wrap"><input id="actualAcquisitionTaxRate" data-actual-input type="number" min="0" step="0.01"><span class="suffix">%</span></div></div>
-        <div class="field"><label for="actualLegalFeeMan">법무비</label><div class="money-wrap"><input id="actualLegalFeeMan" data-actual-input type="number" min="0" step="1"><span class="suffix">만원</span></div></div>
+        <div class="field">
+          <div class="actual-label-row"><label for="actualAcquisitionTaxRate">취등록세율</label><select id="actualAcquisitionTaxMode" class="actual-mode-select" data-actual-mode><option value="auto">자동</option><option value="manual">직접</option></select></div>
+          <div class="money-wrap"><input id="actualAcquisitionTaxRate" data-actual-input type="number" min="0" step="0.01"><span class="suffix">%</span></div>
+          <div class="actual-auto-note" id="actualAcquisitionTaxNote">입찰가·면적별 자동</div>
+        </div>
+        <div class="field">
+          <div class="actual-label-row"><label for="actualLegalFeeMan">법무비</label><select id="actualLegalFeeMode" class="actual-mode-select" data-actual-mode><option value="auto">자동</option><option value="manual">직접</option></select></div>
+          <div class="money-wrap"><input id="actualLegalFeeMan" data-actual-input type="number" min="0" step="1"><span class="suffix">만원</span></div>
+          <div class="actual-auto-note" id="actualLegalFeeNote">엑셀 금액구간 자동</div>
+        </div>
         <div class="field"><label for="actualEvictionFeeMan">명도비</label><div class="money-wrap"><input id="actualEvictionFeeMan" data-actual-input type="number" min="0" step="1"><span class="suffix">만원</span></div></div>
         <div class="field"><label for="actualRepairFeeMan">수리비</label><div class="money-wrap"><input id="actualRepairFeeMan" data-actual-input type="number" min="0" step="1"><span class="suffix">만원</span></div></div>
-        <div class="field"><label for="actualBrokerRate">매도 중개수수료율</label><div class="money-wrap"><input id="actualBrokerRate" data-actual-input type="number" min="0" step="0.01"><span class="suffix">%</span></div></div>
+        <div class="field">
+          <div class="actual-label-row"><label for="actualBrokerRate">매도 중개보수</label><select id="actualBrokerMode" class="actual-mode-select" data-actual-mode><option value="auto">자동</option><option value="manual">직접</option></select></div>
+          <div class="money-wrap"><input id="actualBrokerRate" data-actual-input type="number" min="0" step="0.01"><span class="suffix">%</span></div>
+          <div class="actual-auto-note" id="actualBrokerNote">매도가·한도액 자동</div>
+        </div>
         <div class="field"><label for="actualUnpaidManagementMan">미납 관리비</label><div class="money-wrap"><input id="actualUnpaidManagementMan" data-actual-input type="number" min="0" step="1"><span class="suffix">만원</span></div></div>
         <div class="field"><label for="actualEarlyRepaymentRate">중도상환수수료율</label><div class="money-wrap"><input id="actualEarlyRepaymentRate" data-actual-input type="number" min="0" step="0.01"><span class="suffix">%</span></div></div>
         <div class="field"><label for="actualInterestRate">대출 연이율</label><div class="money-wrap"><input id="actualInterestRate" data-actual-input type="number" min="0" step="0.01"><span class="suffix">%</span></div></div>
@@ -902,6 +952,15 @@
         <div class="field"><label for="actualBidLoanRate">낙찰가 대출비율</label><div class="money-wrap"><input id="actualBidLoanRate" data-actual-input type="number" min="0" step="0.1"><span class="suffix">%</span></div></div>
         <div class="field"><label for="actualSalePrice">매도희망가</label><input id="actualSalePrice" data-actual-input type="number" min="0" step="100000"></div>
         <div class="field"><label for="actualExpectedIncome">연간 예상 기존소득</label><input id="actualExpectedIncome" data-actual-input type="number" min="0" step="100000"></div>
+        <div class="field">
+          <div class="actual-label-row"><label>종합소득세</label><select id="actualIncomeTaxMode" class="actual-mode-select" data-actual-mode><option value="auto">자동</option><option value="manual">직접</option></select></div>
+          <div class="actual-income-manual" id="actualIncomeTaxManualWrap">
+            <input id="actualIncomeTax1Man" data-actual-input type="number" min="0" step="1" placeholder="1차 만원" aria-label="1차 소득세 직접입력">
+            <input id="actualIncomeTax2Man" data-actual-input type="number" min="0" step="1" placeholder="2차 만원" aria-label="2차 소득세 직접입력">
+            <input id="actualIncomeTax3Man" data-actual-input type="number" min="0" step="1" placeholder="3차 만원" aria-label="3차 소득세 직접입력">
+          </div>
+          <div class="actual-auto-note" id="actualIncomeTaxNote">누진세율 자동</div>
+        </div>
       </div>
       <div class="actual-scenarios">
         <div class="actual-scenario-input"><strong>1차 입찰안</strong><input id="actualBid1" data-actual-input type="number" min="0" step="100000"></div>
@@ -915,7 +974,7 @@
         </table>
       </div>
       <div class="actual-helper">
-        업로드한 엑셀의 계산구조를 옮긴 화면입니다. 취등록세율·대출비율·종합소득세 계산 전제는 실제 입찰 전 세무사·금융사 조건에 맞게 다시 확인하세요.
+        기본은 자동계산입니다. 취등록세는 일반주택·중과 미적용 기준, 법무비는 업로드한 엑셀 구간표, 중개보수는 서울시 주택 매매 상한표, 종합소득세는 누진세율로 계산합니다. 다주택 중과·법인·특수사정은 직접입력으로 바꾸세요.
       </div>
     </section>
     <div class="actual-modal-actions">
@@ -948,13 +1007,41 @@
     <div class="helper">같은 이메일·비밀번호로 로그인해야 같은 저장자료가 열립니다. 비밀번호는 Firebase가 관리하며 페이지 코드에는 저장하지 않습니다.</div>
   </div>
 </div>
+
+<div class="email-change-modal no-print" id="emailChangeModal" hidden>
+  <div class="email-change-dialog" role="dialog" aria-modal="true" aria-labelledby="emailChangeTitle">
+    <h2 id="emailChangeTitle">로그인 이메일 수정</h2>
+    <div class="login-note">이메일만 바뀌며 Firebase UID와 현재 저장자료는 그대로 유지됩니다.</div>
+    <form id="emailChangeForm">
+      <div class="field">
+        <label for="currentLoginEmail">현재 로그인 이메일</label>
+        <input id="currentLoginEmail" type="text" readonly>
+      </div>
+      <div class="field">
+        <label for="newLoginEmail">새 이메일</label>
+        <input id="newLoginEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" placeholder="ayyyk123@gmail.com" required>
+      </div>
+      <div class="field">
+        <label for="emailChangePassword">현재 경매계산기 비밀번호</label>
+        <input id="emailChangePassword" type="password" autocomplete="current-password" minlength="6" required>
+      </div>
+      <div class="email-change-actions">
+        <button class="btn" type="submit">확인메일 보내기</button>
+        <button class="btn light" id="emailChangeCancelBtn" type="button">취소</button>
+      </div>
+    </form>
+    <div class="helper">새 이메일로 온 확인 링크를 누른 뒤 페이지를 새로 열면 새 이메일로 로그인됩니다.</div>
+  </div>
+</div>
+
 <div class="toast" id="toast" hidden></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
 import {
   getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
-  signOut, onAuthStateChanged, setPersistence, browserLocalPersistence
+  signOut, onAuthStateChanged, setPersistence, browserLocalPersistence,
+  EmailAuthProvider, reauthenticateWithCredential, verifyBeforeUpdateEmail, reload
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
 import {
   getFirestore, collection, doc, getDoc, getDocs, onSnapshot,
@@ -984,7 +1071,7 @@ const db = getFirestore(firebaseApp);
   const SAVED_SORT_KEY = "auctionBidCalculator.savedSort.v1";
   const FOLDER_NAMES_KEY = "auctionBidCalculator.folderNames.v1";
   const DEFAULT_SECTION_ORDER = ["basic","rates","loan","dsr","result"];
-  const APP_SCHEMA_VERSION = 6;
+  const APP_SCHEMA_VERSION = 7;
   const deviceId = localStorage.getItem(DEVICE_ID_KEY) ||
     (crypto.randomUUID ? crypto.randomUUID() : `device-${Date.now()}-${Math.random().toString(36).slice(2)}`);
   localStorage.setItem(DEVICE_ID_KEY, deviceId);
@@ -1070,8 +1157,15 @@ const db = getFirestore(firebaseApp);
     "actualMinPrice","actualAcquisitionTaxRate","actualLegalFeeMan","actualEvictionFeeMan",
     "actualRepairFeeMan","actualBrokerRate","actualUnpaidManagementMan","actualEarlyRepaymentRate",
     "actualInterestRate","actualHoldingMonths","actualAppraisalLoanRate","actualBidLoanRate",
-    "actualSalePrice","actualExpectedIncome","actualBid1","actualBid2","actualBid3"
+    "actualSalePrice","actualExpectedIncome","actualIncomeTax1Man","actualIncomeTax2Man","actualIncomeTax3Man",
+    "actualBid1","actualBid2","actualBid3"
   ];
+  const actualModeMap = {
+    actualAcquisitionTaxMode:"acquisitionTaxMode",
+    actualLegalFeeMode:"legalFeeMode",
+    actualBrokerMode:"brokerMode",
+    actualIncomeTaxMode:"incomeTaxMode"
+  };
 
   function stateText(item, key, fallback = ""){
     const value = item?.state?.fields?.[key];
@@ -1097,8 +1191,12 @@ const db = getFirestore(firebaseApp);
     const bid1 = roundHundredThousand(appraisal * bidRate);
     const saved = item?.state?.actualBid || {};
     const defaults = {
-      enabled:true,minPrice:roundHundredThousand(appraisal * 0.7),acquisitionTaxRate:1.1,
-      legalFeeMan:150,evictionFeeMan:250,repairFeeMan:200,brokerRate:0.55,
+      enabled:true,minPrice:roundHundredThousand(appraisal * 0.7),
+      acquisitionTaxMode:"auto",acquisitionTaxRate:1.1,
+      legalFeeMode:"auto",legalFeeMan:150,
+      evictionFeeMan:250,repairFeeMan:200,
+      brokerMode:"auto",brokerRate:0.5,
+      incomeTaxMode:"auto",incomeTax1Man:0,incomeTax2Man:0,incomeTax3Man:0,
       unpaidManagementMan:Math.round(stateNumber(item,"unpaidManagement",0) / 10000),
       earlyRepaymentRate:0.5,interestRate:4.5,holdingMonths:5,
       appraisalLoanRate:stateNumber(item,"mortgageLoanRate",60),
@@ -1108,6 +1206,7 @@ const db = getFirestore(firebaseApp);
     };
     return {...defaults,...saved,enabled:true};
   }
+
   function actualIncomeTax(income){
     const x = Math.max(0, Number(income) || 0);
     if (x <= 14000000) return x * 0.06;
@@ -1119,50 +1218,179 @@ const db = getFirestore(firebaseApp);
     if (x <= 1000000000) return x * 0.42 - 35940000;
     return x * 0.45 - 65940000;
   }
-  function actualScenario(data, appraisal, bidPrice){
+
+  function automaticAcquisitionTax(bid, exclusiveArea){
+    const price = Math.max(0, Number(bid) || 0);
+    const area = Math.max(0, Number(exclusiveArea) || 0);
+    let baseRate = 0;
+    if (price <= 600000000) baseRate = 1;
+    else if (price <= 900000000){
+      baseRate = Math.round(((price / 100000000) * (2 / 3) - 3) * 10000) / 10000;
+    } else baseRate = 3;
+    const educationRate = baseRate * 0.1;
+    const ruralRate = area > 85 ? 0.2 : 0;
+    const totalRate = baseRate + educationRate + ruralRate;
+    return {
+      amount: price * totalRate / 100,
+      rate: totalRate,
+      label: `일반주택 ${totalRate.toFixed(2)}%${area > 85 ? "·85㎡초과" : ""}`
+    };
+  }
+
+  function automaticLegalFee(bid){
+    const price = Math.max(0, Number(bid) || 0);
+    let amount = 0, label = "";
+    if (price < 100000000){ amount = 1200000; label = "1억 미만"; }
+    else if (price < 200000000){ amount = 1500000; label = "1억대"; }
+    else if (price < 300000000){ amount = 1700000; label = "2억대"; }
+    else if (price < 400000000){ amount = 2000000; label = "3억대"; }
+    else if (price < 500000000){ amount = 2500000; label = "4억대"; }
+    else if (price < 600000000){ amount = 3000000; label = "5억대"; }
+    else { amount = 3500000; label = "6억 이상"; }
+    return {amount, label:`엑셀표 ${label}`};
+  }
+
+  function automaticBrokerFee(salePrice){
+    const price = Math.max(0, Number(salePrice) || 0);
+    let rate = 0, cap = null, label = "";
+    if (price < 50000000){ rate = 0.6; cap = 250000; label = "5천만 미만"; }
+    else if (price < 200000000){ rate = 0.5; cap = 800000; label = "5천만~2억 미만"; }
+    else if (price < 900000000){ rate = 0.4; label = "2억~9억 미만"; }
+    else if (price < 1200000000){ rate = 0.5; label = "9억~12억 미만"; }
+    else if (price < 1500000000){ rate = 0.6; label = "12억~15억 미만"; }
+    else { rate = 0.7; label = "15억 이상"; }
+    const raw = price * rate / 100;
+    const amount = cap === null ? raw : Math.min(raw, cap);
+    return {amount, rate, cap, label:`${label} ${rate.toFixed(1)}%${cap ? `·한도 ${won(cap)}` : ""}`};
+  }
+
+  function actualScenario(data, appraisal, bidPrice, exclusiveArea, scenarioIndex){
     const bid = Math.max(0, Number(bidPrice) || 0), minPrice = Math.max(0, Number(data.minPrice) || 0);
     const salePrice = Math.max(0, Number(data.salePrice) || 0);
-    const acquisitionTax = bid * (Number(data.acquisitionTaxRate) || 0) / 100;
-    const legalFee = (Number(data.legalFeeMan) || 0) * 10000;
+
+    const acquisitionAuto = automaticAcquisitionTax(bid, exclusiveArea);
+    const acquisitionTaxRateApplied = data.acquisitionTaxMode === "manual"
+      ? Math.max(0, Number(data.acquisitionTaxRate) || 0)
+      : acquisitionAuto.rate;
+    const acquisitionTax = data.acquisitionTaxMode === "manual"
+      ? bid * acquisitionTaxRateApplied / 100
+      : acquisitionAuto.amount;
+    const acquisitionTaxLabel = data.acquisitionTaxMode === "manual"
+      ? `직접 ${acquisitionTaxRateApplied.toFixed(2)}%`
+      : acquisitionAuto.label;
+
+    const legalAuto = automaticLegalFee(bid);
+    const legalFee = data.legalFeeMode === "manual"
+      ? (Number(data.legalFeeMan) || 0) * 10000
+      : legalAuto.amount;
+    const legalFeeLabel = data.legalFeeMode === "manual" ? "직접입력" : legalAuto.label;
+
     const evictionFee = (Number(data.evictionFeeMan) || 0) * 10000;
     const repairFee = (Number(data.repairFeeMan) || 0) * 10000;
-    const brokerFee = salePrice * (Number(data.brokerRate) || 0) / 100;
+
+    const brokerAuto = automaticBrokerFee(salePrice);
+    const brokerRateApplied = data.brokerMode === "manual"
+      ? Math.max(0, Number(data.brokerRate) || 0)
+      : brokerAuto.rate;
+    const brokerFee = data.brokerMode === "manual"
+      ? salePrice * brokerRateApplied / 100
+      : brokerAuto.amount;
+    const brokerFeeLabel = data.brokerMode === "manual"
+      ? `직접 ${brokerRateApplied.toFixed(2)}%`
+      : brokerAuto.label;
+
     const unpaidManagement = (Number(data.unpaidManagementMan) || 0) * 10000;
     const loanByAppraisal = appraisal * (Number(data.appraisalLoanRate) || 0) / 100;
     const loanByBid = bid * (Number(data.bidLoanRate) || 0) / 100;
     const finalLoan = Math.min(loanByAppraisal, loanByBid);
     const earlyRepayment = finalLoan * (Number(data.earlyRepaymentRate) || 0) / 100;
     const interest = finalLoan * (Number(data.interestRate) || 0) / 100 * (Number(data.holdingMonths) || 0) / 12;
-    const extraTotal = acquisitionTax + legalFee + evictionFee + repairFee + brokerFee + unpaidManagement + earlyRepayment + interest;
-    const requiredCapital = bid + extraTotal - finalLoan;
+    const extraBeforeIncomeTax = acquisitionTax + legalFee + evictionFee + repairFee + brokerFee + unpaidManagement + earlyRepayment + interest;
+    const requiredCapitalBeforeIncomeTax = bid + extraBeforeIncomeTax - finalLoan;
     const expectedIncome = Math.max(0, Number(data.expectedIncome) || 0);
-    const combinedIncome = expectedIncome + salePrice - bid - extraTotal;
-    const incomeTax = Math.max(0, actualIncomeTax(combinedIncome) - actualIncomeTax(expectedIncome));
+    const combinedIncome = expectedIncome + salePrice - bid - extraBeforeIncomeTax;
+    const manualIncomeTax = Math.max(0, Number(data[`incomeTax${scenarioIndex + 1}Man`]) || 0) * 10000;
+    const incomeTax = data.incomeTaxMode === "manual"
+      ? manualIncomeTax
+      : Math.max(0, actualIncomeTax(combinedIncome) - actualIncomeTax(expectedIncome));
+    const incomeTaxLabel = data.incomeTaxMode === "manual" ? "직접입력" : "누진세율 자동";
+    const extraTotal = extraBeforeIncomeTax;
+    const requiredCapital = requiredCapitalBeforeIncomeTax;
     const profit = salePrice - bid - extraTotal - incomeTax;
     const roi = requiredCapital > 0 ? profit / requiredCapital : 0;
-    return {bid,bidRate:appraisal?bid/appraisal:0,deposit:minPrice/10,acquisitionTax,legalFee,evictionFee,repairFee,brokerFee,unpaidManagement,earlyRepayment,interest,extraTotal,loanByAppraisal,loanByBid,finalLoan,requiredCapital,salePrice,combinedIncome,incomeTax,profit,roi};
+    return {
+      bid,bidRate:appraisal?bid/appraisal:0,deposit:minPrice/10,
+      acquisitionTax,acquisitionTaxRateApplied,acquisitionTaxLabel,
+      legalFee,legalFeeLabel,evictionFee,repairFee,
+      brokerFee,brokerRateApplied,brokerFeeLabel,
+      unpaidManagement,earlyRepayment,interest,extraTotal,
+      loanByAppraisal,loanByBid,finalLoan,requiredCapital,salePrice,
+      combinedIncome,incomeTax,incomeTaxLabel,profit,roi
+    };
   }
+
   function collectActualBidForm(){
     const data = {};
     actualInputIds.forEach(id => {
       const key = id.replace(/^actual/,"");
       data[key.charAt(0).toLowerCase()+key.slice(1)] = num(id);
     });
-    data.enabled = true; data.updatedAtMs = Date.now(); return data;
+    Object.entries(actualModeMap).forEach(([id,key]) => { data[key] = $(id).value || "auto"; });
+    data.enabled = true;
+    data.updatedAtMs = Date.now();
+    return data;
   }
+
   function fillActualBidForm(data){
-    const map = {actualMinPrice:"minPrice",actualAcquisitionTaxRate:"acquisitionTaxRate",actualLegalFeeMan:"legalFeeMan",actualEvictionFeeMan:"evictionFeeMan",actualRepairFeeMan:"repairFeeMan",actualBrokerRate:"brokerRate",actualUnpaidManagementMan:"unpaidManagementMan",actualEarlyRepaymentRate:"earlyRepaymentRate",actualInterestRate:"interestRate",actualHoldingMonths:"holdingMonths",actualAppraisalLoanRate:"appraisalLoanRate",actualBidLoanRate:"bidLoanRate",actualSalePrice:"salePrice",actualExpectedIncome:"expectedIncome",actualBid1:"bid1",actualBid2:"bid2",actualBid3:"bid3"};
+    const map = {
+      actualMinPrice:"minPrice",actualAcquisitionTaxRate:"acquisitionTaxRate",
+      actualLegalFeeMan:"legalFeeMan",actualEvictionFeeMan:"evictionFeeMan",
+      actualRepairFeeMan:"repairFeeMan",actualBrokerRate:"brokerRate",
+      actualUnpaidManagementMan:"unpaidManagementMan",actualEarlyRepaymentRate:"earlyRepaymentRate",
+      actualInterestRate:"interestRate",actualHoldingMonths:"holdingMonths",
+      actualAppraisalLoanRate:"appraisalLoanRate",actualBidLoanRate:"bidLoanRate",
+      actualSalePrice:"salePrice",actualExpectedIncome:"expectedIncome",
+      actualIncomeTax1Man:"incomeTax1Man",actualIncomeTax2Man:"incomeTax2Man",actualIncomeTax3Man:"incomeTax3Man",
+      actualBid1:"bid1",actualBid2:"bid2",actualBid3:"bid3"
+    };
     Object.entries(map).forEach(([id,key]) => { $(id).value = data?.[key] ?? ""; });
+    Object.entries(actualModeMap).forEach(([id,key]) => { $(id).value = data?.[key] || "auto"; });
+    updateActualModeUi();
   }
+
+  function updateActualModeUi(){
+    const configs = [
+      ["actualAcquisitionTaxMode","actualAcquisitionTaxRate","actualAcquisitionTaxNote","입찰가·전용면적별 자동"],
+      ["actualLegalFeeMode","actualLegalFeeMan","actualLegalFeeNote","엑셀 금액구간 자동"],
+      ["actualBrokerMode","actualBrokerRate","actualBrokerNote","매도가·상한한도 자동"]
+    ];
+    configs.forEach(([modeId,inputId,noteId,autoText]) => {
+      const auto = $(modeId).value !== "manual";
+      $(inputId).disabled = auto;
+      $(inputId).classList.toggle("actual-manual-disabled", auto);
+      $(noteId).textContent = auto ? autoText : "직접입력 적용";
+    });
+    const incomeAuto = $("actualIncomeTaxMode").value !== "manual";
+    ["actualIncomeTax1Man","actualIncomeTax2Man","actualIncomeTax3Man"].forEach(id => {
+      $(id).disabled = incomeAuto;
+      $(id).classList.toggle("actual-manual-disabled", incomeAuto);
+    });
+    $("actualIncomeTaxNote").textContent = incomeAuto ? "누진세율 자동" : "1·2·3차 세액 직접입력";
+  }
+
   function actualResultRows(results){
     const rows = [
       ["입찰가격",r=>won(r.bid),""],["입찰가율(감정가)",r=>pct(r.bidRate*100),""],["입찰보증금",r=>won(r.deposit),""],
-      ["취등록세",r=>won(r.acquisitionTax),""],["법무비",r=>won(r.legalFee),""],["명도비",r=>won(r.evictionFee),""],
-      ["수리비",r=>won(r.repairFee),""],["중개수수료(매매)",r=>won(r.brokerFee),""],["미납 관리비",r=>won(r.unpaidManagement),""],
+      ["취등록세",r=>`${won(r.acquisitionTax)}<br><small>${r.acquisitionTaxLabel}</small>`,""],
+      ["법무비",r=>`${won(r.legalFee)}<br><small>${r.legalFeeLabel}</small>`,""],
+      ["명도비",r=>won(r.evictionFee),""],
+      ["수리비",r=>won(r.repairFee),""],
+      ["중개수수료(매매)",r=>`${won(r.brokerFee)}<br><small>${r.brokerFeeLabel}</small>`,""],
+      ["미납 관리비",r=>won(r.unpaidManagement),""],
       ["중도상환수수료",r=>won(r.earlyRepayment),""],["대출이자",r=>won(r.interest),""],["추가비용총계",r=>won(r.extraTotal),"actual-key"],
       ["대출금(감정가)",r=>won(r.loanByAppraisal),"actual-loan"],["대출금(낙찰가)",r=>won(r.loanByBid),"actual-loan"],["대출 최종",r=>won(r.finalLoan),"actual-loan"],
       ["최종 필요 종잣돈",r=>won(r.requiredCapital),"actual-key"],["매도희망가",r=>won(r.salePrice),""],
-      ["예상 기존소득+경매소득",r=>won(r.combinedIncome),"actual-profit"],["소득세",r=>won(r.incomeTax),"actual-profit"],
+      ["예상 기존소득+경매소득",r=>won(r.combinedIncome),"actual-profit"],["소득세",r=>`${won(r.incomeTax)}<br><small>${r.incomeTaxLabel}</small>`,"actual-profit"],
       ["즉시매도시 순수익",r=>won(r.profit),"actual-key"],["즉시매도 수익률",r=>pct(r.roi*100),"actual-profit"]
     ];
     return rows.map(([name,formatter,cls])=>`<tr class="${cls}"><td>${name}</td>${results.map(r=>`<td>${formatter(r)}</td>`).join("")}</tr>`).join("");
@@ -1172,7 +1400,12 @@ const db = getFirestore(firebaseApp);
     const item = rawLocalRecords().find(x=>x.id===actualBidRecordId); if (!item) return;
     actualBidDraft = collectActualBidForm();
     const appraisal = stateNumber(item,"appraisal",0);
-    const results = [actualScenario(actualBidDraft,appraisal,actualBidDraft.bid1),actualScenario(actualBidDraft,appraisal,actualBidDraft.bid2),actualScenario(actualBidDraft,appraisal,actualBidDraft.bid3)];
+    const exclusiveArea = stateNumber(item,"exclusiveArea",0);
+    const results = [
+      actualScenario(actualBidDraft,appraisal,actualBidDraft.bid1,exclusiveArea,0),
+      actualScenario(actualBidDraft,appraisal,actualBidDraft.bid2,exclusiveArea,1),
+      actualScenario(actualBidDraft,appraisal,actualBidDraft.bid3,exclusiveArea,2)
+    ];
     $("actualBidResults").innerHTML = actualResultRows(results);
   }
   function openActualBid(id){
@@ -2298,6 +2531,7 @@ const db = getFirestore(firebaseApp);
     const loggedIn = !!currentUser;
     $("userEmail").textContent = loggedIn ? `이메일: ${friendlyUserId(currentUser)}` : "로그인하지 않음";
     $("loginBtn").hidden = loggedIn;
+    $("changeEmailBtn").disabled = !loggedIn;
     $("logoutBtn").hidden = !loggedIn;
     setSaveButtonsDisabled(!cloudReady);
     $("importFile").disabled = !cloudReady;
@@ -2503,7 +2737,10 @@ const db = getFirestore(firebaseApp);
     update();
   });
   document.addEventListener("change", (e) => {
-    if (e.target.matches("[data-actual-input]")) renderActualBidResults();
+    if (e.target.matches("[data-actual-mode]")){
+      updateActualModeUi();
+      renderActualBidResults();
+    } else if (e.target.matches("[data-actual-input]")) renderActualBidResults();
     else update();
   });
 
@@ -2609,6 +2846,50 @@ const db = getFirestore(firebaseApp);
   $("actualBidCloseBtn").addEventListener("click", closeActualBid);
   $("actualBidCloseBottomBtn").addEventListener("click", closeActualBid);
   $("actualBidModal").addEventListener("click", e => { if (e.target === $("actualBidModal")) closeActualBid(); });
+
+  $("changeEmailBtn").addEventListener("click", () => {
+    if (!auth.currentUser){
+      alert("먼저 현재 경매계산기 계정으로 로그인해주세요.");
+      return;
+    }
+    $("currentLoginEmail").value = auth.currentUser.email || "";
+    $("newLoginEmail").value = "";
+    $("emailChangePassword").value = "";
+    $("emailChangeModal").hidden = false;
+    setTimeout(() => $("newLoginEmail").focus(), 0);
+  });
+  $("emailChangeCancelBtn").addEventListener("click", () => { $("emailChangeModal").hidden = true; });
+  $("emailChangeModal").addEventListener("click", e => { if (e.target === $("emailChangeModal")) $("emailChangeModal").hidden = true; });
+  $("emailChangeForm").addEventListener("submit", async e => {
+    e.preventDefault();
+    const user = auth.currentUser;
+    if (!user?.email){ alert("로그인 상태를 다시 확인해주세요."); return; }
+    const newEmail = authEmailFromInput($("newLoginEmail").value);
+    if (newEmail === String(user.email).toLowerCase()){
+      alert("현재 이메일과 같습니다.");
+      return;
+    }
+    try{
+      setSyncStatus("이메일 변경 본인확인 중…", "warn");
+      const credential = EmailAuthProvider.credential(user.email, $("emailChangePassword").value);
+      await reauthenticateWithCredential(user, credential);
+      await verifyBeforeUpdateEmail(user, newEmail);
+      $("emailChangeModal").hidden = true;
+      $("emailChangePassword").value = "";
+      setSyncStatus("새 이메일 확인 대기 중", "warn");
+      alert(`새 이메일 ${newEmail}로 확인메일을 보냈습니다. 메일 속 링크를 누르면 로그인 이메일이 바뀝니다. UID와 저장자료는 그대로 유지됩니다.`);
+    } catch(error){
+      console.error(error);
+      const message = error?.code === "auth/email-already-in-use"
+        ? "새 이메일이 이미 다른 Firebase 계정에서 사용 중입니다. Firebase Authentication 사용자 목록에서 그 이메일의 기존 계정(대개 Google 제공업체)을 먼저 삭제한 뒤 다시 시도하세요. 현재 오타 계정은 삭제하면 안 됩니다."
+        : ["auth/invalid-credential","auth/wrong-password"].includes(error?.code)
+          ? "현재 경매계산기 비밀번호가 맞지 않습니다."
+          : (error?.message || "이메일을 변경하지 못했습니다.");
+      alert(message);
+      setSyncStatus("자동 동기화 연결됨", "good");
+    }
+  });
+
   $("loginBtn").addEventListener("click", () => {
     $("authModal").hidden = false;
     setTimeout(() => $("authId").focus(), 0);
