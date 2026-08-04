@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="경매계산기" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+  <title>경매 입찰·대출 자금 계산기 v1.4</title>
+  <style>
+    :root{
+      --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
+      --line:#e5e7eb; --accent:#2563eb; --good:#047857; --bad:#b91c1c;
+      --trust:#7c3aed; --mortgage:#0369a1; --household:#047857; --soft:#f8fafc;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:var(--bg); color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Segoe UI",sans-serif;
+      line-height:1.45;
+    }
+    button,input,select{font:inherit}
+    .app{max-width:1400px;margin:0 auto;padding:18px}
+    header{
+      display:flex;justify-content:space-between;align-items:flex-start;gap:16px;
+      margin-bottom:16px;
+    }
+    h1{margin:0;font-size:clamp(22px,4vw,34px);letter-spacing:-.04em}
+    .sub{color:var(--muted);margin-top:6px;font-size:14px}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px}
+    .stack{display:grid;gap:16px}
+    .card{
+      background:var(--card); border:1px solid var(--line); border-radius:18px;
+      padding:18px; box-shadow:0 6px 20px rgba(15,23,42,.05);
+    }
+    .card h2{margin:0;font-size:18px;letter-spacing:-.02em}
+    .section-card{position:relative}
+    .section-head{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      margin-bottom:14px;
+    }
+    .section-controls{display:flex;align-items:center;gap:6px}
+    .move-btn,.drag-handle{
+      border:1px solid var(--line);background:#f8fafc;color:#475569;
+      border-radius:9px;min-width:34px;height:34px;display:inline-flex;
+      align-items:center;justify-content:center;font-weight:900;cursor:pointer;
+      user-select:none;-webkit-user-select:none;
+    }
+    .drag-handle{cursor:grab;font-size:18px;letter-spacing:-3px;padding-right:5px}
+    .drag-handle:active{cursor:grabbing}
+    .section-card.dragging{opacity:.45}
+    .section-card.drag-over{outline:3px solid rgba(37,99,235,.22);outline-offset:3px}
+    .order-toolbar{
+      display:flex;justify-content:flex-end;margin:-4px 0 12px;
+    }
+    .cap-explain{
+      margin-top:8px;padding:10px 11px;border-radius:11px;
+      background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;font-size:12px;
+    }
+    .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .field{display:grid;gap:6px}
+    label{font-size:13px;color:#374151;font-weight:700}
+    input[type="text"],input[type="number"],select{
+      width:100%;border:1px solid #d1d5db;border-radius:12px;padding:11px 12px;
+      background:#fff;color:var(--text);outline:none;
+    }
+    input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+    .money-wrap{position:relative}
+    .money-wrap input{padding-right:42px}
+    .suffix{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px}
+    .rate-rows{display:grid;gap:8px}
+    .rate-row{display:grid;grid-template-columns:1fr 42px;gap:8px}
+    .icon-btn,.btn{
+      border:none;border-radius:11px;padding:10px 13px;cursor:pointer;font-weight:800;
+    }
+    .btn{background:#111827;color:white}
+    .btn.secondary{background:#eef2ff;color:#3730a3}
+    .btn.light{background:#f3f4f6;color:#111827}
+    .btn.danger{background:#fee2e2;color:#991b1b}
+    .icon-btn{background:#f3f4f6;color:#6b7280;padding:0}
+    .actions{display:flex;flex-wrap:wrap;gap:8px}
+    .auth-panel{
+      display:flex;flex-direction:column;align-items:flex-end;gap:7px;min-width:250px;
+    }
+    .auth-row{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+    .user-email{font-size:12px;color:#374151;font-weight:800;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .sync-status{font-size:12px;color:var(--muted);text-align:right}
+    .sync-status.good{color:var(--good);font-weight:800}
+    .sync-status.warn{color:#b45309;font-weight:800}
+    .sync-status.bad{color:var(--bad);font-weight:800}
+    button:disabled{opacity:.48;cursor:not-allowed}
+    .login-note{font-size:12px;color:#475569;line-height:1.5}
+    .helper{font-size:12px;color:var(--muted);margin-top:7px}
+    .formula{
+      background:#f8fafc;border:1px dashed #cbd5e1;padding:11px 12px;border-radius:12px;
+      font-size:13px;color:#334155;margin-top:10px;
+    }
+    .recommend{
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px
+    }
+    .mini{
+      background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:12px;
+    }
+    .mini .k{font-size:12px;color:var(--muted)}
+    .mini .v{font-size:20px;font-weight:900;margin-top:3px}
+    .slider-card{
+      background:linear-gradient(135deg,#eff6ff,#ffffff);border:1px solid #bfdbfe;
+      border-radius:16px;padding:15px;margin-top:14px;
+    }
+    .slider-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .big-rate{font-size:30px;font-weight:950;color:#1d4ed8}
+    input[type="range"]{width:100%;margin:14px 0 4px;accent-color:#2563eb}
+    .range-labels{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}
+    .compare{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .loan-card{border:1px solid var(--line);border-radius:17px;overflow:hidden;background:#fff}
+    .loan-head{padding:14px 16px;color:white}
+    .loan-head.trust{background:var(--trust)}
+    .loan-head.mortgage{background:var(--mortgage)}
+    .loan-head.household{background:var(--household)}
+    .loan-head b{font-size:18px}
+    .loan-body{padding:14px 16px}
+    .rows{display:grid;gap:9px}
+    .row{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid #f1f5f9;padding-bottom:8px}
+    .row:last-child{border-bottom:none}
+    .row span:first-child{color:#475569;font-size:13px}
+    .row strong{text-align:right}
+    .equity{
+      margin-top:12px;padding:13px;border-radius:13px;background:#f8fafc;border:1px solid var(--line)
+    }
+    .equity .label{font-size:12px;color:var(--muted)}
+    .equity .value{font-size:23px;font-weight:950;margin-top:2px}
+    .status{margin-top:7px;font-size:13px;font-weight:800}
+    .status.good{color:var(--good)}
+    .status.bad{color:var(--bad)}
+    table{width:100%;border-collapse:collapse;font-size:13px}
+    th,td{border-bottom:1px solid var(--line);padding:11px 8px;text-align:right}
+    th:first-child,td:first-child{text-align:left}
+    thead th{background:#f8fafc;color:#475569}
+    .saved-list{display:grid;gap:9px;max-height:58vh;overflow:auto;padding-right:2px}
+    .saved-item{
+      border:1px solid var(--line);border-radius:14px;padding:12px;background:white;cursor:pointer;
+    }
+    .saved-item:hover{border-color:#93c5fd}
+    .saved-title{font-weight:900}
+    .saved-meta{font-size:12px;color:var(--muted);margin-top:4px}
+    .saved-bottom{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:9px}
+    .pill{font-size:11px;padding:4px 7px;border-radius:999px;background:#eef2ff;color:#3730a3;font-weight:800}
+    .empty{padding:24px 10px;text-align:center;color:var(--muted);font-size:13px}
+    .sticky-side{position:sticky;top:12px;align-self:start}
+    .toggle{display:flex;align-items:center;gap:8px;font-size:13px;color:#374151}
+    .toggle input{width:18px;height:18px}
+    .maxapp{margin-top:12px;padding:12px;border-radius:13px;background:#fffbeb;border:1px solid #fde68a}
+    .maxapp .k{font-size:12px;color:#92400e}
+    .maxapp .v{font-size:20px;font-weight:950;color:#78350f}
+    .dsr-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
+    .dsr-box{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:14px;padding:12px}
+    .dsr-box .k{font-size:12px;color:#166534}
+    .dsr-box .v{font-size:19px;font-weight:950;color:#14532d;margin-top:3px}
+    .notice{margin-top:10px;padding:11px 12px;border-radius:12px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;font-size:12px}
+    footer{color:var(--muted);font-size:12px;text-align:center;padding:22px 0 4px}
+    @media(max-width:980px){
+      .layout{grid-template-columns:1fr}
+      .sticky-side{position:static}
+      .saved-list{max-height:none}
+    }
+    @media(max-width:700px){
+      .app{padding:10px}
+      header{display:block}
+      .auth-panel{align-items:stretch;margin-top:12px;min-width:0}
+      .auth-row{justify-content:flex-start}
+      .sync-status{text-align:left}
+      .grid2,.grid3,.compare,.recommend,.dsr-summary{grid-template-columns:1fr}
+      .card{padding:15px;border-radius:15px}
+      .actions .btn{flex:1}
+      th,td{font-size:12px;padding:9px 5px}
+      .row{gap:8px}
+    }
+    @media print{
+      body{background:white}
+      .no-print,.sticky-side,header .actions{display:none!important}
+      .layout{display:block}
+      .card{box-shadow:none;break-inside:avoid}
+      .app{max-width:none;padding:0}
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div>
+      <h1>경매 입찰·대출 자금 계산기</h1>
+      <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
+    </div>
+    <div class="auth-panel no-print">
+      <div class="auth-row">
+        <span class="user-email" id="userEmail">로그인하지 않음</span>
+        <button class="btn" id="loginBtn" type="button">Google 로그인</button>
+        <button class="btn light" id="logoutBtn" type="button" hidden>로그아웃</button>
+      </div>
+      <div class="sync-status" id="syncStatus">Google 로그인 후 PC·핸드폰 자동동기화</div>
+      <div class="actions">
+        <button class="btn light" id="printBtn">인쇄·PDF</button>
+        <button class="btn secondary" id="exportBtn">백업 저장</button>
+        <label class="btn light" id="importLabel" for="importFile" style="display:inline-block">백업 불러오기</label>
+        <input id="importFile" type="file" accept=".json" hidden>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <main class="stack" id="sectionContainer">
+      <div class="order-toolbar no-print" id="orderToolbar">
+        <button class="btn light" type="button" id="resetOrderBtn">블록 순서 초기화</button>
+      </div>
+      <section class="card section-card" data-section-id="basic" draggable="true">
+        <div class="section-head">
+          <h2><span class="section-number"></span>물건 기본정보</h2>
+          <div class="section-controls no-print">
+            <button class="move-btn" type="button" data-move="up" title="위로 이동">↑</button>
+            <button class="move-btn" type="button" data-move="down" title="아래로 이동">↓</button>
+            <span class="drag-handle" title="끌어서 순서 변경">⠿</span>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label for="caseNo">사건번호</label>
+            <input id="caseNo" type="text" placeholder="예: 2025타경30701">
+          </div>
+          <div class="field">
+            <label for="propertyName">물건명·주소</label>
+            <input id="propertyName" type="text" placeholder="예: 이편한세상충주 119동 1501호">
+          </div>
+          <div class="field">
+            <label for="appraisal">감정가</label>
+            <div class="money-wrap">
+              <input id="appraisal" type="number" min="0" step="100000" value="180000000">
+              <span class="suffix">원</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="capital">사용 가능 자기자본</label>
+            <div class="money-wrap">
+              <input id="capital" type="number" min="0" step="100000" value="44000000">
+              <span class="suffix">원</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card section-card" data-section-id="rates" draggable="true">
+        <div class="section-head">
+          <h2><span class="section-number"></span>최근 낙찰가율 입력</h2>
+          <div class="section-controls no-print">
+            <button class="move-btn" type="button" data-move="up" title="위로 이동">↑</button>
+            <button class="move-btn" type="button" data-move="down" title="아래로 이동">↓</button>
+            <span class="drag-handle" title="끌어서 순서 변경">⠿</span>
+          </div>
+        </div>
+        <div class="grid2">
+          <div>
+            <div class="field">
+              <label>동일번지 최근 낙찰가율</label>
+              <div id="sameRates" class="rate-rows"></div>
+            </div>
+            <button class="btn light no-print" type="button" data-add="same">+ 동일번지 추가</button>
+          </div>
+          <div>
+            <div class="field">
+              <label>인근 최근 낙찰가율</label>
+              <div id="nearRates" class="rate-rows"></div>
+            </div>
+            <button class="btn light no-print" type="button" data-add="near">+ 인근 추가</button>
+          </div>
+        </div>
+
+        <div class="grid3" style="margin-top:14px">
+          <div class="field">
+            <label for="sameWeight">동일번지 반영비중</label>
+            <div class="money-wrap"><input id="sameWeight" type="number" min="0" max="100" step="1" value="60"><span class="suffix">%</span></div>
+          </div>
+          <div class="field">
+            <label for="nearWeight">인근 반영비중</label>
+            <div class="money-wrap"><input id="nearWeight" type="number" min="0" max="100" step="1" value="40"><span class="suffix">%</span></div>
+          </div>
+          <div class="field">
+            <label for="safetyAdjust">안전조정</label>
+            <div class="money-wrap"><input id="safetyAdjust" type="number" min="-20" max="20" step="0.1" value="0"><span class="suffix">%p</span></div>
+          </div>
+        </div>
+
+        <div class="formula">
+          추천 입찰가율 = 동일번지 평균 × 반영비중 + 인근 평균 × 반영비중 + 안전조정<br>
+          입력값이 없는 그룹은 남아 있는 그룹만 100% 반영합니다.
+        </div>
+
+        <div class="recommend">
+          <div class="mini"><div class="k">동일번지 평균</div><div class="v" id="sameAvg">-</div></div>
+          <div class="mini"><div class="k">인근 평균</div><div class="v" id="nearAvg">-</div></div>
+          <div class="mini"><div class="k">자동 추천 입찰가율</div><div class="v" id="recommendedRate">-</div></div>
+        </div>
+
+        <div class="slider-card">
+          <div class="slider-top">
+            <div>
+              <div style="font-size:13px;color:#475569;font-weight:800">적용할 입찰가율</div>
+              <div class="big-rate" id="bidRateText">78.0%</div>
+            </div>
+            <label class="toggle no-print">
+              <input type="checkbox" id="autoApply" checked>
+              추천값 자동반영
+            </label>
+          </div>
+          <input id="bidRate" type="range" min="50" max="95" step="0.1" value="78">
+          <div class="range-labels"><span>50%</span><span>95%</span></div>
+        </div>
+      </section>
+
+      <section class="card section-card" data-section-id="loan" draggable="true">
+        <div class="section-head">
+          <h2><span class="section-number"></span>대출·경비 조건</h2>
+          <div class="section-controls no-print">
+            <button class="move-btn" type="button" data-move="up" title="위로 이동">↑</button>
+            <button class="move-btn" type="button" data-move="down" title="아래로 이동">↓</button>
+            <span class="drag-handle" title="끌어서 순서 변경">⠿</span>
+          </div>
+        </div>
+        <div class="grid2">
+          <div>
+            <div class="mini" style="border-color:#c4b5fd">
+              <strong style="color:var(--trust)">신탁대출</strong>
+              <div class="grid2" style="margin-top:10px">
+                <div class="field">
+                  <label for="trustLoanRate">감정가 대비 대출비율</label>
+                  <div class="money-wrap"><input id="trustLoanRate" type="number" min="0" max="100" step="0.1" value="60"><span class="suffix">%</span></div>
+                </div>
+                <div class="field">
+                  <label for="trustExpenseRate">경비율</label>
+                  <div class="money-wrap"><input id="trustExpenseRate" type="number" min="0" max="30" step="0.1" value="7"><span class="suffix">%</span></div>
+                </div>
+                <div class="field">
+                  <label for="trustBidCap">낙찰가 대비 대출상한</label>
+                  <div class="money-wrap"><input id="trustBidCap" type="number" min="0" max="100" step="0.1" value="80"><span class="suffix">%</span></div>
+                </div>
+                <label class="toggle" style="margin-top:24px">
+                  <input id="trustUseCap" type="checkbox" checked>
+                  낙찰가의 80% 상한 적용
+                </label>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="mini" style="border-color:#bae6fd">
+              <strong style="color:var(--mortgage)">매매사업자 근저당</strong>
+              <div class="grid2" style="margin-top:10px">
+                <div class="field">
+                  <label for="mortgageLoanRate">감정가 기준 대출비율</label>
+                  <div class="money-wrap"><input id="mortgageLoanRate" type="number" min="0" max="100" step="0.1" value="60"><span class="suffix">%</span></div>
+                </div>
+                <div class="field">
+                  <label for="mortgageDeduction">방공제액</label>
+                  <div class="money-wrap"><input id="mortgageDeduction" type="number" min="0" step="100000" value="25000000"><span class="suffix">원</span></div>
+                </div>
+                <div class="field">
+                  <label for="mortgageExpenseRate">경비율</label>
+                  <div class="money-wrap"><input id="mortgageExpenseRate" type="number" min="0" max="30" step="0.1" value="6"><span class="suffix">%</span></div>
+                </div>
+                <div class="field">
+                  <label for="mortgageBidCap">낙찰가 대비 대출상한</label>
+                  <div class="money-wrap"><input id="mortgageBidCap" type="number" min="0" max="100" step="0.1" value="80"><span class="suffix">%</span></div>
+                </div>
+                <label class="toggle">
+                  <input id="mortgageUseDeduction" type="checkbox" checked>
+                  방공제 적용
+                </label>
+                <label class="toggle">
+                  <input id="mortgageUseCap" type="checkbox" checked>
+                  낙찰가의 80% 상한 적용
+                </label>
+              </div>
+            </div>
+            <div class="helper" style="margin-top:8px">
+              근저당 예상한도 = 감정가×비율−방공제액. 낙찰가 상한을 켜면 낙찰가×상한비율과 비교해 작은 금액을 적용합니다.
+            </div>
+            <div class="cap-explain">
+              <b>낙찰가의 80% 상한</b>을 켜면 대출금은 감정가 기준액과 낙찰가의 80% 중 작은 금액으로 계산됩니다.
+              예: 감정가 2억원, 낙찰가율 70%라면 낙찰가 1억4천만원의 80%인 1억1,200만원이 상한입니다.
+              낙찰가율 78%에서는 낙찰가의 80%가 감정가의 62.4%라서, 감정가 60% 대출보다 높아 보통 결과에 영향이 없습니다.
+            </div>
+          </div>
+        </div>
+
+        <div class="grid2" style="margin-top:14px">
+          <div class="field">
+            <label for="unpaidManagement">미납관리비</label>
+            <div class="money-wrap"><input id="unpaidManagement" type="number" min="0" step="10000" value="0"><span class="suffix">원</span></div>
+          </div>
+          <div class="field">
+            <label for="extraExpense">기타 추가지출</label>
+            <div class="money-wrap"><input id="extraExpense" type="number" min="0" step="10000" value="0"><span class="suffix">원</span></div>
+          </div>
+        </div>
+        <div class="helper">기타 추가지출에는 별도로 잡고 싶은 명도비, 특수수리비, 체납공과금 등을 넣으면 됩니다.</div>
+      </section>
+
+      <section class="card section-card" data-section-id="dsr" draggable="true">
+        <div class="section-head">
+          <h2><span class="section-number"></span>가계대출 DSR 계산</h2>
+          <div class="section-controls no-print">
+            <button class="move-btn" type="button" data-move="up" title="위로 이동">↑</button>
+            <button class="move-btn" type="button" data-move="down" title="아래로 이동">↓</button>
+            <span class="drag-handle" title="끌어서 순서 변경">⠿</span>
+          </div>
+        </div>
+        <div class="grid3">
+          <div class="field">
+            <label for="dsrIncome">금융사가 인정하는 연소득</label>
+            <div class="money-wrap"><input id="dsrIncome" type="number" min="0" step="100000" value="30000000"><span class="suffix">원</span></div>
+          </div>
+          <div class="field">
+            <label for="dsrLimitRate">DSR 한도</label>
+            <div class="money-wrap"><input id="dsrLimitRate" type="number" min="0" max="100" step="0.1" value="50"><span class="suffix">%</span></div>
+          </div>
+          <div class="field">
+            <label for="householdTerm">신규 가계대출 기간</label>
+            <select id="householdTerm">
+              <option value="30">30년</option>
+              <option value="35" selected>35년</option>
+              <option value="40">40년</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mini" style="margin-top:14px;border-color:#bbf7d0">
+          <strong style="color:var(--household)">기존 마이너스통장·기타부채</strong>
+          <div class="grid3" style="margin-top:10px">
+            <div class="field">
+              <label for="matongLimit">마이너스통장 약정한도</label>
+              <div class="money-wrap"><input id="matongLimit" type="number" min="0" step="100000" value="26000000"><span class="suffix">원</span></div>
+            </div>
+            <div class="field">
+              <label for="matongRate">마이너스통장 금리</label>
+              <div class="money-wrap"><input id="matongRate" type="number" min="0" max="30" step="0.1" value="6"><span class="suffix">%</span></div>
+            </div>
+            <div class="field">
+              <label for="matongDsrYears">DSR 환산기간</label>
+              <div class="money-wrap"><input id="matongDsrYears" type="number" min="1" max="20" step="1" value="5"><span class="suffix">년</span></div>
+            </div>
+            <div class="field">
+              <label for="otherAnnualDebt">기타 기존대출 연간 원리금</label>
+              <div class="money-wrap"><input id="otherAnnualDebt" type="number" min="0" step="10000" value="0"><span class="suffix">원</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mini" style="margin-top:14px;border-color:#bbf7d0">
+          <strong style="color:var(--household)">신규 가계 경락잔금대출 조건</strong>
+          <div class="grid3" style="margin-top:10px">
+            <div class="field">
+              <label for="householdActualRate">실제 대출금리</label>
+              <div class="money-wrap"><input id="householdActualRate" type="number" min="0" max="30" step="0.05" value="5"><span class="suffix">%</span></div>
+            </div>
+            <div class="field">
+              <label for="householdStressRate">스트레스 가산금리</label>
+              <div class="money-wrap"><input id="householdStressRate" type="number" min="0" max="10" step="0.05" value="0.75"><span class="suffix">%p</span></div>
+            </div>
+            <div class="field">
+              <label for="householdLoanRate">감정가 대비 담보한도</label>
+              <div class="money-wrap"><input id="householdLoanRate" type="number" min="0" max="100" step="0.1" value="60"><span class="suffix">%</span></div>
+            </div>
+            <div class="field">
+              <label for="householdExpenseRate">경비율</label>
+              <div class="money-wrap"><input id="householdExpenseRate" type="number" min="0" max="30" step="0.1" value="6"><span class="suffix">%</span></div>
+            </div>
+            <div class="field">
+              <label for="householdBidCap">낙찰가 대비 대출상한</label>
+              <div class="money-wrap"><input id="householdBidCap" type="number" min="0" max="100" step="0.1" value="80"><span class="suffix">%</span></div>
+            </div>
+            <label class="toggle" style="margin-top:24px">
+              <input id="householdUseCap" type="checkbox" checked>
+              낙찰가의 80% 상한 적용
+            </label>
+          </div>
+        </div>
+
+        <div class="cap-explain">
+          가계대출 예상액은 ① 감정가 기준 담보한도, ② 낙찰가의 80% 상한, ③ DSR 한도 중 가장 작은 금액으로 계산됩니다.
+        </div>
+
+        <div class="dsr-summary">
+          <div class="dsr-box"><div class="k">연간 원리금 허용액</div><div class="v" id="dsrAnnualLimit">-</div></div>
+          <div class="dsr-box"><div class="k">마통·기타부채 연간 부담</div><div class="v" id="dsrExistingDebt">-</div></div>
+          <div class="dsr-box"><div class="k">신규대출 연간 상환여력</div><div class="v" id="dsrAvailableAnnual">-</div></div>
+          <div class="dsr-box"><div class="k">선택기간 DSR 최대한도</div><div class="v" id="dsrMaxLoan">-</div></div>
+        </div>
+
+        <div style="overflow:auto;margin-top:14px">
+          <table>
+            <thead><tr><th>대출기간</th><th>DSR 계산금리</th><th>DSR 최대 신규대출</th></tr></thead>
+            <tbody id="dsrTermTable"></tbody>
+          </table>
+        </div>
+        <div class="notice">
+          DSR 계산은 입력한 가정으로 산출한 예상치입니다. 금융사별 인정소득, 마이너스통장 환산방식, 스트레스 금리와 상환방식에 따라 실제 한도는 달라질 수 있습니다.
+        </div>
+      </section>
+
+      <section class="card section-card" data-section-id="result" draggable="true">
+        <div class="section-head">
+          <h2><span class="section-number"></span>계산 결과</h2>
+          <div class="section-controls no-print">
+            <button class="move-btn" type="button" data-move="up" title="위로 이동">↑</button>
+            <button class="move-btn" type="button" data-move="down" title="아래로 이동">↓</button>
+            <span class="drag-handle" title="끌어서 순서 변경">⠿</span>
+          </div>
+        </div>
+        <div class="compare">
+          <article class="loan-card">
+            <div class="loan-head trust"><b>신탁대출</b></div>
+            <div class="loan-body">
+              <div class="rows" id="trustRows"></div>
+              <div class="equity">
+                <div class="label">총 필요 자기자본</div>
+                <div class="value" id="trustEquity">-</div>
+                <div class="status" id="trustStatus"></div>
+              </div>
+              <div class="maxapp">
+                <div class="k">현재 조건으로 가능한 최대 감정가</div>
+                <div class="v" id="trustMaxAppraisal">-</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="loan-card">
+            <div class="loan-head mortgage"><b>매매사업자 근저당</b></div>
+            <div class="loan-body">
+              <div class="rows" id="mortgageRows"></div>
+              <div class="equity">
+                <div class="label">총 필요 자기자본</div>
+                <div class="value" id="mortgageEquity">-</div>
+                <div class="status" id="mortgageStatus"></div>
+              </div>
+              <div class="maxapp">
+                <div class="k">현재 조건으로 가능한 최대 감정가</div>
+                <div class="v" id="mortgageMaxAppraisal">-</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="loan-card">
+            <div class="loan-head household"><b>가계대출 근저당</b></div>
+            <div class="loan-body">
+              <div class="rows" id="householdRows"></div>
+              <div class="equity">
+                <div class="label">총 필요 자기자본</div>
+                <div class="value" id="householdEquity">-</div>
+                <div class="status" id="householdStatus"></div>
+              </div>
+              <div class="maxapp">
+                <div class="k">현재 조건으로 가능한 최대 감정가</div>
+                <div class="v" id="householdMaxAppraisal">-</div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div style="overflow:auto;margin-top:16px">
+          <table>
+            <thead>
+              <tr><th>구분</th><th>신탁대출</th><th>매매사업자 근저당</th><th>가계대출 근저당</th></tr>
+            </thead>
+            <tbody id="summaryTable"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <aside class="sticky-side">
+      <section class="card">
+        <h2>저장목록</h2>
+        <div class="field">
+          <label for="saveTitle">저장 이름</label>
+          <input id="saveTitle" type="text" placeholder="사건번호 또는 물건명">
+        </div>
+        <div class="actions no-print" style="margin-top:10px">
+          <button class="btn" id="saveBtn">현재 결과 저장</button>
+          <button class="btn light" id="newBtn">새 계산</button>
+        </div>
+        <div class="helper" id="savedHelper">Google 로그인 후 어느 PC와 핸드폰에서도 같은 저장자료를 사용합니다.</div>
+        <div id="savedList" class="saved-list" style="margin-top:14px"></div>
+      </section>
+    </aside>
+  </div>
+
+  <footer>Google 로그인·Firebase 자동동기화 · v1.4 충돌방지 · 대출 한도는 실제 금융사 심사 결과와 다를 수 있습니다.</footer>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
+import {
+  getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged,
+  setPersistence, browserLocalPersistence
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
+import {
+  getFirestore, collection, doc, getDoc, getDocs, onSnapshot,
+  runTransaction, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAgqnlr3TB3Q4XfNoTBouEgzK32KVxN8CE",
+  authDomain: "auction-calculator-ay.firebaseapp.com",
+  projectId: "auction-calculator-ay",
+  storageBucket: "auction-calculator-ay.firebasestorage.app",
+  messagingSenderId: "445503443693",
+  appId: "1:445503443693:web:af2f951d5a37397c2af2e4"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
+const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: "select_account" });
+
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const STORAGE_KEY = "auctionBidCalculator.records.v1";
+  const SECTION_ORDER_KEY = "auctionBidCalculator.sectionOrder.v1";
+  const DEVICE_ID_KEY = "auctionBidCalculator.deviceId.v1";
+  const DEFAULT_SECTION_ORDER = ["basic","rates","loan","dsr","result"];
+  const APP_SCHEMA_VERSION = 4;
+  const deviceId = localStorage.getItem(DEVICE_ID_KEY) ||
+    (crypto.randomUUID ? crypto.randomUUID() : `device-${Date.now()}-${Math.random().toString(36).slice(2)}`);
+  localStorage.setItem(DEVICE_ID_KEY, deviceId);
+
+  let sameRates = [78, 78, 78];
+  let nearRates = [78, 78, 78];
+  let loadedRecordId = null;
+  let loadedRecordRevision = 0;
+  let currentUser = null;
+  let cloudReady = false;
+  let recordsUnsubscribe = null;
+  let settingsUnsubscribe = null;
+  let sectionOrderRevision = 0;
+  let suppressSectionSync = false;
+  let sectionSyncTimer = null;
+  let lastCloudSyncAt = null;
+
+  const num = (id) => {
+    const v = parseFloat($(id).value);
+    return Number.isFinite(v) ? v : 0;
+  };
+  const won = (v) => Math.round(v || 0).toLocaleString("ko-KR") + "원";
+  const shortWon = (v) => {
+    v = Math.round(v || 0);
+    const eok = Math.floor(v / 100000000);
+    const man = Math.round((v % 100000000) / 10000);
+    if (eok && man) return `${eok}억 ${man.toLocaleString()}만원`;
+    if (eok) return `${eok}억원`;
+    return `${man.toLocaleString()}만원`;
+  };
+  const pct = (v) => (Number.isFinite(v) ? v.toFixed(1) + "%" : "-");
+  const avg = (arr) => {
+    const valid = arr.map(Number).filter(v => Number.isFinite(v) && v > 0);
+    return valid.length ? valid.reduce((a,b)=>a+b,0) / valid.length : null;
+  };
+  const clamp = (v,min,max) => Math.min(max,Math.max(min,v));
+
+  function annuityPrincipal(monthlyPayment, annualRatePct, years){
+    const n = Math.max(1, years * 12);
+    const r = Math.max(0, annualRatePct) / 100 / 12;
+    if (monthlyPayment <= 0) return 0;
+    if (r === 0) return monthlyPayment * n;
+    return monthlyPayment * (1 - Math.pow(1 + r, -n)) / r;
+  }
+
+  function calcDsrForTerm(years){
+    const income = num("dsrIncome");
+    const dsrRate = num("dsrLimitRate") / 100;
+    const annualLimit = income * dsrRate;
+
+    const matong = num("matongLimit");
+    const matongRate = num("matongRate") / 100;
+    const matongYears = Math.max(1, num("matongDsrYears"));
+    const matongAnnual = matong / matongYears + matong * matongRate;
+
+    const otherAnnual = num("otherAnnualDebt");
+    const existingAnnual = matongAnnual + otherAnnual;
+    const availableAnnual = Math.max(0, annualLimit - existingAnnual);
+
+    const calcRate = num("householdActualRate") + num("householdStressRate");
+    const maxLoan = annuityPrincipal(availableAnnual / 12, calcRate, years);
+
+    return {years,income,dsrRate,annualLimit,matongAnnual,otherAnnual,existingAnnual,availableAnnual,calcRate,maxLoan};
+  }
+
+  function calcHousehold(){
+    const appraisal = num("appraisal");
+    const capital = num("capital");
+    const bidRate = num("bidRate") / 100;
+    const bid = appraisal * bidRate;
+    const loanRate = num("householdLoanRate") / 100;
+    const expenseRate = num("householdExpenseRate") / 100;
+    const bidCap = num("householdBidCap") / 100;
+    const useCap = $("householdUseCap").checked;
+    const term = Math.max(1, num("householdTerm"));
+
+    const dsr = calcDsrForTerm(term);
+    const appraisalLoan = appraisal * loanRate;
+    const bidLoanCap = bid * bidCap;
+    const collateralLoan = useCap ? Math.min(appraisalLoan, bidLoanCap) : appraisalLoan;
+    const loan = Math.min(collateralLoan, dsr.maxLoan);
+
+    const expense = bid * expenseRate;
+    const extras = num("unpaidManagement") + num("extraExpense");
+    const equity = bid - loan + expense + extras;
+    const balance = capital - equity;
+
+    return {
+      appraisal,bidRate,bid,loanRate,expenseRate,bidCap,useCap,
+      dsr,appraisalLoan,bidLoanCap,collateralLoan,loan,expense,extras,equity,balance,capital
+    };
+  }
+
+
+  function sectionCards(){
+    return [...document.querySelectorAll("#sectionContainer > .section-card")];
+  }
+
+  function renumberSections(){
+    sectionCards().forEach((card, index) => {
+      const number = card.querySelector(".section-number");
+      if (number) number.textContent = `${index + 1}. `;
+      const up = card.querySelector('[data-move="up"]');
+      const down = card.querySelector('[data-move="down"]');
+      if (up) up.disabled = index === 0;
+      if (down) down.disabled = index === sectionCards().length - 1;
+    });
+  }
+
+  function saveSectionOrder(){
+    const order = sectionCards().map(card => card.dataset.sectionId);
+    localStorage.setItem(SECTION_ORDER_KEY, JSON.stringify(order));
+    renumberSections();
+    if (!suppressSectionSync) scheduleSectionOrderSync(order);
+  }
+
+  function applySectionOrder(order){
+    const container = $("sectionContainer");
+    const map = new Map(sectionCards().map(card => [card.dataset.sectionId, card]));
+    const safeOrder = Array.isArray(order)
+      ? [...order.filter(id => map.has(id)), ...DEFAULT_SECTION_ORDER.filter(id => !order.includes(id) && map.has(id))]
+      : DEFAULT_SECTION_ORDER;
+    safeOrder.forEach(id => container.appendChild(map.get(id)));
+    renumberSections();
+  }
+
+  function loadSectionOrder(){
+    try{
+      const saved = JSON.parse(localStorage.getItem(SECTION_ORDER_KEY) || "null");
+      applySectionOrder(saved || DEFAULT_SECTION_ORDER);
+    } catch {
+      applySectionOrder(DEFAULT_SECTION_ORDER);
+    }
+  }
+
+  function moveSection(card, direction){
+    const cards = sectionCards();
+    const index = cards.indexOf(card);
+    if (direction === "up" && index > 0){
+      card.parentNode.insertBefore(card, cards[index - 1]);
+    } else if (direction === "down" && index < cards.length - 1){
+      card.parentNode.insertBefore(cards[index + 1], card);
+    }
+    saveSectionOrder();
+  }
+
+  let draggedSection = null;
+
+  document.addEventListener("dragstart", (e) => {
+    const card = e.target.closest(".section-card");
+    if (!card) return;
+    draggedSection = card;
+    card.classList.add("dragging");
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/plain", card.dataset.sectionId);
+  });
+
+  document.addEventListener("dragover", (e) => {
+    const card = e.target.closest(".section-card");
+    if (!card || !draggedSection || card === draggedSection) return;
+    e.preventDefault();
+    card.classList.add("drag-over");
+  });
+
+  document.addEventListener("dragleave", (e) => {
+    const card = e.target.closest(".section-card");
+    if (card) card.classList.remove("drag-over");
+  });
+
+  document.addEventListener("drop", (e) => {
+    const target = e.target.closest(".section-card");
+    if (!target || !draggedSection || target === draggedSection) return;
+    e.preventDefault();
+    const rect = target.getBoundingClientRect();
+    const after = e.clientY > rect.top + rect.height / 2;
+    target.parentNode.insertBefore(draggedSection, after ? target.nextSibling : target);
+    document.querySelectorAll(".drag-over").forEach(el => el.classList.remove("drag-over"));
+    saveSectionOrder();
+  });
+
+  document.addEventListener("dragend", () => {
+    document.querySelectorAll(".section-card").forEach(el => {
+      el.classList.remove("dragging","drag-over");
+    });
+    draggedSection = null;
+  });
+
+  function renderRateRows(type){
+    const arr = type === "same" ? sameRates : nearRates;
+    const root = type === "same" ? $("sameRates") : $("nearRates");
+    root.innerHTML = "";
+    arr.forEach((value, i) => {
+      const row = document.createElement("div");
+      row.className = "rate-row";
+      row.innerHTML = `
+        <div class="money-wrap">
+          <input type="number" min="0" max="150" step="0.1" value="${value ?? ""}" data-rate-type="${type}" data-rate-index="${i}">
+          <span class="suffix">%</span>
+        </div>
+        <button class="icon-btn no-print" type="button" title="삭제" data-remove-type="${type}" data-remove-index="${i}">×</button>`;
+      root.appendChild(row);
+    });
+  }
+
+  function recommendedRate(){
+    const s = avg(sameRates);
+    const n = avg(nearRates);
+    let sw = Math.max(0, num("sameWeight"));
+    let nw = Math.max(0, num("nearWeight"));
+    const adj = num("safetyAdjust");
+    let base = 78;
+
+    if (s !== null && n !== null){
+      const total = sw + nw || 100;
+      base = s * sw / total + n * nw / total;
+    } else if (s !== null){
+      base = s;
+    } else if (n !== null){
+      base = n;
+    }
+    return clamp(base + adj, 50, 95);
+  }
+
+  function calcMethod(method){
+    const appraisal = num("appraisal");
+    const capital = num("capital");
+    const bidRate = num("bidRate") / 100;
+    const bid = appraisal * bidRate;
+    const loanRate = num(method + "LoanRate") / 100;
+    const expenseRate = num(method + "ExpenseRate") / 100;
+    const useCap = $(method + "UseCap").checked;
+    const bidCap = num(method + "BidCap") / 100;
+
+    const useDeduction = method === "mortgage" && $("mortgageUseDeduction")?.checked;
+    const deduction = useDeduction ? num("mortgageDeduction") : 0;
+    const appraisalLoanRaw = appraisal * loanRate;
+    const appraisalLoan = Math.max(0, appraisalLoanRaw - deduction);
+    const bidLoanCap = bid * bidCap;
+    const loan = useCap ? Math.min(appraisalLoan, bidLoanCap) : appraisalLoan;
+    const expense = bid * expenseRate;
+    const extras = num("unpaidManagement") + num("extraExpense");
+    const equity = bid - loan + expense + extras;
+    const balance = capital - equity;
+
+    return {appraisal,bidRate,bid,loanRate,expenseRate,loan,bidCap,useCap,expense,extras,equity,balance,capital,deduction,appraisalLoanRaw,appraisalLoan};
+  }
+
+  function maxAppraisal(method){
+    const capital = num("capital");
+    const extras = num("unpaidManagement") + num("extraExpense");
+    if (capital <= extras) return 0;
+
+    let low = 0, high = 2000000000;
+    for (let i=0;i<80;i++){
+      const mid = (low+high)/2;
+      const old = $("appraisal").value;
+      $("appraisal").value = mid;
+      const eq = calcMethod(method).equity;
+      $("appraisal").value = old;
+      if (eq <= capital) low = mid;
+      else high = mid;
+    }
+    return low;
+  }
+
+  function maxHouseholdAppraisal(){
+    const capital = num("capital");
+    const extras = num("unpaidManagement") + num("extraExpense");
+    if (capital <= extras) return 0;
+
+    let low = 0, high = 2000000000;
+    for (let i=0;i<80;i++){
+      const mid = (low+high)/2;
+      const old = $("appraisal").value;
+      $("appraisal").value = mid;
+      const eq = calcHousehold().equity;
+      $("appraisal").value = old;
+      if (eq <= capital) low = mid;
+      else high = mid;
+    }
+    return low;
+  }
+
+  function rowsHtml(r){
+    return [
+      ["감정가", shortWon(r.appraisal)],
+      ["적용 입찰가율", pct(r.bidRate*100)],
+      ["예상 낙찰가", shortWon(r.bid)],
+      ["예상 대출금", shortWon(r.loan)],
+      ...(r.deduction > 0 ? [["방공제액", shortWon(r.deduction)]] : []),
+      ["낙찰가-대출금 차액", shortWon(r.bid-r.loan)],
+      ["예상 경비", shortWon(r.expense)],
+      ["미납관리비·추가지출", shortWon(r.extras)]
+    ].map(([k,v]) => `<div class="row"><span>${k}</span><strong>${v}</strong></div>`).join("");
+  }
+
+  function householdRowsHtml(r){
+    const limiter = r.dsr.maxLoan <= r.collateralLoan ? "DSR 한도" : "담보 한도";
+    return [
+      ["감정가", shortWon(r.appraisal)],
+      ["적용 입찰가율", pct(r.bidRate*100)],
+      ["예상 낙찰가", shortWon(r.bid)],
+      ["담보상 한도", shortWon(r.collateralLoan)],
+      ["DSR상 한도", shortWon(r.dsr.maxLoan)],
+      ["적용 제한요인", limiter],
+      ["예상 대출금", shortWon(r.loan)],
+      ["낙찰가-대출금 차액", shortWon(r.bid-r.loan)],
+      ["예상 경비", shortWon(r.expense)],
+      ["미납관리비·추가지출", shortWon(r.extras)]
+    ].map(([k,v]) => `<div class="row"><span>${k}</span><strong>${v}</strong></div>`).join("");
+  }
+
+  function update(){
+    const rec = recommendedRate();
+    $("sameAvg").textContent = avg(sameRates) === null ? "-" : pct(avg(sameRates));
+    $("nearAvg").textContent = avg(nearRates) === null ? "-" : pct(avg(nearRates));
+    $("recommendedRate").textContent = pct(rec);
+
+    if ($("autoApply").checked){
+      $("bidRate").value = rec.toFixed(1);
+    }
+    $("bidRateText").textContent = pct(num("bidRate"));
+
+    const trust = calcMethod("trust");
+    const mortgage = calcMethod("mortgage");
+    const household = calcHousehold();
+
+    $("trustRows").innerHTML = rowsHtml(trust);
+    $("mortgageRows").innerHTML = rowsHtml(mortgage);
+    $("householdRows").innerHTML = householdRowsHtml(household);
+
+    $("trustEquity").textContent = shortWon(trust.equity);
+    $("mortgageEquity").textContent = shortWon(mortgage.equity);
+    $("householdEquity").textContent = shortWon(household.equity);
+
+    setStatus("trust", trust.balance);
+    setStatus("mortgage", mortgage.balance);
+    setStatus("household", household.balance);
+
+    const tMax = maxAppraisal("trust");
+    const mMax = maxAppraisal("mortgage");
+    const hMax = maxHouseholdAppraisal();
+
+    $("trustMaxAppraisal").textContent = shortWon(tMax);
+    $("mortgageMaxAppraisal").textContent = shortWon(mMax);
+    $("householdMaxAppraisal").textContent = shortWon(hMax);
+
+    const selectedDsr = household.dsr;
+    $("dsrAnnualLimit").textContent = shortWon(selectedDsr.annualLimit);
+    $("dsrExistingDebt").textContent = shortWon(selectedDsr.existingAnnual);
+    $("dsrAvailableAnnual").textContent = shortWon(selectedDsr.availableAnnual);
+    $("dsrMaxLoan").textContent = shortWon(selectedDsr.maxLoan);
+
+    $("dsrTermTable").innerHTML = [30,35,40].map(years => {
+      const d = calcDsrForTerm(years);
+      const selected = years === Number($("householdTerm").value) ? ' style="font-weight:900;background:#f0fdf4"' : "";
+      return `<tr${selected}><td>${years}년</td><td>${pct(d.calcRate)}</td><td>${shortWon(d.maxLoan)}</td></tr>`;
+    }).join("");
+
+    const tableRows = [
+      ["대출 기준",
+        `감정가 ${pct(trust.loanRate*100)}`,
+        `감정가 ${pct(mortgage.loanRate*100)} − 방공제 ${shortWon(mortgage.deduction)}`,
+        `담보 ${pct(household.loanRate*100)}와 DSR 중 작은 금액`
+      ],
+      ["낙찰가율", pct(trust.bidRate*100), pct(mortgage.bidRate*100), pct(household.bidRate*100)],
+      ["경비", `낙찰가의 ${pct(trust.expenseRate*100)}`, `낙찰가의 ${pct(mortgage.expenseRate*100)}`, `낙찰가의 ${pct(household.expenseRate*100)}`],
+      ["입찰 가능한 최대 감정가", shortWon(tMax), shortWon(mMax), shortWon(hMax)],
+      ["예상 낙찰가", shortWon(trust.bid), shortWon(mortgage.bid), shortWon(household.bid)],
+      ["예상 대출금", shortWon(trust.loan), shortWon(mortgage.loan), shortWon(household.loan)],
+      ["낙찰가와 대출 차액", shortWon(trust.bid-trust.loan), shortWon(mortgage.bid-mortgage.loan), shortWon(household.bid-household.loan)],
+      ["예상 경비", shortWon(trust.expense), shortWon(mortgage.expense), shortWon(household.expense)],
+      ["총 자기자본", shortWon(trust.equity), shortWon(mortgage.equity), shortWon(household.equity)]
+    ];
+    $("summaryTable").innerHTML = tableRows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join("");
+
+    if (!$("saveTitle").value.trim()){
+      $("saveTitle").value = $("caseNo").value.trim() || $("propertyName").value.trim();
+    }
+  }
+
+  function setStatus(method, balance){
+    const el = $(method+"Status");
+    if (balance >= 0){
+      el.className = "status good";
+      el.textContent = `자기자본 범위 내 · ${shortWon(balance)} 남음`;
+    } else {
+      el.className = "status bad";
+      el.textContent = `${shortWon(Math.abs(balance))} 부족`;
+    }
+  }
+
+  function getState(){
+    const ids = [
+      "caseNo","propertyName","appraisal","capital","sameWeight","nearWeight","safetyAdjust",
+      "bidRate","autoApply","trustLoanRate","trustExpenseRate","trustBidCap","trustUseCap",
+      "mortgageLoanRate","mortgageDeduction","mortgageUseDeduction","mortgageExpenseRate","mortgageBidCap","mortgageUseCap",
+      "dsrIncome","dsrLimitRate","matongLimit","matongRate","matongDsrYears","otherAnnualDebt",
+      "householdActualRate","householdStressRate","householdTerm","householdLoanRate","householdExpenseRate","householdBidCap","householdUseCap",
+      "unpaidManagement","extraExpense","saveTitle"
+    ];
+    const fields = {};
+    ids.forEach(id => {
+      const el = $(id);
+      fields[id] = el.type === "checkbox" ? el.checked : el.value;
+    });
+    return {fields, sameRates:[...sameRates], nearRates:[...nearRates]};
+  }
+
+  function setState(state){
+    if (!state) return;
+    state.fields = state.fields || {};
+    if (state.fields.mortgageDeduction === undefined) state.fields.mortgageDeduction = "25000000";
+    if (state.fields.mortgageUseDeduction === undefined) state.fields.mortgageUseDeduction = true;
+    if (state.fields.mortgageLoanRate === undefined || state.fields.mortgageLoanRate === "50") state.fields.mortgageLoanRate = "60";
+    const dsrDefaults = {
+      dsrIncome:"30000000", dsrLimitRate:"50", matongLimit:"26000000", matongRate:"6",
+      matongDsrYears:"5", otherAnnualDebt:"0", householdActualRate:"5", householdStressRate:"0.75",
+      householdTerm:"35", householdLoanRate:"60", householdExpenseRate:"6",
+      householdBidCap:"80", householdUseCap:true
+    };
+    Object.entries(dsrDefaults).forEach(([key,val]) => {
+      if (state.fields[key] === undefined) state.fields[key] = val;
+    });
+    sameRates = Array.isArray(state.sameRates) ? state.sameRates : [78,78,78];
+    nearRates = Array.isArray(state.nearRates) ? state.nearRates : [78,78,78];
+    renderRateRows("same");
+    renderRateRows("near");
+    Object.entries(state.fields || {}).forEach(([id,val]) => {
+      const el = $(id);
+      if (!el) return;
+      if (el.type === "checkbox") el.checked = !!val;
+      else el.value = val;
+    });
+    update();
+  }
+
+  function userStorageKey(uid = currentUser?.uid){
+    return uid ? `${STORAGE_KEY}.${uid}` : STORAGE_KEY;
+  }
+
+  function rawLocalRecords(key = userStorageKey()){
+    try{
+      const value = JSON.parse(localStorage.getItem(key) || "[]");
+      return Array.isArray(value) ? value : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function records(){
+    return rawLocalRecords()
+      .filter(item => !item.deleted)
+      .sort((a,b) => Number(b.updatedAtMs || Date.parse(b.updatedAt || 0) || 0) - Number(a.updatedAtMs || Date.parse(a.updatedAt || 0) || 0));
+  }
+
+  function writeLocalRecords(items, key = userStorageKey()){
+    localStorage.setItem(key, JSON.stringify(items));
+    renderSaved();
+  }
+
+  function upsertLocalRecord(item){
+    const all = rawLocalRecords();
+    const idx = all.findIndex(x => x.id === item.id);
+    if (idx >= 0) all[idx] = item;
+    else all.push(item);
+    writeLocalRecords(all);
+  }
+
+  function setSyncStatus(message, tone = ""){
+    const el = $("syncStatus");
+    el.textContent = message;
+    el.className = `sync-status${tone ? ` ${tone}` : ""}`;
+  }
+
+  function formatDateTime(value){
+    const date = value ? new Date(value) : null;
+    if (!date || Number.isNaN(date.getTime())) return "-";
+    return date.toLocaleString("ko-KR", {year:"numeric",month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"});
+  }
+
+  function stableStringify(value){
+    if (value === null || typeof value !== "object") return JSON.stringify(value);
+    if (Array.isArray(value)) return `[${value.map(stableStringify).join(",")}]`;
+    return `{${Object.keys(value).sort().map(key => `${JSON.stringify(key)}:${stableStringify(value[key])}`).join(",")}}`;
+  }
+
+  function checksum(value){
+    const text = stableStringify(value);
+    let hash = 2166136261;
+    for (let i = 0; i < text.length; i++){
+      hash ^= text.charCodeAt(i);
+      hash = Math.imul(hash, 16777619);
+    }
+    return (hash >>> 0).toString(16).padStart(8,"0");
+  }
+
+  class SyncConflictError extends Error{
+    constructor(message = "다른 기기의 최신 저장자료가 있습니다."){
+      super(message);
+      this.name = "SyncConflictError";
+    }
+  }
+
+  function requireCloudReady(){
+    if (!currentUser){
+      alert("먼저 Google 로그인을 해주세요.");
+      return false;
+    }
+    if (!cloudReady){
+      alert("클라우드 최신자료를 확인 중입니다. 자동 동기화 완료 후 다시 저장해주세요.");
+      return false;
+    }
+    if (!navigator.onLine){
+      alert("저장 충돌을 막기 위해 인터넷 연결 상태에서만 저장할 수 있습니다.");
+      return false;
+    }
+    return true;
+  }
+
+  function recordRef(id){
+    return doc(db, "users", currentUser.uid, "auctionRecords", id);
+  }
+
+  function recordsCollection(){
+    return collection(db, "users", currentUser.uid, "auctionRecords");
+  }
+
+  function settingsRef(){
+    return doc(db, "users", currentUser.uid, "settings", "app");
+  }
+
+  function normalizeCloudRecord(id, data){
+    const serverMillis = data.updatedAt?.toMillis ? data.updatedAt.toMillis() : 0;
+    const updatedAtMs = Number(data.updatedAtMs || serverMillis || Date.now());
+    return {
+      id,
+      title: data.title || "이름 없는 계산",
+      state: data.state || {},
+      revision: Number(data.revision || 0),
+      deleted: !!data.deleted,
+      checksum: data.checksum || "",
+      updatedAtMs,
+      updatedAt: new Date(updatedAtMs).toISOString(),
+      deviceId: data.deviceId || "",
+      schemaVersion: Number(data.schemaVersion || 1)
+    };
+  }
+
+  function renderSaved(){
+    const root = $("savedList");
+    const items = records();
+    if (!currentUser){
+      root.innerHTML = `<div class="empty">Google 로그인 후 PC·핸드폰에서 같은 저장목록을 사용할 수 있습니다.</div>`;
+      return;
+    }
+    if (!cloudReady){
+      root.innerHTML = `<div class="empty">클라우드 최신자료를 확인하고 있습니다…</div>`;
+      return;
+    }
+    if (!items.length){
+      root.innerHTML = `<div class="empty">아직 저장한 물건이 없습니다.</div>`;
+      return;
+    }
+    root.innerHTML = items.map(item => {
+      const appraisal = Number(item.state?.fields?.appraisal || 0);
+      const bidRate = Number(item.state?.fields?.bidRate || 0);
+      return `<div class="saved-item" data-load-id="${item.id}">
+        <div class="saved-title">${escapeHtml(item.title)}</div>
+        <div class="saved-meta">${formatDateTime(item.updatedAtMs)} · 수정 ${Number(item.revision || 0)}회</div>
+        <div class="saved-bottom">
+          <span class="pill">감정가 ${shortWon(appraisal)} · ${bidRate.toFixed(1)}%</span>
+          <button class="icon-btn no-print" style="width:42px;height:30px" data-delete-id="${item.id}">삭제</button>
+        </div>
+      </div>`;
+    }).join("");
+  }
+
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+  }
+
+  async function refreshRecordFromCloud(id){
+    if (!currentUser) return;
+    const snap = await getDoc(recordRef(id));
+    if (snap.exists()) upsertLocalRecord(normalizeCloudRecord(snap.id, snap.data()));
+  }
+
+  async function saveCurrent(){
+    if (!requireCloudReady()) return;
+    const title = $("saveTitle").value.trim() || $("caseNo").value.trim() || $("propertyName").value.trim() || "이름 없는 계산";
+    const existing = loadedRecordId ? rawLocalRecords().find(x => x.id === loadedRecordId) : null;
+    const id = loadedRecordId || (crypto.randomUUID ? crypto.randomUUID() : `${Date.now().toString(36)}${Math.random().toString(36).slice(2,9)}`);
+    const baseRevision = loadedRecordId ? Number(loadedRecordRevision || 0) : 0;
+    const state = getState();
+    const now = Date.now();
+    const payloadChecksum = checksum({title,state,deleted:false});
+
+    setSyncStatus("최신 버전 확인 후 저장 중…", "warn");
+    $("saveBtn").disabled = true;
+    try{
+      const saved = await runTransaction(db, async transaction => {
+        const ref = recordRef(id);
+        const snap = await transaction.get(ref);
+        const cloud = snap.exists() ? snap.data() : null;
+        const cloudRevision = Number(cloud?.revision || 0);
+        if (cloudRevision !== baseRevision) throw new SyncConflictError();
+        const next = {
+          title,
+          state,
+          revision: cloudRevision + 1,
+          deleted: false,
+          checksum: payloadChecksum,
+          updatedAt: serverTimestamp(),
+          updatedAtMs: now,
+          deviceId,
+          schemaVersion: APP_SCHEMA_VERSION
+        };
+        transaction.set(ref, next, {merge:false});
+        return normalizeCloudRecord(id, next);
+      });
+      loadedRecordId = id;
+      loadedRecordRevision = Number(saved.revision || 0);
+      upsertLocalRecord(saved);
+      lastCloudSyncAt = new Date();
+      setSyncStatus(`자동 동기화 완료 · ${formatDateTime(lastCloudSyncAt)}`, "good");
+      alert("저장하고 자동 동기화했습니다.");
+    } catch (error){
+      if (error instanceof SyncConflictError){
+        await refreshRecordFromCloud(id);
+        loadedRecordId = null;
+        loadedRecordRevision = 0;
+        setSyncStatus("다른 기기의 최신자료를 불러왔습니다.", "warn");
+        alert("다른 PC나 핸드폰에서 더 최신으로 수정된 자료가 있어 이전 자료의 덮어쓰기를 막았습니다. 저장목록에서 최신자료를 다시 열어 수정해주세요.");
+      } else {
+        console.error(error);
+        setSyncStatus("저장 실패 · 인터넷과 Firebase 설정 확인", "bad");
+        alert(`저장하지 못했습니다. ${error?.message || "인터넷 연결과 Firebase 설정을 확인해주세요."}`);
+      }
+    } finally {
+      $("saveBtn").disabled = !cloudReady;
+    }
+  }
+
+  async function deleteRecordById(id){
+    if (!requireCloudReady()) return;
+    const existing = rawLocalRecords().find(x => x.id === id);
+    if (!existing) return;
+    if (!confirm("이 저장자료를 삭제할까요? 다른 기기에서도 삭제됩니다.")) return;
+    const baseRevision = Number(existing.revision || 0);
+    const now = Date.now();
+    setSyncStatus("삭제 내용 동기화 중…", "warn");
+    try{
+      const deletedItem = await runTransaction(db, async transaction => {
+        const ref = recordRef(id);
+        const snap = await transaction.get(ref);
+        if (!snap.exists()) return {...existing, deleted:true, updatedAtMs:now, updatedAt:new Date(now).toISOString()};
+        const cloud = snap.data();
+        const cloudRevision = Number(cloud.revision || 0);
+        if (cloudRevision !== baseRevision) throw new SyncConflictError();
+        const next = {
+          ...cloud,
+          revision: cloudRevision + 1,
+          deleted: true,
+          updatedAt: serverTimestamp(),
+          updatedAtMs: now,
+          deviceId,
+          schemaVersion: APP_SCHEMA_VERSION
+        };
+        transaction.set(ref, next, {merge:false});
+        return normalizeCloudRecord(id, next);
+      });
+      upsertLocalRecord(deletedItem);
+      if (loadedRecordId === id) { loadedRecordId = null; loadedRecordRevision = 0; }
+      setSyncStatus(`자동 동기화 완료 · ${formatDateTime(new Date())}`, "good");
+    } catch (error){
+      if (error instanceof SyncConflictError){
+        await refreshRecordFromCloud(id);
+        alert("다른 기기에서 이 자료가 먼저 수정되어 삭제를 중단하고 최신자료를 불러왔습니다.");
+      } else {
+        console.error(error);
+        alert("삭제하지 못했습니다. 인터넷 연결을 확인해주세요.");
+      }
+    }
+  }
+
+  function scheduleSectionOrderSync(order){
+    clearTimeout(sectionSyncTimer);
+    if (!currentUser || !cloudReady || !navigator.onLine) return;
+    sectionSyncTimer = setTimeout(() => syncSectionOrder(order), 350);
+  }
+
+  async function syncSectionOrder(order){
+    if (!currentUser || !cloudReady || !navigator.onLine) return;
+    const baseRevision = sectionOrderRevision;
+    const now = Date.now();
+    try{
+      const nextRevision = await runTransaction(db, async transaction => {
+        const ref = settingsRef();
+        const snap = await transaction.get(ref);
+        const cloudRevision = Number(snap.data()?.revision || 0);
+        if (cloudRevision !== baseRevision) throw new SyncConflictError("다른 기기의 블록 순서가 더 최신입니다.");
+        transaction.set(ref, {
+          sectionOrder: order,
+          revision: cloudRevision + 1,
+          updatedAt: serverTimestamp(),
+          updatedAtMs: now,
+          deviceId,
+          schemaVersion: APP_SCHEMA_VERSION
+        }, {merge:true});
+        return cloudRevision + 1;
+      });
+      sectionOrderRevision = nextRevision;
+    } catch (error){
+      if (error instanceof SyncConflictError){
+        const snap = await getDoc(settingsRef());
+        const data = snap.data();
+        if (Array.isArray(data?.sectionOrder)){
+          suppressSectionSync = true;
+          applySectionOrder(data.sectionOrder);
+          localStorage.setItem(SECTION_ORDER_KEY, JSON.stringify(data.sectionOrder));
+          suppressSectionSync = false;
+          sectionOrderRevision = Number(data.revision || 0);
+        }
+        setSyncStatus("다른 기기의 최신 블록 순서를 적용했습니다.", "warn");
+      } else {
+        console.error("section order sync failed", error);
+      }
+    }
+  }
+
+  function updateAuthUi(){
+    const loggedIn = !!currentUser;
+    $("userEmail").textContent = loggedIn ? (currentUser.email || "Google 로그인") : "로그인하지 않음";
+    $("loginBtn").hidden = loggedIn;
+    $("logoutBtn").hidden = !loggedIn;
+    $("saveBtn").disabled = !cloudReady;
+    $("importFile").disabled = !cloudReady;
+    $("importLabel").style.opacity = cloudReady ? "1" : ".48";
+    $("savedHelper").textContent = loggedIn
+      ? "같은 Google 계정으로 로그인하면 어느 PC와 핸드폰에서도 자동으로 동기화됩니다."
+      : "Google 로그인 후 어느 PC와 핸드폰에서도 같은 저장자료를 사용합니다.";
+    renderSaved();
+  }
+
+  async function migrateLocalRecordsWithoutOverwrite(){
+    const migrationKey = `auctionBidCalculator.migrated.${currentUser.uid}.v1`;
+    if (localStorage.getItem(migrationKey)) return;
+    const globalRecords = rawLocalRecords(STORAGE_KEY).filter(x => !x.deleted);
+    const userRecords = rawLocalRecords(userStorageKey(currentUser.uid)).filter(x => !x.deleted);
+    const candidatesMap = new Map();
+    [...globalRecords, ...userRecords].forEach(item => {
+      if (item?.id && !candidatesMap.has(item.id)) candidatesMap.set(item.id, item);
+    });
+    const candidates = [...candidatesMap.values()];
+    if (!candidates.length){
+      localStorage.setItem(migrationKey, "empty");
+      return;
+    }
+    const shouldMigrate = confirm(`이 브라우저에 저장된 기존 물건 ${candidates.length}건을 클라우드로 안전하게 옮길까요? 클라우드에 같은 ID가 있으면 기존 클라우드 자료를 덮어쓰지 않습니다.`);
+    if (!shouldMigrate){
+      localStorage.setItem(migrationKey, "skipped");
+      return;
+    }
+    setSyncStatus(`기존 저장자료 ${candidates.length}건을 안전하게 이전 중…`, "warn");
+    for (const item of candidates){
+      await runTransaction(db, async transaction => {
+        const ref = recordRef(item.id);
+        const snap = await transaction.get(ref);
+        if (snap.exists()) return;
+        const state = item.state || {};
+        const title = item.title || "이름 없는 계산";
+        const now = Number(item.updatedAtMs || Date.parse(item.updatedAt || 0) || Date.now());
+        transaction.set(ref, {
+          title,
+          state,
+          revision: 1,
+          deleted: false,
+          checksum: checksum({title,state,deleted:false}),
+          updatedAt: serverTimestamp(),
+          updatedAtMs: now,
+          deviceId,
+          schemaVersion: APP_SCHEMA_VERSION,
+          migratedFromLocal: true
+        }, {merge:false});
+      });
+    }
+    localStorage.setItem(migrationKey, new Date().toISOString());
+  }
+
+  async function loadInitialCloudState(){
+    cloudReady = false;
+    updateAuthUi();
+    setSyncStatus("클라우드 최신자료 확인 중…", "warn");
+
+    const settingsSnap = await getDoc(settingsRef());
+    if (settingsSnap.exists()){
+      const data = settingsSnap.data();
+      sectionOrderRevision = Number(data.revision || 0);
+      if (Array.isArray(data.sectionOrder)){
+        suppressSectionSync = true;
+        applySectionOrder(data.sectionOrder);
+        localStorage.setItem(SECTION_ORDER_KEY, JSON.stringify(data.sectionOrder));
+        suppressSectionSync = false;
+      }
+    } else {
+      const localOrder = (() => {
+        try { return JSON.parse(localStorage.getItem(SECTION_ORDER_KEY) || "null"); }
+        catch { return null; }
+      })();
+      const order = Array.isArray(localOrder) ? localOrder : DEFAULT_SECTION_ORDER;
+      await runTransaction(db, async transaction => {
+        const ref = settingsRef();
+        const snap = await transaction.get(ref);
+        if (!snap.exists()){
+          transaction.set(ref, {
+            sectionOrder: order,
+            revision: 1,
+            updatedAt: serverTimestamp(),
+            updatedAtMs: Date.now(),
+            deviceId,
+            schemaVersion: APP_SCHEMA_VERSION
+          });
+          sectionOrderRevision = 1;
+        } else {
+          sectionOrderRevision = Number(snap.data()?.revision || 0);
+        }
+      });
+    }
+
+    await migrateLocalRecordsWithoutOverwrite();
+    const cloudSnapshot = await getDocs(recordsCollection());
+    const cloudItems = cloudSnapshot.docs.map(d => normalizeCloudRecord(d.id, d.data()));
+    writeLocalRecords(cloudItems, userStorageKey(currentUser.uid));
+
+    recordsUnsubscribe?.();
+    settingsUnsubscribe?.();
+
+    recordsUnsubscribe = onSnapshot(recordsCollection(), {includeMetadataChanges:true}, snapshot => {
+      const cloudItemsNow = snapshot.docs.map(d => normalizeCloudRecord(d.id, d.data()));
+      writeLocalRecords(cloudItemsNow, userStorageKey(currentUser.uid));
+      if (!snapshot.metadata.fromCache){
+        lastCloudSyncAt = new Date();
+        setSyncStatus(`자동 동기화 완료 · ${formatDateTime(lastCloudSyncAt)}`, "good");
+      }
+    }, error => {
+      console.error(error);
+      setSyncStatus("실시간 동기화 오류 · 새로고침 필요", "bad");
+    });
+
+    settingsUnsubscribe = onSnapshot(settingsRef(), {includeMetadataChanges:true}, snap => {
+      if (!snap.exists()) return;
+      const data = snap.data();
+      const cloudRevision = Number(data.revision || 0);
+      if (cloudRevision > sectionOrderRevision && Array.isArray(data.sectionOrder)){
+        sectionOrderRevision = cloudRevision;
+        suppressSectionSync = true;
+        applySectionOrder(data.sectionOrder);
+        localStorage.setItem(SECTION_ORDER_KEY, JSON.stringify(data.sectionOrder));
+        suppressSectionSync = false;
+      }
+    });
+
+    cloudReady = true;
+    updateAuthUi();
+    setSyncStatus(`자동 동기화 완료 · ${formatDateTime(new Date())}`, "good");
+  }
+
+  async function handleSignedOut(){
+    recordsUnsubscribe?.();
+    settingsUnsubscribe?.();
+    recordsUnsubscribe = null;
+    settingsUnsubscribe = null;
+    currentUser = null;
+    cloudReady = false;
+    loadedRecordId = null;
+    loadedRecordRevision = 0;
+    sectionOrderRevision = 0;
+    setSyncStatus("Google 로그인 후 PC·핸드폰 자동동기화", "");
+    updateAuthUi();
+  }
+
+  async function handleSignedIn(user){
+    currentUser = user;
+    updateAuthUi();
+    try{
+      await loadInitialCloudState();
+    } catch (error){
+      console.error(error);
+      cloudReady = false;
+      updateAuthUi();
+      setSyncStatus("Firebase 연결 실패 · 규칙과 인터넷 확인", "bad");
+      alert(`Firebase 자료를 불러오지 못했습니다. ${error?.message || "Firestore 보안규칙과 인터넷 연결을 확인해주세요."}`);
+    }
+  }
+
+  document.addEventListener("input", (e) => {
+    if (e.target.matches("[data-rate-type]")){
+      const type = e.target.dataset.rateType;
+      const i = Number(e.target.dataset.rateIndex);
+      const arr = type==="same" ? sameRates : nearRates;
+      arr[i] = parseFloat(e.target.value);
+      update();
+      return;
+    }
+    if (e.target.id === "bidRate"){
+      $("autoApply").checked = false;
+    }
+    update();
+  });
+  document.addEventListener("change", update);
+
+  document.addEventListener("click", (e) => {
+    const move = e.target.closest("[data-move]");
+    if (move){
+      const card = move.closest(".section-card");
+      if (card) moveSection(card, move.dataset.move);
+      return;
+    }
+    const add = e.target.closest("[data-add]");
+    if (add){
+      const type = add.dataset.add;
+      const arr = type==="same" ? sameRates : nearRates;
+      arr.push(78);
+      renderRateRows(type);
+      update();
+      return;
+    }
+    const rem = e.target.closest("[data-remove-type]");
+    if (rem){
+      const type = rem.dataset.removeType;
+      const arr = type==="same" ? sameRates : nearRates;
+      arr.splice(Number(rem.dataset.removeIndex),1);
+      renderRateRows(type);
+      update();
+      return;
+    }
+    const del = e.target.closest("[data-delete-id]");
+    if (del){
+      e.stopPropagation();
+      deleteRecordById(del.dataset.deleteId);
+      return;
+    }
+    const load = e.target.closest("[data-load-id]");
+    if (load){
+      const item = records().find(x=>x.id===load.dataset.loadId);
+      if (item){
+        loadedRecordId = item.id;
+        loadedRecordRevision = Number(item.revision || 0);
+        setState(item.state);
+        window.scrollTo({top:0,behavior:"smooth"});
+      }
+    }
+  });
+
+  $("resetOrderBtn").addEventListener("click", () => {
+    localStorage.removeItem(SECTION_ORDER_KEY);
+    applySectionOrder(DEFAULT_SECTION_ORDER);
+    saveSectionOrder();
+  });
+  $("saveBtn").addEventListener("click", saveCurrent);
+  $("loginBtn").addEventListener("click", async () => {
+    try{
+      setSyncStatus("Google 로그인 창 여는 중…", "warn");
+      await signInWithPopup(auth, googleProvider);
+    } catch (error){
+      console.error(error);
+      if (error?.code === "auth/unauthorized-domain"){
+        alert("GitHub Pages 주소의 도메인을 Firebase Authentication > 설정 > 승인된 도메인에 추가해야 합니다.");
+      } else if (error?.code !== "auth/popup-closed-by-user") {
+        alert(`Google 로그인에 실패했습니다. ${error?.message || "다시 시도해주세요."}`);
+      }
+      setSyncStatus("Google 로그인 후 PC·핸드폰 자동동기화", "");
+    }
+  });
+  $("logoutBtn").addEventListener("click", async () => {
+    if (!confirm("로그아웃할까요? 클라우드 자료는 삭제되지 않습니다.")) return;
+    await signOut(auth);
+  });
+  $("newBtn").addEventListener("click", () => {
+    loadedRecordId = null;
+    loadedRecordRevision = 0;
+    setState({
+      sameRates:[78,78,78],nearRates:[78,78,78],
+      fields:{
+        caseNo:"",propertyName:"",appraisal:"180000000",capital:"44000000",
+        sameWeight:"60",nearWeight:"40",safetyAdjust:"0",bidRate:"78",autoApply:true,
+        trustLoanRate:"60",trustExpenseRate:"7",trustBidCap:"80",trustUseCap:true,
+        mortgageLoanRate:"60",mortgageDeduction:"25000000",mortgageUseDeduction:true,mortgageExpenseRate:"6",mortgageBidCap:"80",mortgageUseCap:true,
+        dsrIncome:"30000000",dsrLimitRate:"50",matongLimit:"26000000",matongRate:"6",matongDsrYears:"5",otherAnnualDebt:"0",
+        householdActualRate:"5",householdStressRate:"0.75",householdTerm:"35",householdLoanRate:"60",householdExpenseRate:"6",householdBidCap:"80",householdUseCap:true,
+        unpaidManagement:"0",extraExpense:"0",saveTitle:""
+      }
+    });
+  });
+  $("printBtn").addEventListener("click", () => window.print());
+  $("exportBtn").addEventListener("click", () => {
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.4",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+  $("importFile").addEventListener("change", async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!requireCloudReady()){
+      e.target.value = "";
+      return;
+    }
+    try{
+      const data = JSON.parse(await file.text());
+      const imported = Array.isArray(data) ? data : data.records;
+      if (!Array.isArray(imported)) throw new Error("records 배열이 없습니다.");
+      if (!confirm(`저장자료 ${imported.length}건을 불러올까요? 같은 ID가 이미 있으면 기존 최신자료를 덮어쓰지 않고 복사본으로 추가합니다.`)) return;
+      setSyncStatus(`백업 ${imported.length}건을 안전하게 가져오는 중…`, "warn");
+      let added = 0;
+      for (const sourceItem of imported){
+        const sourceId = sourceItem.id || (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`);
+        let targetId = sourceId;
+        let ref = recordRef(targetId);
+        let snap = await getDoc(ref);
+        if (snap.exists()){
+          targetId = crypto.randomUUID ? crypto.randomUUID() : `${sourceId}-copy-${Date.now()}-${Math.random().toString(36).slice(2,6)}`;
+          ref = recordRef(targetId);
+        }
+        const title = `${sourceItem.title || "이름 없는 계산"}${targetId !== sourceId ? " (백업복사)" : ""}`;
+        const state = sourceItem.state || {};
+        const now = Date.now();
+        await runTransaction(db, async transaction => {
+          const targetSnap = await transaction.get(ref);
+          if (targetSnap.exists()) throw new SyncConflictError("가져오기 중 ID 충돌");
+          transaction.set(ref, {
+            title,
+            state,
+            revision: 1,
+            deleted: false,
+            checksum: checksum({title,state,deleted:false}),
+            updatedAt: serverTimestamp(),
+            updatedAtMs: now,
+            deviceId,
+            schemaVersion: APP_SCHEMA_VERSION,
+            importedFromBackup: true
+          });
+        });
+        added++;
+      }
+      setSyncStatus(`백업 ${added}건 가져오기 완료 · ${formatDateTime(new Date())}`, "good");
+      alert(`${added}건을 안전하게 불러왔습니다.`);
+    } catch (error){
+      console.error(error);
+      alert(`백업을 불러오지 못했습니다. ${error?.message || "올바른 백업 파일인지 확인해주세요."}`);
+    } finally {
+      e.target.value = "";
+    }
+  });
+
+  loadSectionOrder();
+  renderRateRows("same");
+  renderRateRows("near");
+  renderSaved();
+  update();
+  updateAuthUi();
+
+  window.addEventListener("online", () => {
+    if (currentUser && cloudReady) setSyncStatus("인터넷 연결됨 · 자동 동기화 확인 중…", "warn");
+  });
+  window.addEventListener("offline", () => {
+    setSyncStatus("오프라인 · 계산은 가능하지만 저장은 연결 후 가능", "warn");
+    $("saveBtn").disabled = true;
+  });
+
+  setPersistence(auth, browserLocalPersistence)
+    .catch(error => console.warn("auth persistence", error))
+    .finally(() => {
+      onAuthStateChanged(auth, user => {
+        if (user) handleSignedIn(user);
+        else handleSignedOut();
+      });
+    });
+
+  if ("serviceWorker" in navigator && location.protocol.startsWith("http")){
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js").catch(error => console.warn("service worker", error));
+    });
+  }
+})();
+</script>
+</body>
+</html>

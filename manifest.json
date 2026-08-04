@@ -1,0 +1,23 @@
+{
+  "name": "경매 입찰·대출 자금 계산기",
+  "short_name": "경매계산기",
+  "description": "경매 입찰가율, 대출, DSR, 필요 자기자본 계산과 저장자료 자동동기화",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3f4f6",
+  "theme_color": "#111827",
+  "lang": "ko-KR",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
