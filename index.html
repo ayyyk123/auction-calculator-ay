@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.7</title>
+  <title>경매 입찰·대출 자금 계산기 v1.8</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -286,6 +286,84 @@
       .auth-dialog{padding:15px;border-radius:14px}
       footer{padding:12px 0 4px;font-size:10px}
     }
+
+    .compact-property-grid{
+      display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;margin-top:9px
+    }
+    .compact-property-grid .field{min-width:0}
+    .floor-pair{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:4px}
+    .floor-slash{font-size:11px;color:var(--muted);font-weight:800;text-align:center}
+    .saved-title-line{display:flex;align-items:baseline;gap:7px;min-width:0}
+    .saved-title-line .saved-title{min-width:0}
+    .saved-apartment{
+      color:#475569;font-size:10.5px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:48%
+    }
+    .saved-specs{font-size:10.5px;color:#64748b;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .saved-card-actions{display:flex;align-items:center;gap:5px;margin-left:auto}
+    .actual-ready-pill{
+      display:inline-flex;align-items:center;padding:3px 7px;border-radius:999px;
+      background:#fff7ed;color:#c2410c;font-size:10px;font-weight:900;border:1px solid #fed7aa
+    }
+    .actual-bid-modal{
+      position:fixed;inset:0;z-index:1400;background:#f3f4f6;overflow:auto;padding:12px
+    }
+    .actual-bid-shell{max-width:1240px;margin:0 auto}
+    .actual-bid-header{
+      position:sticky;top:0;z-index:4;background:rgba(243,244,246,.96);backdrop-filter:blur(10px);
+      display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:5px 0 10px
+    }
+    .actual-bid-header h2{font-size:21px;margin:0}
+    .actual-bid-sub{font-size:11px;color:var(--muted);margin-top:3px}
+    .actual-summary{
+      display:flex;flex-wrap:wrap;gap:6px;margin-bottom:9px
+    }
+    .actual-summary .pill{font-size:11px}
+    .actual-inputs{
+      display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px
+    }
+    .actual-inputs .field{min-width:0}
+    .actual-scenarios{
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px
+    }
+    .actual-scenario-input{
+      border:1px solid var(--line);border-radius:11px;padding:9px;background:#f8fafc
+    }
+    .actual-scenario-input strong{display:block;margin-bottom:5px;font-size:12px}
+    .actual-results-wrap{overflow:auto;margin-top:10px;border:1px solid var(--line);border-radius:11px}
+    .actual-results-table{min-width:720px;background:white}
+    .actual-results-table th:first-child,.actual-results-table td:first-child{
+      position:sticky;left:0;background:#f8fafc;z-index:1;font-weight:800
+    }
+    .actual-results-table thead th{background:#dbeafe}
+    .actual-results-table tr.actual-key td{background:#fef9c3;font-weight:900}
+    .actual-results-table tr.actual-profit td{background:#ffedd5;font-weight:900}
+    .actual-results-table tr.actual-loan td:first-child{color:#dc2626}
+    .actual-modal-actions{
+      display:flex;justify-content:flex-end;gap:7px;position:sticky;bottom:0;
+      background:rgba(243,244,246,.96);backdrop-filter:blur(10px);padding:10px 0 5px;margin-top:8px
+    }
+    .actual-helper{
+      font-size:10.5px;color:#64748b;margin-top:7px;line-height:1.45
+    }
+    body.actual-modal-open{overflow:hidden}
+    @media(max-width:900px){
+      .compact-property-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+      .actual-inputs{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+      .actual-bid-modal{padding:7px}
+      .actual-bid-header h2{font-size:18px}
+    }
+    @media(max-width:600px){
+      .compact-property-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+      .compact-property-grid input,.compact-property-grid select{padding:6px 5px;font-size:11.5px}
+      .saved-apartment{max-width:55%;font-size:10px}
+      .actual-inputs{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+      .actual-scenarios{gap:5px}
+      .actual-scenario-input{padding:7px}
+      .actual-scenario-input input{padding:7px 5px;font-size:11.5px}
+      .actual-modal-actions{display:grid;grid-template-columns:1fr 1fr}
+      .actual-modal-actions .btn:first-child{grid-column:1/-1}
+    }
+
     @media print{
       body{background:white}
       .no-print,.sticky-side,header .actions{display:none!important}
@@ -346,9 +424,13 @@
             <label for="caseNo">사건번호</label>
             <input id="caseNo" type="text" placeholder="예: 2025타경30701">
           </div>
+          <div class="field">
+            <label for="apartmentName">아파트명</label>
+            <input id="apartmentName" type="text" placeholder="예: 이편한세상충주">
+          </div>
           <div class="field mobile-span-2">
-            <label for="propertyName">물건명·주소</label>
-            <input id="propertyName" type="text" placeholder="예: 이편한세상충주 119동 1501호">
+            <label for="propertyName">주소</label>
+            <input id="propertyName" type="text" placeholder="예: 충주시 ○○로 00, 119동">
           </div>
           <div class="field">
             <label for="region">물건 지역</label>
@@ -377,6 +459,35 @@
               <input id="capital" type="number" min="0" step="100000" value="44000000">
               <span class="suffix">원</span>
             </div>
+          </div>
+        </div>
+        <div class="compact-property-grid">
+          <div class="field">
+            <label>층 / 최고층</label>
+            <div class="floor-pair">
+              <input id="floorNo" type="number" min="-5" max="200" placeholder="15" aria-label="해당층">
+              <span class="floor-slash">/</span>
+              <input id="maxFloor" type="number" min="1" max="200" placeholder="25" aria-label="최고층">
+            </div>
+          </div>
+          <div class="field"><label for="unitNo">호수</label><input id="unitNo" type="text" placeholder="1501호"></div>
+          <div class="field">
+            <label for="direction">향</label>
+            <input id="direction" type="text" list="directionOptions" placeholder="남동향">
+            <datalist id="directionOptions">
+              <option value="남향"><option value="남동향"><option value="남서향"><option value="동향">
+              <option value="서향"><option value="북향"><option value="북동향"><option value="북서향">
+            </datalist>
+          </div>
+          <div class="field"><label for="roomCount">방</label><input id="roomCount" type="number" min="0" max="20" step="1" placeholder="3"></div>
+          <div class="field"><label for="bathCount">화장실</label><input id="bathCount" type="number" min="0" max="20" step="1" placeholder="2"></div>
+          <div class="field">
+            <label for="apartmentAge">아파트 연식</label>
+            <div class="money-wrap"><input id="apartmentAge" type="number" min="0" max="100" step="1" placeholder="20"><span class="suffix">년</span></div>
+          </div>
+          <div class="field">
+            <label for="exclusiveArea">전용면적</label>
+            <div class="money-wrap"><input id="exclusiveArea" type="number" min="0" max="500" step="0.01" placeholder="84.9"><span class="suffix">㎡</span></div>
           </div>
         </div>
       </section>
@@ -761,7 +872,58 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.7 저장버튼·지역폴더 개선 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.8 물건상세·실제입찰 수익률표 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+</div>
+
+
+<div class="actual-bid-modal no-print" id="actualBidModal" hidden>
+  <div class="actual-bid-shell">
+    <div class="actual-bid-header">
+      <div>
+        <h2>실제 입찰 수익률표</h2>
+        <div class="actual-bid-sub" id="actualBidHeading">저장한 물건의 실제 입찰가격 3개 안을 비교합니다.</div>
+      </div>
+      <button class="btn light" id="actualBidCloseBtn" type="button">닫기</button>
+    </div>
+    <section class="card">
+      <div class="actual-summary" id="actualBidSummary"></div>
+      <div class="actual-inputs">
+        <div class="field"><label for="actualMinPrice">최저가</label><input id="actualMinPrice" data-actual-input type="number" min="0" step="100000"></div>
+        <div class="field"><label for="actualAcquisitionTaxRate">취등록세율</label><div class="money-wrap"><input id="actualAcquisitionTaxRate" data-actual-input type="number" min="0" step="0.01"><span class="suffix">%</span></div></div>
+        <div class="field"><label for="actualLegalFeeMan">법무비</label><div class="money-wrap"><input id="actualLegalFeeMan" data-actual-input type="number" min="0" step="1"><span class="suffix">만원</span></div></div>
+        <div class="field"><label for="actualEvictionFeeMan">명도비</label><div class="money-wrap"><input id="actualEvictionFeeMan" data-actual-input type="number" min="0" step="1"><span class="suffix">만원</span></div></div>
+        <div class="field"><label for="actualRepairFeeMan">수리비</label><div class="money-wrap"><input id="actualRepairFeeMan" data-actual-input type="number" min="0" step="1"><span class="suffix">만원</span></div></div>
+        <div class="field"><label for="actualBrokerRate">매도 중개수수료율</label><div class="money-wrap"><input id="actualBrokerRate" data-actual-input type="number" min="0" step="0.01"><span class="suffix">%</span></div></div>
+        <div class="field"><label for="actualUnpaidManagementMan">미납 관리비</label><div class="money-wrap"><input id="actualUnpaidManagementMan" data-actual-input type="number" min="0" step="1"><span class="suffix">만원</span></div></div>
+        <div class="field"><label for="actualEarlyRepaymentRate">중도상환수수료율</label><div class="money-wrap"><input id="actualEarlyRepaymentRate" data-actual-input type="number" min="0" step="0.01"><span class="suffix">%</span></div></div>
+        <div class="field"><label for="actualInterestRate">대출 연이율</label><div class="money-wrap"><input id="actualInterestRate" data-actual-input type="number" min="0" step="0.01"><span class="suffix">%</span></div></div>
+        <div class="field"><label for="actualHoldingMonths">이자 계산기간</label><div class="money-wrap"><input id="actualHoldingMonths" data-actual-input type="number" min="0" step="1"><span class="suffix">개월</span></div></div>
+        <div class="field"><label for="actualAppraisalLoanRate">감정가 대출비율</label><div class="money-wrap"><input id="actualAppraisalLoanRate" data-actual-input type="number" min="0" step="0.1"><span class="suffix">%</span></div></div>
+        <div class="field"><label for="actualBidLoanRate">낙찰가 대출비율</label><div class="money-wrap"><input id="actualBidLoanRate" data-actual-input type="number" min="0" step="0.1"><span class="suffix">%</span></div></div>
+        <div class="field"><label for="actualSalePrice">매도희망가</label><input id="actualSalePrice" data-actual-input type="number" min="0" step="100000"></div>
+        <div class="field"><label for="actualExpectedIncome">연간 예상 기존소득</label><input id="actualExpectedIncome" data-actual-input type="number" min="0" step="100000"></div>
+      </div>
+      <div class="actual-scenarios">
+        <div class="actual-scenario-input"><strong>1차 입찰안</strong><input id="actualBid1" data-actual-input type="number" min="0" step="100000"></div>
+        <div class="actual-scenario-input"><strong>2차 입찰안</strong><input id="actualBid2" data-actual-input type="number" min="0" step="100000"></div>
+        <div class="actual-scenario-input"><strong>3차 입찰안</strong><input id="actualBid3" data-actual-input type="number" min="0" step="100000"></div>
+      </div>
+      <div class="actual-results-wrap">
+        <table class="actual-results-table">
+          <thead><tr><th>구분</th><th>1차</th><th>2차</th><th>3차</th></tr></thead>
+          <tbody id="actualBidResults"></tbody>
+        </table>
+      </div>
+      <div class="actual-helper">
+        업로드한 엑셀의 계산구조를 옮긴 화면입니다. 취등록세율·대출비율·종합소득세 계산 전제는 실제 입찰 전 세무사·금융사 조건에 맞게 다시 확인하세요.
+      </div>
+    </section>
+    <div class="actual-modal-actions">
+      <button class="btn" id="actualBidSaveBtn" type="button">실제입찰 자료 저장</button>
+      <button class="btn light" id="actualBidClearBtn" type="button">실제입찰 지정 해제</button>
+      <button class="btn light" id="actualBidCloseBottomBtn" type="button">닫기</button>
+    </div>
+  </div>
 </div>
 
 <div class="auth-modal no-print" id="authModal" hidden>
@@ -822,7 +984,7 @@ const db = getFirestore(firebaseApp);
   const SAVED_SORT_KEY = "auctionBidCalculator.savedSort.v1";
   const FOLDER_NAMES_KEY = "auctionBidCalculator.folderNames.v1";
   const DEFAULT_SECTION_ORDER = ["basic","rates","loan","dsr","result"];
-  const APP_SCHEMA_VERSION = 5;
+  const APP_SCHEMA_VERSION = 6;
   const deviceId = localStorage.getItem(DEVICE_ID_KEY) ||
     (crypto.randomUUID ? crypto.randomUUID() : `device-${Date.now()}-${Math.random().toString(36).slice(2)}`);
   localStorage.setItem(DEVICE_ID_KEY, deviceId);
@@ -846,6 +1008,10 @@ const db = getFirestore(firebaseApp);
   let savedSortKey = "auctionDate";
   let savedSortDirection = "asc";
   let toastTimer = null;
+  let currentActualBidData = null;
+  let actualBidRecordId = null;
+  let actualBidBaseRevision = 0;
+  let actualBidDraft = null;
 
   const num = (id) => {
     const v = parseFloat($(id).value);
@@ -897,6 +1063,165 @@ const db = getFirestore(firebaseApp);
   function friendlyUserId(user){
     const email = String(user?.email || "");
     return email.endsWith("@auction-calculator-ay.local") ? email.split("@")[0] : (email || "로그인됨");
+  }
+
+
+  const actualInputIds = [
+    "actualMinPrice","actualAcquisitionTaxRate","actualLegalFeeMan","actualEvictionFeeMan",
+    "actualRepairFeeMan","actualBrokerRate","actualUnpaidManagementMan","actualEarlyRepaymentRate",
+    "actualInterestRate","actualHoldingMonths","actualAppraisalLoanRate","actualBidLoanRate",
+    "actualSalePrice","actualExpectedIncome","actualBid1","actualBid2","actualBid3"
+  ];
+
+  function stateText(item, key, fallback = ""){
+    const value = item?.state?.fields?.[key];
+    return value === undefined || value === null || value === "" ? fallback : String(value);
+  }
+  function recordApartmentName(item){ return stateText(item,"apartmentName",""); }
+  function recordSpecs(item){
+    const f = item?.state?.fields || {};
+    const parts = [];
+    if (f.floorNo || f.maxFloor) parts.push(`${f.floorNo || "-"}층/${f.maxFloor || "-"}층`);
+    if (f.unitNo) parts.push(String(f.unitNo));
+    if (f.direction) parts.push(String(f.direction));
+    if (f.roomCount || f.bathCount) parts.push(`방 ${f.roomCount || "-"} · 욕실 ${f.bathCount || "-"}`);
+    if (f.apartmentAge) parts.push(`${f.apartmentAge}년차`);
+    if (f.exclusiveArea) parts.push(`전용 ${f.exclusiveArea}㎡`);
+    return parts.join(" · ");
+  }
+  function roundHundredThousand(value){ return Math.round((Number(value) || 0) / 100000) * 100000; }
+
+  function defaultActualBid(item){
+    const appraisal = stateNumber(item,"appraisal",0);
+    const bidRate = stateNumber(item,"bidRate",78) / 100;
+    const bid1 = roundHundredThousand(appraisal * bidRate);
+    const saved = item?.state?.actualBid || {};
+    const defaults = {
+      enabled:true,minPrice:roundHundredThousand(appraisal * 0.7),acquisitionTaxRate:1.1,
+      legalFeeMan:150,evictionFeeMan:250,repairFeeMan:200,brokerRate:0.55,
+      unpaidManagementMan:Math.round(stateNumber(item,"unpaidManagement",0) / 10000),
+      earlyRepaymentRate:0.5,interestRate:4.5,holdingMonths:5,
+      appraisalLoanRate:stateNumber(item,"mortgageLoanRate",60),
+      bidLoanRate:stateNumber(item,"mortgageBidCap",80),
+      salePrice:appraisal,expectedIncome:50000000,bid1,
+      bid2:roundHundredThousand(bid1 + 5000000),bid3:roundHundredThousand(bid1 + 10000000)
+    };
+    return {...defaults,...saved,enabled:true};
+  }
+  function actualIncomeTax(income){
+    const x = Math.max(0, Number(income) || 0);
+    if (x <= 14000000) return x * 0.06;
+    if (x <= 50000000) return x * 0.15 - 1260000;
+    if (x <= 88000000) return x * 0.24 - 5760000;
+    if (x <= 150000000) return x * 0.35 - 15440000;
+    if (x <= 300000000) return x * 0.38 - 19940000;
+    if (x <= 500000000) return x * 0.40 - 25940000;
+    if (x <= 1000000000) return x * 0.42 - 35940000;
+    return x * 0.45 - 65940000;
+  }
+  function actualScenario(data, appraisal, bidPrice){
+    const bid = Math.max(0, Number(bidPrice) || 0), minPrice = Math.max(0, Number(data.minPrice) || 0);
+    const salePrice = Math.max(0, Number(data.salePrice) || 0);
+    const acquisitionTax = bid * (Number(data.acquisitionTaxRate) || 0) / 100;
+    const legalFee = (Number(data.legalFeeMan) || 0) * 10000;
+    const evictionFee = (Number(data.evictionFeeMan) || 0) * 10000;
+    const repairFee = (Number(data.repairFeeMan) || 0) * 10000;
+    const brokerFee = salePrice * (Number(data.brokerRate) || 0) / 100;
+    const unpaidManagement = (Number(data.unpaidManagementMan) || 0) * 10000;
+    const loanByAppraisal = appraisal * (Number(data.appraisalLoanRate) || 0) / 100;
+    const loanByBid = bid * (Number(data.bidLoanRate) || 0) / 100;
+    const finalLoan = Math.min(loanByAppraisal, loanByBid);
+    const earlyRepayment = finalLoan * (Number(data.earlyRepaymentRate) || 0) / 100;
+    const interest = finalLoan * (Number(data.interestRate) || 0) / 100 * (Number(data.holdingMonths) || 0) / 12;
+    const extraTotal = acquisitionTax + legalFee + evictionFee + repairFee + brokerFee + unpaidManagement + earlyRepayment + interest;
+    const requiredCapital = bid + extraTotal - finalLoan;
+    const expectedIncome = Math.max(0, Number(data.expectedIncome) || 0);
+    const combinedIncome = expectedIncome + salePrice - bid - extraTotal;
+    const incomeTax = Math.max(0, actualIncomeTax(combinedIncome) - actualIncomeTax(expectedIncome));
+    const profit = salePrice - bid - extraTotal - incomeTax;
+    const roi = requiredCapital > 0 ? profit / requiredCapital : 0;
+    return {bid,bidRate:appraisal?bid/appraisal:0,deposit:minPrice/10,acquisitionTax,legalFee,evictionFee,repairFee,brokerFee,unpaidManagement,earlyRepayment,interest,extraTotal,loanByAppraisal,loanByBid,finalLoan,requiredCapital,salePrice,combinedIncome,incomeTax,profit,roi};
+  }
+  function collectActualBidForm(){
+    const data = {};
+    actualInputIds.forEach(id => {
+      const key = id.replace(/^actual/,"");
+      data[key.charAt(0).toLowerCase()+key.slice(1)] = num(id);
+    });
+    data.enabled = true; data.updatedAtMs = Date.now(); return data;
+  }
+  function fillActualBidForm(data){
+    const map = {actualMinPrice:"minPrice",actualAcquisitionTaxRate:"acquisitionTaxRate",actualLegalFeeMan:"legalFeeMan",actualEvictionFeeMan:"evictionFeeMan",actualRepairFeeMan:"repairFeeMan",actualBrokerRate:"brokerRate",actualUnpaidManagementMan:"unpaidManagementMan",actualEarlyRepaymentRate:"earlyRepaymentRate",actualInterestRate:"interestRate",actualHoldingMonths:"holdingMonths",actualAppraisalLoanRate:"appraisalLoanRate",actualBidLoanRate:"bidLoanRate",actualSalePrice:"salePrice",actualExpectedIncome:"expectedIncome",actualBid1:"bid1",actualBid2:"bid2",actualBid3:"bid3"};
+    Object.entries(map).forEach(([id,key]) => { $(id).value = data?.[key] ?? ""; });
+  }
+  function actualResultRows(results){
+    const rows = [
+      ["입찰가격",r=>won(r.bid),""],["입찰가율(감정가)",r=>pct(r.bidRate*100),""],["입찰보증금",r=>won(r.deposit),""],
+      ["취등록세",r=>won(r.acquisitionTax),""],["법무비",r=>won(r.legalFee),""],["명도비",r=>won(r.evictionFee),""],
+      ["수리비",r=>won(r.repairFee),""],["중개수수료(매매)",r=>won(r.brokerFee),""],["미납 관리비",r=>won(r.unpaidManagement),""],
+      ["중도상환수수료",r=>won(r.earlyRepayment),""],["대출이자",r=>won(r.interest),""],["추가비용총계",r=>won(r.extraTotal),"actual-key"],
+      ["대출금(감정가)",r=>won(r.loanByAppraisal),"actual-loan"],["대출금(낙찰가)",r=>won(r.loanByBid),"actual-loan"],["대출 최종",r=>won(r.finalLoan),"actual-loan"],
+      ["최종 필요 종잣돈",r=>won(r.requiredCapital),"actual-key"],["매도희망가",r=>won(r.salePrice),""],
+      ["예상 기존소득+경매소득",r=>won(r.combinedIncome),"actual-profit"],["소득세",r=>won(r.incomeTax),"actual-profit"],
+      ["즉시매도시 순수익",r=>won(r.profit),"actual-key"],["즉시매도 수익률",r=>pct(r.roi*100),"actual-profit"]
+    ];
+    return rows.map(([name,formatter,cls])=>`<tr class="${cls}"><td>${name}</td>${results.map(r=>`<td>${formatter(r)}</td>`).join("")}</tr>`).join("");
+  }
+  function renderActualBidResults(){
+    if (!actualBidRecordId || $("actualBidModal").hidden) return;
+    const item = rawLocalRecords().find(x=>x.id===actualBidRecordId); if (!item) return;
+    actualBidDraft = collectActualBidForm();
+    const appraisal = stateNumber(item,"appraisal",0);
+    const results = [actualScenario(actualBidDraft,appraisal,actualBidDraft.bid1),actualScenario(actualBidDraft,appraisal,actualBidDraft.bid2),actualScenario(actualBidDraft,appraisal,actualBidDraft.bid3)];
+    $("actualBidResults").innerHTML = actualResultRows(results);
+  }
+  function openActualBid(id){
+    if (!requireCloudReady()) return;
+    const item = rawLocalRecords().find(x=>x.id===id&&!x.deleted); if (!item) return;
+    actualBidRecordId=id; actualBidBaseRevision=Number(item.revision||0); actualBidDraft=defaultActualBid(item); fillActualBidForm(actualBidDraft);
+    const apt=recordApartmentName(item), caseNo=stateText(item,"caseNo",item.title||""), specs=recordSpecs(item);
+    $("actualBidHeading").textContent=`${caseNo}${apt?` · ${apt}`:""}`;
+    $("actualBidSummary").innerHTML=[`<span class="pill">사건 ${escapeHtml(caseNo||"-")}</span>`,apt?`<span class="pill">아파트 ${escapeHtml(apt)}</span>`:"",`<span class="pill">감정가 ${shortWon(stateNumber(item,"appraisal",0))}</span>`,specs?`<span class="pill">${escapeHtml(specs)}</span>`:""].join("");
+    $("actualBidModal").hidden=false; document.body.classList.add("actual-modal-open"); renderActualBidResults(); window.scrollTo({top:0});
+  }
+  function closeActualBid(){ $("actualBidModal").hidden=true; document.body.classList.remove("actual-modal-open"); actualBidRecordId=null; actualBidBaseRevision=0; actualBidDraft=null; }
+  async function saveActualBid(){
+    if (!requireCloudReady() || !actualBidRecordId) return;
+    const data=collectActualBidForm(); if (![data.bid1,data.bid2,data.bid3].some(v=>v>0)){alert("입찰가격을 한 개 이상 입력해주세요.");return;}
+    const now=Date.now(); $("actualBidSaveBtn").disabled=true; setSyncStatus("실제입찰 자료 최신 버전 확인 후 저장 중…","warn");
+    try{
+      const saved=await runTransaction(db,async transaction=>{
+        const ref=recordRef(actualBidRecordId),snap=await transaction.get(ref); if(!snap.exists()) throw new Error("저장자료를 찾을 수 없습니다.");
+        const cloud=snap.data(),cloudRevision=Number(cloud.revision||0); if(cloudRevision!==actualBidBaseRevision) throw new SyncConflictError();
+        const state={...(cloud.state||{}),actualBid:data}; const next={...cloud,state,revision:cloudRevision+1,deleted:false,checksum:checksum({title:cloud.title,state,deleted:false}),updatedAt:serverTimestamp(),updatedAtMs:now,deviceId,schemaVersion:APP_SCHEMA_VERSION};
+        transaction.set(ref,next,{merge:false}); return normalizeCloudRecord(actualBidRecordId,next);
+      });
+      upsertLocalRecord(saved); actualBidBaseRevision=Number(saved.revision||0); actualBidDraft=data;
+      if(loadedRecordId===saved.id){loadedRecordRevision=Number(saved.revision||0);currentActualBidData=data;}
+      setSyncStatus(`자동 동기화 완료 · ${formatDateTime(new Date())}`,"good"); showToast("실제입찰 자료 저장 완료"); renderSaved();
+    }catch(error){
+      if(error instanceof SyncConflictError){await refreshRecordFromCloud(actualBidRecordId);alert("다른 기기에서 이 물건을 먼저 수정해 덮어쓰기를 막았습니다. 화면을 닫고 최신자료를 다시 열어주세요.");}
+      else{console.error(error);alert(`실제입찰 자료를 저장하지 못했습니다. ${error?.message||""}`);}
+    }finally{$("actualBidSaveBtn").disabled=false;}
+  }
+  async function clearActualBid(){
+    if(!requireCloudReady()||!actualBidRecordId)return;
+    if(!confirm("이 물건의 실제입찰 수익률표 입력값을 삭제하고 실제입찰 지정을 해제할까요?"))return;
+    const now=Date.now();
+    try{
+      const saved=await runTransaction(db,async transaction=>{
+        const ref=recordRef(actualBidRecordId),snap=await transaction.get(ref);if(!snap.exists())throw new Error("저장자료를 찾을 수 없습니다.");
+        const cloud=snap.data(),cloudRevision=Number(cloud.revision||0);if(cloudRevision!==actualBidBaseRevision)throw new SyncConflictError();
+        const state={...(cloud.state||{})};delete state.actualBid;
+        const next={...cloud,state,revision:cloudRevision+1,deleted:false,checksum:checksum({title:cloud.title,state,deleted:false}),updatedAt:serverTimestamp(),updatedAtMs:now,deviceId,schemaVersion:APP_SCHEMA_VERSION};
+        transaction.set(ref,next,{merge:false});return normalizeCloudRecord(actualBidRecordId,next);
+      });
+      upsertLocalRecord(saved);if(loadedRecordId===saved.id){loadedRecordRevision=Number(saved.revision||0);currentActualBidData=null;}
+      showToast("실제입찰 지정을 해제했습니다.");closeActualBid();renderSaved();
+    }catch(error){
+      if(error instanceof SyncConflictError){await refreshRecordFromCloud(actualBidRecordId);alert("다른 기기의 최신 수정사항이 있어 해제를 중단했습니다.");}
+      else{console.error(error);alert("실제입찰 지정을 해제하지 못했습니다.");}
+    }
   }
 
   function setSaveButtonsDisabled(disabled){
@@ -1296,7 +1621,7 @@ const db = getFirestore(firebaseApp);
 
   function getState(){
     const ids = [
-      "caseNo","propertyName","region","auctionDate","appraisal","capital","sameWeight","nearWeight","safetyAdjust",
+      "caseNo","apartmentName","propertyName","region","auctionDate","floorNo","maxFloor","unitNo","direction","roomCount","bathCount","apartmentAge","exclusiveArea","appraisal","capital","sameWeight","nearWeight","safetyAdjust",
       "bidRate","autoApply","trustLoanRate","trustExpenseRate","trustBidCap","trustUseCap",
       "mortgageLoanRate","mortgageDeduction","mortgageUseDeduction","mortgageExpenseRate","mortgageBidCap","mortgageUseCap",
       "dsrIncome","dsrLimitRate","matongLimit","matongRate","matongDsrYears","otherAnnualDebt",
@@ -1308,7 +1633,7 @@ const db = getFirestore(firebaseApp);
       const el = $(id);
       fields[id] = el.type === "checkbox" ? el.checked : el.value;
     });
-    return {fields, sameRates:[...sameRates], nearRates:[...nearRates]};
+    return {fields, sameRates:[...sameRates], nearRates:[...nearRates], actualBid:currentActualBidData ? {...currentActualBidData} : null};
   }
 
   function setState(state){
@@ -1317,6 +1642,10 @@ const db = getFirestore(firebaseApp);
     if (state.fields.region === undefined) state.fields.region = "";
     if (state.fields.saveFolder === undefined) state.fields.saveFolder = state.fields.region || "";
     if (state.fields.auctionDate === undefined) state.fields.auctionDate = "";
+    ["apartmentName","floorNo","maxFloor","unitNo","direction","roomCount","bathCount","apartmentAge","exclusiveArea"].forEach(key => {
+      if (state.fields[key] === undefined) state.fields[key] = "";
+    });
+    currentActualBidData = state.actualBid ? {...state.actualBid} : null;
     if (state.fields.mortgageDeduction === undefined) state.fields.mortgageDeduction = "25000000";
     if (state.fields.mortgageUseDeduction === undefined) state.fields.mortgageUseDeduction = true;
     if (state.fields.mortgageLoanRate === undefined || state.fields.mortgageLoanRate === "50") state.fields.mortgageLoanRate = "60";
@@ -1635,18 +1964,29 @@ const db = getFirestore(firebaseApp);
       const date = recordAuctionDate(item).raw;
       const folder = recordFolder(item);
       const region = recordRegion(item);
+      const apartmentName = recordApartmentName(item);
+      const specs = recordSpecs(item);
+      const actualReady = !!item?.state?.actualBid?.enabled;
       return `<div class="saved-item" data-load-id="${item.id}">
-        <div class="saved-title">${escapeHtml(item.title)}</div>
+        <div class="saved-title-line">
+          <div class="saved-title">${escapeHtml(item.title)}</div>
+          ${apartmentName ? `<div class="saved-apartment">${escapeHtml(apartmentName)}</div>` : ""}
+        </div>
         <div class="saved-tags">
           <span class="region-pill">폴더 ${escapeHtml(folder)}</span>
           <span class="pill">지역 ${escapeHtml(region)}</span>
           <span class="date-pill">경매 ${date || "미입력"}</span>
           <span class="equity-pill">최소자본 ${shortWon(metrics.minEquity)}</span>
+          ${actualReady ? `<span class="actual-ready-pill">실제입찰 입력됨</span>` : ""}
         </div>
+        ${specs ? `<div class="saved-specs">${escapeHtml(specs)}</div>` : ""}
         <div class="saved-meta">감정가 ${shortWon(metrics.appraisal)} · 입찰 ${pct(metrics.bidRate*100)} · ${formatDateTime(item.updatedAtMs)} · 수정 ${Number(item.revision||0)}회</div>
         <div class="saved-bottom">
           <span class="pill">가계 ${shortWon(metrics.householdEquity)} · 신탁 ${shortWon(metrics.trustEquity)}</span>
-          <button class="icon-btn no-print" style="width:42px;height:30px" data-delete-id="${item.id}">삭제</button>
+          <div class="saved-card-actions no-print">
+            <button class="btn secondary" type="button" data-actual-bid-id="${item.id}">${actualReady ? "실제입찰 수정" : "실제입찰"}</button>
+            <button class="icon-btn" style="width:42px;height:30px" data-delete-id="${item.id}">삭제</button>
+          </div>
         </div>
       </div>`;
     }).join("");
@@ -2145,6 +2485,10 @@ const db = getFirestore(firebaseApp);
   }
 
   document.addEventListener("input", (e) => {
+    if (e.target.matches("[data-actual-input]")){
+      renderActualBidResults();
+      return;
+    }
     if (e.target.matches("[data-rate-type]")){
       const type = e.target.dataset.rateType;
       const i = Number(e.target.dataset.rateIndex);
@@ -2158,7 +2502,10 @@ const db = getFirestore(firebaseApp);
     }
     update();
   });
-  document.addEventListener("change", update);
+  document.addEventListener("change", (e) => {
+    if (e.target.matches("[data-actual-input]")) renderActualBidResults();
+    else update();
+  });
 
   document.addEventListener("click", (e) => {
     const collapse = e.target.closest("[data-collapse]");
@@ -2211,6 +2558,12 @@ const db = getFirestore(firebaseApp);
       update();
       return;
     }
+    const actual = e.target.closest("[data-actual-bid-id]");
+    if (actual){
+      e.stopPropagation();
+      openActualBid(actual.dataset.actualBidId);
+      return;
+    }
     const del = e.target.closest("[data-delete-id]");
     if (del){
       e.stopPropagation();
@@ -2251,6 +2604,11 @@ const db = getFirestore(firebaseApp);
   $("mobileSaveBtn").addEventListener("click", saveCurrent);
   $("syncAllBtn").addEventListener("click", saveAllLatestData);
   $("createFolderBtn").addEventListener("click", createFolder);
+  $("actualBidSaveBtn").addEventListener("click", saveActualBid);
+  $("actualBidClearBtn").addEventListener("click", clearActualBid);
+  $("actualBidCloseBtn").addEventListener("click", closeActualBid);
+  $("actualBidCloseBottomBtn").addEventListener("click", closeActualBid);
+  $("actualBidModal").addEventListener("click", e => { if (e.target === $("actualBidModal")) closeActualBid(); });
   $("loginBtn").addEventListener("click", () => {
     $("authModal").hidden = false;
     setTimeout(() => $("authId").focus(), 0);
@@ -2301,7 +2659,7 @@ const db = getFirestore(firebaseApp);
     setState({
       sameRates:[78,78,78],nearRates:[78,78,78],
       fields:{
-        caseNo:"",propertyName:"",region:"",saveFolder:"",auctionDate:"",appraisal:"180000000",capital:"44000000",
+        caseNo:"",apartmentName:"",propertyName:"",region:"",saveFolder:"",auctionDate:"",floorNo:"",maxFloor:"",unitNo:"",direction:"",roomCount:"",bathCount:"",apartmentAge:"",exclusiveArea:"",appraisal:"180000000",capital:"44000000",
         sameWeight:"60",nearWeight:"40",safetyAdjust:"0",bidRate:"78",autoApply:true,
         trustLoanRate:"60",trustExpenseRate:"7",trustBidCap:"80",trustUseCap:true,
         mortgageLoanRate:"60",mortgageDeduction:"25000000",mortgageUseDeduction:true,mortgageExpenseRate:"6",mortgageBidCap:"80",mortgageUseCap:true,
@@ -2313,7 +2671,7 @@ const db = getFirestore(firebaseApp);
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.7",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.8",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
