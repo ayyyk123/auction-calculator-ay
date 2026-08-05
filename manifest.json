@@ -1,7 +1,7 @@
 {
   "name": "경매 입찰·대출 자금 계산기",
   "short_name": "경매계산기",
-  "description": "경매 입찰·대출 자금 계산기 v1.10.3 - 고민중 실제입찰·경매기일 검색",
+  "description": "경매 입찰·대출 자금 계산기 v1.10.4 - 입력글자 선택 수정",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

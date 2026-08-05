@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.10.3</title>
+  <title>경매 입찰·대출 자금 계산기 v1.10.4</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -76,6 +76,10 @@
     input[type="text"],input[type="search"],input[type="number"],input[type="date"],input[type="password"],select{
       width:100%;border:1px solid #d1d5db;border-radius:10px;padding:9px 10px;font-size:13px;
       background:#fff;color:var(--text);outline:none;
+    }
+    input,textarea{
+      user-select:text!important;
+      -webkit-user-select:text!important;
     }
     input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
     .money-wrap{position:relative}
@@ -619,7 +623,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.10.3</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.10.4</span></h1>
       <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -652,14 +656,14 @@
         <button class="btn light" type="button" id="expandAllBtn">전체 펴기</button>
         <button class="btn light" type="button" id="resetOrderBtn">순서 초기화</button>
       </div>
-      <section class="card section-card" data-section-id="basic" draggable="true">
+      <section class="card section-card" data-section-id="basic">
         <div class="section-head">
           <h2><span class="section-number"></span>물건 기본정보</h2>
           <div class="section-controls no-print">
             <button class="move-btn" type="button" data-move="up" title="위로 이동">↑</button>
             <button class="move-btn" type="button" data-move="down" title="아래로 이동">↓</button>
             <button class="collapse-btn" type="button" data-collapse>접기</button>
-            <span class="drag-handle" title="끌어서 순서 변경">⠿</span>
+            <span class="drag-handle" draggable="true" title="끌어서 순서 변경">⠿</span>
           </div>
         </div>
         <div class="grid2">
@@ -759,14 +763,14 @@
         </div>
       </section>
 
-      <section class="card section-card" data-section-id="rates" draggable="true">
+      <section class="card section-card" data-section-id="rates">
         <div class="section-head">
           <h2><span class="section-number"></span>최근 낙찰가율 입력</h2>
           <div class="section-controls no-print">
             <button class="move-btn" type="button" data-move="up" title="위로 이동">↑</button>
             <button class="move-btn" type="button" data-move="down" title="아래로 이동">↓</button>
             <button class="collapse-btn" type="button" data-collapse>접기</button>
-            <span class="drag-handle" title="끌어서 순서 변경">⠿</span>
+            <span class="drag-handle" draggable="true" title="끌어서 순서 변경">⠿</span>
           </div>
         </div>
         <div class="grid2">
@@ -828,14 +832,14 @@
         </div>
       </section>
 
-      <section class="card section-card" data-section-id="loan" draggable="true">
+      <section class="card section-card" data-section-id="loan">
         <div class="section-head">
           <h2><span class="section-number"></span>대출·경비 조건</h2>
           <div class="section-controls no-print">
             <button class="move-btn" type="button" data-move="up" title="위로 이동">↑</button>
             <button class="move-btn" type="button" data-move="down" title="아래로 이동">↓</button>
             <button class="collapse-btn" type="button" data-collapse>접기</button>
-            <span class="drag-handle" title="끌어서 순서 변경">⠿</span>
+            <span class="drag-handle" draggable="true" title="끌어서 순서 변경">⠿</span>
           </div>
         </div>
         <div class="grid2">
@@ -916,14 +920,14 @@
         <div class="helper">기타 추가지출에는 별도로 잡고 싶은 명도비, 특수수리비, 체납공과금 등을 넣으면 됩니다.</div>
       </section>
 
-      <section class="card section-card" data-section-id="dsr" draggable="true">
+      <section class="card section-card" data-section-id="dsr">
         <div class="section-head">
           <h2><span class="section-number"></span>가계대출 DSR 계산</h2>
           <div class="section-controls no-print">
             <button class="move-btn" type="button" data-move="up" title="위로 이동">↑</button>
             <button class="move-btn" type="button" data-move="down" title="아래로 이동">↓</button>
             <button class="collapse-btn" type="button" data-collapse>접기</button>
-            <span class="drag-handle" title="끌어서 순서 변경">⠿</span>
+            <span class="drag-handle" draggable="true" title="끌어서 순서 변경">⠿</span>
           </div>
         </div>
         <div class="grid3">
@@ -1019,14 +1023,14 @@
         </div>
       </section>
 
-      <section class="card section-card" data-section-id="result" draggable="true">
+      <section class="card section-card" data-section-id="result">
         <div class="section-head">
           <h2><span class="section-number"></span>계산 결과</h2>
           <div class="section-controls no-print">
             <button class="move-btn" type="button" data-move="up" title="위로 이동">↑</button>
             <button class="move-btn" type="button" data-move="down" title="아래로 이동">↓</button>
             <button class="collapse-btn" type="button" data-collapse>접기</button>
-            <span class="drag-handle" title="끌어서 순서 변경">⠿</span>
+            <span class="drag-handle" draggable="true" title="끌어서 순서 변경">⠿</span>
           </div>
         </div>
         <div class="compare">
@@ -1188,7 +1192,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.10.3 고민중 실제입찰·경매기일 검색 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.10.4 입력글자 선택 수정 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -1918,7 +1922,9 @@ const db = getFirestore(firebaseApp);
   let draggedSection = null;
 
   document.addEventListener("dragstart", (e) => {
-    const card = e.target.closest(".section-card");
+    const handle = e.target.closest(".drag-handle");
+    if (!handle) return;
+    const card = handle.closest(".section-card");
     if (!card) return;
     draggedSection = card;
     card.classList.add("dragging");
@@ -3808,7 +3814,7 @@ const db = getFirestore(firebaseApp);
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.10.3",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.10.4",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
