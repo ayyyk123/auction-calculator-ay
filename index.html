@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.10.4</title>
+  <title>경매 입찰·대출 자금 계산기 v1.10.5</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -623,7 +623,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.10.4</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.10.5</span></h1>
       <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -676,12 +676,12 @@
             <input id="apartmentName" type="text" placeholder="예: 이편한세상충주">
           </div>
           <div class="field mobile-span-2">
-            <label for="propertyName">주소</label>
-            <input id="propertyName" type="text" placeholder="예: 충주시 ○○로 00, 119동">
+            <label for="propertyName">도로명주소</label>
+            <input id="propertyName" type="text" placeholder="예: 경상북도 구미시 인동○○로 00, 101동">
           </div>
           <div class="field">
-            <label for="region">물건 지역</label>
-            <input id="region" type="text" list="regionOptions" placeholder="예: 충북 충주시">
+            <label for="region">지번주소</label>
+            <input id="region" type="text" list="regionOptions" placeholder="예: 경상북도 구미시 인의동 578">
             <datalist id="regionOptions">
               <option value="서울"><option value="경기"><option value="인천"><option value="강원">
               <option value="대전"><option value="세종"><option value="충북"><option value="충남">
@@ -1192,7 +1192,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.10.4 입력글자 선택 수정 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.10.5 도로명주소·지번주소 구분 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -3814,7 +3814,7 @@ const db = getFirestore(firebaseApp);
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.10.4",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.10.5",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
