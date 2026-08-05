@@ -11,21 +11,24 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.9.2</title>
+  <title>경매 입찰·대출 자금 계산기 v1.9.3</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
       --line:#e5e7eb; --accent:#2563eb; --good:#047857; --bad:#b91c1c;
       --trust:#7c3aed; --mortgage:#0369a1; --household:#047857; --soft:#f8fafc;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
     *{box-sizing:border-box}
     body{
       margin:0; background:var(--bg); color:var(--text);
       font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Segoe UI",sans-serif;
       font-size:14px;line-height:1.4;
+      min-height:100vh;
     }
     button,input,select{font:inherit}
-    .app{max-width:1400px;margin:0 auto;padding:14px}
+    .app{max-width:1400px;margin:0 auto;padding:calc(12px + var(--safe-top)) 14px calc(18px + var(--safe-bottom))}
     header{
       display:flex;justify-content:space-between;align-items:flex-start;gap:12px;
       margin-bottom:12px;
@@ -156,7 +159,7 @@
     .saved-bottom{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:9px}
     .pill{font-size:11px;padding:4px 7px;border-radius:999px;background:#eef2ff;color:#3730a3;font-weight:800}
     .empty{padding:24px 10px;text-align:center;color:var(--muted);font-size:13px}
-    .sticky-side{position:sticky;top:12px;align-self:start}
+    .sticky-side{position:sticky;top:calc(12px + var(--safe-top));align-self:start}
     .toggle{display:flex;align-items:center;gap:7px;font-size:12px;color:#374151}
     .toggle input{width:18px;height:18px}
     .maxapp{margin-top:9px;padding:9px;border-radius:11px;background:#fffbeb;border:1px solid #fde68a}
@@ -178,7 +181,8 @@
       border:1px solid #93c5fd!important;background:#dbeafe!important;color:#1d4ed8!important;
       white-space:nowrap!important;opacity:1
     }
-    #changeEmailBtn:disabled{display:inline-flex!important;visibility:visible!important;opacity:.45}    .tools-details{width:100%}
+    #changeEmailBtn:disabled{display:inline-flex!important;visibility:visible!important;opacity:.45}
+    .tools-details{width:100%}
     .tools-details summary{cursor:pointer;color:#475569;font-size:12px;font-weight:800;text-align:right;list-style:none}
     .tools-details summary::-webkit-details-marker{display:none}
     .tools-details[open] summary{margin-bottom:7px}
@@ -228,14 +232,14 @@
     }
     @media(max-width:700px){
       body{font-size:12.5px;line-height:1.32}
-      .app{padding:6px 6px 82px}
+      .app{padding:calc(12px + var(--safe-top)) 7px calc(106px + var(--safe-bottom))}
       header{display:block;margin-bottom:8px}
       h1{font-size:19px;gap:5px}
       .version-badge{font-size:9.5px;padding:2px 6px}
-      .email-edit-top{font-size:10.5px!important;padding:6px 8px!important}
+      .email-edit-top{font-size:10px!important;padding:6px 7px!important;min-height:34px}
       .sub{display:none}
       .auth-panel{align-items:stretch;margin-top:7px;min-width:0;gap:5px}
-      .auth-row{justify-content:space-between;gap:5px}
+      .auth-row{justify-content:space-between;gap:5px;align-items:center}
       .sync-status{text-align:left;font-size:10.5px}
       .header-tools-row{justify-content:flex-start;align-items:center}
       .header-tools-row .tools-details{flex:0 1 auto}
@@ -292,7 +296,7 @@
       .saved-bottom{margin-top:6px}
       .pill,.region-pill,.date-pill,.equity-pill{font-size:10px}
       .sticky-side{position:static}
-      .mobile-save-bar{position:fixed;display:grid;grid-template-columns:1fr auto;gap:7px;left:7px;right:7px;bottom:calc(7px + env(safe-area-inset-bottom));z-index:900;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);padding:7px;border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 30px rgba(15,23,42,.18)}
+      .mobile-save-bar{position:fixed;display:grid;grid-template-columns:1fr auto;gap:7px;left:7px;right:7px;bottom:calc(7px + var(--safe-bottom));z-index:900;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);padding:7px;border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 30px rgba(15,23,42,.18)}
       .mobile-save-bar .btn{font-size:12px;padding:10px 10px}
       .auth-dialog{padding:15px;border-radius:14px}
       footer{padding:12px 0 4px;font-size:10px}
@@ -316,12 +320,14 @@
       background:#fff7ed;color:#c2410c;font-size:10px;font-weight:900;border:1px solid #fed7aa
     }
     .actual-bid-modal{
-      position:fixed;inset:0;z-index:1400;background:#f3f4f6;overflow:auto;padding:12px
+      position:fixed;inset:0;z-index:1400;background:#f3f4f6;overflow:auto;
+      padding:calc(10px + var(--safe-top)) 12px calc(12px + var(--safe-bottom))
     }
-    .actual-bid-shell{max-width:1240px;margin:0 auto}
+    .actual-bid-shell{max-width:1240px;margin:0 auto;padding-bottom:calc(104px + var(--safe-bottom))}
     .actual-bid-header{
       position:sticky;top:0;z-index:4;background:rgba(243,244,246,.96);backdrop-filter:blur(10px);
-      display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:5px 0 10px
+      display:flex;justify-content:space-between;align-items:flex-start;gap:10px;
+      padding:6px 0 10px;border-bottom:1px solid rgba(203,213,225,.6);margin-bottom:8px
     }
     .actual-bid-header h2{font-size:21px;margin:0}
     .actual-bid-sub{font-size:11px;color:var(--muted);margin-top:3px}
@@ -340,7 +346,7 @@
       border:1px solid var(--line);border-radius:11px;padding:9px;background:#f8fafc
     }
     .actual-scenario-input strong{display:block;margin-bottom:5px;font-size:12px}
-    .actual-results-wrap{overflow:auto;margin-top:10px;border:1px solid var(--line);border-radius:11px}
+    .actual-results-wrap{overflow:auto;margin-top:10px;border:1px solid var(--line);border-radius:11px;background:#fff}
     .actual-results-table{min-width:720px;background:white}
     .actual-results-table th:first-child,.actual-results-table td:first-child{
       position:sticky;left:0;background:#f8fafc;z-index:1;font-weight:800
@@ -350,8 +356,10 @@
     .actual-results-table tr.actual-profit td{background:#ffedd5;font-weight:900}
     .actual-results-table tr.actual-loan td:first-child{color:#dc2626}
     .actual-modal-actions{
-      display:flex;justify-content:flex-end;gap:7px;position:sticky;bottom:0;
-      background:rgba(243,244,246,.96);backdrop-filter:blur(10px);padding:10px 0 5px;margin-top:8px
+      display:flex;justify-content:flex-end;gap:7px;position:sticky;bottom:0;z-index:5;
+      background:rgba(243,244,246,.98);backdrop-filter:blur(12px);
+      border-top:1px solid rgba(203,213,225,.7);padding:10px 0 calc(12px + var(--safe-bottom));
+      margin-top:10px;box-shadow:0 -8px 24px rgba(15,23,42,.08)
     }
     .actual-helper{
       font-size:10.5px;color:#64748b;margin-top:7px;line-height:1.45
@@ -390,12 +398,21 @@
       .compact-property-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
       .compact-property-grid input,.compact-property-grid select{padding:6px 5px;font-size:11.5px}
       .saved-apartment{max-width:55%;font-size:10px}
+      .actual-bid-modal{padding:calc(10px + var(--safe-top)) 8px calc(10px + var(--safe-bottom))}
+      .actual-bid-shell{padding-bottom:calc(128px + var(--safe-bottom))}
+      .actual-bid-header{padding-top:4px;gap:8px}
+      .actual-bid-header h2{font-size:17px;line-height:1.15}
+      .actual-bid-sub{font-size:10px;line-height:1.3}
+      .actual-summary{margin-bottom:7px}
+      .actual-summary .pill{font-size:10px;padding:4px 6px}
       .actual-inputs{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
       .actual-scenarios{gap:5px}
       .actual-scenario-input{padding:7px}
       .actual-scenario-input input{padding:7px 5px;font-size:11.5px}
-      .actual-modal-actions{display:grid;grid-template-columns:1fr 1fr}
+      .actual-results-wrap{margin-top:8px;border-radius:10px}
+      .actual-modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 0 calc(16px + var(--safe-bottom))}
       .actual-modal-actions .btn:first-child{grid-column:1/-1}
+      .actual-modal-actions .btn{min-height:42px}
       .actual-mode-select{min-width:50px;font-size:9.5px;padding:3px 4px}
       .actual-auto-note{font-size:9px}
       .actual-income-manual input{font-size:9.5px!important;padding:6px 3px!important}
@@ -414,7 +431,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.9.2</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.9.3</span></h1>
       <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -910,7 +927,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.9.2 버전표시·이메일수정버튼 확정 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.9.3 모바일 안전영역·하단버튼 개선 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
