@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.10.2</title>
+  <title>경매 입찰·대출 자금 계산기 v1.10.3</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -157,13 +157,18 @@
     thead th{background:#f8fafc;color:#475569}
     .saved-list{display:grid;gap:7px;max-height:58vh;overflow:auto;padding-right:2px}
     .saved-search-row{
-      display:grid;grid-template-columns:minmax(0,1fr) 34px;gap:6px;margin-top:10px
+      display:grid;grid-template-columns:minmax(0,1fr) minmax(124px,146px) 34px;
+      gap:6px;margin-top:10px
     }
     .saved-search-wrap{position:relative}
     .saved-search-wrap input{padding-left:33px;padding-right:9px}
     .saved-search-icon{
       position:absolute;left:10px;top:50%;transform:translateY(-50%);
       color:#64748b;font-size:14px;pointer-events:none
+    }
+    .saved-date-filter{
+      width:100%;height:34px;padding:5px 7px;border:1px solid #d1d5db;
+      border-radius:9px;background:#fff;color:#334155;font-size:11px;font-weight:800
     }
     .saved-search-clear{
       width:34px;height:34px;padding:0;border:1px solid var(--line);
@@ -386,8 +391,13 @@
         max-height:calc(100dvh - 255px);min-height:300px;overflow:auto
       }
       .saved-editor-toggle{font-size:10px;padding:6px 8px}
-      .saved-search-row{margin-top:8px;grid-template-columns:minmax(0,1fr) 31px;gap:5px}
+      .saved-search-row{
+        margin-top:8px;
+        grid-template-columns:minmax(0,1fr) minmax(112px,126px) 31px;
+        gap:5px
+      }
       .saved-search-wrap input{font-size:12px;padding-left:30px}
+      .saved-date-filter{height:31px;padding:4px 5px;font-size:9.8px;border-radius:8px}
       .saved-search-icon{left:9px;font-size:13px}
       .saved-search-clear{width:31px;height:31px;border-radius:8px}
       .decision-filter-btn{font-size:9.5px;padding:6px 2px}
@@ -609,7 +619,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.10.2</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.10.3</span></h1>
       <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -1131,8 +1141,10 @@
             <input id="savedSearchInput" type="search" autocomplete="off" spellcheck="false"
                    placeholder="사건번호 또는 아파트명 검색" aria-label="저장내역 검색">
           </div>
+          <input class="saved-date-filter" id="savedAuctionDateFilter" type="date"
+                 aria-label="경매기일로 저장내역 검색" title="경매기일로 검색">
           <button class="saved-search-clear" id="savedSearchClearBtn" type="button"
-                  aria-label="검색어 지우기" title="검색어 지우기" hidden>×</button>
+                  aria-label="검색조건 지우기" title="검색조건 지우기" hidden>×</button>
         </div>
 
         <div class="saved-toolbar">
@@ -1176,7 +1188,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.10.2 매도희망가 근거·부동산조사 알림 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.10.3 고민중 실제입찰·경매기일 검색 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -1393,6 +1405,7 @@ const db = getFirestore(firebaseApp);
   let savedSortKey = "auctionDate";
   let savedSortDirection = "asc";
   let savedSearchQuery = "";
+  let savedAuctionDateFilter = "";
   let savedDecisionFilters = [];
   let savedListWide = false;
   let savedEditorCollapsed = false;
@@ -2516,6 +2529,11 @@ const db = getFirestore(firebaseApp);
     return normalizeSavedSearch(`${caseNo} ${apartmentName} ${title}`).includes(q);
   }
 
+  function recordMatchesAuctionDate(item, dateValue){
+    if (!dateValue) return true;
+    return stateText(item,"auctionDate","") === dateValue;
+  }
+
   function applySavedListWide(){
     document.body.classList.toggle("saved-list-wide", savedListWide);
     const btn = $("savedWideBtn");
@@ -2540,7 +2558,7 @@ const db = getFirestore(firebaseApp);
       btn.classList.toggle("active", active);
       btn.setAttribute("aria-pressed", String(active));
     });
-    $("savedSearchClearBtn").hidden = !savedSearchQuery;
+    $("savedSearchClearBtn").hidden = !(savedSearchQuery || savedAuctionDateFilter);
     applySavedListWide();
   }
 
@@ -2623,6 +2641,7 @@ const db = getFirestore(firebaseApp);
       ? allItems.filter(item => recordFolder(item)===selectedFolder)
       : [...allItems];
     items = items.filter(item => recordMatchesSavedSearch(item, savedSearchQuery));
+    items = items.filter(item => recordMatchesAuctionDate(item, savedAuctionDateFilter));
     if (savedDecisionFilters.length){
       items = items.filter(item => savedDecisionFilters.includes(recordDecision(item)));
     }
@@ -2634,10 +2653,11 @@ const db = getFirestore(firebaseApp);
       ? savedDecisionFilters.map(value => filterNames[value]).join(" + ")
       : "전체";
     const searchText = savedSearchQuery ? ` · 검색 “${savedSearchQuery}”` : "";
-    summary.textContent = `${scope} · ${filterText} · ${items.length}건${searchText} · ${sortNames[savedSortKey]} ${savedSortDirection==="asc"?"오름차순":"내림차순"}`;
+    const dateFilterText = savedAuctionDateFilter ? ` · 경매 ${savedAuctionDateFilter}` : "";
+    summary.textContent = `${scope} · ${filterText} · ${items.length}건${searchText}${dateFilterText} · ${sortNames[savedSortKey]} ${savedSortDirection==="asc"?"오름차순":"내림차순"}`;
 
     if (!items.length){
-      const hasFilter = !!savedSearchQuery || savedDecisionFilters.length > 0;
+      const hasFilter = !!savedSearchQuery || !!savedAuctionDateFilter || savedDecisionFilters.length > 0;
       const message = hasFilter
         ? "검색 또는 입찰 여부 조건에 맞는 저장내역이 없습니다."
         : (savedViewMode === "folders" && selectedFolder
@@ -2683,7 +2703,7 @@ const db = getFirestore(firebaseApp);
         <div class="saved-bottom">
           <span class="pill">가계 ${shortWon(metrics.householdEquity)} · 신탁 ${shortWon(metrics.trustEquity)}</span>
           <div class="saved-card-actions no-print">
-            ${decision === "bid" || actualReady ? `<button class="btn secondary actual-card-btn" type="button" data-actual-bid-id="${item.id}">${actualReady ? "실제입찰 수정" : "실제입찰"}</button>` : ""}
+            ${decision === "bid" || decision === "pending" || actualReady ? `<button class="btn secondary actual-card-btn" type="button" data-actual-bid-id="${item.id}">${actualReady ? "실제입찰 수정" : "실제입찰"}</button>` : ""}
             <button class="icon-btn" style="width:42px;height:30px" data-delete-id="${item.id}">삭제</button>
           </div>
         </div>
@@ -3492,6 +3512,12 @@ const db = getFirestore(firebaseApp);
     update();
   });
   document.addEventListener("change", (e) => {
+    if (e.target.id === "savedAuctionDateFilter"){
+      savedAuctionDateFilter = e.target.value || "";
+      updateSavedFilterUi();
+      renderSaved();
+      return;
+    }
     if (e.target.id === "auctionDatePicker"){
       $("auctionDate").value = e.target.value || "";
       update();
@@ -3559,7 +3585,9 @@ const db = getFirestore(firebaseApp);
     const searchClear = e.target.closest("#savedSearchClearBtn");
     if (searchClear){
       savedSearchQuery = "";
+      savedAuctionDateFilter = "";
       $("savedSearchInput").value = "";
+      $("savedAuctionDateFilter").value = "";
       updateSavedFilterUi();
       renderSaved();
       $("savedSearchInput").focus();
@@ -3780,7 +3808,7 @@ const db = getFirestore(firebaseApp);
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.10.2",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.10.3",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
