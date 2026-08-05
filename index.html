@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.10.5</title>
+  <title>경매 입찰·대출 자금 계산기 v1.10.6</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -417,7 +417,7 @@
     }
 
     .compact-property-grid{
-      display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:7px;margin-top:9px
+      display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:7px;margin-top:9px
     }
     .compact-property-grid .field{min-width:0}
     .floor-pair{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:4px}
@@ -623,7 +623,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.10.5</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.10.6</span></h1>
       <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -717,35 +717,44 @@
         </div>
         <div class="compact-property-grid">
           <div class="field">
-            <label>층 / 최고층</label>
+            <label>층/최고층</label>
             <div class="floor-pair">
               <input id="floorNo" type="number" min="-5" max="200" placeholder="15" aria-label="해당층">
               <span class="floor-slash">/</span>
               <input id="maxFloor" type="number" min="1" max="200" placeholder="25" aria-label="최고층">
             </div>
           </div>
-          <div class="field"><label for="unitNo">호수</label><input id="unitNo" type="text" placeholder="1501호"></div>
           <div class="field">
-            <label for="direction">향</label>
-            <input id="direction" type="text" list="directionOptions" placeholder="남동향">
-            <datalist id="directionOptions">
-              <option value="남향"><option value="남동향"><option value="남서향"><option value="동향">
-              <option value="서향"><option value="북향"><option value="북동향"><option value="북서향">
-            </datalist>
+            <label for="unitNo">호수</label>
+            <input id="unitNo" type="text" placeholder="1501호">
           </div>
-          <div class="field"><label for="roomCount">방</label><input id="roomCount" type="number" min="0" max="20" step="1" placeholder="3"></div>
-          <div class="field"><label for="bathCount">화장실</label><input id="bathCount" type="number" min="0" max="20" step="1" placeholder="2"></div>
           <div class="field">
             <label for="apartmentAge">사용승인년도</label>
-            <div class="money-wrap"><input id="apartmentAge" type="number" min="1900" max="2100" step="1" placeholder="2016"><span class="suffix">년</span></div>
+            <div class="money-wrap">
+              <input id="apartmentAge" type="number" min="1900" max="2100" step="1" placeholder="2016">
+              <span class="suffix">년</span>
+            </div>
           </div>
           <div class="field">
             <label for="exclusiveArea">전용면적</label>
-            <div class="money-wrap"><input id="exclusiveArea" type="number" min="0" max="500" step="0.01" placeholder="84.9"><span class="suffix">㎡</span></div>
+            <div class="money-wrap">
+              <input id="exclusiveArea" type="number" min="0" max="500" step="0.01" placeholder="84.9">
+              <span class="suffix">㎡</span>
+            </div>
           </div>
           <div class="field">
             <label for="supplyAreaPyeong">공급평형</label>
-            <div class="money-wrap"><input id="supplyAreaPyeong" type="number" min="0" max="500" step="0.1" placeholder="34"><span class="suffix">평</span></div>
+            <div class="money-wrap">
+              <input id="supplyAreaPyeong" type="number" min="0" max="500" step="0.1" placeholder="34">
+              <span class="suffix">평</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="householdCount">세대수</label>
+            <div class="money-wrap">
+              <input id="householdCount" type="number" min="0" max="100000" step="1" placeholder="392">
+              <span class="suffix">세대</span>
+            </div>
           </div>
           <div class="field">
             <label for="buildingType">현관 구조</label>
@@ -755,6 +764,22 @@
               <option value="복도식">복도식</option>
               <option value="혼합식">혼합식</option>
             </select>
+          </div>
+          <div class="field">
+            <label for="roomCount">방</label>
+            <input id="roomCount" type="number" min="0" max="20" step="1" placeholder="3">
+          </div>
+          <div class="field">
+            <label for="bathCount">화장실</label>
+            <input id="bathCount" type="number" min="0" max="20" step="1" placeholder="2">
+          </div>
+          <div class="field">
+            <label for="direction">향</label>
+            <input id="direction" type="text" list="directionOptions" placeholder="남동향">
+            <datalist id="directionOptions">
+              <option value="남향"><option value="남동향"><option value="남서향"><option value="동향">
+              <option value="서향"><option value="북향"><option value="북동향"><option value="북서향">
+            </datalist>
           </div>
         </div>
         <div class="field special-notes-field">
@@ -1192,7 +1217,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.10.5 도로명주소·지번주소 구분 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.10.6 세대수·기본정보 순서 변경 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -1383,7 +1408,7 @@ const db = getFirestore(firebaseApp);
   const SAVED_SORT_KEY = "auctionBidCalculator.savedSort.v1";
   const FOLDER_NAMES_KEY = "auctionBidCalculator.folderNames.v1";
   const DEFAULT_SECTION_ORDER = ["basic","rates","loan","dsr","result"];
-  const APP_SCHEMA_VERSION = 9;
+  const APP_SCHEMA_VERSION = 10;
   const deviceId = localStorage.getItem(DEVICE_ID_KEY) ||
     (crypto.randomUUID ? crypto.randomUUID() : `device-${Date.now()}-${Math.random().toString(36).slice(2)}`);
   localStorage.setItem(DEVICE_ID_KEY, deviceId);
@@ -1515,12 +1540,13 @@ const db = getFirestore(firebaseApp);
     const parts = [];
     if (f.floorNo || f.maxFloor) parts.push(`${f.floorNo || "-"}층/${f.maxFloor || "-"}층`);
     if (f.unitNo) parts.push(String(f.unitNo));
-    if (f.direction) parts.push(String(f.direction));
-    if (f.roomCount || f.bathCount) parts.push(`방 ${f.roomCount || "-"} · 욕실 ${f.bathCount || "-"}`);
     if (f.apartmentAge) parts.push(`${f.apartmentAge}년식`);
     if (f.exclusiveArea) parts.push(`전용 ${f.exclusiveArea}㎡`);
     if (f.supplyAreaPyeong) parts.push(`공급 ${f.supplyAreaPyeong}평`);
+    if (f.householdCount) parts.push(`총 ${f.householdCount}세대`);
     if (f.buildingType) parts.push(String(f.buildingType));
+    if (f.roomCount || f.bathCount) parts.push(`방 ${f.roomCount || "-"} · 욕실 ${f.bathCount || "-"}`);
+    if (f.direction) parts.push(String(f.direction));
     return parts.join(" · ");
   }
   function roundHundredThousand(value){ return Math.round((Number(value) || 0) / 100000) * 100000; }
@@ -2211,7 +2237,7 @@ const db = getFirestore(firebaseApp);
 
   function getState(){
     const ids = [
-      "caseNo","apartmentName","propertyName","region","auctionDate","floorNo","maxFloor","unitNo","direction","roomCount","bathCount","apartmentAge","exclusiveArea","supplyAreaPyeong","buildingType","specialNotes","appraisal","capital","sameWeight","nearWeight","safetyAdjust",
+      "caseNo","apartmentName","propertyName","region","auctionDate","floorNo","maxFloor","unitNo","apartmentAge","exclusiveArea","supplyAreaPyeong","householdCount","buildingType","roomCount","bathCount","direction","specialNotes","appraisal","capital","sameWeight","nearWeight","safetyAdjust",
       "bidRate","autoApply","trustLoanRate","trustExpenseRate","trustBidCap","trustUseCap",
       "mortgageLoanRate","mortgageDeduction","mortgageUseDeduction","mortgageExpenseRate","mortgageBidCap","mortgageUseCap",
       "dsrIncome","dsrLimitRate","matongLimit","matongRate","matongDsrYears","otherAnnualDebt",
@@ -2238,7 +2264,7 @@ const db = getFirestore(firebaseApp);
     if (state.fields.region === undefined) state.fields.region = "";
     if (state.fields.saveFolder === undefined) state.fields.saveFolder = state.fields.region || "";
     if (state.fields.auctionDate === undefined) state.fields.auctionDate = "";
-    ["apartmentName","floorNo","maxFloor","unitNo","direction","roomCount","bathCount","apartmentAge","exclusiveArea","supplyAreaPyeong","buildingType","specialNotes","bidDecision","bidDecisionReason"].forEach(key => {
+    ["apartmentName","floorNo","maxFloor","unitNo","apartmentAge","exclusiveArea","supplyAreaPyeong","householdCount","buildingType","roomCount","bathCount","direction","specialNotes","bidDecision","bidDecisionReason"].forEach(key => {
       if (state.fields[key] === undefined) state.fields[key] = "";
     });
     currentActualBidData = state.actualBid ? {...state.actualBid} : null;
@@ -3802,7 +3828,7 @@ const db = getFirestore(firebaseApp);
       sameRates:[78,78,78],nearRates:[78,78,78],
       sameRateYears:["","",""],nearRateYears:["","",""],
       fields:{
-        caseNo:"",apartmentName:"",propertyName:"",region:"",saveFolder:"",auctionDate:"",floorNo:"",maxFloor:"",unitNo:"",direction:"",roomCount:"",bathCount:"",apartmentAge:"",exclusiveArea:"",supplyAreaPyeong:"",buildingType:"",specialNotes:"",bidDecision:"",bidDecisionReason:"",appraisal:"180000000",capital:"44000000",
+        caseNo:"",apartmentName:"",propertyName:"",region:"",saveFolder:"",auctionDate:"",floorNo:"",maxFloor:"",unitNo:"",apartmentAge:"",exclusiveArea:"",supplyAreaPyeong:"",householdCount:"",buildingType:"",roomCount:"",bathCount:"",direction:"",specialNotes:"",bidDecision:"",bidDecisionReason:"",appraisal:"180000000",capital:"44000000",
         sameWeight:"60",nearWeight:"40",safetyAdjust:"0",bidRate:"78",autoApply:true,
         trustLoanRate:"60",trustExpenseRate:"7",trustBidCap:"80",trustUseCap:true,
         mortgageLoanRate:"60",mortgageDeduction:"25000000",mortgageUseDeduction:true,mortgageExpenseRate:"6",mortgageBidCap:"80",mortgageUseCap:true,
@@ -3814,7 +3840,7 @@ const db = getFirestore(firebaseApp);
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.10.5",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.10.6",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;

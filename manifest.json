@@ -1,7 +1,7 @@
 {
   "name": "경매 입찰·대출 자금 계산기",
   "short_name": "경매계산기",
-  "description": "경매 입찰·대출 자금 계산기 v1.10.5 - 도로명주소·지번주소 구분",
+  "description": "경매 입찰·대출 자금 계산기 v1.10.6 - 세대수·기본정보 순서 변경",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
