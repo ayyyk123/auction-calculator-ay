@@ -1,7 +1,7 @@
 {
   "name": "경매 입찰·대출 자금 계산기",
   "short_name": "경매계산기",
-  "description": "경매 입찰·대출 자금 계산기 v1.9.3 - 모바일 안전영역 개선",
+  "description": "경매 입찰·대출 자금 계산기 v1.9.7 - 저장 이름 사건번호 전체 자동",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

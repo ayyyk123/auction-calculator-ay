@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.9.3</title>
+  <title>경매 입찰·대출 자금 계산기 v1.9.7</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -28,7 +28,7 @@
       min-height:100vh;
     }
     button,input,select{font:inherit}
-    .app{max-width:1400px;margin:0 auto;padding:calc(12px + var(--safe-top)) 14px calc(18px + var(--safe-bottom))}
+    .app{max-width:1680px;margin:0 auto;padding:calc(12px + var(--safe-top)) 14px calc(18px + var(--safe-bottom))}
     header{
       display:flex;justify-content:space-between;align-items:flex-start;gap:12px;
       margin-bottom:12px;
@@ -73,7 +73,7 @@
     .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
     .field{display:grid;gap:4px}
     label{font-size:12px;color:#374151;font-weight:700}
-    input[type="text"],input[type="number"],input[type="date"],input[type="password"],select{
+    input[type="text"],input[type="search"],input[type="number"],input[type="date"],input[type="password"],select{
       width:100%;border:1px solid #d1d5db;border-radius:10px;padding:9px 10px;font-size:13px;
       background:#fff;color:var(--text);outline:none;
     }
@@ -82,7 +82,13 @@
     .money-wrap input{padding-right:42px}
     .suffix{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px}
     .rate-rows{display:grid;gap:8px}
-    .rate-row{display:grid;grid-template-columns:1fr 42px;gap:8px}
+    .rate-row{
+      display:grid;grid-template-columns:minmax(0,1fr) 76px 34px;gap:6px;
+      align-items:center
+    }
+    .rate-year-input{
+      text-align:center;padding-left:5px!important;padding-right:5px!important
+    }
     .icon-btn,.btn{
       border:none;border-radius:9px;padding:8px 11px;cursor:pointer;font-weight:800;font-size:12.5px;
     }
@@ -150,6 +156,21 @@
     th:first-child,td:first-child{text-align:left}
     thead th{background:#f8fafc;color:#475569}
     .saved-list{display:grid;gap:7px;max-height:58vh;overflow:auto;padding-right:2px}
+    .saved-search-row{
+      display:grid;grid-template-columns:minmax(0,1fr) 34px;gap:6px;margin-top:10px
+    }
+    .saved-search-wrap{position:relative}
+    .saved-search-wrap input{padding-left:33px;padding-right:9px}
+    .saved-search-icon{
+      position:absolute;left:10px;top:50%;transform:translateY(-50%);
+      color:#64748b;font-size:14px;pointer-events:none
+    }
+    .saved-search-clear{
+      width:34px;height:34px;padding:0;border:1px solid var(--line);
+      background:#f8fafc;color:#64748b;border-radius:9px;
+      font-size:18px;font-weight:900
+    }
+    .saved-search-clear[hidden]{display:none}
     .saved-item{
       border:1px solid var(--line);border-radius:11px;padding:9px;background:white;cursor:pointer;
     }
@@ -193,15 +214,45 @@
     .auth-dialog .field{margin-top:10px}
     .auth-modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
     .auth-close{float:right;border:none;background:#f3f4f6;border-radius:9px;width:34px;height:34px;cursor:pointer;font-weight:900}
-    .save-folder-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:end;margin-top:8px}
-    .save-folder-row .btn{height:35px;white-space:nowrap}
+    .save-folder-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:6px;align-items:end;margin-top:8px}
+    .save-folder-row .btn{height:35px;white-space:nowrap;padding-left:9px;padding-right:9px}
+    .save-decision-box{display:grid;grid-template-columns:116px minmax(0,1fr);gap:6px;margin-top:8px}
     .saved-toolbar{display:grid;gap:8px;margin-top:12px}
     .view-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+    .saved-list-tools{display:flex;justify-content:flex-end}
+    .saved-wide-btn{
+      border:1px solid #bfdbfe;background:#eff6ff;color:#1d4ed8;
+      border-radius:8px;padding:6px 9px;font-size:11px;font-weight:900;cursor:pointer
+    }
+    body.saved-list-wide .layout{
+      grid-template-columns:minmax(0,1fr) minmax(560px,680px)
+    }
+    .decision-filter-tabs{
+      display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px
+    }
+    .decision-filter-btn{
+      border:1px solid var(--line);background:#fff;color:#475569;
+      border-radius:8px;padding:6px 4px;font-size:10.5px;font-weight:900;cursor:pointer
+    }
+    .decision-filter-btn.active{background:#334155;color:#fff;border-color:#334155}
+    .decision-filter-btn[data-decision-filter="pending"].active{background:#d97706;border-color:#d97706}
+    .decision-filter-btn[data-decision-filter="no"].active{background:#b91c1c;border-color:#b91c1c}
+    .decision-filter-btn[data-decision-filter="bid"].active{background:#047857;border-color:#047857}
     .view-tab{border:1px solid var(--line);background:#f8fafc;color:#475569;border-radius:9px;padding:7px;font-size:12px;font-weight:900;cursor:pointer}
     .view-tab.active{background:#111827;color:white;border-color:#111827}
-    .folder-nav{display:flex;gap:6px;overflow-x:auto;padding:1px 0 4px;scrollbar-width:thin}
-    .folder-chip{white-space:nowrap;border:1px solid #bfdbfe;background:#eff6ff;color:#1e40af;border-radius:999px;padding:6px 9px;font-size:12px;font-weight:900;cursor:pointer}
-    .folder-chip.active{background:#2563eb;color:white;border-color:#2563eb}
+    .folder-nav{position:relative;display:block;padding:1px 0 2px}
+    .folder-list-trigger{width:100%;border:1px solid #bfdbfe;background:#eff6ff;color:#1e40af;border-radius:9px;padding:8px 10px;font-size:12px;font-weight:900;cursor:pointer;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .folder-list-trigger:disabled{opacity:.5;cursor:not-allowed}
+    .folder-menu{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:80;background:#fff;border:1px solid #bfdbfe;border-radius:10px;box-shadow:0 12px 28px rgba(15,23,42,.16);padding:5px;max-height:220px;overflow:auto}
+    .folder-menu[hidden]{display:none}
+    .folder-menu-item{width:100%;border:0;background:#fff;color:#1f2937;border-radius:7px;padding:8px 9px;font-size:12px;font-weight:800;cursor:pointer;text-align:left;display:flex;justify-content:space-between;gap:8px}
+    .folder-menu-item:hover,.folder-menu-item.active{background:#dbeafe;color:#1d4ed8}
+    .special-notes-field{margin-top:7px}
+    .decision-display{margin-top:6px;border:1px solid #fecaca;background:#fff1f2;color:#991b1b;border-radius:9px;padding:7px 8px;font-size:10.5px;font-weight:800;line-height:1.4}
+    .decision-display.bid{border-color:#bbf7d0;background:#f0fdf4;color:#166534}
+    .decision-display.pending{border-color:#fde68a;background:#fffbeb;color:#92400e}
+    .saved-notes{margin-top:5px;color:#475569;font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .actual-card-btn{padding:5px 7px!important;font-size:10px!important;min-height:28px;border-radius:7px!important}
     .sort-row{display:grid;grid-template-columns:1fr 42px;gap:6px}
     .sort-direction{border:1px solid var(--line);background:#f8fafc;border-radius:10px;font-size:20px;font-weight:900;cursor:pointer}
     .saved-summary{font-size:11px;color:var(--muted);font-weight:800}
@@ -214,9 +265,10 @@
     .toast[hidden]{display:none}
     footer{color:var(--muted);font-size:12px;text-align:center;padding:22px 0 4px}
     @media(max-width:980px){
-      .layout{grid-template-columns:1fr}
+      .layout,body.saved-list-wide .layout{grid-template-columns:1fr}
       .sticky-side{position:static}
       .saved-list{max-height:none}
+      .saved-wide-btn{display:none}
     }
     @media(max-width:700px){
       .app{padding:10px}
@@ -259,10 +311,14 @@
       .mobile-span-2{grid-column:1/-1}
       .field{gap:3px}
       label{font-size:10.5px}
-      input[type="text"],input[type="number"],input[type="date"],input[type="password"],select{border-radius:8px;padding:7px 7px;font-size:12.5px}
+      input[type="text"],input[type="search"],input[type="number"],input[type="date"],input[type="password"],select{border-radius:8px;padding:7px 7px;font-size:12.5px}
       .suffix{right:8px;font-size:11px}
       .rate-rows{gap:5px}
-      .rate-row{grid-template-columns:1fr 32px;gap:5px}
+      .rate-row{grid-template-columns:minmax(0,1fr) 58px 28px;gap:4px}
+      .rate-row input{padding-left:5px;padding-right:25px}
+      .rate-year-input{
+        padding-left:3px!important;padding-right:3px!important;font-size:10.5px!important
+      }
       .icon-btn{border-radius:8px}
       .btn{padding:7px 9px;border-radius:8px;font-size:11.5px}
       .helper,.login-note{font-size:10px;margin-top:4px}
@@ -288,9 +344,18 @@
       .dsr-box{padding:8px;border-radius:10px}
       .dsr-box .v{font-size:14px}
       th,td{font-size:10px;padding:6px 3px}
-      .save-folder-row{grid-template-columns:minmax(0,1fr) auto;gap:5px}
-      .save-folder-row .btn{height:31px;padding:6px 8px}
+      .save-folder-row{grid-template-columns:minmax(0,1fr) auto auto;gap:4px}
+      .save-folder-row .btn{height:31px;padding:5px 7px;font-size:10px}
+      .save-decision-box{grid-template-columns:104px minmax(0,1fr);gap:5px}
+      .folder-list-trigger{padding:7px 8px;font-size:11px}
+      .folder-menu-item{padding:8px;font-size:11px}
+      .decision-display,.saved-notes{font-size:10px}
       .saved-list{max-height:none;gap:6px}
+      .saved-search-row{margin-top:8px;grid-template-columns:minmax(0,1fr) 31px;gap:5px}
+      .saved-search-wrap input{font-size:12px;padding-left:30px}
+      .saved-search-icon{left:9px;font-size:13px}
+      .saved-search-clear{width:31px;height:31px;border-radius:8px}
+      .decision-filter-btn{font-size:9.5px;padding:6px 2px}
       .saved-item{padding:9px;border-radius:11px}
       .saved-meta{font-size:10px}
       .saved-bottom{margin-top:6px}
@@ -303,7 +368,7 @@
     }
 
     .compact-property-grid{
-      display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;margin-top:9px
+      display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:7px;margin-top:9px
     }
     .compact-property-grid .field{min-width:0}
     .floor-pair{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:4px}
@@ -323,7 +388,7 @@
       position:fixed;inset:0;z-index:1400;background:#f3f4f6;overflow:auto;
       padding:calc(10px + var(--safe-top)) 12px calc(12px + var(--safe-bottom))
     }
-    .actual-bid-shell{max-width:1240px;margin:0 auto;padding-bottom:calc(104px + var(--safe-bottom))}
+    .actual-bid-shell{width:100%;max-width:1760px;margin:0 auto;padding-bottom:calc(104px + var(--safe-bottom))}
     .actual-bid-header{
       position:sticky;top:0;z-index:4;background:rgba(243,244,246,.96);backdrop-filter:blur(10px);
       display:flex;justify-content:space-between;align-items:flex-start;gap:10px;
@@ -347,7 +412,14 @@
     }
     .actual-scenario-input strong{display:block;margin-bottom:5px;font-size:12px}
     .actual-results-wrap{overflow:auto;margin-top:10px;border:1px solid var(--line);border-radius:11px;background:#fff}
-    .actual-results-table{min-width:720px;background:white}
+    .actual-results-table{
+      width:100%;min-width:0;background:white;table-layout:fixed
+    }
+    .actual-results-table th,.actual-results-table td{
+      white-space:normal;word-break:keep-all;overflow-wrap:anywhere
+    }
+    .actual-results-table th:first-child,.actual-results-table td:first-child{width:250px}
+    .actual-results-table th:not(:first-child),.actual-results-table td:not(:first-child){width:calc((100% - 250px)/3)}
     .actual-results-table th:first-child,.actual-results-table td:first-child{
       position:sticky;left:0;background:#f8fafc;z-index:1;font-weight:800
     }
@@ -388,6 +460,17 @@
     .email-change-dialog .field{margin-top:9px}
     .email-change-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:13px}
     body.actual-modal-open{overflow:hidden}
+
+    @media(min-width:1200px){
+      .actual-bid-modal{padding-left:10px;padding-right:10px}
+      .actual-bid-header h2{font-size:22px}
+      .actual-inputs{grid-template-columns:repeat(8,minmax(0,1fr))}
+      .actual-results-table th,.actual-results-table td{padding:9px 8px}
+    }
+
+    @media(max-width:1200px) and (min-width:901px){
+      .compact-property-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+    }
     @media(max-width:900px){
       .compact-property-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
       .actual-inputs{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
@@ -410,6 +493,10 @@
       .actual-scenario-input{padding:7px}
       .actual-scenario-input input{padding:7px 5px;font-size:11.5px}
       .actual-results-wrap{margin-top:8px;border-radius:10px}
+      .actual-results-table{min-width:720px;table-layout:auto}
+      .actual-results-table th:first-child,.actual-results-table td:first-child{width:auto}
+      .actual-results-table th:not(:first-child),.actual-results-table td:not(:first-child){width:auto}
+      .actual-results-table th,.actual-results-table td{white-space:nowrap;word-break:normal;overflow-wrap:normal}
       .actual-modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 0 calc(16px + var(--safe-bottom))}
       .actual-modal-actions .btn:first-child{grid-column:1/-1}
       .actual-modal-actions .btn{min-height:42px}
@@ -431,7 +518,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.9.3</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.9.7</span></h1>
       <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -499,19 +586,19 @@
           </div>
           <div class="field">
             <label for="auctionDate">경매기일</label>
-            <input id="auctionDate" type="date">
+            <input id="auctionDate" type="text" inputmode="numeric" maxlength="10" placeholder="2026-08-12" autocomplete="off">
           </div>
           <div class="field">
             <label for="appraisal">감정가</label>
             <div class="money-wrap">
-              <input id="appraisal" type="number" min="0" step="100000" value="180000000">
+              <input id="appraisal" type="text" inputmode="numeric" data-money min="0" step="100000" value="180000000">
               <span class="suffix">원</span>
             </div>
           </div>
           <div class="field">
             <label for="capital">사용 가능 자기자본</label>
             <div class="money-wrap">
-              <input id="capital" type="number" min="0" step="100000" value="44000000">
+              <input id="capital" type="text" inputmode="numeric" data-money min="0" step="100000" value="44000000">
               <span class="suffix">원</span>
             </div>
           </div>
@@ -537,13 +624,30 @@
           <div class="field"><label for="roomCount">방</label><input id="roomCount" type="number" min="0" max="20" step="1" placeholder="3"></div>
           <div class="field"><label for="bathCount">화장실</label><input id="bathCount" type="number" min="0" max="20" step="1" placeholder="2"></div>
           <div class="field">
-            <label for="apartmentAge">아파트 연식</label>
-            <div class="money-wrap"><input id="apartmentAge" type="number" min="0" max="100" step="1" placeholder="20"><span class="suffix">년</span></div>
+            <label for="apartmentAge">사용승인년도</label>
+            <div class="money-wrap"><input id="apartmentAge" type="number" min="1900" max="2100" step="1" placeholder="2016"><span class="suffix">년</span></div>
           </div>
           <div class="field">
             <label for="exclusiveArea">전용면적</label>
             <div class="money-wrap"><input id="exclusiveArea" type="number" min="0" max="500" step="0.01" placeholder="84.9"><span class="suffix">㎡</span></div>
           </div>
+          <div class="field">
+            <label for="supplyAreaPyeong">공급평형</label>
+            <div class="money-wrap"><input id="supplyAreaPyeong" type="number" min="0" max="500" step="0.1" placeholder="34"><span class="suffix">평</span></div>
+          </div>
+          <div class="field">
+            <label for="buildingType">현관 구조</label>
+            <select id="buildingType">
+              <option value="">선택</option>
+              <option value="계단식">계단식</option>
+              <option value="복도식">복도식</option>
+              <option value="혼합식">혼합식</option>
+            </select>
+          </div>
+        </div>
+        <div class="field special-notes-field">
+          <label for="specialNotes">기타 특이사항</label>
+          <input id="specialNotes" type="text" placeholder="조망, 소음, 누수, 샷시, 주차, 수리 상태 등 기타 특이사항">
         </div>
       </section>
 
@@ -660,7 +764,7 @@
                 </div>
                 <div class="field">
                   <label for="mortgageDeduction">방공제액</label>
-                  <div class="money-wrap"><input id="mortgageDeduction" type="number" min="0" step="100000" value="25000000"><span class="suffix">원</span></div>
+                  <div class="money-wrap"><input id="mortgageDeduction" type="text" inputmode="numeric" data-money min="0" step="100000" value="25000000"><span class="suffix">원</span></div>
                 </div>
                 <div class="field">
                   <label for="mortgageExpenseRate">경비율</label>
@@ -694,11 +798,11 @@
         <div class="grid2" style="margin-top:14px">
           <div class="field">
             <label for="unpaidManagement">미납관리비</label>
-            <div class="money-wrap"><input id="unpaidManagement" type="number" min="0" step="10000" value="0"><span class="suffix">원</span></div>
+            <div class="money-wrap"><input id="unpaidManagement" type="text" inputmode="numeric" data-money min="0" step="10000" value="0"><span class="suffix">원</span></div>
           </div>
           <div class="field">
             <label for="extraExpense">기타 추가지출</label>
-            <div class="money-wrap"><input id="extraExpense" type="number" min="0" step="10000" value="0"><span class="suffix">원</span></div>
+            <div class="money-wrap"><input id="extraExpense" type="text" inputmode="numeric" data-money min="0" step="10000" value="0"><span class="suffix">원</span></div>
           </div>
         </div>
         <div class="helper">기타 추가지출에는 별도로 잡고 싶은 명도비, 특수수리비, 체납공과금 등을 넣으면 됩니다.</div>
@@ -717,7 +821,7 @@
         <div class="grid3">
           <div class="field">
             <label for="dsrIncome">금융사가 인정하는 연소득</label>
-            <div class="money-wrap"><input id="dsrIncome" type="number" min="0" step="100000" value="30000000"><span class="suffix">원</span></div>
+            <div class="money-wrap"><input id="dsrIncome" type="text" inputmode="numeric" data-money min="0" step="100000" value="30000000"><span class="suffix">원</span></div>
           </div>
           <div class="field">
             <label for="dsrLimitRate">DSR 한도</label>
@@ -738,7 +842,7 @@
           <div class="grid3" style="margin-top:10px">
             <div class="field">
               <label for="matongLimit">마이너스통장 약정한도</label>
-              <div class="money-wrap"><input id="matongLimit" type="number" min="0" step="100000" value="26000000"><span class="suffix">원</span></div>
+              <div class="money-wrap"><input id="matongLimit" type="text" inputmode="numeric" data-money min="0" step="100000" value="26000000"><span class="suffix">원</span></div>
             </div>
             <div class="field">
               <label for="matongRate">마이너스통장 금리</label>
@@ -750,7 +854,7 @@
             </div>
             <div class="field">
               <label for="otherAnnualDebt">기타 기존대출 연간 원리금</label>
-              <div class="money-wrap"><input id="otherAnnualDebt" type="number" min="0" step="10000" value="0"><span class="suffix">원</span></div>
+              <div class="money-wrap"><input id="otherAnnualDebt" type="text" inputmode="numeric" data-money min="0" step="10000" value="0"><span class="suffix">원</span></div>
             </div>
           </div>
         </div>
@@ -891,6 +995,22 @@
             <select id="saveFolder"><option value="">폴더 선택</option></select>
           </div>
           <button class="btn light" id="createFolderBtn" type="button">폴더 만들기</button>
+          <button class="btn light" id="renameFolderBtn" type="button">폴더 수정</button>
+        </div>
+        <div class="save-decision-box no-print">
+          <div class="field">
+            <label for="bidDecision">입찰 여부</label>
+            <select id="bidDecision">
+              <option value="">선택</option>
+              <option value="pending">고민중</option>
+              <option value="bid">입찰하기</option>
+              <option value="no">입찰 안 함</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="bidDecisionReason">선택 사유</label>
+            <input id="bidDecisionReason" type="text" placeholder="고민중·입찰·미입찰 선택 사유">
+          </div>
         </div>
         <div class="actions no-print" style="margin-top:8px">
           <button class="btn" id="saveBtn">계산내역 저장</button>
@@ -898,12 +1018,34 @@
         </div>
         <div class="helper" id="savedHelper">이메일 로그인 후 계산내역과 지역 폴더가 자동 동기화됩니다.</div>
 
+        <div class="saved-search-row no-print">
+          <div class="saved-search-wrap">
+            <span class="saved-search-icon" aria-hidden="true">⌕</span>
+            <input id="savedSearchInput" type="search" autocomplete="off" spellcheck="false"
+                   placeholder="사건번호 또는 아파트명 검색" aria-label="저장내역 검색">
+          </div>
+          <button class="saved-search-clear" id="savedSearchClearBtn" type="button"
+                  aria-label="검색어 지우기" title="검색어 지우기" hidden>×</button>
+        </div>
+
         <div class="saved-toolbar">
           <div class="view-tabs">
             <button class="view-tab active" type="button" data-saved-view="all">전체목록</button>
             <button class="view-tab" type="button" data-saved-view="folders">지역별 폴더</button>
           </div>
-          <div id="folderNav" class="folder-nav" hidden></div>
+          <div class="saved-list-tools no-print">
+            <button class="saved-wide-btn" id="savedWideBtn" type="button">저장목록 넓게 보기</button>
+          </div>
+          <div class="decision-filter-tabs no-print" aria-label="입찰 여부 필터">
+            <button class="decision-filter-btn active" type="button" data-decision-filter="all">전체</button>
+            <button class="decision-filter-btn" type="button" data-decision-filter="pending">고민중</button>
+            <button class="decision-filter-btn" type="button" data-decision-filter="no">입찰 X</button>
+            <button class="decision-filter-btn" type="button" data-decision-filter="bid">입찰 O</button>
+          </div>
+          <div id="folderNav" class="folder-nav" hidden>
+            <button class="folder-list-trigger" id="folderListBtn" type="button"><span id="folderListLabel">폴더 목록</span><span>▼</span></button>
+            <div class="folder-menu" id="folderMenu" hidden></div>
+          </div>
           <div class="sort-row">
             <select id="savedSortKey" aria-label="저장목록 정렬기준">
               <option value="auctionDate">경매기일</option>
@@ -927,7 +1069,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.9.3 모바일 안전영역·하단버튼 개선 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.9.7 저장이름 사건번호 전체 자동 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -943,7 +1085,7 @@
     <section class="card">
       <div class="actual-summary" id="actualBidSummary"></div>
       <div class="actual-inputs">
-        <div class="field"><label for="actualMinPrice">최저가</label><input id="actualMinPrice" data-actual-input type="number" min="0" step="100000"></div>
+        <div class="field"><label for="actualMinPrice">최저가</label><input id="actualMinPrice" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
         <div class="field">
           <div class="actual-label-row"><label for="actualAcquisitionTaxRate">취등록세율</label><select id="actualAcquisitionTaxMode" class="actual-mode-select" data-actual-mode><option value="auto">자동</option><option value="manual">직접</option></select></div>
           <div class="money-wrap"><input id="actualAcquisitionTaxRate" data-actual-input type="number" min="0" step="0.01"><span class="suffix">%</span></div>
@@ -951,38 +1093,38 @@
         </div>
         <div class="field">
           <div class="actual-label-row"><label for="actualLegalFeeMan">법무비</label><select id="actualLegalFeeMode" class="actual-mode-select" data-actual-mode><option value="auto">자동</option><option value="manual">직접</option></select></div>
-          <div class="money-wrap"><input id="actualLegalFeeMan" data-actual-input type="number" min="0" step="1"><span class="suffix">만원</span></div>
+          <div class="money-wrap"><input id="actualLegalFeeMan" data-actual-input type="text" inputmode="numeric" data-money min="0" step="1"><span class="suffix">만원</span></div>
           <div class="actual-auto-note" id="actualLegalFeeNote">엑셀 금액구간 자동</div>
         </div>
-        <div class="field"><label for="actualEvictionFeeMan">명도비</label><div class="money-wrap"><input id="actualEvictionFeeMan" data-actual-input type="number" min="0" step="1"><span class="suffix">만원</span></div></div>
-        <div class="field"><label for="actualRepairFeeMan">수리비</label><div class="money-wrap"><input id="actualRepairFeeMan" data-actual-input type="number" min="0" step="1"><span class="suffix">만원</span></div></div>
+        <div class="field"><label for="actualEvictionFeeMan">명도비</label><div class="money-wrap"><input id="actualEvictionFeeMan" data-actual-input type="text" inputmode="numeric" data-money min="0" step="1"><span class="suffix">만원</span></div></div>
+        <div class="field"><label for="actualRepairFeeMan">수리비</label><div class="money-wrap"><input id="actualRepairFeeMan" data-actual-input type="text" inputmode="numeric" data-money min="0" step="1"><span class="suffix">만원</span></div></div>
         <div class="field">
           <div class="actual-label-row"><label for="actualBrokerRate">매도 중개보수</label><select id="actualBrokerMode" class="actual-mode-select" data-actual-mode><option value="auto">자동</option><option value="manual">직접</option></select></div>
           <div class="money-wrap"><input id="actualBrokerRate" data-actual-input type="number" min="0" step="0.01"><span class="suffix">%</span></div>
           <div class="actual-auto-note" id="actualBrokerNote">매도가·한도액 자동</div>
         </div>
-        <div class="field"><label for="actualUnpaidManagementMan">미납 관리비</label><div class="money-wrap"><input id="actualUnpaidManagementMan" data-actual-input type="number" min="0" step="1"><span class="suffix">만원</span></div></div>
+        <div class="field"><label for="actualUnpaidManagementMan">미납 관리비</label><div class="money-wrap"><input id="actualUnpaidManagementMan" data-actual-input type="text" inputmode="numeric" data-money min="0" step="1"><span class="suffix">만원</span></div></div>
         <div class="field"><label for="actualEarlyRepaymentRate">중도상환수수료율</label><div class="money-wrap"><input id="actualEarlyRepaymentRate" data-actual-input type="number" min="0" step="0.01"><span class="suffix">%</span></div></div>
         <div class="field"><label for="actualInterestRate">대출 연이율</label><div class="money-wrap"><input id="actualInterestRate" data-actual-input type="number" min="0" step="0.01"><span class="suffix">%</span></div></div>
         <div class="field"><label for="actualHoldingMonths">이자 계산기간</label><div class="money-wrap"><input id="actualHoldingMonths" data-actual-input type="number" min="0" step="1"><span class="suffix">개월</span></div></div>
         <div class="field"><label for="actualAppraisalLoanRate">감정가 대출비율</label><div class="money-wrap"><input id="actualAppraisalLoanRate" data-actual-input type="number" min="0" step="0.1"><span class="suffix">%</span></div></div>
         <div class="field"><label for="actualBidLoanRate">낙찰가 대출비율</label><div class="money-wrap"><input id="actualBidLoanRate" data-actual-input type="number" min="0" step="0.1"><span class="suffix">%</span></div></div>
-        <div class="field"><label for="actualSalePrice">매도희망가</label><input id="actualSalePrice" data-actual-input type="number" min="0" step="100000"></div>
-        <div class="field"><label for="actualExpectedIncome">연간 예상 기존소득</label><input id="actualExpectedIncome" data-actual-input type="number" min="0" step="100000"></div>
+        <div class="field"><label for="actualSalePrice">매도희망가</label><input id="actualSalePrice" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
+        <div class="field"><label for="actualExpectedIncome">연간 예상 기존소득</label><input id="actualExpectedIncome" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
         <div class="field">
           <div class="actual-label-row"><label>종합소득세</label><select id="actualIncomeTaxMode" class="actual-mode-select" data-actual-mode><option value="auto">자동</option><option value="manual">직접</option></select></div>
           <div class="actual-income-manual" id="actualIncomeTaxManualWrap">
-            <input id="actualIncomeTax1Man" data-actual-input type="number" min="0" step="1" placeholder="1차 만원" aria-label="1차 소득세 직접입력">
-            <input id="actualIncomeTax2Man" data-actual-input type="number" min="0" step="1" placeholder="2차 만원" aria-label="2차 소득세 직접입력">
-            <input id="actualIncomeTax3Man" data-actual-input type="number" min="0" step="1" placeholder="3차 만원" aria-label="3차 소득세 직접입력">
+            <input id="actualIncomeTax1Man" data-actual-input type="text" inputmode="numeric" data-money min="0" step="1" placeholder="1차 만원" aria-label="1차 소득세 직접입력">
+            <input id="actualIncomeTax2Man" data-actual-input type="text" inputmode="numeric" data-money min="0" step="1" placeholder="2차 만원" aria-label="2차 소득세 직접입력">
+            <input id="actualIncomeTax3Man" data-actual-input type="text" inputmode="numeric" data-money min="0" step="1" placeholder="3차 만원" aria-label="3차 소득세 직접입력">
           </div>
           <div class="actual-auto-note" id="actualIncomeTaxNote">누진세율 자동</div>
         </div>
       </div>
       <div class="actual-scenarios">
-        <div class="actual-scenario-input"><strong>1차 입찰안</strong><input id="actualBid1" data-actual-input type="number" min="0" step="100000"></div>
-        <div class="actual-scenario-input"><strong>2차 입찰안</strong><input id="actualBid2" data-actual-input type="number" min="0" step="100000"></div>
-        <div class="actual-scenario-input"><strong>3차 입찰안</strong><input id="actualBid3" data-actual-input type="number" min="0" step="100000"></div>
+        <div class="actual-scenario-input"><strong>1차 입찰안</strong><input id="actualBid1" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
+        <div class="actual-scenario-input"><strong>2차 입찰안</strong><input id="actualBid2" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
+        <div class="actual-scenario-input"><strong>3차 입찰안</strong><input id="actualBid3" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
       </div>
       <div class="actual-results-wrap">
         <table class="actual-results-table">
@@ -1088,13 +1230,15 @@ const db = getFirestore(firebaseApp);
   const SAVED_SORT_KEY = "auctionBidCalculator.savedSort.v1";
   const FOLDER_NAMES_KEY = "auctionBidCalculator.folderNames.v1";
   const DEFAULT_SECTION_ORDER = ["basic","rates","loan","dsr","result"];
-  const APP_SCHEMA_VERSION = 7;
+  const APP_SCHEMA_VERSION = 9;
   const deviceId = localStorage.getItem(DEVICE_ID_KEY) ||
     (crypto.randomUUID ? crypto.randomUUID() : `device-${Date.now()}-${Math.random().toString(36).slice(2)}`);
   localStorage.setItem(DEVICE_ID_KEY, deviceId);
 
   let sameRates = [78, 78, 78];
   let nearRates = [78, 78, 78];
+  let sameRateYears = ["", "", ""];
+  let nearRateYears = ["", "", ""];
   let loadedRecordId = null;
   let loadedRecordRevision = 0;
   let currentUser = null;
@@ -1111,16 +1255,38 @@ const db = getFirestore(firebaseApp);
   let selectedFolder = "";
   let savedSortKey = "auctionDate";
   let savedSortDirection = "asc";
+  let savedSearchQuery = "";
+  let savedDecisionFilter = "all";
+  let savedListWide = false;
   let toastTimer = null;
   let currentActualBidData = null;
   let actualBidRecordId = null;
   let actualBidBaseRevision = 0;
   let actualBidDraft = null;
 
+  const numericText = (value) => String(value ?? "").replace(/,/g,"").trim();
   const num = (id) => {
-    const v = parseFloat($(id).value);
+    const v = parseFloat(numericText($(id).value));
     return Number.isFinite(v) ? v : 0;
   };
+  const formatMoneyValue = (value) => {
+    const digits = numericText(value).replace(/[^0-9]/g,"");
+    return digits ? Number(digits).toLocaleString("ko-KR") : "";
+  };
+  function formatMoneyInput(input){
+    if (!input) return;
+    const formatted = formatMoneyValue(input.value);
+    if (input.value !== formatted) input.value = formatted;
+  }
+  function formatAllMoneyInputs(root = document){
+    root.querySelectorAll("[data-money]").forEach(formatMoneyInput);
+  }
+  function formatAuctionDateValue(value){
+    const digits = String(value || "").replace(/\D/g,"").slice(0,8);
+    if (digits.length <= 4) return digits;
+    if (digits.length <= 6) return `${digits.slice(0,4)}-${digits.slice(4)}`;
+    return `${digits.slice(0,4)}-${digits.slice(4,6)}-${digits.slice(6,8)}`;
+  }
   const won = (v) => Math.round(v || 0).toLocaleString("ko-KR") + "원";
   const shortWon = (v) => {
     v = Math.round(v || 0);
@@ -1196,8 +1362,10 @@ const db = getFirestore(firebaseApp);
     if (f.unitNo) parts.push(String(f.unitNo));
     if (f.direction) parts.push(String(f.direction));
     if (f.roomCount || f.bathCount) parts.push(`방 ${f.roomCount || "-"} · 욕실 ${f.bathCount || "-"}`);
-    if (f.apartmentAge) parts.push(`${f.apartmentAge}년차`);
+    if (f.apartmentAge) parts.push(`${f.apartmentAge}년식`);
     if (f.exclusiveArea) parts.push(`전용 ${f.exclusiveArea}㎡`);
+    if (f.supplyAreaPyeong) parts.push(`공급 ${f.supplyAreaPyeong}평`);
+    if (f.buildingType) parts.push(String(f.buildingType));
     return parts.join(" · ");
   }
   function roundHundredThousand(value){ return Math.round((Number(value) || 0) / 100000) * 100000; }
@@ -1370,7 +1538,10 @@ const db = getFirestore(firebaseApp);
       actualIncomeTax1Man:"incomeTax1Man",actualIncomeTax2Man:"incomeTax2Man",actualIncomeTax3Man:"incomeTax3Man",
       actualBid1:"bid1",actualBid2:"bid2",actualBid3:"bid3"
     };
-    Object.entries(map).forEach(([id,key]) => { $(id).value = data?.[key] ?? ""; });
+    Object.entries(map).forEach(([id,key]) => {
+      $(id).value = data?.[key] ?? "";
+      if ($(id).matches("[data-money]")) formatMoneyInput($(id));
+    });
     Object.entries(actualModeMap).forEach(([id,key]) => { $(id).value = data?.[key] || "auto"; });
     updateActualModeUi();
   }
@@ -1475,7 +1646,7 @@ const db = getFirestore(firebaseApp);
   }
 
   function setSaveButtonsDisabled(disabled){
-    [$("saveBtn"), $("mobileSaveBtn"), $("syncAllBtn"), $("createFolderBtn")].forEach(btn => { if (btn) btn.disabled = disabled; });
+    [$("saveBtn"), $("mobileSaveBtn"), $("syncAllBtn"), $("createFolderBtn"), $("renameFolderBtn")].forEach(btn => { if (btn) btn.disabled = disabled; });
   }
 
   function annuityPrincipal(monthlyPayment, annualRatePct, years){
@@ -1666,6 +1837,7 @@ const db = getFirestore(firebaseApp);
 
   function renderRateRows(type){
     const arr = type === "same" ? sameRates : nearRates;
+    const years = type === "same" ? sameRateYears : nearRateYears;
     const root = type === "same" ? $("sameRates") : $("nearRates");
     root.innerHTML = "";
     arr.forEach((value, i) => {
@@ -1673,10 +1845,15 @@ const db = getFirestore(firebaseApp);
       row.className = "rate-row";
       row.innerHTML = `
         <div class="money-wrap">
-          <input type="number" min="0" max="150" step="0.1" value="${value ?? ""}" data-rate-type="${type}" data-rate-index="${i}">
+          <input type="number" min="0" max="150" step="0.1" value="${value ?? ""}"
+                 aria-label="낙찰가율" data-rate-type="${type}" data-rate-index="${i}">
           <span class="suffix">%</span>
         </div>
-        <button class="icon-btn no-print" type="button" title="삭제" data-remove-type="${type}" data-remove-index="${i}">×</button>`;
+        <input class="rate-year-input" type="number" min="2000" max="2100" step="1"
+               value="${years[i] ?? ""}" placeholder="연도" aria-label="낙찰연도"
+               data-rate-year-type="${type}" data-rate-year-index="${i}">
+        <button class="icon-btn no-print" type="button" title="삭제"
+                data-remove-type="${type}" data-remove-index="${i}">×</button>`;
       root.appendChild(row);
     });
   }
@@ -1871,19 +2048,25 @@ const db = getFirestore(firebaseApp);
 
   function getState(){
     const ids = [
-      "caseNo","apartmentName","propertyName","region","auctionDate","floorNo","maxFloor","unitNo","direction","roomCount","bathCount","apartmentAge","exclusiveArea","appraisal","capital","sameWeight","nearWeight","safetyAdjust",
+      "caseNo","apartmentName","propertyName","region","auctionDate","floorNo","maxFloor","unitNo","direction","roomCount","bathCount","apartmentAge","exclusiveArea","supplyAreaPyeong","buildingType","specialNotes","appraisal","capital","sameWeight","nearWeight","safetyAdjust",
       "bidRate","autoApply","trustLoanRate","trustExpenseRate","trustBidCap","trustUseCap",
       "mortgageLoanRate","mortgageDeduction","mortgageUseDeduction","mortgageExpenseRate","mortgageBidCap","mortgageUseCap",
       "dsrIncome","dsrLimitRate","matongLimit","matongRate","matongDsrYears","otherAnnualDebt",
       "householdActualRate","householdStressRate","householdTerm","householdLoanRate","householdExpenseRate","householdBidCap","householdUseCap",
-      "unpaidManagement","extraExpense","saveTitle","saveFolder"
+      "unpaidManagement","extraExpense","saveTitle","saveFolder","bidDecision","bidDecisionReason"
     ];
     const fields = {};
     ids.forEach(id => {
       const el = $(id);
-      fields[id] = el.type === "checkbox" ? el.checked : el.value;
+      if (el.type === "checkbox") fields[id] = el.checked;
+      else fields[id] = el.matches("[data-money]") ? numericText(el.value) : el.value;
     });
-    return {fields, sameRates:[...sameRates], nearRates:[...nearRates], actualBid:currentActualBidData ? {...currentActualBidData} : null};
+    return {
+      fields,
+      sameRates:[...sameRates], nearRates:[...nearRates],
+      sameRateYears:[...sameRateYears], nearRateYears:[...nearRateYears],
+      actualBid:currentActualBidData ? {...currentActualBidData} : null
+    };
   }
 
   function setState(state){
@@ -1892,7 +2075,7 @@ const db = getFirestore(firebaseApp);
     if (state.fields.region === undefined) state.fields.region = "";
     if (state.fields.saveFolder === undefined) state.fields.saveFolder = state.fields.region || "";
     if (state.fields.auctionDate === undefined) state.fields.auctionDate = "";
-    ["apartmentName","floorNo","maxFloor","unitNo","direction","roomCount","bathCount","apartmentAge","exclusiveArea"].forEach(key => {
+    ["apartmentName","floorNo","maxFloor","unitNo","direction","roomCount","bathCount","apartmentAge","exclusiveArea","supplyAreaPyeong","buildingType","specialNotes","bidDecision","bidDecisionReason"].forEach(key => {
       if (state.fields[key] === undefined) state.fields[key] = "";
     });
     currentActualBidData = state.actualBid ? {...state.actualBid} : null;
@@ -1910,13 +2093,24 @@ const db = getFirestore(firebaseApp);
     });
     sameRates = Array.isArray(state.sameRates) ? state.sameRates : [78,78,78];
     nearRates = Array.isArray(state.nearRates) ? state.nearRates : [78,78,78];
+    sameRateYears = Array.isArray(state.sameRateYears)
+      ? state.sameRateYears.slice(0, sameRates.length)
+      : Array(sameRates.length).fill("");
+    nearRateYears = Array.isArray(state.nearRateYears)
+      ? state.nearRateYears.slice(0, nearRates.length)
+      : Array(nearRates.length).fill("");
+    while (sameRateYears.length < sameRates.length) sameRateYears.push("");
+    while (nearRateYears.length < nearRates.length) nearRateYears.push("");
     renderRateRows("same");
     renderRateRows("near");
     Object.entries(state.fields || {}).forEach(([id,val]) => {
       const el = $(id);
       if (!el) return;
       if (el.type === "checkbox") el.checked = !!val;
-      else el.value = val;
+      else {
+        el.value = val;
+        if (el.matches("[data-money]")) formatMoneyInput(el);
+      }
     });
     update();
   }
@@ -2034,7 +2228,7 @@ const db = getFirestore(firebaseApp);
   }
 
   function stateNumber(item, id, fallback = 0){
-    const value = Number(item?.state?.fields?.[id]);
+    const value = Number(numericText(item?.state?.fields?.[id]));
     return Number.isFinite(value) ? value : fallback;
   }
 
@@ -2152,8 +2346,47 @@ const db = getFirestore(firebaseApp);
     return (am-bm)*dir;
   }
 
+  function normalizeSavedSearch(value){
+    return String(value || "")
+      .toLowerCase()
+      .normalize("NFKC")
+      .replace(/[\s\-_.]/g,"");
+  }
+
+  function recordDecision(item){
+    const actualReady = !!item?.state?.actualBid?.enabled;
+    const value = stateText(item,"bidDecision",actualReady ? "bid" : "pending");
+    return ["bid","no","pending"].includes(value) ? value : "pending";
+  }
+
+  function recordMatchesSavedSearch(item, query){
+    const q = normalizeSavedSearch(query);
+    if (!q) return true;
+    const caseNo = stateText(item,"caseNo","");
+    const apartmentName = recordApartmentName(item);
+    const title = String(item?.title || "");
+    return normalizeSavedSearch(`${caseNo} ${apartmentName} ${title}`).includes(q);
+  }
+
+  function applySavedListWide(){
+    document.body.classList.toggle("saved-list-wide", savedListWide);
+    const btn = $("savedWideBtn");
+    if (btn) btn.textContent = savedListWide ? "저장목록 기본 너비" : "저장목록 넓게 보기";
+  }
+
+  function updateSavedFilterUi(){
+    document.querySelectorAll("[data-decision-filter]").forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.decisionFilter === savedDecisionFilter);
+    });
+    $("savedSearchClearBtn").hidden = !savedSearchQuery;
+    applySavedListWide();
+  }
+
   function saveSavedListPreferences(){
-    localStorage.setItem(SAVED_VIEW_KEY, JSON.stringify({savedViewMode,selectedFolder,savedSortKey,savedSortDirection}));
+    localStorage.setItem(SAVED_VIEW_KEY, JSON.stringify({
+      savedViewMode,selectedFolder,savedSortKey,savedSortDirection,
+      savedDecisionFilter,savedListWide
+    }));
   }
 
   function loadSavedListPreferences(){
@@ -2163,14 +2396,20 @@ const db = getFirestore(firebaseApp);
       selectedFolder = String(saved.selectedFolder || "");
       savedSortKey = ["auctionDate","minEquity","householdEquity","trustEquity","mortgageEquity","updatedAt"].includes(saved.savedSortKey) ? saved.savedSortKey : "auctionDate";
       savedSortDirection = saved.savedSortDirection === "desc" ? "desc" : "asc";
+      savedDecisionFilter = ["all","pending","no","bid"].includes(saved.savedDecisionFilter) ? saved.savedDecisionFilter : "all";
+      savedListWide = !!saved.savedListWide;
     } catch {}
     $("savedSortKey").value = savedSortKey;
     $("sortDirectionBtn").textContent = savedSortDirection === "asc" ? "↑" : "↓";
+    updateSavedFilterUi();
   }
 
   function renderSaved(){
     const root = $("savedList");
     const folderNav = $("folderNav");
+    const folderListBtn = $("folderListBtn");
+    const folderListLabel = $("folderListLabel");
+    const folderMenu = $("folderMenu");
     const summary = $("savedListSummary");
     document.querySelectorAll("[data-saved-view]").forEach(btn => btn.classList.toggle("active",btn.dataset.savedView===savedViewMode));
     folderNav.hidden = savedViewMode !== "folders";
@@ -2178,7 +2417,10 @@ const db = getFirestore(firebaseApp);
     if (!currentUser){
       root.innerHTML = `<div class="empty">이메일 로그인 후 PC·핸드폰에서 같은 저장목록을 사용할 수 있습니다.</div>`;
       summary.textContent = "";
-      folderNav.innerHTML = "";
+      folderListLabel.textContent = "폴더 목록";
+      folderListBtn.disabled = true;
+      folderMenu.innerHTML = "";
+      folderMenu.hidden = true;
       renderFolderOptions();
       return;
     }
@@ -2195,17 +2437,34 @@ const db = getFirestore(firebaseApp);
     allItems.forEach(item => folderCounts.set(recordFolder(item),(folderCounts.get(recordFolder(item))||0)+1));
     const folders = [...folderCounts.keys()].sort((a,b)=>a.localeCompare(b,"ko"));
     if (savedViewMode === "folders" && !folders.includes(selectedFolder)) selectedFolder = folders[0] || "";
-    folderNav.innerHTML = folders.map(folder => `<button class="folder-chip${folder===selectedFolder?" active":""}" type="button" data-folder="${escapeHtml(folder)}">${escapeHtml(folder)} ${folderCounts.get(folder)||0}건</button>`).join("");
+    folderListBtn.disabled = folders.length === 0;
+    folderListLabel.textContent = selectedFolder ? `${selectedFolder} · ${folderCounts.get(selectedFolder)||0}건` : "폴더 목록";
+    folderMenu.innerHTML = folders.map(folder => `<button class="folder-menu-item${folder===selectedFolder?" active":""}" type="button" data-folder="${escapeHtml(folder)}"><span>${escapeHtml(folder)}</span><span>${folderCounts.get(folder)||0}건</span></button>`).join("");
+    if (!folders.length) folderMenu.hidden = true;
     renderFolderOptions();
 
-    let items = savedViewMode === "folders" ? allItems.filter(item => recordFolder(item)===selectedFolder) : [...allItems];
+    let items = savedViewMode === "folders"
+      ? allItems.filter(item => recordFolder(item)===selectedFolder)
+      : [...allItems];
+    items = items.filter(item => recordMatchesSavedSearch(item, savedSearchQuery));
+    if (savedDecisionFilter !== "all"){
+      items = items.filter(item => recordDecision(item) === savedDecisionFilter);
+    }
     items.sort((a,b)=>compareSavedItems(a,b,savedSortKey,savedSortDirection));
     const sortNames={auctionDate:"경매기일",minEquity:"최소 자기자본",householdEquity:"가계 자기자본",trustEquity:"신탁 자기자본",mortgageEquity:"사업자근저당 자기자본",updatedAt:"저장일"};
     const scope = savedViewMode === "folders" ? (selectedFolder || "폴더 미선택") : "전체";
-    summary.textContent = `${scope} · ${items.length}건 · ${sortNames[savedSortKey]} ${savedSortDirection==="asc"?"오름차순":"내림차순"}`;
+    const filterNames = {all:"전체",pending:"고민중",no:"입찰 X",bid:"입찰 O"};
+    const searchText = savedSearchQuery ? ` · 검색 “${savedSearchQuery}”` : "";
+    summary.textContent = `${scope} · ${filterNames[savedDecisionFilter]} · ${items.length}건${searchText} · ${sortNames[savedSortKey]} ${savedSortDirection==="asc"?"오름차순":"내림차순"}`;
 
     if (!items.length){
-      root.innerHTML = `<div class="empty">${savedViewMode === "folders" && selectedFolder ? `${escapeHtml(selectedFolder)} 폴더에 저장된 계산내역이 없습니다.` : "아직 저장한 계산내역이 없습니다."}</div>`;
+      const hasFilter = !!savedSearchQuery || savedDecisionFilter !== "all";
+      const message = hasFilter
+        ? "검색 또는 입찰 여부 조건에 맞는 저장내역이 없습니다."
+        : (savedViewMode === "folders" && selectedFolder
+          ? `${escapeHtml(selectedFolder)} 폴더에 저장된 계산내역이 없습니다.`
+          : "아직 저장한 계산내역이 없습니다.");
+      root.innerHTML = `<div class="empty">${message}</div>`;
       return;
     }
 
@@ -2217,6 +2476,11 @@ const db = getFirestore(firebaseApp);
       const apartmentName = recordApartmentName(item);
       const specs = recordSpecs(item);
       const actualReady = !!item?.state?.actualBid?.enabled;
+      const decision = recordDecision(item);
+      const decisionReason = stateText(item,"bidDecisionReason","");
+      const decisionLabel = decision === "bid" ? "입찰 O" : decision === "no" ? "입찰 X" : "고민중";
+      const decisionClass = decision === "bid" ? "bid" : decision === "no" ? "" : "pending";
+      const specialNotes = stateText(item,"specialNotes","");
       return `<div class="saved-item" data-load-id="${item.id}">
         <div class="saved-title-line">
           <div class="saved-title">${escapeHtml(item.title)}</div>
@@ -2227,14 +2491,16 @@ const db = getFirestore(firebaseApp);
           <span class="pill">지역 ${escapeHtml(region)}</span>
           <span class="date-pill">경매 ${date || "미입력"}</span>
           <span class="equity-pill">최소자본 ${shortWon(metrics.minEquity)}</span>
-          ${actualReady ? `<span class="actual-ready-pill">실제입찰 입력됨</span>` : ""}
+          ${actualReady && decision === "bid" ? `<span class="actual-ready-pill">실제입찰 입력됨</span>` : ""}
         </div>
         ${specs ? `<div class="saved-specs">${escapeHtml(specs)}</div>` : ""}
+        <div class="decision-display ${decisionClass}">${escapeHtml(decisionLabel)}${decisionReason ? ` · ${escapeHtml(decisionReason)}` : " · 사유 미입력"}</div>
+        ${specialNotes ? `<div class="saved-notes">특이사항 · ${escapeHtml(specialNotes)}</div>` : ""}
         <div class="saved-meta">감정가 ${shortWon(metrics.appraisal)} · 입찰 ${pct(metrics.bidRate*100)} · ${formatDateTime(item.updatedAtMs)} · 수정 ${Number(item.revision||0)}회</div>
         <div class="saved-bottom">
           <span class="pill">가계 ${shortWon(metrics.householdEquity)} · 신탁 ${shortWon(metrics.trustEquity)}</span>
           <div class="saved-card-actions no-print">
-            <button class="btn secondary" type="button" data-actual-bid-id="${item.id}">${actualReady ? "실제입찰 수정" : "실제입찰"}</button>
+            ${decision === "bid" ? `<button class="btn secondary actual-card-btn" type="button" data-actual-bid-id="${item.id}">${actualReady ? "실제입찰 수정" : "실제입찰"}</button>` : ""}
             <button class="icon-btn" style="width:42px;height:30px" data-delete-id="${item.id}">삭제</button>
           </div>
         </div>
@@ -2255,13 +2521,23 @@ const db = getFirestore(firebaseApp);
   async function saveCurrent(){
     if (!requireCloudReady()) return;
     const selectedSaveFolder = cleanFolderName($("saveFolder").value);
+    const bidDecision = $("bidDecision").value;
+    if (!bidDecision){
+      alert("고민중·입찰하기·입찰 안 함 중 하나를 선택해주세요.");
+      $("bidDecision").focus();
+      return;
+    }
+    if (bidDecision !== "bid" && currentActualBidData?.enabled){
+      if (!confirm("입찰하기가 아닌 상태로 저장하면 기존 실제입찰 입력자료가 함께 삭제됩니다. 계속할까요?")) return;
+      currentActualBidData = null;
+    }
     if (!selectedSaveFolder){
       alert("저장할 지역 폴더를 선택하거나 새로 만들어주세요.");
       $("saveFolder").focus();
       return;
     }
     if (!folderNames.includes(selectedSaveFolder)){ folderNames = uniqueFolderNames([...folderNames, selectedSaveFolder]); saveFolderNamesLocal(); }
-    const title = $("saveTitle").value.trim() || $("caseNo").value.trim() || $("propertyName").value.trim() || "이름 없는 계산";
+    const title = $("caseNo").value.trim() || $("saveTitle").value.trim() || $("propertyName").value.trim() || "이름 없는 계산";
     const existing = loadedRecordId ? rawLocalRecords().find(x => x.id === loadedRecordId) : null;
     const id = loadedRecordId || (crypto.randomUUID ? crypto.randomUUID() : `${Date.now().toString(36)}${Math.random().toString(36).slice(2,9)}`);
     const baseRevision = loadedRecordId ? Number(loadedRecordRevision || 0) : 0;
@@ -2429,6 +2705,106 @@ const db = getFirestore(firebaseApp);
       console.error(error);
       setSyncStatus("폴더 저장 실패 · 인터넷 연결 확인", "bad");
       alert("폴더를 클라우드에 저장하지 못했습니다. 인터넷 연결을 확인해주세요.");
+    }
+  }
+
+  async function renameFolder(){
+    if (!requireCloudReady()) return;
+    const oldName = cleanFolderName($("saveFolder").value || selectedFolder);
+    if (!oldName){
+      alert("수정할 폴더를 먼저 선택해주세요.");
+      $("saveFolder").focus();
+      return;
+    }
+    const raw = prompt("새 폴더 이름을 입력해주세요.", oldName);
+    if (raw === null) return;
+    const newName = cleanFolderName(raw);
+    if (!newName){ alert("새 폴더 이름을 입력해주세요."); return; }
+    if (newName === oldName){ showToast("폴더 이름이 동일합니다."); return; }
+    if (folderNames.includes(newName)){
+      alert("이미 같은 이름의 폴더가 있습니다. 다른 이름을 입력해주세요.");
+      return;
+    }
+
+    const affected = rawLocalRecords().filter(item => !item.deleted && recordFolder(item) === oldName);
+    const nextFolderNames = uniqueFolderNames(folderNames.map(name => name === oldName ? newName : name));
+    const now = Date.now();
+    setSyncStatus(`${oldName} 폴더 이름 수정 중…`, "warn");
+    setSaveButtonsDisabled(true);
+    try{
+      const result = await runTransaction(db, async transaction => {
+        const settings = await transaction.get(settingsRef());
+        const settingsData = settings.data() || {};
+        const cloudFoldersRevision = Number(settingsData.foldersRevision || 0);
+        if (cloudFoldersRevision !== foldersRevision) throw new SyncConflictError("다른 기기의 폴더 설정이 더 최신입니다.");
+
+        const snapshots = [];
+        for (const item of affected){
+          const snap = await transaction.get(recordRef(item.id));
+          snapshots.push({item,snap});
+        }
+
+        const updated = [];
+        for (const {item,snap} of snapshots){
+          if (!snap.exists()) throw new SyncConflictError("다른 기기에서 저장자료가 변경되었습니다.");
+          const cloud = snap.data();
+          const cloudRevision = Number(cloud.revision || 0);
+          if (cloudRevision !== Number(item.revision || 0) || cloud.deleted) throw new SyncConflictError("다른 기기에서 저장자료가 변경되었습니다.");
+          const nextState = JSON.parse(JSON.stringify(cloud.state || item.state || {}));
+          nextState.fields = {...(nextState.fields || {}), saveFolder:newName};
+          const next = {
+            ...cloud,
+            state:nextState,
+            revision:cloudRevision + 1,
+            checksum:checksum({title:cloud.title || item.title,state:nextState,deleted:false}),
+            updatedAt:serverTimestamp(),updatedAtMs:now,deviceId,schemaVersion:APP_SCHEMA_VERSION
+          };
+          transaction.set(recordRef(item.id), next, {merge:false});
+          updated.push(normalizeCloudRecord(item.id,next));
+        }
+
+        transaction.set(settingsRef(), {
+          folderNames:nextFolderNames,
+          foldersRevision:cloudFoldersRevision + 1,
+          foldersUpdatedAt:serverTimestamp(),foldersUpdatedAtMs:now,deviceId,schemaVersion:APP_SCHEMA_VERSION
+        }, {merge:true});
+        return {updated,nextRevision:cloudFoldersRevision + 1};
+      });
+
+      folderNames = nextFolderNames;
+      foldersRevision = result.nextRevision;
+      result.updated.forEach(upsertLocalRecord);
+      saveFolderNamesLocal();
+      if (selectedFolder === oldName) selectedFolder = newName;
+      if (loadedRecordId && affected.some(item => item.id === loadedRecordId)){
+        loadedRecordRevision += 1;
+        $("saveFolder").value = newName;
+      }
+      renderFolderOptions(newName);
+      $("saveFolder").value = newName;
+      saveSavedListPreferences();
+      renderSaved();
+      setSyncStatus(`자동 동기화 완료 · ${formatDateTime(new Date())}`, "good");
+      showToast(`${oldName} → ${newName} 폴더 이름 수정 완료`);
+    } catch(error){
+      console.error(error);
+      if (error instanceof SyncConflictError){
+        const settingsSnap = await getDoc(settingsRef());
+        const settingsData = settingsSnap.data() || {};
+        foldersRevision = Number(settingsData.foldersRevision || 0);
+        folderNames = uniqueFolderNames(Array.isArray(settingsData.folderNames) ? settingsData.folderNames : []);
+        saveFolderNamesLocal();
+        const recordsSnap = await getDocs(recordsCollection());
+        recordsSnap.forEach(docSnap => upsertLocalRecord(normalizeCloudRecord(docSnap.id, docSnap.data())));
+        renderFolderOptions();
+        renderSaved();
+        alert("다른 기기의 최신자료가 있어 폴더 이름 수정을 중단하고 최신자료를 다시 불러왔습니다.");
+      } else {
+        alert("폴더 이름을 수정하지 못했습니다. 인터넷 연결을 확인해주세요.");
+      }
+      setSyncStatus("폴더 이름 수정 실패", "bad");
+    } finally {
+      setSaveButtonsDisabled(!cloudReady);
     }
   }
 
@@ -2736,8 +3112,37 @@ const db = getFirestore(firebaseApp);
   }
 
   document.addEventListener("input", (e) => {
+    if (e.target.id === "caseNo"){
+      $("saveTitle").value = e.target.value.trim();
+      update();
+      return;
+    }
+    if (e.target.id === "savedSearchInput"){
+      savedSearchQuery = e.target.value.trim();
+      updateSavedFilterUi();
+      renderSaved();
+      return;
+    }
+    if (e.target.id === "auctionDate"){
+      e.target.value = formatAuctionDateValue(e.target.value);
+      update();
+      return;
+    }
+    if (e.target.matches("[data-money]")){
+      formatMoneyInput(e.target);
+      if (e.target.matches("[data-actual-input]")) renderActualBidResults();
+      else update();
+      return;
+    }
     if (e.target.matches("[data-actual-input]")){
       renderActualBidResults();
+      return;
+    }
+    if (e.target.matches("[data-rate-year-type]")){
+      const type = e.target.dataset.rateYearType;
+      const i = Number(e.target.dataset.rateYearIndex);
+      const years = type === "same" ? sameRateYears : nearRateYears;
+      years[i] = e.target.value;
       return;
     }
     if (e.target.matches("[data-rate-type]")){
@@ -2779,15 +3184,48 @@ const db = getFirestore(firebaseApp);
       }
       saveSavedListPreferences();
       renderSaved();
+      if (savedViewMode === "folders" && $("folderMenu")) $("folderMenu").hidden = false;
+      return;
+    }
+    const decisionFilter = e.target.closest("[data-decision-filter]");
+    if (decisionFilter){
+      savedDecisionFilter = decisionFilter.dataset.decisionFilter;
+      saveSavedListPreferences();
+      updateSavedFilterUi();
+      renderSaved();
+      return;
+    }
+    const wideButton = e.target.closest("#savedWideBtn");
+    if (wideButton){
+      savedListWide = !savedListWide;
+      saveSavedListPreferences();
+      applySavedListWide();
+      return;
+    }
+    const searchClear = e.target.closest("#savedSearchClearBtn");
+    if (searchClear){
+      savedSearchQuery = "";
+      $("savedSearchInput").value = "";
+      updateSavedFilterUi();
+      renderSaved();
+      $("savedSearchInput").focus();
+      return;
+    }
+    const folderTrigger = e.target.closest("#folderListBtn");
+    if (folderTrigger){
+      const menu = $("folderMenu");
+      if (!folderTrigger.disabled) menu.hidden = !menu.hidden;
       return;
     }
     const folder = e.target.closest("[data-folder]");
     if (folder){
       selectedFolder = folder.dataset.folder;
+      $("folderMenu").hidden = true;
       saveSavedListPreferences();
       renderSaved();
       return;
     }
+    if (!e.target.closest("#folderNav") && $("folderMenu")) $("folderMenu").hidden = true;
     const move = e.target.closest("[data-move]");
     if (move){
       const card = move.closest(".section-card");
@@ -2798,7 +3236,9 @@ const db = getFirestore(firebaseApp);
     if (add){
       const type = add.dataset.add;
       const arr = type==="same" ? sameRates : nearRates;
+      const years = type==="same" ? sameRateYears : nearRateYears;
       arr.push(78);
+      years.push("");
       renderRateRows(type);
       update();
       return;
@@ -2807,7 +3247,10 @@ const db = getFirestore(firebaseApp);
     if (rem){
       const type = rem.dataset.removeType;
       const arr = type==="same" ? sameRates : nearRates;
-      arr.splice(Number(rem.dataset.removeIndex),1);
+      const years = type==="same" ? sameRateYears : nearRateYears;
+      const index = Number(rem.dataset.removeIndex);
+      arr.splice(index,1);
+      years.splice(index,1);
       renderRateRows(type);
       update();
       return;
@@ -2858,6 +3301,7 @@ const db = getFirestore(firebaseApp);
   $("mobileSaveBtn").addEventListener("click", saveCurrent);
   $("syncAllBtn").addEventListener("click", saveAllLatestData);
   $("createFolderBtn").addEventListener("click", createFolder);
+  $("renameFolderBtn").addEventListener("click", renameFolder);
   $("actualBidSaveBtn").addEventListener("click", saveActualBid);
   $("actualBidClearBtn").addEventListener("click", clearActualBid);
   $("actualBidCloseBtn").addEventListener("click", closeActualBid);
@@ -2956,8 +3400,9 @@ const db = getFirestore(firebaseApp);
     loadedRecordRevision = 0;
     setState({
       sameRates:[78,78,78],nearRates:[78,78,78],
+      sameRateYears:["","",""],nearRateYears:["","",""],
       fields:{
-        caseNo:"",apartmentName:"",propertyName:"",region:"",saveFolder:"",auctionDate:"",floorNo:"",maxFloor:"",unitNo:"",direction:"",roomCount:"",bathCount:"",apartmentAge:"",exclusiveArea:"",appraisal:"180000000",capital:"44000000",
+        caseNo:"",apartmentName:"",propertyName:"",region:"",saveFolder:"",auctionDate:"",floorNo:"",maxFloor:"",unitNo:"",direction:"",roomCount:"",bathCount:"",apartmentAge:"",exclusiveArea:"",supplyAreaPyeong:"",buildingType:"",specialNotes:"",bidDecision:"",bidDecisionReason:"",appraisal:"180000000",capital:"44000000",
         sameWeight:"60",nearWeight:"40",safetyAdjust:"0",bidRate:"78",autoApply:true,
         trustLoanRate:"60",trustExpenseRate:"7",trustBidCap:"80",trustUseCap:true,
         mortgageLoanRate:"60",mortgageDeduction:"25000000",mortgageUseDeduction:true,mortgageExpenseRate:"6",mortgageBidCap:"80",mortgageUseCap:true,
@@ -2969,7 +3414,7 @@ const db = getFirestore(firebaseApp);
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.8",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.9.6",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
@@ -3037,6 +3482,7 @@ const db = getFirestore(firebaseApp);
   renderFolderOptions();
   renderRateRows("same");
   renderRateRows("near");
+  formatAllMoneyInputs();
   renderSaved();
   update();
   updateAuthUi();
