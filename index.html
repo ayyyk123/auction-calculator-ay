@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.11.1</title>
+  <title>경매 입찰·대출 자금 계산기 v1.11.2</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -671,7 +671,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.11.1</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.11.2</span></h1>
       <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -1316,7 +1316,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.11.1 세대수·기본정보 순서 변경 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.11.2 피드백 달력 경매기일 표시 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -2797,10 +2797,10 @@ const db = getFirestore(firebaseApp);
     else candidate.innerHTML=`<div class="k">다음 피드백 후보</div><div class="v">저장된 후보 없음 · ${md(addBusinessDays(nextDate,4))}까지 확인</div>`;
   }
   function feedbackEventHtml(item){
-    const f=recordFeedback(item),base=feedbackBaseDate(item),display=feedbackDisplayDate(item),caseNo=stateText(item,"caseNo",item.title||"사건번호 없음");
+    const f=recordFeedback(item),base=feedbackBaseDate(item),display=feedbackDisplayDate(item),caseNo=stateText(item,"caseNo",item.title||"사건번호 없음"),auction=recordAuctionDate(item).raw;
     const cls=f.result==="failed"?"failed":f.result==="won"?"won":f.requested?"requested":"";
     const moved=base&&display&&base!==display; const status=f.result?feedbackResultLabel(f.result):(f.requested?"요청완료":"요청계획");
-    return `<button class="feedback-event ${cls}" type="button" draggable="true" data-feedback-record-id="${item.id}"><span class="feedback-event-main">${escapeHtml(caseNo)}${moved?` · ${md(base)}`:""}</span><span class="feedback-event-sub">${moved?"원래 기준일 · ":""}${status}</span></button>`;
+    return `<button class="feedback-event ${cls}" type="button" draggable="true" data-feedback-record-id="${item.id}"><span class="feedback-event-main">${auction?`(${md(auction)}) `:""}${escapeHtml(caseNo)}${moved?` · ${md(base)}`:""}</span><span class="feedback-event-sub">${moved?"원래 기준일 · ":""}${status}</span></button>`;
   }
   function renderFeedbackCalendar(){
     const grid=$("feedbackCalendarGrid"); if(!grid)return;
@@ -4172,7 +4172,7 @@ const db = getFirestore(firebaseApp);
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.11.1",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.11.2",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
