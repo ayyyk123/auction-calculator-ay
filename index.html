@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.11.2</title>
+  <title>경매 입찰·대출 자금 계산기 v1.11.3</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -648,7 +648,7 @@
     .feedback-more{border:0;background:#e2e8f0;color:#334155;border-radius:6px;padding:4px 5px;font-size:9px;font-weight:900;cursor:pointer;text-align:left}
     .feedback-calendar-note{font-size:10px;color:#64748b;margin-top:7px;line-height:1.45}
     .feedback-list-card{padding:11px}.feedback-list-toolbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;align-items:center}.feedback-filter-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.feedback-filter-btn{border:1px solid var(--line);background:#fff;color:#475569;border-radius:8px;padding:6px 8px;font-size:10.5px;font-weight:900;cursor:pointer}.feedback-filter-btn.active{background:#111827;color:#fff;border-color:#111827}.feedback-filter-btn[data-feedback-filter="no"].active{background:#b91c1c;border-color:#b91c1c}
-    .feedback-record-list{display:grid;gap:6px;margin-top:8px}.feedback-record-item{border:1px solid var(--line);border-radius:9px;padding:8px;background:#fff;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center}.feedback-record-title{font-size:11.5px;font-weight:950}.feedback-record-meta{font-size:9.5px;color:#64748b;margin-top:2px}.feedback-record-actions{display:flex;gap:5px;align-items:center}.feedback-record-actions .btn{padding:6px 7px;font-size:10px}
+    .feedback-record-list{display:grid;gap:6px;margin-top:8px}.feedback-record-item{border:1px solid var(--line);border-radius:9px;padding:8px;background:#fff;color:var(--ink);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center}.feedback-record-item.planned{border-color:#bfdbfe;background:#eff6ff;color:#1e3a8a}.feedback-record-item.requested{border-color:#bbf7d0;background:#f0fdf4;color:#166534}.feedback-record-item.failed{border-color:#e2e8f0;background:#f8fafc;color:#64748b}.feedback-record-item.won{border-color:#fde68a;background:#fffbeb;color:#92400e}.feedback-record-item.planned .feedback-record-meta,.feedback-record-item.requested .feedback-record-meta,.feedback-record-item.failed .feedback-record-meta,.feedback-record-item.won .feedback-record-meta{color:inherit;opacity:.74}.feedback-record-title{font-size:11.5px;font-weight:950}.feedback-record-meta{font-size:9.5px;color:#64748b;margin-top:2px}.feedback-record-actions{display:flex;gap:5px;align-items:center}.feedback-record-actions .btn{padding:6px 7px;font-size:10px}
     .feedback-modal{position:fixed;inset:0;background:rgba(15,23,42,.58);z-index:1580;display:flex;align-items:center;justify-content:center;padding:16px}.feedback-modal[hidden]{display:none}.feedback-dialog{width:min(560px,100%);max-height:min(88vh,760px);overflow:auto;background:#fff;border-radius:16px;padding:15px;box-shadow:0 24px 70px rgba(15,23,42,.3)}.feedback-dialog-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px}.feedback-dialog-head h2{margin:0;font-size:18px}.feedback-dialog-sub{font-size:10.5px;color:#64748b;margin-top:3px}.feedback-close{border:0;background:#f3f4f6;color:#334155;border-radius:8px;width:34px;height:34px;font-size:20px;font-weight:900;cursor:pointer}.feedback-info-strip{display:flex;flex-wrap:wrap;gap:5px;margin:7px 0 10px}.feedback-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.feedback-form-grid .full{grid-column:1/-1}.feedback-checkbox-row{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:10px;padding:9px 10px;background:#f8fafc}.feedback-checkbox-row input{width:18px;height:18px}.feedback-modal-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:12px}.feedback-modal-actions .btn.save-feedback{grid-column:1/-1}.feedback-warning{margin-top:8px;padding:8px 9px;background:#fffbeb;border:1px solid #fde68a;border-radius:9px;color:#92400e;font-size:10px;line-height:1.4}.feedback-warning[hidden]{display:none}
     @media(max-width:700px){
       .app-mode-tabs{margin-bottom:8px;padding:4px}.app-mode-btn{flex:1;padding:7px 8px;font-size:11px}
@@ -671,7 +671,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.11.2</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.11.3</span></h1>
       <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -1316,7 +1316,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.11.2 피드백 달력 경매기일 표시 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.11.3 피드백 목록 달력색상 연동 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -2823,7 +2823,7 @@ const db = getFirestore(firebaseApp);
     if(q)items=items.filter(item=>recordMatchesSavedSearch(item,feedbackSearchQuery)); items.sort((a,b)=>(recordAuctionDate(a).time??Infinity)-(recordAuctionDate(b).time??Infinity));
     $("feedbackListSummary").textContent=`${feedbackListFilter==="no"?"입찰안함":"달력 대상"} ${items.length}건`;
     document.querySelectorAll("[data-feedback-filter]").forEach(btn=>btn.classList.toggle("active",btn.dataset.feedbackFilter===feedbackListFilter));
-    root.innerHTML=items.length?items.map(item=>{const f=recordFeedback(item),base=feedbackBaseDate(item),caseNo=stateText(item,"caseNo",item.title||"-");return `<div class="feedback-record-item"><div><div class="feedback-record-title">${escapeHtml(caseNo)}${recordApartmentName(item)?` · ${escapeHtml(recordApartmentName(item))}`:""}</div><div class="feedback-record-meta">경매 ${recordAuctionDate(item).raw||"미입력"}${base?` · 4영업일 기준 ${base}`:""}${f.requested?` · 요청 ${f.requestDate||"날짜 미입력"}`:""}${f.result?` · ${feedbackResultLabel(f.result)}`:""}</div></div><div class="feedback-record-actions">${feedbackListFilter!=="no"?`<button class="btn secondary" type="button" data-feedback-record-id="${item.id}">피드백</button>`:""}<button class="btn light" type="button" data-feedback-calc-id="${item.id}">계산기</button></div></div>`;}).join(""):`<div class="empty">조건에 맞는 저장물건이 없습니다.</div>`;
+    root.innerHTML=items.length?items.map(item=>{const f=recordFeedback(item),base=feedbackBaseDate(item),caseNo=stateText(item,"caseNo",item.title||"-");const colorCls=feedbackListFilter==="no"?"":(f.result==="failed"?"failed":f.result==="won"?"won":f.requested?"requested":"planned");return `<div class="feedback-record-item ${colorCls}"><div><div class="feedback-record-title">${escapeHtml(caseNo)}${recordApartmentName(item)?` · ${escapeHtml(recordApartmentName(item))}`:""}</div><div class="feedback-record-meta">경매 ${recordAuctionDate(item).raw||"미입력"}${base?` · 4영업일 기준 ${base}`:""}${f.requested?` · 요청 ${f.requestDate||"날짜 미입력"}`:""}${f.result?` · ${feedbackResultLabel(f.result)}`:""}</div></div><div class="feedback-record-actions">${feedbackListFilter!=="no"?`<button class="btn secondary" type="button" data-feedback-record-id="${item.id}">피드백</button>`:""}<button class="btn light" type="button" data-feedback-calc-id="${item.id}">계산기</button></div></div>`;}).join(""):`<div class="empty">조건에 맞는 저장물건이 없습니다.</div>`;
   }
   function openFeedbackModal(id){
     const item=records().find(x=>x.id===id); if(!item)return; feedbackRecordId=id;feedbackBaseRevision=Number(item.revision||0); const f=recordFeedback(item),base=feedbackBaseDate(item),auction=recordAuctionDate(item).raw;
