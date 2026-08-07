@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.10.6</title>
+  <title>경매 입찰·대출 자금 계산기 v1.11.0</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -610,6 +610,29 @@
       .actual-income-manual input{font-size:9.5px!important;padding:6px 3px!important}
     }
 
+
+    .feedback-modal{position:fixed;inset:0;z-index:95;background:rgba(15,23,42,.58);padding:18px;overflow:auto}
+    .feedback-modal[hidden]{display:none!important}
+    .feedback-shell{width:min(1180px,100%);margin:0 auto;background:#f8fafc;border-radius:18px;box-shadow:0 24px 70px rgba(15,23,42,.28);overflow:hidden}
+    .feedback-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:18px 20px;background:white;border-bottom:1px solid var(--line)}
+    .feedback-head h2{margin:0;font-size:21px}.feedback-head p{margin:5px 0 0;color:var(--muted);font-size:12px;line-height:1.55}
+    .feedback-body{padding:16px;display:grid;gap:14px}.feedback-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .feedback-summary-card{background:white;border:1px solid var(--line);border-radius:13px;padding:13px}.feedback-summary-label{font-size:11px;color:var(--muted);font-weight:800}
+    .feedback-summary-value{margin-top:5px;font-size:18px;font-weight:950;color:#111827;line-height:1.35}.feedback-summary-value.good{color:#047857}.feedback-summary-value.warn{color:#b45309}.feedback-summary-value.bad{color:#b91c1c}
+    .feedback-rule-note{font-size:11px;color:#475569;line-height:1.6;margin-top:5px}.feedback-panel{background:white;border:1px solid var(--line);border-radius:14px;padding:14px}
+    .feedback-panel-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.feedback-panel-title h3{margin:0;font-size:15px}
+    .feedback-calendar-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}.feedback-calendar-title{font-size:17px;font-weight:950;min-width:120px;text-align:center}.feedback-calendar-nav{display:flex;gap:6px;align-items:center}
+    .feedback-calendar-weekdays,.feedback-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}.feedback-calendar-weekdays div{text-align:center;padding:7px 2px;font-size:11px;font-weight:900;color:#64748b}.feedback-calendar-weekdays div:first-child{color:#dc2626}.feedback-calendar-weekdays div:last-child{color:#2563eb}
+    .feedback-day{min-height:103px;border-right:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;padding:6px;background:#fff;overflow:hidden}.feedback-day:nth-child(7n+1){border-left:1px solid #e5e7eb}.feedback-day:nth-child(-n+7){border-top:1px solid #e5e7eb}.feedback-day.other-month{background:#f8fafc;color:#94a3b8}.feedback-day.weekend{background:#fbfdff}.feedback-day.holiday{background:#fff7f7}.feedback-day.today{box-shadow:inset 0 0 0 2px #111827}
+    .feedback-day-top{display:flex;justify-content:space-between;gap:4px;align-items:flex-start}.feedback-day-number{font-size:12px;font-weight:950}.feedback-day.holiday .feedback-day-number,.feedback-day:nth-child(7n+1) .feedback-day-number{color:#dc2626}.feedback-day:nth-child(7n) .feedback-day-number{color:#2563eb}.feedback-holiday-name{font-size:8.5px;line-height:1.2;color:#dc2626;text-align:right;max-width:70%}
+    .feedback-day-events{display:grid;gap:3px;margin-top:5px}.feedback-event{font-size:9px;line-height:1.25;padding:3px 4px;border-radius:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:800}.feedback-event.auction{background:#dbeafe;color:#1d4ed8}.feedback-event.deadline{background:#fef3c7;color:#92400e}.feedback-event.request{background:#dcfce7;color:#047857}.feedback-event.done{background:#e2e8f0;color:#475569}
+    .feedback-calendar-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:9px;font-size:10px;color:#475569}.feedback-calendar-legend span{display:inline-flex;align-items:center;gap:4px}.feedback-calendar-dot{width:9px;height:9px;border-radius:3px;display:inline-block}.feedback-calendar-dot.auction{background:#93c5fd}.feedback-calendar-dot.deadline{background:#fcd34d}.feedback-calendar-dot.request{background:#86efac}
+    .feedback-add-grid{display:grid;grid-template-columns:1.3fr 160px auto;gap:8px;align-items:end;margin-bottom:10px}.feedback-list{display:grid;gap:8px;max-height:560px;overflow:auto;padding-right:2px}.feedback-item{border:1px solid #e2e8f0;border-radius:12px;padding:11px;background:#fff}.feedback-item-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.feedback-item-title{font-size:13px;font-weight:950;line-height:1.4}.feedback-item-meta{font-size:10.5px;color:#64748b;margin-top:3px;line-height:1.45}
+    .feedback-badge{display:inline-flex;align-items:center;border-radius:999px;padding:4px 7px;font-size:9.5px;font-weight:900;white-space:nowrap;background:#e2e8f0;color:#475569}.feedback-badge.good{background:#dcfce7;color:#047857}.feedback-badge.warn{background:#fef3c7;color:#92400e}.feedback-badge.bad{background:#fee2e2;color:#b91c1c}.feedback-badge.info{background:#dbeafe;color:#1d4ed8}
+    .feedback-item-controls{display:grid;grid-template-columns:130px 155px 155px auto;gap:8px;align-items:end;margin-top:10px}.feedback-check-wrap{height:38px;display:flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;padding:0 10px;background:#f8fafc;font-size:11px;font-weight:900}.feedback-check-wrap input{width:17px;height:17px;margin:0}
+    .feedback-item-controls label,.feedback-add-grid label,.feedback-holiday-add label{font-size:10px;font-weight:900;color:#475569;margin-bottom:4px;display:block}.feedback-item-controls input,.feedback-item-controls select,.feedback-add-grid input,.feedback-holiday-add input{width:100%;border:1px solid #cbd5e1;border-radius:9px;padding:9px 8px;background:white;font-size:12px}
+    .feedback-empty{padding:25px 10px;text-align:center;color:#64748b;font-size:12px;border:1px dashed #cbd5e1;border-radius:10px}.feedback-holiday-add{display:grid;grid-template-columns:160px 1fr auto;gap:8px;align-items:end}.feedback-custom-list{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.feedback-custom-chip{display:inline-flex;align-items:center;gap:5px;background:#fee2e2;color:#991b1b;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:800}.feedback-custom-chip button{border:0;background:transparent;color:#991b1b;font-weight:950;cursor:pointer;padding:0}.feedback-sync-note{font-size:10px;color:#64748b;text-align:right}
+    @media(max-width:760px){.feedback-modal{padding:0}.feedback-shell{min-height:100%;border-radius:0}.feedback-head{padding:14px}.feedback-body{padding:10px}.feedback-summary-grid{grid-template-columns:1fr}.feedback-day{min-height:77px;padding:4px}.feedback-holiday-name{font-size:7px}.feedback-event{font-size:7.5px;padding:2px 3px}.feedback-add-grid{grid-template-columns:1fr 130px}.feedback-add-grid button{grid-column:1/-1}.feedback-item-controls{grid-template-columns:1fr 1fr}.feedback-item-controls .feedback-delete-wrap{grid-column:1/-1}.feedback-holiday-add{grid-template-columns:130px 1fr}.feedback-holiday-add button{grid-column:1/-1}}
     @media print{
       body{background:white}
       .no-print,.sticky-side,header .actions{display:none!important}
@@ -623,7 +646,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.10.6</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.11.0</span></h1>
       <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -636,6 +659,7 @@
       <div class="sync-status" id="syncStatus">이메일 로그인 후 PC·핸드폰 자동동기화</div>
       <div class="header-tools-row">
         <button class="btn secondary" id="syncAllBtn" type="button">최신자료 저장</button>
+        <button class="btn light" id="feedbackPlannerBtn" type="button">피드백 달력</button>
         <details class="tools-details">
           <summary>백업·인쇄 도구 ▾</summary>
           <div class="actions" style="margin-top:7px">
@@ -1217,9 +1241,41 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.10.6 세대수·기본정보 순서 변경 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.11.0 피드백 달력·공휴일 자동계산 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
+
+
+<div class="feedback-modal no-print" id="feedbackModal" hidden>
+  <div class="feedback-shell" role="dialog" aria-modal="true" aria-labelledby="feedbackModalTitle">
+    <div class="feedback-head">
+      <div><h2 id="feedbackModalTitle">코치 피드백 달력</h2><p>입찰기일 4영업일 전까지 요청 · 토요일·일요일·공휴일·대체공휴일 제외 · 동시에 진행 중인 요청은 최대 2건</p></div>
+      <button class="btn light" id="feedbackCloseBtn" type="button">닫기</button>
+    </div>
+    <div class="feedback-body">
+      <div class="feedback-summary-grid">
+        <div class="feedback-summary-card"><div class="feedback-summary-label">현재 진행 중</div><div class="feedback-summary-value" id="feedbackActiveSlots">0 / 2건</div><div class="feedback-rule-note" id="feedbackSlotNote">지금 요청 가능한 자리를 계산합니다.</div></div>
+        <div class="feedback-summary-card"><div class="feedback-summary-label">다음 요청 가능일</div><div class="feedback-summary-value" id="feedbackNextRequestDate">오늘</div><div class="feedback-rule-note" id="feedbackNextRequestNote"></div></div>
+        <div class="feedback-summary-card"><div class="feedback-summary-label">그날 요청 가능한 가장 빠른 입찰일</div><div class="feedback-summary-value good" id="feedbackEarliestAuctionDate">-</div><div class="feedback-rule-note">요청일 다음 영업일부터 1일로 계산해 4번째 영업일입니다.</div></div>
+      </div>
+      <section class="feedback-panel">
+        <div class="feedback-calendar-toolbar"><div class="feedback-calendar-nav"><button class="btn light" id="feedbackPrevMonthBtn" type="button">←</button><button class="btn light" id="feedbackTodayBtn" type="button">오늘</button></div><div class="feedback-calendar-title" id="feedbackCalendarTitle"></div><div class="feedback-calendar-nav"><button class="btn light" id="feedbackNextMonthBtn" type="button">→</button></div></div>
+        <div class="feedback-calendar-weekdays"><div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div></div><div class="feedback-calendar-grid" id="feedbackCalendarGrid"></div>
+        <div class="feedback-calendar-legend"><span><i class="feedback-calendar-dot auction"></i>입찰기일</span><span><i class="feedback-calendar-dot deadline"></i>피드백 요청 마감일</span><span><i class="feedback-calendar-dot request"></i>실제 요청일</span></div>
+      </section>
+      <section class="feedback-panel">
+        <div class="feedback-panel-title"><h3>피드백 요청 관리</h3><div class="feedback-sync-note" id="feedbackSyncNote">저장목록의 경매기일을 자동으로 불러옵니다.</div></div>
+        <div class="feedback-add-grid"><div><label for="feedbackManualTitle">저장목록에 없는 물건 직접 추가</label><input id="feedbackManualTitle" type="text" placeholder="사건번호 또는 물건명"></div><div><label for="feedbackManualAuctionDate">입찰기일</label><input id="feedbackManualAuctionDate" type="date"></div><button class="btn secondary" id="feedbackManualAddBtn" type="button">직접 추가</button></div>
+        <div class="feedback-list" id="feedbackItemList"></div>
+      </section>
+      <section class="feedback-panel">
+        <div class="feedback-panel-title"><h3>임시공휴일·선거일 직접 추가</h3></div>
+        <div class="feedback-holiday-add"><div><label for="feedbackHolidayDate">날짜</label><input id="feedbackHolidayDate" type="date"></div><div><label for="feedbackHolidayName">휴일 이름</label><input id="feedbackHolidayName" type="text" placeholder="예: 임시공휴일, 선거일"></div><button class="btn light" id="feedbackHolidayAddBtn" type="button">휴일 추가</button></div>
+        <div class="feedback-custom-list" id="feedbackCustomHolidayList"></div>
+      </section>
+    </div>
+  </div>
+</div>
 
 <div class="actual-bid-modal no-print" id="actualBidModal" hidden>
   <div class="actual-bid-shell">
@@ -1407,8 +1463,9 @@ const db = getFirestore(firebaseApp);
   const SAVED_VIEW_KEY = "auctionBidCalculator.savedView.v1";
   const SAVED_SORT_KEY = "auctionBidCalculator.savedSort.v1";
   const FOLDER_NAMES_KEY = "auctionBidCalculator.folderNames.v1";
+  const FEEDBACK_PLANNER_KEY = "auctionBidCalculator.feedbackPlanner.v1";
   const DEFAULT_SECTION_ORDER = ["basic","rates","loan","dsr","result"];
-  const APP_SCHEMA_VERSION = 10;
+  const APP_SCHEMA_VERSION = 11;
   const deviceId = localStorage.getItem(DEVICE_ID_KEY) ||
     (crypto.randomUUID ? crypto.randomUUID() : `device-${Date.now()}-${Math.random().toString(36).slice(2)}`);
   localStorage.setItem(DEVICE_ID_KEY, deviceId);
@@ -1443,6 +1500,11 @@ const db = getFirestore(firebaseApp);
   let actualBidRecordId = null;
   let actualBidBaseRevision = 0;
   let actualBidDraft = null;
+  let feedbackPlanner = {items:[], customHolidays:[]};
+  let feedbackRevision = 0;
+  let feedbackSyncTimer = null;
+  let feedbackCalendarCursor = new Date();
+  let suppressFeedbackSync = false;
 
   const numericText = (value) => String(value ?? "").replace(/,/g,"").trim();
   const num = (id) => {
@@ -1515,6 +1577,321 @@ const db = getFirestore(firebaseApp);
     return email.endsWith("@auction-calculator-ay.local") ? email.split("@")[0] : (email || "로그인됨");
   }
 
+
+  function feedbackStorageKey(uid = currentUser?.uid){
+    return uid ? `${FEEDBACK_PLANNER_KEY}.${uid}` : FEEDBACK_PLANNER_KEY;
+  }
+
+  function cleanDateKey(value){
+    const raw = String(value || "").trim();
+    return /^\d{4}-\d{2}-\d{2}$/.test(raw) ? raw : "";
+  }
+
+  function dateFromKey(value){
+    const key = cleanDateKey(value);
+    if (!key) return null;
+    const [y,m,d] = key.split("-").map(Number);
+    const date = new Date(y,m-1,d,12,0,0,0);
+    return date.getFullYear() === y && date.getMonth() === m-1 && date.getDate() === d ? date : null;
+  }
+
+  function dateKey(date){
+    if (!(date instanceof Date) || Number.isNaN(date.getTime())) return "";
+    return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
+  }
+
+  function shiftDate(value, days){
+    const date = value instanceof Date ? new Date(value) : dateFromKey(value);
+    if (!date) return null;
+    date.setDate(date.getDate() + Number(days || 0));
+    return date;
+  }
+
+  function formatShortDate(value, includeYear = true){
+    const date = value instanceof Date ? value : dateFromKey(value);
+    if (!date) return "-";
+    return date.toLocaleDateString("ko-KR", includeYear
+      ? {year:"numeric",month:"numeric",day:"numeric",weekday:"short"}
+      : {month:"numeric",day:"numeric",weekday:"short"});
+  }
+
+  function normalizeFeedbackPlanner(value){
+    const source = value && typeof value === "object" ? value : {};
+    const items = Array.isArray(source.items) ? source.items.map(item => ({
+      id:String(item?.id || ""), recordId:String(item?.recordId || ""), title:String(item?.title || "").trim(),
+      auctionDate:cleanDateKey(item?.auctionDate), requested:!!item?.requested,
+      requestDate:cleanDateKey(item?.requestDate),
+      status:["pending","failed","won","cancelled"].includes(item?.status) ? item.status : "pending",
+      manual:!!item?.manual, updatedAtMs:Number(item?.updatedAtMs || 0)
+    })).filter(item => item.id && item.auctionDate) : [];
+    const customHolidays = Array.isArray(source.customHolidays) ? source.customHolidays.map(item => ({
+      id:String(item?.id || ""), date:cleanDateKey(item?.date),
+      name:String(item?.name || "임시공휴일").trim() || "임시공휴일"
+    })).filter(item => item.id && item.date) : [];
+    return {items,customHolidays};
+  }
+
+  function loadFeedbackPlannerLocal(){
+    try{ feedbackPlanner = normalizeFeedbackPlanner(JSON.parse(localStorage.getItem(feedbackStorageKey()) || "null")); }
+    catch { feedbackPlanner = {items:[],customHolidays:[]}; }
+  }
+
+  function saveFeedbackPlannerLocal(){ localStorage.setItem(feedbackStorageKey(), JSON.stringify(feedbackPlanner)); }
+
+  function lunarDateFor(year, month, day){
+    try{
+      const formatter = new Intl.DateTimeFormat("en-u-ca-chinese", {year:"numeric",month:"numeric",day:"numeric"});
+      for (let date = new Date(year,0,1,12); date <= new Date(year,11,31,12); date.setDate(date.getDate()+1)){
+        const parts = formatter.formatToParts(date);
+        const values = Object.fromEntries(parts.map(part => [part.type,part.value]));
+        const lunarMonth = Number(String(values.month || "").replace(/\D/g,""));
+        const lunarDay = Number(String(values.day || "").replace(/\D/g,""));
+        if (lunarMonth === month && lunarDay === day) return new Date(date);
+      }
+    } catch(error){ console.warn("lunar calendar unavailable", error); }
+    return null;
+  }
+
+  function addHolidayEntry(map, key, name, category){
+    if (!key) return;
+    const current = map.get(key) || {names:[],categories:[]};
+    if (!current.names.includes(name)) current.names.push(name);
+    if (category && !current.categories.includes(category)) current.categories.push(category);
+    map.set(key,current);
+  }
+
+  function koreanHolidayMap(year){
+    const base = new Map();
+    addHolidayEntry(base,`${year}-01-01`,"신정","newyear");
+    addHolidayEntry(base,`${year}-03-01`,"삼일절","national");
+    if (year >= 2026) addHolidayEntry(base,`${year}-05-01`,"노동절","labor");
+    addHolidayEntry(base,`${year}-05-05`,"어린이날","children");
+    addHolidayEntry(base,`${year}-06-06`,"현충일","memorial");
+    if (year >= 2026) addHolidayEntry(base,`${year}-07-17`,"제헌절","national");
+    addHolidayEntry(base,`${year}-08-15`,"광복절","national");
+    addHolidayEntry(base,`${year}-10-03`,"개천절","national");
+    addHolidayEntry(base,`${year}-10-09`,"한글날","national");
+    addHolidayEntry(base,`${year}-12-25`,"기독탄신일","christmas");
+
+    const seollal = lunarDateFor(year,1,1);
+    if (seollal){
+      addHolidayEntry(base,dateKey(shiftDate(seollal,-1)),"설날 연휴","seollal");
+      addHolidayEntry(base,dateKey(seollal),"설날","seollal");
+      addHolidayEntry(base,dateKey(shiftDate(seollal,1)),"설날 연휴","seollal");
+    }
+    const buddha = lunarDateFor(year,4,8);
+    if (buddha) addHolidayEntry(base,dateKey(buddha),"부처님오신날","buddha");
+    const chuseok = lunarDateFor(year,8,15);
+    if (chuseok){
+      addHolidayEntry(base,dateKey(shiftDate(chuseok,-1)),"추석 연휴","chuseok");
+      addHolidayEntry(base,dateKey(chuseok),"추석","chuseok");
+      addHolidayEntry(base,dateKey(shiftDate(chuseok,1)),"추석 연휴","chuseok");
+    }
+    if (year === 2026) addHolidayEntry(base,"2026-06-03","전국동시지방선거","election");
+    feedbackPlanner.customHolidays.forEach(item => {
+      if (Number(item.date.slice(0,4)) === year) addHolidayEntry(base,item.date,item.name,"custom");
+    });
+
+    const triggers = [];
+    [...base.entries()].forEach(([key,info]) => {
+      const date = dateFromKey(key);
+      if (!date) return;
+      const day = date.getDay();
+      const overlaps = info.categories.length > 1;
+      const weekendEligible = info.categories.some(category => {
+        if (["national","buddha","children","christmas"].includes(category)) return day === 0 || day === 6;
+        if (category === "labor") return year >= 2026 && (day === 0 || day === 6);
+        if (["seollal","chuseok"].includes(category)) return day === 0;
+        return false;
+      });
+      const overlapEligible = overlaps && info.categories.some(category => ["national","seollal","buddha","labor","children","chuseok","christmas"].includes(category));
+      if (weekendEligible || overlapEligible) triggers.push({key,info});
+    });
+
+    const holidays = new Map(base);
+    triggers.sort((a,b)=>a.key.localeCompare(b.key)).forEach(trigger => {
+      let candidate = shiftDate(trigger.key,1);
+      while (candidate){
+        const key = dateKey(candidate);
+        if (candidate.getDay() !== 0 && candidate.getDay() !== 6 && !holidays.has(key)){
+          addHolidayEntry(holidays,key,`${trigger.info.names[0]} 대체공휴일`,"substitute");
+          break;
+        }
+        candidate = shiftDate(candidate,1);
+      }
+    });
+    return holidays;
+  }
+
+  const holidayCache = new Map();
+  function clearHolidayCache(){ holidayCache.clear(); }
+  function holidayInfo(value){
+    const date = value instanceof Date ? value : dateFromKey(value);
+    if (!date) return null;
+    const year = date.getFullYear();
+    if (!holidayCache.has(year)) holidayCache.set(year,koreanHolidayMap(year));
+    return holidayCache.get(year).get(dateKey(date)) || null;
+  }
+  function isBusinessDay(value){
+    const date = value instanceof Date ? value : dateFromKey(value);
+    return !!date && date.getDay() !== 0 && date.getDay() !== 6 && !holidayInfo(date);
+  }
+  function addBusinessDays(value, count){
+    let date = value instanceof Date ? new Date(value) : dateFromKey(value);
+    if (!date) return null;
+    let remaining = Math.max(0,Number(count || 0));
+    while (remaining > 0){ date.setDate(date.getDate()+1); if (isBusinessDay(date)) remaining--; }
+    return date;
+  }
+  function subtractBusinessDays(value, count){
+    let date = value instanceof Date ? new Date(value) : dateFromKey(value);
+    if (!date) return null;
+    let remaining = Math.max(0,Number(count || 0));
+    while (remaining > 0){ date.setDate(date.getDate()-1); if (isBusinessDay(date)) remaining--; }
+    return date;
+  }
+  function feedbackDeadline(auctionDate){ return subtractBusinessDays(auctionDate,4); }
+  function earliestAuctionForRequest(requestDate){ return addBusinessDays(requestDate,4); }
+  function feedbackStateById(id){ return feedbackPlanner.items.find(item => item.id === id) || null; }
+
+  function feedbackRows(){
+    const savedRows = records().map(record => {
+      const auctionDate = cleanDateKey(record?.state?.fields?.auctionDate);
+      if (!auctionDate) return null;
+      const id = `record:${record.id}`;
+      const state = feedbackStateById(id);
+      return {
+        id,recordId:record.id,manual:false,title:String(record.title || record?.state?.fields?.caseNo || "이름 없는 물건"),
+        caseNo:String(record?.state?.fields?.caseNo || ""), apartmentName:String(record?.state?.fields?.apartmentName || ""),
+        auctionDate,requested:!!state?.requested,requestDate:state?.requestDate || "",status:state?.status || "pending",updatedAtMs:Number(state?.updatedAtMs || 0)
+      };
+    }).filter(Boolean);
+    const manualRows = feedbackPlanner.items.filter(item => item.manual).map(item => ({...item,caseNo:"",apartmentName:""}));
+    return [...savedRows,...manualRows].sort((a,b) => a.auctionDate.localeCompare(b.auctionDate) || a.title.localeCompare(b.title,"ko"));
+  }
+  function activeFeedbackItems(){ return feedbackRows().filter(item => item.requested && item.status === "pending"); }
+
+  function updateFeedbackState(id, patch, row = null){
+    const index = feedbackPlanner.items.findIndex(item => item.id === id);
+    const base = index >= 0 ? feedbackPlanner.items[index] : {
+      id,recordId:row?.recordId || "",title:row?.title || "",auctionDate:row?.auctionDate || "",
+      requested:false,requestDate:"",status:"pending",manual:!!row?.manual,updatedAtMs:0
+    };
+    const next = {...base,...patch,updatedAtMs:Date.now()};
+    if (index >= 0) feedbackPlanner.items[index] = next; else feedbackPlanner.items.push(next);
+    feedbackPlanner = normalizeFeedbackPlanner(feedbackPlanner);
+    saveFeedbackPlannerLocal(); renderFeedbackPlanner(); scheduleFeedbackSync();
+  }
+  function removeFeedbackItem(id){
+    feedbackPlanner.items = feedbackPlanner.items.filter(item => item.id !== id);
+    saveFeedbackPlannerLocal(); renderFeedbackPlanner(); scheduleFeedbackSync();
+  }
+  function expectedNextRequestDate(){
+    const today = dateFromKey(dateKey(new Date()));
+    const active = activeFeedbackItems();
+    if (active.length < 2) return {date:today,conditional:false,item:null};
+    const first = active.slice().sort((a,b)=>a.auctionDate.localeCompare(b.auctionDate))[0];
+    const eventDate = dateFromKey(first.auctionDate);
+    return {date:eventDate && eventDate > today ? eventDate : today,conditional:true,item:first};
+  }
+  function feedbackStatusLabel(status){
+    return status === "failed" ? "패찰" : status === "won" ? "낙찰" : status === "cancelled" ? "입찰취소" : "진행 중";
+  }
+
+  function renderFeedbackSummary(){
+    const active = activeFeedbackItems();
+    const slotEl = $("feedbackActiveSlots");
+    slotEl.textContent = `${active.length} / 2건`;
+    slotEl.className = `feedback-summary-value ${active.length >= 2 ? "bad" : active.length === 1 ? "warn" : "good"}`;
+    $("feedbackSlotNote").textContent = active.length >= 2
+      ? "현재 자리가 모두 찼습니다. 진행 중 물건을 패찰·낙찰·입찰취소로 바꾸면 즉시 자리가 생깁니다."
+      : `지금 ${2-active.length}건을 더 요청할 수 있습니다.`;
+    const next = expectedNextRequestDate();
+    $("feedbackNextRequestDate").textContent = next.date ? (dateKey(next.date) === dateKey(new Date()) ? "오늘" : formatShortDate(next.date)) : "-";
+    $("feedbackNextRequestNote").textContent = next.conditional && next.item
+      ? `${next.item.title} 결과를 ${formatShortDate(next.date,false)}에 처리하는 경우`
+      : "현재 빈자리가 있어 바로 요청할 수 있습니다.";
+    const earliest = next.date ? earliestAuctionForRequest(next.date) : null;
+    $("feedbackEarliestAuctionDate").textContent = earliest ? formatShortDate(earliest) : "-";
+  }
+
+  function renderFeedbackCalendar(){
+    clearHolidayCache();
+    const cursor = new Date(feedbackCalendarCursor.getFullYear(),feedbackCalendarCursor.getMonth(),1,12);
+    $("feedbackCalendarTitle").textContent = cursor.toLocaleDateString("ko-KR",{year:"numeric",month:"long"});
+    const first = new Date(cursor); first.setDate(1-first.getDay());
+    const events = new Map();
+    const pushEvent = (key,event) => { if (!key) return; const list=events.get(key)||[]; list.push(event); events.set(key,list); };
+    feedbackRows().forEach(row => {
+      pushEvent(row.auctionDate,{type:"auction",text:`입찰 ${row.title}`});
+      const deadline=feedbackDeadline(row.auctionDate); if(deadline) pushEvent(dateKey(deadline),{type:"deadline",text:`마감 ${row.title}`});
+      if(row.requested && row.requestDate) pushEvent(row.requestDate,{type:row.status === "pending" ? "request" : "done",text:`요청 ${row.title}`});
+    });
+    const cells=[],todayKey=dateKey(new Date());
+    for(let i=0;i<42;i++){
+      const day=shiftDate(first,i),key=dateKey(day),info=holidayInfo(day),dayEvents=events.get(key)||[],visible=dayEvents.slice(0,3);
+      const classes=["feedback-day"];
+      if(day.getMonth()!==cursor.getMonth()) classes.push("other-month");
+      if(day.getDay()===0||day.getDay()===6) classes.push("weekend");
+      if(info) classes.push("holiday"); if(key===todayKey) classes.push("today");
+      cells.push(`<div class="${classes.join(" ")}" data-feedback-date="${key}"><div class="feedback-day-top"><span class="feedback-day-number">${day.getDate()}</span>${info?`<span class="feedback-holiday-name">${escapeHtml(info.names.join("·"))}</span>`:""}</div><div class="feedback-day-events">${visible.map(event=>`<div class="feedback-event ${event.type}" title="${escapeHtml(event.text)}">${escapeHtml(event.text)}</div>`).join("")}${dayEvents.length>3?`<div class="feedback-event done">+${dayEvents.length-3}건</div>`:""}</div></div>`);
+    }
+    $("feedbackCalendarGrid").innerHTML=cells.join("");
+  }
+
+  function renderFeedbackList(){
+    const root=$("feedbackItemList"),rows=feedbackRows();
+    if(!rows.length){ root.innerHTML=`<div class="feedback-empty">저장목록에 경매기일이 입력된 물건이 없습니다.<br>계산내역을 저장하거나 위에서 직접 추가해주세요.</div>`; return; }
+    const active=activeFeedbackItems(),today=dateFromKey(dateKey(new Date()));
+    root.innerHTML=rows.map(row=>{
+      const deadline=feedbackDeadline(row.auctionDate),late=deadline&&today>deadline&&!row.requested,eligibleNow=!late&&active.length<2;
+      let badgeText="미요청",badgeClass="";
+      if(row.requested){badgeText=feedbackStatusLabel(row.status);badgeClass=row.status==="pending"?"info":"good";}
+      else if(late){badgeText="요청 마감 지남";badgeClass="bad";}
+      else if(!eligibleNow){badgeText="자리 대기";badgeClass="warn";}
+      else {badgeText="요청 가능";badgeClass="good";}
+      const displayTitle=[row.title,row.apartmentName].filter((v,i,a)=>v&&a.indexOf(v)===i).join(" · ");
+      return `<div class="feedback-item" data-feedback-id="${escapeHtml(row.id)}"><div class="feedback-item-top"><div><div class="feedback-item-title">${escapeHtml(displayTitle||"이름 없는 물건")}</div><div class="feedback-item-meta">입찰 ${formatShortDate(row.auctionDate)} · 요청 마감 ${formatShortDate(deadline)}</div></div><span class="feedback-badge ${badgeClass}">${badgeText}</span></div><div class="feedback-item-controls"><label class="feedback-check-wrap"><input type="checkbox" data-feedback-requested="${escapeHtml(row.id)}" ${row.requested?"checked":""}>피드백 요청</label><div><label>요청한 날짜</label><input type="date" data-feedback-request-date="${escapeHtml(row.id)}" value="${row.requestDate||""}" ${row.requested?"":"disabled"}></div><div><label>입찰 결과</label><select data-feedback-status="${escapeHtml(row.id)}" ${row.requested?"":"disabled"}><option value="pending" ${row.status==="pending"?"selected":""}>진행 중</option><option value="failed" ${row.status==="failed"?"selected":""}>패찰</option><option value="won" ${row.status==="won"?"selected":""}>낙찰</option><option value="cancelled" ${row.status==="cancelled"?"selected":""}>입찰취소</option></select></div><div class="feedback-delete-wrap">${row.manual?`<button class="btn light" type="button" data-feedback-delete="${escapeHtml(row.id)}">직접추가 삭제</button>`:""}</div></div></div>`;
+    }).join("");
+  }
+
+  function renderCustomHolidays(){
+    clearHolidayCache();
+    const root=$("feedbackCustomHolidayList"),items=feedbackPlanner.customHolidays.slice().sort((a,b)=>a.date.localeCompare(b.date));
+    root.innerHTML=items.length?items.map(item=>`<span class="feedback-custom-chip">${escapeHtml(item.date)} ${escapeHtml(item.name)}<button type="button" data-feedback-holiday-delete="${escapeHtml(item.id)}">×</button></span>`).join(""):`<span class="helper">법정공휴일과 대체공휴일은 자동 반영됩니다. 임시공휴일·선거일만 필요할 때 추가하세요.</span>`;
+  }
+  function renderFeedbackPlanner(){
+    if(!$("feedbackModal")) return;
+    clearHolidayCache();
+    renderFeedbackSummary();renderFeedbackCalendar();renderFeedbackList();renderCustomHolidays();
+    $("feedbackSyncNote").textContent=currentUser?"피드백 일정도 PC·핸드폰에 자동 동기화됩니다.":"로그인 전에는 이 기기에만 저장됩니다.";
+  }
+  function openFeedbackPlanner(){ feedbackCalendarCursor=new Date();renderFeedbackPlanner();$("feedbackModal").hidden=false;document.body.style.overflow="hidden"; }
+  function closeFeedbackPlanner(){ $("feedbackModal").hidden=true;document.body.style.overflow=""; }
+  function scheduleFeedbackSync(){
+    if(suppressFeedbackSync) return; clearTimeout(feedbackSyncTimer);
+    if(!currentUser||!cloudReady||!navigator.onLine) return;
+    feedbackSyncTimer=setTimeout(()=>syncFeedbackPlanner(),350);
+  }
+  async function syncFeedbackPlanner(){
+    if(!currentUser||!navigator.onLine) return {saved:false};
+    const baseRevision=feedbackRevision,payload=normalizeFeedbackPlanner(feedbackPlanner),now=Date.now();
+    try{
+      const nextRevision=await runTransaction(db,async transaction=>{
+        const ref=settingsRef(),snap=await transaction.get(ref),cloudRevision=Number(snap.data()?.feedbackRevision||0);
+        if(cloudRevision!==baseRevision) throw new SyncConflictError("다른 기기의 피드백 달력이 더 최신입니다.");
+        transaction.set(ref,{feedbackPlanner:payload,feedbackRevision:cloudRevision+1,feedbackUpdatedAt:serverTimestamp(),feedbackUpdatedAtMs:now,deviceId,schemaVersion:APP_SCHEMA_VERSION},{merge:true});
+        return cloudRevision+1;
+      });
+      feedbackRevision=nextRevision;return {saved:true};
+    }catch(error){
+      if(error instanceof SyncConflictError){
+        const snap=await getDoc(settingsRef()),data=snap.data()||{};
+        suppressFeedbackSync=true;feedbackRevision=Number(data.feedbackRevision||0);feedbackPlanner=normalizeFeedbackPlanner(data.feedbackPlanner);saveFeedbackPlannerLocal();suppressFeedbackSync=false;renderFeedbackPlanner();setSyncStatus("다른 기기의 최신 피드백 달력을 적용했습니다.","warn");return {saved:false,conflict:true};
+      }
+      console.error("feedback planner sync failed",error);setSyncStatus("피드백 달력 저장 실패 · 인터넷 연결 확인","bad");return {saved:false,error};
+    }
+  }
 
   const actualInputIds = [
     "actualMinPrice","actualAcquisitionTaxRate","actualLegalFeeMan","actualEvictionFeeMan",
@@ -2330,6 +2707,7 @@ const db = getFirestore(firebaseApp);
   function writeLocalRecords(items, key = userStorageKey()){
     localStorage.setItem(key, JSON.stringify(items));
     renderSaved();
+    renderFeedbackPlanner();
   }
 
   function upsertLocalRecord(item){
@@ -3234,6 +3612,7 @@ const db = getFirestore(firebaseApp);
 
       await syncFolderNames();
       await syncSectionOrder(sectionCards().map(card => card.dataset.sectionId));
+      await syncFeedbackPlanner();
       const cloudSnapshot = await getDocs(recordsCollection());
       const cloudItems = cloudSnapshot.docs.map(d => normalizeCloudRecord(d.id,d.data()));
       writeLocalRecords(cloudItems,userStorageKey(currentUser.uid));
@@ -3309,8 +3688,8 @@ const db = getFirestore(firebaseApp);
     $("importFile").disabled = !cloudReady;
     $("importLabel").style.opacity = cloudReady ? "1" : ".48";
     $("savedHelper").textContent = loggedIn
-      ? "계산내역과 지역 폴더가 PC·핸드폰에 자동 동기화됩니다."
-      : "이메일 로그인 후 계산내역과 지역 폴더를 동기화할 수 있습니다.";
+      ? "계산내역·지역 폴더·피드백 달력이 PC·핸드폰에 자동 동기화됩니다."
+      : "이메일 로그인 후 계산내역과 피드백 달력을 동기화할 수 있습니다.";
     renderSaved();
   }
 
@@ -3372,6 +3751,8 @@ const db = getFirestore(firebaseApp);
       const data = settingsSnap.data();
       sectionOrderRevision = Number(data.revision || 0);
       foldersRevision = Number(data.foldersRevision || 0);
+      feedbackRevision = Number(data.feedbackRevision || 0);
+      if (data.feedbackPlanner){ feedbackPlanner = normalizeFeedbackPlanner(data.feedbackPlanner); saveFeedbackPlannerLocal(); }
       if (Array.isArray(data.folderNames)){ folderNames = uniqueFolderNames(data.folderNames); saveFolderNamesLocal(); }
       if (Array.isArray(data.sectionOrder)){
         suppressSectionSync = true;
@@ -3394,6 +3775,8 @@ const db = getFirestore(firebaseApp);
             revision: 1,
             folderNames: folderNames,
             foldersRevision: folderNames.length ? 1 : 0,
+            feedbackPlanner: normalizeFeedbackPlanner(feedbackPlanner),
+            feedbackRevision: (feedbackPlanner.items.length || feedbackPlanner.customHolidays.length) ? 1 : 0,
             updatedAt: serverTimestamp(),
             updatedAtMs: Date.now(),
             deviceId,
@@ -3401,10 +3784,15 @@ const db = getFirestore(firebaseApp);
           });
           sectionOrderRevision = 1;
           foldersRevision = folderNames.length ? 1 : 0;
+          feedbackRevision = (feedbackPlanner.items.length || feedbackPlanner.customHolidays.length) ? 1 : 0;
         } else {
           sectionOrderRevision = Number(snap.data()?.revision || 0);
         }
       });
+    }
+
+    if (settingsSnap.exists() && !settingsSnap.data()?.feedbackPlanner && (feedbackPlanner.items.length || feedbackPlanner.customHolidays.length)){
+      await syncFeedbackPlanner();
     }
 
     await migrateLocalRecordsWithoutOverwrite();
@@ -3442,6 +3830,10 @@ const db = getFirestore(firebaseApp);
         localStorage.setItem(SECTION_ORDER_KEY, JSON.stringify(data.sectionOrder));
         suppressSectionSync = false;
       }
+      const cloudFeedbackRevision = Number(data.feedbackRevision || 0);
+      if (cloudFeedbackRevision > feedbackRevision && data.feedbackPlanner){
+        feedbackRevision = cloudFeedbackRevision; suppressFeedbackSync = true; feedbackPlanner = normalizeFeedbackPlanner(data.feedbackPlanner); saveFeedbackPlannerLocal(); suppressFeedbackSync = false; renderFeedbackPlanner();
+      }
       const cloudFoldersRevision = Number(data.foldersRevision || 0);
       if (cloudFoldersRevision > foldersRevision && Array.isArray(data.folderNames)){
         foldersRevision = cloudFoldersRevision;
@@ -3468,7 +3860,10 @@ const db = getFirestore(firebaseApp);
     loadedRecordRevision = 0;
     sectionOrderRevision = 0;
     foldersRevision = 0;
+    feedbackRevision = 0;
     folderNames = [];
+    loadFeedbackPlannerLocal();
+    renderFeedbackPlanner();
     renderFolderOptions();
     setSyncStatus("이메일 로그인 후 PC·핸드폰 자동동기화", "");
     updateAuthUi();
@@ -3477,6 +3872,8 @@ const db = getFirestore(firebaseApp);
   async function handleSignedIn(user){
     currentUser = user;
     loadFolderNamesLocal();
+    loadFeedbackPlannerLocal();
+    renderFeedbackPlanner();
     renderFolderOptions();
     updateAuthUi();
     try{
@@ -3820,6 +4217,57 @@ const db = getFirestore(firebaseApp);
     if (!confirm("로그아웃할까요? 클라우드 자료는 삭제되지 않습니다.")) return;
     await signOut(auth);
   });
+  $("feedbackPlannerBtn").addEventListener("click", openFeedbackPlanner);
+  $("feedbackCloseBtn").addEventListener("click", closeFeedbackPlanner);
+  $("feedbackModal").addEventListener("click", event => { if (event.target === $("feedbackModal")) closeFeedbackPlanner(); });
+  $("feedbackPrevMonthBtn").addEventListener("click", () => { feedbackCalendarCursor.setMonth(feedbackCalendarCursor.getMonth()-1); renderFeedbackCalendar(); });
+  $("feedbackNextMonthBtn").addEventListener("click", () => { feedbackCalendarCursor.setMonth(feedbackCalendarCursor.getMonth()+1); renderFeedbackCalendar(); });
+  $("feedbackTodayBtn").addEventListener("click", () => { feedbackCalendarCursor=new Date(); renderFeedbackCalendar(); });
+  $("feedbackManualAddBtn").addEventListener("click", () => {
+    const title=$("feedbackManualTitle").value.trim(),auctionDate=cleanDateKey($("feedbackManualAuctionDate").value);
+    if(!title||!auctionDate){alert("물건명과 입찰기일을 모두 입력해주세요.");return;}
+    const id=`manual:${crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random().toString(36).slice(2)}`}`;
+    feedbackPlanner.items.push({id,recordId:"",title,auctionDate,requested:false,requestDate:"",status:"pending",manual:true,updatedAtMs:Date.now()});
+    feedbackPlanner=normalizeFeedbackPlanner(feedbackPlanner);$("feedbackManualTitle").value="";$("feedbackManualAuctionDate").value="";
+    saveFeedbackPlannerLocal();renderFeedbackPlanner();scheduleFeedbackSync();
+  });
+  $("feedbackHolidayAddBtn").addEventListener("click", () => {
+    const date=cleanDateKey($("feedbackHolidayDate").value),name=$("feedbackHolidayName").value.trim()||"임시공휴일";
+    if(!date){alert("휴일 날짜를 선택해주세요.");return;}
+    if(feedbackPlanner.customHolidays.some(item=>item.date===date&&item.name===name)){showToast("이미 추가된 휴일입니다.");return;}
+    feedbackPlanner.customHolidays.push({id:crypto.randomUUID?crypto.randomUUID():`holiday-${Date.now()}`,date,name});
+    $("feedbackHolidayDate").value="";$("feedbackHolidayName").value="";clearHolidayCache();saveFeedbackPlannerLocal();renderFeedbackPlanner();scheduleFeedbackSync();
+  });
+  $("feedbackItemList").addEventListener("change", event => {
+    const requestedId=event.target.dataset.feedbackRequested,requestDateId=event.target.dataset.feedbackRequestDate,statusId=event.target.dataset.feedbackStatus;
+    if(requestedId){
+      const row=feedbackRows().find(item=>item.id===requestedId);if(!row)return;
+      if(event.target.checked){
+        const active=activeFeedbackItems().filter(item=>item.id!==requestedId);
+        if(active.length>=2){event.target.checked=false;alert("동시에 진행 중인 피드백은 최대 2건입니다. 기존 물건을 패찰·낙찰·입찰취소로 처리한 뒤 요청해주세요.");return;}
+        const today=dateKey(new Date()),deadline=feedbackDeadline(row.auctionDate);
+        if(deadline&&dateFromKey(today)>deadline&&!confirm(`이 물건의 피드백 요청 마감일은 ${formatShortDate(deadline)}입니다. 마감이 지난 상태로 기록할까요?`)){event.target.checked=false;return;}
+        updateFeedbackState(requestedId,{requested:true,requestDate:today,status:"pending"},row);
+      }else updateFeedbackState(requestedId,{requested:false,requestDate:"",status:"pending"},row);
+    }else if(requestDateId){
+      const row=feedbackRows().find(item=>item.id===requestDateId);if(!row)return;
+      const requestDate=cleanDateKey(event.target.value);if(!requestDate)return;
+      const deadline=feedbackDeadline(row.auctionDate);
+      if(deadline&&dateFromKey(requestDate)>deadline) alert(`입력한 요청일은 4영업일 기준 마감일(${formatShortDate(deadline)})보다 늦습니다.`);
+      updateFeedbackState(requestDateId,{requestDate},row);
+    }else if(statusId){
+      const row=feedbackRows().find(item=>item.id===statusId);if(!row)return;
+      updateFeedbackState(statusId,{status:event.target.value},row);
+    }
+  });
+  $("feedbackItemList").addEventListener("click", event => {
+    const id=event.target.dataset.feedbackDelete;if(id&&confirm("직접 추가한 물건을 삭제할까요?"))removeFeedbackItem(id);
+  });
+  $("feedbackCustomHolidayList").addEventListener("click", event => {
+    const id=event.target.dataset.feedbackHolidayDelete;if(!id)return;
+    feedbackPlanner.customHolidays=feedbackPlanner.customHolidays.filter(item=>item.id!==id);clearHolidayCache();saveFeedbackPlannerLocal();renderFeedbackPlanner();scheduleFeedbackSync();
+  });
+  document.addEventListener("keydown", event => { if(event.key==="Escape"&&!$("feedbackModal").hidden)closeFeedbackPlanner(); });
   $("mobileNewBtn").addEventListener("click", () => $("newBtn").click());
   $("newBtn").addEventListener("click", () => {
     loadedRecordId = null;
@@ -3840,7 +4288,7 @@ const db = getFirestore(firebaseApp);
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.10.6",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.11.0",backupCreatedAt:new Date().toISOString(),records:records(),feedbackPlanner:normalizeFeedbackPlanner(feedbackPlanner)},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
@@ -3891,6 +4339,12 @@ const db = getFirestore(firebaseApp);
         });
         added++;
       }
+      if (data.feedbackPlanner){
+        const importedPlanner = normalizeFeedbackPlanner(data.feedbackPlanner);
+        const itemMap = new Map(feedbackPlanner.items.map(item => [item.id,item])); importedPlanner.items.forEach(item => itemMap.set(item.id,item));
+        const holidayMap = new Map(feedbackPlanner.customHolidays.map(item => [`${item.date}|${item.name}`,item])); importedPlanner.customHolidays.forEach(item => holidayMap.set(`${item.date}|${item.name}`,item));
+        feedbackPlanner = normalizeFeedbackPlanner({items:[...itemMap.values()],customHolidays:[...holidayMap.values()]}); saveFeedbackPlannerLocal(); renderFeedbackPlanner(); await syncFeedbackPlanner();
+      }
       setSyncStatus(`백업 ${added}건 가져오기 완료 · ${formatDateTime(new Date())}`, "good");
       alert(`${added}건을 안전하게 불러왔습니다.`);
     } catch (error){
@@ -3905,6 +4359,8 @@ const db = getFirestore(firebaseApp);
   applyCollapsedSections(collapsedSections());
   loadSavedListPreferences();
   loadFolderNamesLocal();
+  loadFeedbackPlannerLocal();
+  renderFeedbackPlanner();
   renderFolderOptions();
   renderRateRows("same");
   renderRateRows("near");
