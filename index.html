@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.11.0</title>
+  <title>경매 입찰·대출 자금 계산기 v1.11.1</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -611,28 +611,53 @@
     }
 
 
-    .feedback-modal{position:fixed;inset:0;z-index:95;background:rgba(15,23,42,.58);padding:18px;overflow:auto}
-    .feedback-modal[hidden]{display:none!important}
-    .feedback-shell{width:min(1180px,100%);margin:0 auto;background:#f8fafc;border-radius:18px;box-shadow:0 24px 70px rgba(15,23,42,.28);overflow:hidden}
-    .feedback-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:18px 20px;background:white;border-bottom:1px solid var(--line)}
-    .feedback-head h2{margin:0;font-size:21px}.feedback-head p{margin:5px 0 0;color:var(--muted);font-size:12px;line-height:1.55}
-    .feedback-body{padding:16px;display:grid;gap:14px}.feedback-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-    .feedback-summary-card{background:white;border:1px solid var(--line);border-radius:13px;padding:13px}.feedback-summary-label{font-size:11px;color:var(--muted);font-weight:800}
-    .feedback-summary-value{margin-top:5px;font-size:18px;font-weight:950;color:#111827;line-height:1.35}.feedback-summary-value.good{color:#047857}.feedback-summary-value.warn{color:#b45309}.feedback-summary-value.bad{color:#b91c1c}
-    .feedback-rule-note{font-size:11px;color:#475569;line-height:1.6;margin-top:5px}.feedback-panel{background:white;border:1px solid var(--line);border-radius:14px;padding:14px}
-    .feedback-panel-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.feedback-panel-title h3{margin:0;font-size:15px}
-    .feedback-calendar-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}.feedback-calendar-title{font-size:17px;font-weight:950;min-width:120px;text-align:center}.feedback-calendar-nav{display:flex;gap:6px;align-items:center}
-    .feedback-calendar-weekdays,.feedback-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}.feedback-calendar-weekdays div{text-align:center;padding:7px 2px;font-size:11px;font-weight:900;color:#64748b}.feedback-calendar-weekdays div:first-child{color:#dc2626}.feedback-calendar-weekdays div:last-child{color:#2563eb}
-    .feedback-day{min-height:103px;border-right:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;padding:6px;background:#fff;overflow:hidden}.feedback-day:nth-child(7n+1){border-left:1px solid #e5e7eb}.feedback-day:nth-child(-n+7){border-top:1px solid #e5e7eb}.feedback-day.other-month{background:#f8fafc;color:#94a3b8}.feedback-day.weekend{background:#fbfdff}.feedback-day.holiday{background:#fff7f7}.feedback-day.today{box-shadow:inset 0 0 0 2px #111827}
-    .feedback-day-top{display:flex;justify-content:space-between;gap:4px;align-items:flex-start}.feedback-day-number{font-size:12px;font-weight:950}.feedback-day.holiday .feedback-day-number,.feedback-day:nth-child(7n+1) .feedback-day-number{color:#dc2626}.feedback-day:nth-child(7n) .feedback-day-number{color:#2563eb}.feedback-holiday-name{font-size:8.5px;line-height:1.2;color:#dc2626;text-align:right;max-width:70%}
-    .feedback-day-events{display:grid;gap:3px;margin-top:5px}.feedback-event{font-size:9px;line-height:1.25;padding:3px 4px;border-radius:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:800}.feedback-event.auction{background:#dbeafe;color:#1d4ed8}.feedback-event.deadline{background:#fef3c7;color:#92400e}.feedback-event.request{background:#dcfce7;color:#047857}.feedback-event.done{background:#e2e8f0;color:#475569}
-    .feedback-calendar-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:9px;font-size:10px;color:#475569}.feedback-calendar-legend span{display:inline-flex;align-items:center;gap:4px}.feedback-calendar-dot{width:9px;height:9px;border-radius:3px;display:inline-block}.feedback-calendar-dot.auction{background:#93c5fd}.feedback-calendar-dot.deadline{background:#fcd34d}.feedback-calendar-dot.request{background:#86efac}
-    .feedback-add-grid{display:grid;grid-template-columns:1.3fr 160px auto;gap:8px;align-items:end;margin-bottom:10px}.feedback-list{display:grid;gap:8px;max-height:560px;overflow:auto;padding-right:2px}.feedback-item{border:1px solid #e2e8f0;border-radius:12px;padding:11px;background:#fff}.feedback-item-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.feedback-item-title{font-size:13px;font-weight:950;line-height:1.4}.feedback-item-meta{font-size:10.5px;color:#64748b;margin-top:3px;line-height:1.45}
-    .feedback-badge{display:inline-flex;align-items:center;border-radius:999px;padding:4px 7px;font-size:9.5px;font-weight:900;white-space:nowrap;background:#e2e8f0;color:#475569}.feedback-badge.good{background:#dcfce7;color:#047857}.feedback-badge.warn{background:#fef3c7;color:#92400e}.feedback-badge.bad{background:#fee2e2;color:#b91c1c}.feedback-badge.info{background:#dbeafe;color:#1d4ed8}
-    .feedback-item-controls{display:grid;grid-template-columns:130px 155px 155px auto;gap:8px;align-items:end;margin-top:10px}.feedback-check-wrap{height:38px;display:flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;padding:0 10px;background:#f8fafc;font-size:11px;font-weight:900}.feedback-check-wrap input{width:17px;height:17px;margin:0}
-    .feedback-item-controls label,.feedback-add-grid label,.feedback-holiday-add label{font-size:10px;font-weight:900;color:#475569;margin-bottom:4px;display:block}.feedback-item-controls input,.feedback-item-controls select,.feedback-add-grid input,.feedback-holiday-add input{width:100%;border:1px solid #cbd5e1;border-radius:9px;padding:9px 8px;background:white;font-size:12px}
-    .feedback-empty{padding:25px 10px;text-align:center;color:#64748b;font-size:12px;border:1px dashed #cbd5e1;border-radius:10px}.feedback-holiday-add{display:grid;grid-template-columns:160px 1fr auto;gap:8px;align-items:end}.feedback-custom-list{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.feedback-custom-chip{display:inline-flex;align-items:center;gap:5px;background:#fee2e2;color:#991b1b;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:800}.feedback-custom-chip button{border:0;background:transparent;color:#991b1b;font-weight:950;cursor:pointer;padding:0}.feedback-sync-note{font-size:10px;color:#64748b;text-align:right}
-    @media(max-width:760px){.feedback-modal{padding:0}.feedback-shell{min-height:100%;border-radius:0}.feedback-head{padding:14px}.feedback-body{padding:10px}.feedback-summary-grid{grid-template-columns:1fr}.feedback-day{min-height:77px;padding:4px}.feedback-holiday-name{font-size:7px}.feedback-event{font-size:7.5px;padding:2px 3px}.feedback-add-grid{grid-template-columns:1fr 130px}.feedback-add-grid button{grid-column:1/-1}.feedback-item-controls{grid-template-columns:1fr 1fr}.feedback-item-controls .feedback-delete-wrap{grid-column:1/-1}.feedback-holiday-add{grid-template-columns:130px 1fr}.feedback-holiday-add button{grid-column:1/-1}}
+    .app-mode-tabs{
+      display:flex;gap:7px;margin:0 0 12px;position:sticky;top:0;z-index:110;
+      padding:6px;background:rgba(243,244,246,.94);backdrop-filter:blur(10px);border-radius:12px
+    }
+    .app-mode-btn{
+      border:1px solid #cbd5e1;background:#fff;color:#475569;border-radius:9px;
+      padding:8px 13px;font-size:12px;font-weight:900;cursor:pointer
+    }
+    .app-mode-btn.active{background:#111827;color:#fff;border-color:#111827}
+    #feedbackView[hidden],#calculatorView[hidden]{display:none!important}
+    .feedback-page{display:grid;gap:10px}
+    .feedback-top-card{padding:12px}
+    .feedback-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+    .feedback-summary-box{border:1px solid var(--line);border-radius:11px;background:#f8fafc;padding:9px}
+    .feedback-summary-box .k{font-size:10.5px;color:#64748b;font-weight:800}
+    .feedback-summary-box .v{font-size:15px;font-weight:950;margin-top:3px;line-height:1.3}
+    .feedback-summary-box.good{background:#f0fdf4;border-color:#bbf7d0}.feedback-summary-box.warn{background:#fffbeb;border-color:#fde68a}
+    .feedback-calendar-card{padding:10px;overflow:hidden}
+    .feedback-calendar-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+    .feedback-calendar-nav{display:flex;align-items:center;gap:5px}
+    .feedback-calendar-title{font-size:18px;font-weight:950;letter-spacing:-.03em;min-width:112px;text-align:center}
+    .feedback-calendar-weekdays{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border:1px solid var(--line);border-bottom:0;border-radius:10px 10px 0 0;overflow:hidden}
+    .feedback-weekday{padding:7px 3px;text-align:center;font-size:10.5px;font-weight:900;background:#f8fafc;border-right:1px solid var(--line)}
+    .feedback-weekday:last-child{border-right:0}.feedback-weekday.sun{color:#dc2626}.feedback-weekday.sat{color:#2563eb}
+    .feedback-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-left:1px solid var(--line);border-top:1px solid var(--line)}
+    .feedback-day{min-height:112px;background:#fff;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:5px;min-width:0;position:relative}
+    .feedback-day.other-month{background:#f8fafc;color:#94a3b8}.feedback-day.today{box-shadow:inset 0 0 0 2px #2563eb}.feedback-day.drop-target{background:#eff6ff;box-shadow:inset 0 0 0 2px #60a5fa}
+    .feedback-day-top{display:flex;align-items:flex-start;justify-content:space-between;gap:4px;margin-bottom:4px;min-height:18px}
+    .feedback-day-number{font-size:11px;font-weight:900}.feedback-day-number.sun{color:#dc2626}.feedback-day-number.sat{color:#2563eb}
+    .feedback-holiday{font-size:8.5px;color:#b91c1c;font-weight:900;line-height:1.15;text-align:right;max-width:75%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .feedback-events{display:grid;gap:3px}
+    .feedback-event{width:100%;border:1px solid #bfdbfe;background:#eff6ff;color:#1e3a8a;border-radius:6px;padding:4px 5px;text-align:left;cursor:pointer;min-width:0}
+    .feedback-event.requested{border-color:#bbf7d0;background:#f0fdf4;color:#166534}.feedback-event.failed{border-color:#e2e8f0;background:#f8fafc;color:#64748b}.feedback-event.won{border-color:#fde68a;background:#fffbeb;color:#92400e}
+    .feedback-event.dragging{opacity:.42}.feedback-event-main{display:block;font-size:9.5px;font-weight:950;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.feedback-event-sub{display:block;font-size:8.5px;font-weight:850;opacity:.82;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+    .feedback-more{border:0;background:#e2e8f0;color:#334155;border-radius:6px;padding:4px 5px;font-size:9px;font-weight:900;cursor:pointer;text-align:left}
+    .feedback-calendar-note{font-size:10px;color:#64748b;margin-top:7px;line-height:1.45}
+    .feedback-list-card{padding:11px}.feedback-list-toolbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;align-items:center}.feedback-filter-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.feedback-filter-btn{border:1px solid var(--line);background:#fff;color:#475569;border-radius:8px;padding:6px 8px;font-size:10.5px;font-weight:900;cursor:pointer}.feedback-filter-btn.active{background:#111827;color:#fff;border-color:#111827}.feedback-filter-btn[data-feedback-filter="no"].active{background:#b91c1c;border-color:#b91c1c}
+    .feedback-record-list{display:grid;gap:6px;margin-top:8px}.feedback-record-item{border:1px solid var(--line);border-radius:9px;padding:8px;background:#fff;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center}.feedback-record-title{font-size:11.5px;font-weight:950}.feedback-record-meta{font-size:9.5px;color:#64748b;margin-top:2px}.feedback-record-actions{display:flex;gap:5px;align-items:center}.feedback-record-actions .btn{padding:6px 7px;font-size:10px}
+    .feedback-modal{position:fixed;inset:0;background:rgba(15,23,42,.58);z-index:1580;display:flex;align-items:center;justify-content:center;padding:16px}.feedback-modal[hidden]{display:none}.feedback-dialog{width:min(560px,100%);max-height:min(88vh,760px);overflow:auto;background:#fff;border-radius:16px;padding:15px;box-shadow:0 24px 70px rgba(15,23,42,.3)}.feedback-dialog-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px}.feedback-dialog-head h2{margin:0;font-size:18px}.feedback-dialog-sub{font-size:10.5px;color:#64748b;margin-top:3px}.feedback-close{border:0;background:#f3f4f6;color:#334155;border-radius:8px;width:34px;height:34px;font-size:20px;font-weight:900;cursor:pointer}.feedback-info-strip{display:flex;flex-wrap:wrap;gap:5px;margin:7px 0 10px}.feedback-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.feedback-form-grid .full{grid-column:1/-1}.feedback-checkbox-row{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:10px;padding:9px 10px;background:#f8fafc}.feedback-checkbox-row input{width:18px;height:18px}.feedback-modal-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:12px}.feedback-modal-actions .btn.save-feedback{grid-column:1/-1}.feedback-warning{margin-top:8px;padding:8px 9px;background:#fffbeb;border:1px solid #fde68a;border-radius:9px;color:#92400e;font-size:10px;line-height:1.4}.feedback-warning[hidden]{display:none}
+    @media(max-width:700px){
+      .app-mode-tabs{margin-bottom:8px;padding:4px}.app-mode-btn{flex:1;padding:7px 8px;font-size:11px}
+      .feedback-summary-grid{grid-template-columns:1fr 1fr}.feedback-summary-box:last-child{grid-column:1/-1}
+      .feedback-calendar-card{padding:6px}.feedback-calendar-title{font-size:15px;min-width:94px}.feedback-day{min-height:88px;padding:3px}.feedback-day-top{margin-bottom:2px}.feedback-day-number{font-size:10px}.feedback-holiday{font-size:7.5px;max-width:65%}.feedback-event{padding:3px 4px;border-radius:5px}.feedback-event-main{font-size:8.5px}.feedback-event-sub{font-size:7.5px}.feedback-more{font-size:8px;padding:3px 4px}.feedback-weekday{padding:5px 2px;font-size:9px}
+      .feedback-list-toolbar{grid-template-columns:1fr}.feedback-record-item{grid-template-columns:1fr}.feedback-record-actions{justify-content:flex-end}
+      .feedback-form-grid{grid-template-columns:1fr}.feedback-form-grid .full{grid-column:auto}.feedback-modal-actions{grid-template-columns:1fr 1fr}.feedback-modal-actions .save-feedback{grid-column:1/-1}.feedback-modal-actions .btn:last-child{grid-column:1/-1}
+    }
+
     @media print{
       body{background:white}
       .no-print,.sticky-side,header .actions{display:none!important}
@@ -646,7 +671,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.11.0</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.11.1</span></h1>
       <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -659,7 +684,6 @@
       <div class="sync-status" id="syncStatus">이메일 로그인 후 PC·핸드폰 자동동기화</div>
       <div class="header-tools-row">
         <button class="btn secondary" id="syncAllBtn" type="button">최신자료 저장</button>
-        <button class="btn light" id="feedbackPlannerBtn" type="button">피드백 달력</button>
         <details class="tools-details">
           <summary>백업·인쇄 도구 ▾</summary>
           <div class="actions" style="margin-top:7px">
@@ -672,8 +696,12 @@
       </div>
     </div>
   </header>
+  <div class="app-mode-tabs no-print" aria-label="화면 선택">
+    <button class="app-mode-btn active" type="button" data-app-mode="calculator">계산기</button>
+    <button class="app-mode-btn" type="button" data-app-mode="feedback">피드백 달력</button>
+  </div>
 
-  <div class="layout">
+  <div class="layout" id="calculatorView">
     <main class="stack" id="sectionContainer">
       <div class="order-toolbar no-print" id="orderToolbar">
         <button class="btn light" type="button" id="collapseAllBtn">전체 접기</button>
@@ -1236,46 +1264,61 @@
     </aside>
   </div>
 
+
+  <section class="feedback-page no-print" id="feedbackView" hidden>
+    <section class="card feedback-top-card">
+      <div class="section-head" style="margin-bottom:0">
+        <div>
+          <h2>피드백 일정 자동계산</h2>
+          <div class="helper">입찰기일 기준 4영업일을 계산하며 토·일요일과 대한민국 공휴일·대체공휴일을 제외합니다.</div>
+        </div>
+      </div>
+      <div class="feedback-summary-grid">
+        <div class="feedback-summary-box" id="feedbackSlotSummary"><div class="k">현재 피드백 진행</div><div class="v">-</div></div>
+        <div class="feedback-summary-box" id="feedbackNextSlotSummary"><div class="k">다음 요청 가능 예상</div><div class="v">-</div></div>
+        <div class="feedback-summary-box" id="feedbackNextCaseSummary"><div class="k">다음 피드백 후보</div><div class="v">-</div></div>
+      </div>
+    </section>
+
+    <section class="card feedback-calendar-card">
+      <div class="feedback-calendar-head">
+        <div class="feedback-calendar-nav">
+          <button class="btn light" id="feedbackPrevMonth" type="button">‹</button>
+          <button class="btn light" id="feedbackTodayBtn" type="button">오늘</button>
+          <button class="btn light" id="feedbackNextMonth" type="button">›</button>
+        </div>
+        <div class="feedback-calendar-title" id="feedbackCalendarTitle">-</div>
+        <div class="helper" style="margin:0">사건번호를 클릭해 요청·결과 입력</div>
+      </div>
+      <div class="feedback-calendar-weekdays">
+        <div class="feedback-weekday sun">일</div><div class="feedback-weekday">월</div><div class="feedback-weekday">화</div><div class="feedback-weekday">수</div><div class="feedback-weekday">목</div><div class="feedback-weekday">금</div><div class="feedback-weekday sat">토</div>
+      </div>
+      <div class="feedback-calendar-grid" id="feedbackCalendarGrid"></div>
+      <div class="feedback-calendar-note">고민중·입찰하기로 저장한 물건만 달력에 표시됩니다. 사건번호를 끌어 다른 날짜에 놓으면 피드백 요청 계획일이 바뀝니다. 모바일에서는 사건번호를 눌러 계획일을 직접 입력할 수 있습니다.</div>
+    </section>
+
+    <section class="card feedback-list-card">
+      <div class="feedback-list-toolbar">
+        <div class="saved-search-wrap"><span class="saved-search-icon" aria-hidden="true">⌕</span><input id="feedbackSearchInput" type="search" autocomplete="off" placeholder="사건번호 또는 아파트명 검색"></div>
+        <div class="helper" id="feedbackListSummary" style="margin:0"></div>
+      </div>
+      <div class="feedback-filter-tabs">
+        <button class="feedback-filter-btn active" type="button" data-feedback-filter="active">고민중·입찰 O</button>
+        <button class="feedback-filter-btn" type="button" data-feedback-filter="no">입찰안함</button>
+      </div>
+      <div class="feedback-record-list" id="feedbackRecordList"></div>
+    </section>
+  </section>
+
+
   <div class="mobile-save-bar no-print">
     <button class="btn" id="mobileSaveBtn" type="button">계산내역 저장</button>
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.11.0 피드백 달력·공휴일 자동계산 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.11.1 세대수·기본정보 순서 변경 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
-
-
-<div class="feedback-modal no-print" id="feedbackModal" hidden>
-  <div class="feedback-shell" role="dialog" aria-modal="true" aria-labelledby="feedbackModalTitle">
-    <div class="feedback-head">
-      <div><h2 id="feedbackModalTitle">코치 피드백 달력</h2><p>입찰기일 4영업일 전까지 요청 · 토요일·일요일·공휴일·대체공휴일 제외 · 동시에 진행 중인 요청은 최대 2건</p></div>
-      <button class="btn light" id="feedbackCloseBtn" type="button">닫기</button>
-    </div>
-    <div class="feedback-body">
-      <div class="feedback-summary-grid">
-        <div class="feedback-summary-card"><div class="feedback-summary-label">현재 진행 중</div><div class="feedback-summary-value" id="feedbackActiveSlots">0 / 2건</div><div class="feedback-rule-note" id="feedbackSlotNote">지금 요청 가능한 자리를 계산합니다.</div></div>
-        <div class="feedback-summary-card"><div class="feedback-summary-label">다음 요청 가능일</div><div class="feedback-summary-value" id="feedbackNextRequestDate">오늘</div><div class="feedback-rule-note" id="feedbackNextRequestNote"></div></div>
-        <div class="feedback-summary-card"><div class="feedback-summary-label">그날 요청 가능한 가장 빠른 입찰일</div><div class="feedback-summary-value good" id="feedbackEarliestAuctionDate">-</div><div class="feedback-rule-note">요청일 다음 영업일부터 1일로 계산해 4번째 영업일입니다.</div></div>
-      </div>
-      <section class="feedback-panel">
-        <div class="feedback-calendar-toolbar"><div class="feedback-calendar-nav"><button class="btn light" id="feedbackPrevMonthBtn" type="button">←</button><button class="btn light" id="feedbackTodayBtn" type="button">오늘</button></div><div class="feedback-calendar-title" id="feedbackCalendarTitle"></div><div class="feedback-calendar-nav"><button class="btn light" id="feedbackNextMonthBtn" type="button">→</button></div></div>
-        <div class="feedback-calendar-weekdays"><div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div></div><div class="feedback-calendar-grid" id="feedbackCalendarGrid"></div>
-        <div class="feedback-calendar-legend"><span><i class="feedback-calendar-dot auction"></i>입찰기일</span><span><i class="feedback-calendar-dot deadline"></i>피드백 요청 마감일</span><span><i class="feedback-calendar-dot request"></i>실제 요청일</span></div>
-      </section>
-      <section class="feedback-panel">
-        <div class="feedback-panel-title"><h3>피드백 요청 관리</h3><div class="feedback-sync-note" id="feedbackSyncNote">저장목록의 경매기일을 자동으로 불러옵니다.</div></div>
-        <div class="feedback-add-grid"><div><label for="feedbackManualTitle">저장목록에 없는 물건 직접 추가</label><input id="feedbackManualTitle" type="text" placeholder="사건번호 또는 물건명"></div><div><label for="feedbackManualAuctionDate">입찰기일</label><input id="feedbackManualAuctionDate" type="date"></div><button class="btn secondary" id="feedbackManualAddBtn" type="button">직접 추가</button></div>
-        <div class="feedback-list" id="feedbackItemList"></div>
-      </section>
-      <section class="feedback-panel">
-        <div class="feedback-panel-title"><h3>임시공휴일·선거일 직접 추가</h3></div>
-        <div class="feedback-holiday-add"><div><label for="feedbackHolidayDate">날짜</label><input id="feedbackHolidayDate" type="date"></div><div><label for="feedbackHolidayName">휴일 이름</label><input id="feedbackHolidayName" type="text" placeholder="예: 임시공휴일, 선거일"></div><button class="btn light" id="feedbackHolidayAddBtn" type="button">휴일 추가</button></div>
-        <div class="feedback-custom-list" id="feedbackCustomHolidayList"></div>
-      </section>
-    </div>
-  </div>
-</div>
 
 <div class="actual-bid-modal no-print" id="actualBidModal" hidden>
   <div class="actual-bid-shell">
@@ -1388,6 +1431,32 @@
   </div>
 </div>
 
+
+<div class="feedback-modal no-print" id="feedbackModal" hidden>
+  <div class="feedback-dialog">
+    <div class="feedback-dialog-head">
+      <div><h2>피드백 일정</h2><div class="feedback-dialog-sub" id="feedbackModalHeading">-</div></div>
+      <button class="feedback-close" id="feedbackModalClose" type="button">×</button>
+    </div>
+    <div class="feedback-info-strip" id="feedbackModalInfo"></div>
+    <div class="feedback-form-grid">
+      <div class="field"><label for="feedbackPlanDate">피드백 요청 계획일</label><input id="feedbackPlanDate" type="date"></div>
+      <div class="field"><label for="feedbackBaseDate">자동 계산 기준일</label><input id="feedbackBaseDate" type="date" disabled></div>
+      <label class="feedback-checkbox-row full"><input id="feedbackRequested" type="checkbox"><span><b>피드백 요청 완료</b><br><span class="helper" style="margin:0">체크하면 진행 중 피드백 건수에 포함됩니다.</span></span></label>
+      <div class="field"><label for="feedbackRequestDate">실제 요청한 날짜</label><input id="feedbackRequestDate" type="date"></div>
+      <div class="field"><label for="feedbackAuctionResult">입찰결과</label><select id="feedbackAuctionResult"><option value="">입찰 전·결과 미입력</option><option value="failed">패찰</option><option value="won">낙찰</option><option value="cancelled">입찰취소</option></select></div>
+      <div class="field full"><label for="feedbackMemo">메모</label><input id="feedbackMemo" type="text" placeholder="코치 피드백 내용, 요청 계획 등"></div>
+    </div>
+    <div class="feedback-warning" id="feedbackHolidayWarning" hidden></div>
+    <div class="feedback-modal-actions">
+      <button class="btn save-feedback" id="feedbackSaveBtn" type="button">피드백 일정 저장</button>
+      <button class="btn light" id="feedbackCalculatorBtn" type="button">계산기</button>
+      <button class="btn secondary" id="feedbackActualBidBtn" type="button">실제입찰</button>
+    </div>
+  </div>
+</div>
+
+
 <div class="folder-manager-modal no-print" id="folderManagerModal" hidden>
   <div class="folder-manager-dialog" role="dialog" aria-modal="true" aria-labelledby="folderManagerTitle">
     <div class="folder-manager-head">
@@ -1463,7 +1532,6 @@ const db = getFirestore(firebaseApp);
   const SAVED_VIEW_KEY = "auctionBidCalculator.savedView.v1";
   const SAVED_SORT_KEY = "auctionBidCalculator.savedSort.v1";
   const FOLDER_NAMES_KEY = "auctionBidCalculator.folderNames.v1";
-  const FEEDBACK_PLANNER_KEY = "auctionBidCalculator.feedbackPlanner.v1";
   const DEFAULT_SECTION_ORDER = ["basic","rates","loan","dsr","result"];
   const APP_SCHEMA_VERSION = 11;
   const deviceId = localStorage.getItem(DEVICE_ID_KEY) ||
@@ -1500,11 +1568,14 @@ const db = getFirestore(firebaseApp);
   let actualBidRecordId = null;
   let actualBidBaseRevision = 0;
   let actualBidDraft = null;
-  let feedbackPlanner = {items:[], customHolidays:[]};
-  let feedbackRevision = 0;
-  let feedbackSyncTimer = null;
-  let feedbackCalendarCursor = new Date();
-  let suppressFeedbackSync = false;
+  let currentFeedbackData = null;
+  let feedbackRecordId = null;
+  let feedbackBaseRevision = 0;
+  let feedbackCalendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+  let feedbackSearchQuery = "";
+  let feedbackListFilter = "active";
+  let feedbackDraggedRecordId = null;
+  const expandedFeedbackDates = new Set();
 
   const numericText = (value) => String(value ?? "").replace(/,/g,"").trim();
   const num = (id) => {
@@ -1577,321 +1648,6 @@ const db = getFirestore(firebaseApp);
     return email.endsWith("@auction-calculator-ay.local") ? email.split("@")[0] : (email || "로그인됨");
   }
 
-
-  function feedbackStorageKey(uid = currentUser?.uid){
-    return uid ? `${FEEDBACK_PLANNER_KEY}.${uid}` : FEEDBACK_PLANNER_KEY;
-  }
-
-  function cleanDateKey(value){
-    const raw = String(value || "").trim();
-    return /^\d{4}-\d{2}-\d{2}$/.test(raw) ? raw : "";
-  }
-
-  function dateFromKey(value){
-    const key = cleanDateKey(value);
-    if (!key) return null;
-    const [y,m,d] = key.split("-").map(Number);
-    const date = new Date(y,m-1,d,12,0,0,0);
-    return date.getFullYear() === y && date.getMonth() === m-1 && date.getDate() === d ? date : null;
-  }
-
-  function dateKey(date){
-    if (!(date instanceof Date) || Number.isNaN(date.getTime())) return "";
-    return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
-  }
-
-  function shiftDate(value, days){
-    const date = value instanceof Date ? new Date(value) : dateFromKey(value);
-    if (!date) return null;
-    date.setDate(date.getDate() + Number(days || 0));
-    return date;
-  }
-
-  function formatShortDate(value, includeYear = true){
-    const date = value instanceof Date ? value : dateFromKey(value);
-    if (!date) return "-";
-    return date.toLocaleDateString("ko-KR", includeYear
-      ? {year:"numeric",month:"numeric",day:"numeric",weekday:"short"}
-      : {month:"numeric",day:"numeric",weekday:"short"});
-  }
-
-  function normalizeFeedbackPlanner(value){
-    const source = value && typeof value === "object" ? value : {};
-    const items = Array.isArray(source.items) ? source.items.map(item => ({
-      id:String(item?.id || ""), recordId:String(item?.recordId || ""), title:String(item?.title || "").trim(),
-      auctionDate:cleanDateKey(item?.auctionDate), requested:!!item?.requested,
-      requestDate:cleanDateKey(item?.requestDate),
-      status:["pending","failed","won","cancelled"].includes(item?.status) ? item.status : "pending",
-      manual:!!item?.manual, updatedAtMs:Number(item?.updatedAtMs || 0)
-    })).filter(item => item.id && item.auctionDate) : [];
-    const customHolidays = Array.isArray(source.customHolidays) ? source.customHolidays.map(item => ({
-      id:String(item?.id || ""), date:cleanDateKey(item?.date),
-      name:String(item?.name || "임시공휴일").trim() || "임시공휴일"
-    })).filter(item => item.id && item.date) : [];
-    return {items,customHolidays};
-  }
-
-  function loadFeedbackPlannerLocal(){
-    try{ feedbackPlanner = normalizeFeedbackPlanner(JSON.parse(localStorage.getItem(feedbackStorageKey()) || "null")); }
-    catch { feedbackPlanner = {items:[],customHolidays:[]}; }
-  }
-
-  function saveFeedbackPlannerLocal(){ localStorage.setItem(feedbackStorageKey(), JSON.stringify(feedbackPlanner)); }
-
-  function lunarDateFor(year, month, day){
-    try{
-      const formatter = new Intl.DateTimeFormat("en-u-ca-chinese", {year:"numeric",month:"numeric",day:"numeric"});
-      for (let date = new Date(year,0,1,12); date <= new Date(year,11,31,12); date.setDate(date.getDate()+1)){
-        const parts = formatter.formatToParts(date);
-        const values = Object.fromEntries(parts.map(part => [part.type,part.value]));
-        const lunarMonth = Number(String(values.month || "").replace(/\D/g,""));
-        const lunarDay = Number(String(values.day || "").replace(/\D/g,""));
-        if (lunarMonth === month && lunarDay === day) return new Date(date);
-      }
-    } catch(error){ console.warn("lunar calendar unavailable", error); }
-    return null;
-  }
-
-  function addHolidayEntry(map, key, name, category){
-    if (!key) return;
-    const current = map.get(key) || {names:[],categories:[]};
-    if (!current.names.includes(name)) current.names.push(name);
-    if (category && !current.categories.includes(category)) current.categories.push(category);
-    map.set(key,current);
-  }
-
-  function koreanHolidayMap(year){
-    const base = new Map();
-    addHolidayEntry(base,`${year}-01-01`,"신정","newyear");
-    addHolidayEntry(base,`${year}-03-01`,"삼일절","national");
-    if (year >= 2026) addHolidayEntry(base,`${year}-05-01`,"노동절","labor");
-    addHolidayEntry(base,`${year}-05-05`,"어린이날","children");
-    addHolidayEntry(base,`${year}-06-06`,"현충일","memorial");
-    if (year >= 2026) addHolidayEntry(base,`${year}-07-17`,"제헌절","national");
-    addHolidayEntry(base,`${year}-08-15`,"광복절","national");
-    addHolidayEntry(base,`${year}-10-03`,"개천절","national");
-    addHolidayEntry(base,`${year}-10-09`,"한글날","national");
-    addHolidayEntry(base,`${year}-12-25`,"기독탄신일","christmas");
-
-    const seollal = lunarDateFor(year,1,1);
-    if (seollal){
-      addHolidayEntry(base,dateKey(shiftDate(seollal,-1)),"설날 연휴","seollal");
-      addHolidayEntry(base,dateKey(seollal),"설날","seollal");
-      addHolidayEntry(base,dateKey(shiftDate(seollal,1)),"설날 연휴","seollal");
-    }
-    const buddha = lunarDateFor(year,4,8);
-    if (buddha) addHolidayEntry(base,dateKey(buddha),"부처님오신날","buddha");
-    const chuseok = lunarDateFor(year,8,15);
-    if (chuseok){
-      addHolidayEntry(base,dateKey(shiftDate(chuseok,-1)),"추석 연휴","chuseok");
-      addHolidayEntry(base,dateKey(chuseok),"추석","chuseok");
-      addHolidayEntry(base,dateKey(shiftDate(chuseok,1)),"추석 연휴","chuseok");
-    }
-    if (year === 2026) addHolidayEntry(base,"2026-06-03","전국동시지방선거","election");
-    feedbackPlanner.customHolidays.forEach(item => {
-      if (Number(item.date.slice(0,4)) === year) addHolidayEntry(base,item.date,item.name,"custom");
-    });
-
-    const triggers = [];
-    [...base.entries()].forEach(([key,info]) => {
-      const date = dateFromKey(key);
-      if (!date) return;
-      const day = date.getDay();
-      const overlaps = info.categories.length > 1;
-      const weekendEligible = info.categories.some(category => {
-        if (["national","buddha","children","christmas"].includes(category)) return day === 0 || day === 6;
-        if (category === "labor") return year >= 2026 && (day === 0 || day === 6);
-        if (["seollal","chuseok"].includes(category)) return day === 0;
-        return false;
-      });
-      const overlapEligible = overlaps && info.categories.some(category => ["national","seollal","buddha","labor","children","chuseok","christmas"].includes(category));
-      if (weekendEligible || overlapEligible) triggers.push({key,info});
-    });
-
-    const holidays = new Map(base);
-    triggers.sort((a,b)=>a.key.localeCompare(b.key)).forEach(trigger => {
-      let candidate = shiftDate(trigger.key,1);
-      while (candidate){
-        const key = dateKey(candidate);
-        if (candidate.getDay() !== 0 && candidate.getDay() !== 6 && !holidays.has(key)){
-          addHolidayEntry(holidays,key,`${trigger.info.names[0]} 대체공휴일`,"substitute");
-          break;
-        }
-        candidate = shiftDate(candidate,1);
-      }
-    });
-    return holidays;
-  }
-
-  const holidayCache = new Map();
-  function clearHolidayCache(){ holidayCache.clear(); }
-  function holidayInfo(value){
-    const date = value instanceof Date ? value : dateFromKey(value);
-    if (!date) return null;
-    const year = date.getFullYear();
-    if (!holidayCache.has(year)) holidayCache.set(year,koreanHolidayMap(year));
-    return holidayCache.get(year).get(dateKey(date)) || null;
-  }
-  function isBusinessDay(value){
-    const date = value instanceof Date ? value : dateFromKey(value);
-    return !!date && date.getDay() !== 0 && date.getDay() !== 6 && !holidayInfo(date);
-  }
-  function addBusinessDays(value, count){
-    let date = value instanceof Date ? new Date(value) : dateFromKey(value);
-    if (!date) return null;
-    let remaining = Math.max(0,Number(count || 0));
-    while (remaining > 0){ date.setDate(date.getDate()+1); if (isBusinessDay(date)) remaining--; }
-    return date;
-  }
-  function subtractBusinessDays(value, count){
-    let date = value instanceof Date ? new Date(value) : dateFromKey(value);
-    if (!date) return null;
-    let remaining = Math.max(0,Number(count || 0));
-    while (remaining > 0){ date.setDate(date.getDate()-1); if (isBusinessDay(date)) remaining--; }
-    return date;
-  }
-  function feedbackDeadline(auctionDate){ return subtractBusinessDays(auctionDate,4); }
-  function earliestAuctionForRequest(requestDate){ return addBusinessDays(requestDate,4); }
-  function feedbackStateById(id){ return feedbackPlanner.items.find(item => item.id === id) || null; }
-
-  function feedbackRows(){
-    const savedRows = records().map(record => {
-      const auctionDate = cleanDateKey(record?.state?.fields?.auctionDate);
-      if (!auctionDate) return null;
-      const id = `record:${record.id}`;
-      const state = feedbackStateById(id);
-      return {
-        id,recordId:record.id,manual:false,title:String(record.title || record?.state?.fields?.caseNo || "이름 없는 물건"),
-        caseNo:String(record?.state?.fields?.caseNo || ""), apartmentName:String(record?.state?.fields?.apartmentName || ""),
-        auctionDate,requested:!!state?.requested,requestDate:state?.requestDate || "",status:state?.status || "pending",updatedAtMs:Number(state?.updatedAtMs || 0)
-      };
-    }).filter(Boolean);
-    const manualRows = feedbackPlanner.items.filter(item => item.manual).map(item => ({...item,caseNo:"",apartmentName:""}));
-    return [...savedRows,...manualRows].sort((a,b) => a.auctionDate.localeCompare(b.auctionDate) || a.title.localeCompare(b.title,"ko"));
-  }
-  function activeFeedbackItems(){ return feedbackRows().filter(item => item.requested && item.status === "pending"); }
-
-  function updateFeedbackState(id, patch, row = null){
-    const index = feedbackPlanner.items.findIndex(item => item.id === id);
-    const base = index >= 0 ? feedbackPlanner.items[index] : {
-      id,recordId:row?.recordId || "",title:row?.title || "",auctionDate:row?.auctionDate || "",
-      requested:false,requestDate:"",status:"pending",manual:!!row?.manual,updatedAtMs:0
-    };
-    const next = {...base,...patch,updatedAtMs:Date.now()};
-    if (index >= 0) feedbackPlanner.items[index] = next; else feedbackPlanner.items.push(next);
-    feedbackPlanner = normalizeFeedbackPlanner(feedbackPlanner);
-    saveFeedbackPlannerLocal(); renderFeedbackPlanner(); scheduleFeedbackSync();
-  }
-  function removeFeedbackItem(id){
-    feedbackPlanner.items = feedbackPlanner.items.filter(item => item.id !== id);
-    saveFeedbackPlannerLocal(); renderFeedbackPlanner(); scheduleFeedbackSync();
-  }
-  function expectedNextRequestDate(){
-    const today = dateFromKey(dateKey(new Date()));
-    const active = activeFeedbackItems();
-    if (active.length < 2) return {date:today,conditional:false,item:null};
-    const first = active.slice().sort((a,b)=>a.auctionDate.localeCompare(b.auctionDate))[0];
-    const eventDate = dateFromKey(first.auctionDate);
-    return {date:eventDate && eventDate > today ? eventDate : today,conditional:true,item:first};
-  }
-  function feedbackStatusLabel(status){
-    return status === "failed" ? "패찰" : status === "won" ? "낙찰" : status === "cancelled" ? "입찰취소" : "진행 중";
-  }
-
-  function renderFeedbackSummary(){
-    const active = activeFeedbackItems();
-    const slotEl = $("feedbackActiveSlots");
-    slotEl.textContent = `${active.length} / 2건`;
-    slotEl.className = `feedback-summary-value ${active.length >= 2 ? "bad" : active.length === 1 ? "warn" : "good"}`;
-    $("feedbackSlotNote").textContent = active.length >= 2
-      ? "현재 자리가 모두 찼습니다. 진행 중 물건을 패찰·낙찰·입찰취소로 바꾸면 즉시 자리가 생깁니다."
-      : `지금 ${2-active.length}건을 더 요청할 수 있습니다.`;
-    const next = expectedNextRequestDate();
-    $("feedbackNextRequestDate").textContent = next.date ? (dateKey(next.date) === dateKey(new Date()) ? "오늘" : formatShortDate(next.date)) : "-";
-    $("feedbackNextRequestNote").textContent = next.conditional && next.item
-      ? `${next.item.title} 결과를 ${formatShortDate(next.date,false)}에 처리하는 경우`
-      : "현재 빈자리가 있어 바로 요청할 수 있습니다.";
-    const earliest = next.date ? earliestAuctionForRequest(next.date) : null;
-    $("feedbackEarliestAuctionDate").textContent = earliest ? formatShortDate(earliest) : "-";
-  }
-
-  function renderFeedbackCalendar(){
-    clearHolidayCache();
-    const cursor = new Date(feedbackCalendarCursor.getFullYear(),feedbackCalendarCursor.getMonth(),1,12);
-    $("feedbackCalendarTitle").textContent = cursor.toLocaleDateString("ko-KR",{year:"numeric",month:"long"});
-    const first = new Date(cursor); first.setDate(1-first.getDay());
-    const events = new Map();
-    const pushEvent = (key,event) => { if (!key) return; const list=events.get(key)||[]; list.push(event); events.set(key,list); };
-    feedbackRows().forEach(row => {
-      pushEvent(row.auctionDate,{type:"auction",text:`입찰 ${row.title}`});
-      const deadline=feedbackDeadline(row.auctionDate); if(deadline) pushEvent(dateKey(deadline),{type:"deadline",text:`마감 ${row.title}`});
-      if(row.requested && row.requestDate) pushEvent(row.requestDate,{type:row.status === "pending" ? "request" : "done",text:`요청 ${row.title}`});
-    });
-    const cells=[],todayKey=dateKey(new Date());
-    for(let i=0;i<42;i++){
-      const day=shiftDate(first,i),key=dateKey(day),info=holidayInfo(day),dayEvents=events.get(key)||[],visible=dayEvents.slice(0,3);
-      const classes=["feedback-day"];
-      if(day.getMonth()!==cursor.getMonth()) classes.push("other-month");
-      if(day.getDay()===0||day.getDay()===6) classes.push("weekend");
-      if(info) classes.push("holiday"); if(key===todayKey) classes.push("today");
-      cells.push(`<div class="${classes.join(" ")}" data-feedback-date="${key}"><div class="feedback-day-top"><span class="feedback-day-number">${day.getDate()}</span>${info?`<span class="feedback-holiday-name">${escapeHtml(info.names.join("·"))}</span>`:""}</div><div class="feedback-day-events">${visible.map(event=>`<div class="feedback-event ${event.type}" title="${escapeHtml(event.text)}">${escapeHtml(event.text)}</div>`).join("")}${dayEvents.length>3?`<div class="feedback-event done">+${dayEvents.length-3}건</div>`:""}</div></div>`);
-    }
-    $("feedbackCalendarGrid").innerHTML=cells.join("");
-  }
-
-  function renderFeedbackList(){
-    const root=$("feedbackItemList"),rows=feedbackRows();
-    if(!rows.length){ root.innerHTML=`<div class="feedback-empty">저장목록에 경매기일이 입력된 물건이 없습니다.<br>계산내역을 저장하거나 위에서 직접 추가해주세요.</div>`; return; }
-    const active=activeFeedbackItems(),today=dateFromKey(dateKey(new Date()));
-    root.innerHTML=rows.map(row=>{
-      const deadline=feedbackDeadline(row.auctionDate),late=deadline&&today>deadline&&!row.requested,eligibleNow=!late&&active.length<2;
-      let badgeText="미요청",badgeClass="";
-      if(row.requested){badgeText=feedbackStatusLabel(row.status);badgeClass=row.status==="pending"?"info":"good";}
-      else if(late){badgeText="요청 마감 지남";badgeClass="bad";}
-      else if(!eligibleNow){badgeText="자리 대기";badgeClass="warn";}
-      else {badgeText="요청 가능";badgeClass="good";}
-      const displayTitle=[row.title,row.apartmentName].filter((v,i,a)=>v&&a.indexOf(v)===i).join(" · ");
-      return `<div class="feedback-item" data-feedback-id="${escapeHtml(row.id)}"><div class="feedback-item-top"><div><div class="feedback-item-title">${escapeHtml(displayTitle||"이름 없는 물건")}</div><div class="feedback-item-meta">입찰 ${formatShortDate(row.auctionDate)} · 요청 마감 ${formatShortDate(deadline)}</div></div><span class="feedback-badge ${badgeClass}">${badgeText}</span></div><div class="feedback-item-controls"><label class="feedback-check-wrap"><input type="checkbox" data-feedback-requested="${escapeHtml(row.id)}" ${row.requested?"checked":""}>피드백 요청</label><div><label>요청한 날짜</label><input type="date" data-feedback-request-date="${escapeHtml(row.id)}" value="${row.requestDate||""}" ${row.requested?"":"disabled"}></div><div><label>입찰 결과</label><select data-feedback-status="${escapeHtml(row.id)}" ${row.requested?"":"disabled"}><option value="pending" ${row.status==="pending"?"selected":""}>진행 중</option><option value="failed" ${row.status==="failed"?"selected":""}>패찰</option><option value="won" ${row.status==="won"?"selected":""}>낙찰</option><option value="cancelled" ${row.status==="cancelled"?"selected":""}>입찰취소</option></select></div><div class="feedback-delete-wrap">${row.manual?`<button class="btn light" type="button" data-feedback-delete="${escapeHtml(row.id)}">직접추가 삭제</button>`:""}</div></div></div>`;
-    }).join("");
-  }
-
-  function renderCustomHolidays(){
-    clearHolidayCache();
-    const root=$("feedbackCustomHolidayList"),items=feedbackPlanner.customHolidays.slice().sort((a,b)=>a.date.localeCompare(b.date));
-    root.innerHTML=items.length?items.map(item=>`<span class="feedback-custom-chip">${escapeHtml(item.date)} ${escapeHtml(item.name)}<button type="button" data-feedback-holiday-delete="${escapeHtml(item.id)}">×</button></span>`).join(""):`<span class="helper">법정공휴일과 대체공휴일은 자동 반영됩니다. 임시공휴일·선거일만 필요할 때 추가하세요.</span>`;
-  }
-  function renderFeedbackPlanner(){
-    if(!$("feedbackModal")) return;
-    clearHolidayCache();
-    renderFeedbackSummary();renderFeedbackCalendar();renderFeedbackList();renderCustomHolidays();
-    $("feedbackSyncNote").textContent=currentUser?"피드백 일정도 PC·핸드폰에 자동 동기화됩니다.":"로그인 전에는 이 기기에만 저장됩니다.";
-  }
-  function openFeedbackPlanner(){ feedbackCalendarCursor=new Date();renderFeedbackPlanner();$("feedbackModal").hidden=false;document.body.style.overflow="hidden"; }
-  function closeFeedbackPlanner(){ $("feedbackModal").hidden=true;document.body.style.overflow=""; }
-  function scheduleFeedbackSync(){
-    if(suppressFeedbackSync) return; clearTimeout(feedbackSyncTimer);
-    if(!currentUser||!cloudReady||!navigator.onLine) return;
-    feedbackSyncTimer=setTimeout(()=>syncFeedbackPlanner(),350);
-  }
-  async function syncFeedbackPlanner(){
-    if(!currentUser||!navigator.onLine) return {saved:false};
-    const baseRevision=feedbackRevision,payload=normalizeFeedbackPlanner(feedbackPlanner),now=Date.now();
-    try{
-      const nextRevision=await runTransaction(db,async transaction=>{
-        const ref=settingsRef(),snap=await transaction.get(ref),cloudRevision=Number(snap.data()?.feedbackRevision||0);
-        if(cloudRevision!==baseRevision) throw new SyncConflictError("다른 기기의 피드백 달력이 더 최신입니다.");
-        transaction.set(ref,{feedbackPlanner:payload,feedbackRevision:cloudRevision+1,feedbackUpdatedAt:serverTimestamp(),feedbackUpdatedAtMs:now,deviceId,schemaVersion:APP_SCHEMA_VERSION},{merge:true});
-        return cloudRevision+1;
-      });
-      feedbackRevision=nextRevision;return {saved:true};
-    }catch(error){
-      if(error instanceof SyncConflictError){
-        const snap=await getDoc(settingsRef()),data=snap.data()||{};
-        suppressFeedbackSync=true;feedbackRevision=Number(data.feedbackRevision||0);feedbackPlanner=normalizeFeedbackPlanner(data.feedbackPlanner);saveFeedbackPlannerLocal();suppressFeedbackSync=false;renderFeedbackPlanner();setSyncStatus("다른 기기의 최신 피드백 달력을 적용했습니다.","warn");return {saved:false,conflict:true};
-      }
-      console.error("feedback planner sync failed",error);setSyncStatus("피드백 달력 저장 실패 · 인터넷 연결 확인","bad");return {saved:false,error};
-    }
-  }
 
   const actualInputIds = [
     "actualMinPrice","actualAcquisitionTaxRate","actualLegalFeeMan","actualEvictionFeeMan",
@@ -2631,7 +2387,8 @@ const db = getFirestore(firebaseApp);
       fields,
       sameRates:[...sameRates], nearRates:[...nearRates],
       sameRateYears:[...sameRateYears], nearRateYears:[...nearRateYears],
-      actualBid:currentActualBidData ? {...currentActualBidData} : null
+      actualBid:currentActualBidData ? {...currentActualBidData} : null,
+      feedback:currentFeedbackData ? {...currentFeedbackData} : null
     };
   }
 
@@ -2645,6 +2402,7 @@ const db = getFirestore(firebaseApp);
       if (state.fields[key] === undefined) state.fields[key] = "";
     });
     currentActualBidData = state.actualBid ? {...state.actualBid} : null;
+    currentFeedbackData = state.feedback ? {...state.feedback} : null;
     if (state.fields.mortgageDeduction === undefined) state.fields.mortgageDeduction = "25000000";
     if (state.fields.mortgageUseDeduction === undefined) state.fields.mortgageUseDeduction = true;
     if (state.fields.mortgageLoanRate === undefined || state.fields.mortgageLoanRate === "50") state.fields.mortgageLoanRate = "60";
@@ -2707,7 +2465,7 @@ const db = getFirestore(firebaseApp);
   function writeLocalRecords(items, key = userStorageKey()){
     localStorage.setItem(key, JSON.stringify(items));
     renderSaved();
-    renderFeedbackPlanner();
+    renderFeedbackCalendar();
   }
 
   function upsertLocalRecord(item){
@@ -2928,6 +2686,174 @@ const db = getFirestore(firebaseApp);
     const actualReady = !!item?.state?.actualBid;
     const value = stateText(item,"bidDecision",actualReady ? "bid" : "pending");
     return ["bid","no","pending"].includes(value) ? value : "pending";
+  }
+
+
+  function ymd(date){
+    if (!(date instanceof Date) || Number.isNaN(date.getTime())) return "";
+    const y=date.getFullYear(),m=String(date.getMonth()+1).padStart(2,"0"),d=String(date.getDate()).padStart(2,"0");
+    return `${y}-${m}-${d}`;
+  }
+  function parseYmd(value){
+    const m=String(value||"").match(/^(\d{4})-(\d{2})-(\d{2})$/); if(!m)return null;
+    const d=new Date(Number(m[1]),Number(m[2])-1,Number(m[3]),12,0,0,0);
+    return Number.isNaN(d.getTime())?null:d;
+  }
+  function plusDays(date,days){ const d=new Date(date); d.setDate(d.getDate()+days); return d; }
+  function md(value){ const d=parseYmd(value); return d ? `${d.getMonth()+1}/${d.getDate()}` : "-"; }
+  function todayYmd(){ return ymd(new Date()); }
+  function lunarMonthDay(date){
+    try{
+      const parts=new Intl.DateTimeFormat("en-u-ca-chinese",{month:"numeric",day:"numeric"}).formatToParts(date);
+      const month=parts.find(p=>p.type==="month")?.value||""; const day=parts.find(p=>p.type==="day")?.value||"";
+      if(!/^\d+$/.test(month)||!/^[0-9]+$/.test(day)) return null;
+      return {month:Number(month),day:Number(day)};
+    }catch{return null;}
+  }
+  const holidayCache=new Map();
+  function koreanHolidayMap(year){
+    if(holidayCache.has(year)) return holidayCache.get(year);
+    const map=new Map();
+    const add=(date,name)=>{ if(date&&!map.has(date))map.set(date,name); else if(date&&!String(map.get(date)).includes(name))map.set(date,`${map.get(date)}·${name}`); };
+    add(`${year}-01-01`,"신정"); add(`${year}-03-01`,"삼일절");
+    if(year>=2026) add(`${year}-05-01`,"노동절");
+    add(`${year}-05-05`,"어린이날"); add(`${year}-06-06`,"현충일");
+    if(year===2025) add(`${year}-06-03`,"대통령선거일");
+    if(year===2026) add(`${year}-06-03`,"지방선거일");
+    if(year>=2026) add(`${year}-07-17`,"제헌절");
+    add(`${year}-08-15`,"광복절"); add(`${year}-10-03`,"개천절"); add(`${year}-10-09`,"한글날"); add(`${year}-12-25`,"기독탄신일");
+
+    let lunarNewYear=null;
+    for(let d=new Date(year,0,15,12); d<=new Date(year,2,10,12); d=plusDays(d,1)){
+      const lm=lunarMonthDay(d); if(lm?.month===1&&lm?.day===1){lunarNewYear=new Date(d);break;}
+    }
+    if(lunarNewYear){ add(ymd(plusDays(lunarNewYear,-1)),"설날 연휴"); add(ymd(lunarNewYear),"설날"); add(ymd(plusDays(lunarNewYear,1)),"설날 연휴"); }
+    for(let d=new Date(year,3,1,12); d<=new Date(year,5,15,12); d=plusDays(d,1)){
+      const lm=lunarMonthDay(d); if(lm?.month===4&&lm?.day===8){ add(ymd(d),"부처님오신날"); break; }
+    }
+    for(let d=new Date(year,7,15,12); d<=new Date(year,10,10,12); d=plusDays(d,1)){
+      const lm=lunarMonthDay(d); if(lm?.month===8&&lm?.day>=14&&lm?.day<=16) add(ymd(d),lm.day===15?"추석":"추석 연휴");
+    }
+
+    const baseEntries=[...map.entries()];
+    const substituteEligibleWeekend=(name)=>/삼일절|제헌절|광복절|개천절|한글날|부처님오신날|노동절|어린이날|기독탄신일/.test(name);
+    const isLunarGroup=(name)=>/설날|추석/.test(name);
+    const occupied=new Set(map.keys());
+    const nextNonHoliday=(from)=>{ let d=plusDays(parseYmd(from),1); while(true){ const key=ymd(d),day=d.getDay(); if(day!==0&&!occupied.has(key)&&day!==6) return key; d=plusDays(d,1); } };
+    const substituteSources=[];
+    for(const [date,name] of baseEntries){
+      const d=parseYmd(date),dow=d.getDay();
+      if((substituteEligibleWeekend(name)&&(dow===0||dow===6)) || (isLunarGroup(name)&&dow===0)) substituteSources.push([date,name]);
+    }
+    const dayCounts=new Map(); baseEntries.forEach(([date])=>dayCounts.set(date,(dayCounts.get(date)||0)+1));
+    // overlapping names may have been merged, so detect well-known same-day collisions from the merged label
+    for(const [date,name] of baseEntries){ if(String(name).includes("·")) substituteSources.push([date,name]); }
+    substituteSources.sort((a,b)=>a[0].localeCompare(b[0]));
+    for(const [date,name] of substituteSources){ const sub=nextNonHoliday(date); occupied.add(sub); add(sub,`${name.split("·")[0]} 대체공휴일`); }
+    holidayCache.set(year,map); return map;
+  }
+  function holidayName(value){ const d=parseYmd(value); if(!d)return ""; return koreanHolidayMap(d.getFullYear()).get(value)||""; }
+  function isBusinessDay(value){
+    const d=typeof value==="string"?parseYmd(value):value; if(!d)return false;
+    const day=d.getDay(); if(day===0||day===6)return false; return !holidayName(ymd(d));
+  }
+  function subtractBusinessDays(value,count=4){
+    let d=parseYmd(value); if(!d)return ""; let left=count;
+    while(left>0){d=plusDays(d,-1); if(isBusinessDay(d))left--;}
+    return ymd(d);
+  }
+  function addBusinessDays(value,count=4){
+    let d=typeof value==="string"?parseYmd(value):new Date(value); if(!d||Number.isNaN(d.getTime()))return ""; let left=count;
+    while(left>0){d=plusDays(d,1); if(isBusinessDay(d))left--;}
+    return ymd(d);
+  }
+  function recordFeedback(item){
+    const f=item?.state?.feedback||{};
+    return {planDate:String(f.planDate||""),requested:!!f.requested,requestDate:String(f.requestDate||""),result:["failed","won","cancelled"].includes(f.result)?f.result:"",memo:String(f.memo||"")};
+  }
+  function feedbackBaseDate(item){ const auction=recordAuctionDate(item).raw; return auction?subtractBusinessDays(auction,4):""; }
+  function feedbackDisplayDate(item){ const f=recordFeedback(item); return (f.requested&&f.requestDate)||f.planDate||feedbackBaseDate(item); }
+  function feedbackResultLabel(result){ return result==="failed"?"패찰":result==="won"?"낙찰":result==="cancelled"?"입찰취소":""; }
+  function feedbackCalendarItems(){ if(!currentUser)return []; return records().filter(item=>["pending","bid"].includes(recordDecision(item))&&recordAuctionDate(item).raw); }
+  function feedbackActiveRequests(){ return feedbackCalendarItems().filter(item=>{const f=recordFeedback(item);return f.requested&&!f.result;}); }
+  function switchAppMode(mode){
+    const feedback=mode==="feedback"; $("calculatorView").hidden=feedback; $("feedbackView").hidden=!feedback;
+    document.querySelectorAll("[data-app-mode]").forEach(btn=>btn.classList.toggle("active",btn.dataset.appMode===mode));
+    $("mobileSaveBtn").closest(".mobile-save-bar").style.display=feedback?"none":"";
+    if(feedback){renderFeedbackCalendar();window.scrollTo({top:0,behavior:"smooth"});}
+  }
+  function renderFeedbackSummary(){
+    const active=feedbackActiveRequests().sort((a,b)=>(recordAuctionDate(a).time??Infinity)-(recordAuctionDate(b).time??Infinity));
+    const slot=$("feedbackSlotSummary"),next=$("feedbackNextSlotSummary"),candidate=$("feedbackNextCaseSummary");
+    if(!slot)return;
+    slot.className=`feedback-summary-box ${active.length>=2?"warn":"good"}`; slot.innerHTML=`<div class="k">현재 피드백 진행</div><div class="v">${active.length}/2건</div>`;
+    let nextDate=todayYmd(),releaseItem=null;
+    if(active.length>=2){ releaseItem=active[0]; nextDate=recordAuctionDate(releaseItem).raw||todayYmd(); }
+    next.className=`feedback-summary-box ${active.length>=2?"warn":"good"}`;
+    next.innerHTML=`<div class="k">다음 요청 가능 예상</div><div class="v">${md(nextDate)}${releaseItem?` · ${escapeHtml(stateText(releaseItem,"caseNo",releaseItem.title))} 결과 입력 후`:" · 지금 가능"}</div>`;
+    const notRequested=feedbackCalendarItems().filter(item=>!recordFeedback(item).requested).sort((a,b)=>(recordAuctionDate(a).time??Infinity)-(recordAuctionDate(b).time??Infinity));
+    const possible=notRequested.find(item=>{const base=feedbackBaseDate(item);return base&&base<=nextDate&&recordAuctionDate(item).raw>=nextDate;}) || notRequested.find(item=>recordAuctionDate(item).raw>=nextDate);
+    if(possible){ candidate.innerHTML=`<div class="k">다음 피드백 후보</div><div class="v">${md(recordAuctionDate(possible).raw)} · ${escapeHtml(stateText(possible,"caseNo",possible.title))}</div>`; }
+    else candidate.innerHTML=`<div class="k">다음 피드백 후보</div><div class="v">저장된 후보 없음 · ${md(addBusinessDays(nextDate,4))}까지 확인</div>`;
+  }
+  function feedbackEventHtml(item){
+    const f=recordFeedback(item),base=feedbackBaseDate(item),display=feedbackDisplayDate(item),caseNo=stateText(item,"caseNo",item.title||"사건번호 없음");
+    const cls=f.result==="failed"?"failed":f.result==="won"?"won":f.requested?"requested":"";
+    const moved=base&&display&&base!==display; const status=f.result?feedbackResultLabel(f.result):(f.requested?"요청완료":"요청계획");
+    return `<button class="feedback-event ${cls}" type="button" draggable="true" data-feedback-record-id="${item.id}"><span class="feedback-event-main">${escapeHtml(caseNo)}${moved?` · ${md(base)}`:""}</span><span class="feedback-event-sub">${moved?"원래 기준일 · ":""}${status}</span></button>`;
+  }
+  function renderFeedbackCalendar(){
+    const grid=$("feedbackCalendarGrid"); if(!grid)return;
+    renderFeedbackSummary();
+    const year=feedbackCalendarMonth.getFullYear(),month=feedbackCalendarMonth.getMonth(); $("feedbackCalendarTitle").textContent=`${year}년 ${month+1}월`;
+    const first=new Date(year,month,1,12),start=plusDays(first,-first.getDay()); const items=feedbackCalendarItems();
+    const byDate=new Map(); items.forEach(item=>{const date=feedbackDisplayDate(item);if(!date)return; if(!byDate.has(date))byDate.set(date,[]);byDate.get(date).push(item);});
+    const today=todayYmd(); let html="";
+    for(let i=0;i<42;i++){
+      const d=plusDays(start,i),date=ymd(d),other=d.getMonth()!==month,holiday=holidayName(date),dow=d.getDay();
+      const arr=(byDate.get(date)||[]).sort((a,b)=>(recordAuctionDate(a).time??Infinity)-(recordAuctionDate(b).time??Infinity)); const expanded=expandedFeedbackDates.has(date),limit=expanded?arr.length:2,shown=arr.slice(0,limit),more=arr.length-shown.length;
+      html+=`<div class="feedback-day${other?" other-month":""}${date===today?" today":""}" data-feedback-day="${date}"><div class="feedback-day-top"><span class="feedback-day-number ${dow===0?"sun":dow===6?"sat":""}">${d.getDate()}</span>${holiday?`<span class="feedback-holiday" title="${escapeHtml(holiday)}">${escapeHtml(holiday)}</span>`:""}</div><div class="feedback-events">${shown.map(feedbackEventHtml).join("")}${more>0?`<button class="feedback-more" type="button" data-feedback-more-date="${date}">+${more}건</button>`:""}${expanded&&arr.length>2?`<button class="feedback-more" type="button" data-feedback-more-date="${date}">접기</button>`:""}</div></div>`;
+    }
+    grid.innerHTML=html; renderFeedbackRecordList();
+  }
+  function renderFeedbackRecordList(){
+    const root=$("feedbackRecordList"); if(!root)return; const q=normalizeSavedSearch(feedbackSearchQuery);
+    if(!currentUser){$("feedbackListSummary").textContent="로그인 필요";root.innerHTML=`<div class="empty">이메일 로그인 후 피드백 달력을 사용할 수 있습니다.</div>`;return;}
+    let items=records().filter(item=>feedbackListFilter==="no"?recordDecision(item)==="no":["pending","bid"].includes(recordDecision(item)));
+    if(q)items=items.filter(item=>recordMatchesSavedSearch(item,feedbackSearchQuery)); items.sort((a,b)=>(recordAuctionDate(a).time??Infinity)-(recordAuctionDate(b).time??Infinity));
+    $("feedbackListSummary").textContent=`${feedbackListFilter==="no"?"입찰안함":"달력 대상"} ${items.length}건`;
+    document.querySelectorAll("[data-feedback-filter]").forEach(btn=>btn.classList.toggle("active",btn.dataset.feedbackFilter===feedbackListFilter));
+    root.innerHTML=items.length?items.map(item=>{const f=recordFeedback(item),base=feedbackBaseDate(item),caseNo=stateText(item,"caseNo",item.title||"-");return `<div class="feedback-record-item"><div><div class="feedback-record-title">${escapeHtml(caseNo)}${recordApartmentName(item)?` · ${escapeHtml(recordApartmentName(item))}`:""}</div><div class="feedback-record-meta">경매 ${recordAuctionDate(item).raw||"미입력"}${base?` · 4영업일 기준 ${base}`:""}${f.requested?` · 요청 ${f.requestDate||"날짜 미입력"}`:""}${f.result?` · ${feedbackResultLabel(f.result)}`:""}</div></div><div class="feedback-record-actions">${feedbackListFilter!=="no"?`<button class="btn secondary" type="button" data-feedback-record-id="${item.id}">피드백</button>`:""}<button class="btn light" type="button" data-feedback-calc-id="${item.id}">계산기</button></div></div>`;}).join(""):`<div class="empty">조건에 맞는 저장물건이 없습니다.</div>`;
+  }
+  function openFeedbackModal(id){
+    const item=records().find(x=>x.id===id); if(!item)return; feedbackRecordId=id;feedbackBaseRevision=Number(item.revision||0); const f=recordFeedback(item),base=feedbackBaseDate(item),auction=recordAuctionDate(item).raw;
+    $("feedbackModalHeading").textContent=`${stateText(item,"caseNo",item.title||"-")}${recordApartmentName(item)?` · ${recordApartmentName(item)}`:""}`;
+    $("feedbackModalInfo").innerHTML=`<span class="pill">경매 ${auction||"미입력"}</span><span class="pill">4영업일 기준 ${base||"계산불가"}</span><span class="pill">${recordDecision(item)==="bid"?"입찰 O":"고민중"}</span>`;
+    $("feedbackBaseDate").value=base; $("feedbackPlanDate").value=f.planDate||base; $("feedbackRequested").checked=f.requested; $("feedbackRequestDate").value=f.requestDate||(f.requested?todayYmd():""); $("feedbackAuctionResult").value=f.result; $("feedbackMemo").value=f.memo;
+    updateFeedbackHolidayWarning(); $("feedbackModal").hidden=false;
+  }
+  function closeFeedbackModal(){ $("feedbackModal").hidden=true; feedbackRecordId=null;feedbackBaseRevision=0; }
+  function updateFeedbackHolidayWarning(){
+    const el=$("feedbackHolidayWarning"),date=$("feedbackPlanDate").value; if(!date){el.hidden=true;return;} const h=holidayName(date),d=parseYmd(date); const weekend=d&&(d.getDay()===0||d.getDay()===6);
+    if(h||weekend){el.hidden=false;el.textContent=`${date}은(는) ${h||"주말"}입니다. 계획일로 저장은 가능하지만 4영업일 계산에서는 제외됩니다.`;} else el.hidden=true;
+  }
+  async function saveFeedbackForRecord(id,data,baseRevision=null){
+    if(!requireCloudReady())return null; const local=rawLocalRecords().find(x=>x.id===id); const expected=baseRevision===null?Number(local?.revision||0):Number(baseRevision||0); const now=Date.now();
+    try{
+      const saved=await runTransaction(db,async transaction=>{const ref=recordRef(id),snap=await transaction.get(ref);if(!snap.exists())throw new Error("저장자료를 찾을 수 없습니다.");const cloud=snap.data(),cloudRevision=Number(cloud.revision||0);if(cloudRevision!==expected)throw new SyncConflictError();const state={...(cloud.state||{}),feedback:data};const next={...cloud,state,revision:cloudRevision+1,deleted:false,checksum:checksum({title:cloud.title,state,deleted:false}),updatedAt:serverTimestamp(),updatedAtMs:now,deviceId,schemaVersion:APP_SCHEMA_VERSION};transaction.set(ref,next,{merge:false});return normalizeCloudRecord(id,next);});
+      upsertLocalRecord(saved); if(loadedRecordId===id){loadedRecordRevision=Number(saved.revision||0);currentFeedbackData={...data};} return saved;
+    }catch(error){ if(error instanceof SyncConflictError){await refreshRecordFromCloud(id);alert("다른 기기에서 이 물건을 먼저 수정해 덮어쓰기를 막았습니다. 최신자료를 다시 확인해주세요.");}else{console.error(error);alert(`피드백 일정을 저장하지 못했습니다. ${error?.message||""}`);} return null; }
+  }
+  async function saveFeedbackModal(){
+    if(!feedbackRecordId)return; const requested=$("feedbackRequested").checked; let requestDate=$("feedbackRequestDate").value; if(requested&&!requestDate)requestDate=todayYmd(); const data={planDate:$("feedbackPlanDate").value,requested,requestDate:requested?requestDate:"",result:$("feedbackAuctionResult").value,memo:$("feedbackMemo").value.trim()};
+    const activeOther=feedbackActiveRequests().filter(item=>item.id!==feedbackRecordId).length; if(requested&&!data.result&&activeOther>=2){alert("동시에 진행 중인 피드백은 최대 2건입니다. 기존 물건의 입찰결과를 먼저 입력해주세요.");return;}
+    const saved=await saveFeedbackForRecord(feedbackRecordId,data,feedbackBaseRevision); if(saved){feedbackBaseRevision=Number(saved.revision||0);showToast("피드백 일정 저장 완료");closeFeedbackModal();renderFeedbackCalendar();}
+  }
+  async function moveFeedbackPlanDate(id,date){
+    const item=records().find(x=>x.id===id);if(!item)return;const f=recordFeedback(item);const data={...f,planDate:date};const saved=await saveFeedbackForRecord(id,data,Number(item.revision||0));if(saved){showToast(`피드백 계획일을 ${md(date)}로 이동했습니다.`);renderFeedbackCalendar();}
+  }
+  function loadRecordToCalculator(id){
+    const item=records().find(x=>x.id===id);if(!item)return;loadedRecordId=item.id;loadedRecordRevision=Number(item.revision||0);setState(item.state);switchAppMode("calculator");window.scrollTo({top:0,behavior:"smooth"});
   }
 
   function recordMatchesSavedSearch(item, query){
@@ -3612,7 +3538,6 @@ const db = getFirestore(firebaseApp);
 
       await syncFolderNames();
       await syncSectionOrder(sectionCards().map(card => card.dataset.sectionId));
-      await syncFeedbackPlanner();
       const cloudSnapshot = await getDocs(recordsCollection());
       const cloudItems = cloudSnapshot.docs.map(d => normalizeCloudRecord(d.id,d.data()));
       writeLocalRecords(cloudItems,userStorageKey(currentUser.uid));
@@ -3688,8 +3613,8 @@ const db = getFirestore(firebaseApp);
     $("importFile").disabled = !cloudReady;
     $("importLabel").style.opacity = cloudReady ? "1" : ".48";
     $("savedHelper").textContent = loggedIn
-      ? "계산내역·지역 폴더·피드백 달력이 PC·핸드폰에 자동 동기화됩니다."
-      : "이메일 로그인 후 계산내역과 피드백 달력을 동기화할 수 있습니다.";
+      ? "계산내역과 지역 폴더가 PC·핸드폰에 자동 동기화됩니다."
+      : "이메일 로그인 후 계산내역과 지역 폴더를 동기화할 수 있습니다.";
     renderSaved();
   }
 
@@ -3751,8 +3676,6 @@ const db = getFirestore(firebaseApp);
       const data = settingsSnap.data();
       sectionOrderRevision = Number(data.revision || 0);
       foldersRevision = Number(data.foldersRevision || 0);
-      feedbackRevision = Number(data.feedbackRevision || 0);
-      if (data.feedbackPlanner){ feedbackPlanner = normalizeFeedbackPlanner(data.feedbackPlanner); saveFeedbackPlannerLocal(); }
       if (Array.isArray(data.folderNames)){ folderNames = uniqueFolderNames(data.folderNames); saveFolderNamesLocal(); }
       if (Array.isArray(data.sectionOrder)){
         suppressSectionSync = true;
@@ -3775,8 +3698,6 @@ const db = getFirestore(firebaseApp);
             revision: 1,
             folderNames: folderNames,
             foldersRevision: folderNames.length ? 1 : 0,
-            feedbackPlanner: normalizeFeedbackPlanner(feedbackPlanner),
-            feedbackRevision: (feedbackPlanner.items.length || feedbackPlanner.customHolidays.length) ? 1 : 0,
             updatedAt: serverTimestamp(),
             updatedAtMs: Date.now(),
             deviceId,
@@ -3784,15 +3705,10 @@ const db = getFirestore(firebaseApp);
           });
           sectionOrderRevision = 1;
           foldersRevision = folderNames.length ? 1 : 0;
-          feedbackRevision = (feedbackPlanner.items.length || feedbackPlanner.customHolidays.length) ? 1 : 0;
         } else {
           sectionOrderRevision = Number(snap.data()?.revision || 0);
         }
       });
-    }
-
-    if (settingsSnap.exists() && !settingsSnap.data()?.feedbackPlanner && (feedbackPlanner.items.length || feedbackPlanner.customHolidays.length)){
-      await syncFeedbackPlanner();
     }
 
     await migrateLocalRecordsWithoutOverwrite();
@@ -3830,10 +3746,6 @@ const db = getFirestore(firebaseApp);
         localStorage.setItem(SECTION_ORDER_KEY, JSON.stringify(data.sectionOrder));
         suppressSectionSync = false;
       }
-      const cloudFeedbackRevision = Number(data.feedbackRevision || 0);
-      if (cloudFeedbackRevision > feedbackRevision && data.feedbackPlanner){
-        feedbackRevision = cloudFeedbackRevision; suppressFeedbackSync = true; feedbackPlanner = normalizeFeedbackPlanner(data.feedbackPlanner); saveFeedbackPlannerLocal(); suppressFeedbackSync = false; renderFeedbackPlanner();
-      }
       const cloudFoldersRevision = Number(data.foldersRevision || 0);
       if (cloudFoldersRevision > foldersRevision && Array.isArray(data.folderNames)){
         foldersRevision = cloudFoldersRevision;
@@ -3860,11 +3772,9 @@ const db = getFirestore(firebaseApp);
     loadedRecordRevision = 0;
     sectionOrderRevision = 0;
     foldersRevision = 0;
-    feedbackRevision = 0;
     folderNames = [];
-    loadFeedbackPlannerLocal();
-    renderFeedbackPlanner();
     renderFolderOptions();
+    renderFeedbackCalendar();
     setSyncStatus("이메일 로그인 후 PC·핸드폰 자동동기화", "");
     updateAuthUi();
   }
@@ -3872,8 +3782,6 @@ const db = getFirestore(firebaseApp);
   async function handleSignedIn(user){
     currentUser = user;
     loadFolderNamesLocal();
-    loadFeedbackPlannerLocal();
-    renderFeedbackPlanner();
     renderFolderOptions();
     updateAuthUi();
     try{
@@ -3960,6 +3868,16 @@ const db = getFirestore(firebaseApp);
   });
 
   document.addEventListener("click", (e) => {
+    const appMode=e.target.closest("[data-app-mode]");
+    if(appMode){switchAppMode(appMode.dataset.appMode);return;}
+    const fbMore=e.target.closest("[data-feedback-more-date]");
+    if(fbMore){const date=fbMore.dataset.feedbackMoreDate;if(expandedFeedbackDates.has(date))expandedFeedbackDates.delete(date);else expandedFeedbackDates.add(date);renderFeedbackCalendar();return;}
+    const fbRecord=e.target.closest("[data-feedback-record-id]");
+    if(fbRecord){openFeedbackModal(fbRecord.dataset.feedbackRecordId);return;}
+    const fbCalc=e.target.closest("[data-feedback-calc-id]");
+    if(fbCalc){loadRecordToCalculator(fbCalc.dataset.feedbackCalcId);return;}
+    const fbFilter=e.target.closest("[data-feedback-filter]");
+    if(fbFilter){feedbackListFilter=fbFilter.dataset.feedbackFilter;renderFeedbackRecordList();return;}
     const collapse = e.target.closest("[data-collapse]");
     if (collapse){
       const card = collapse.closest(".section-card");
@@ -4090,6 +4008,23 @@ const db = getFirestore(firebaseApp);
     }
   });
 
+
+  $("feedbackPrevMonth").addEventListener("click",()=>{feedbackCalendarMonth=new Date(feedbackCalendarMonth.getFullYear(),feedbackCalendarMonth.getMonth()-1,1);renderFeedbackCalendar();});
+  $("feedbackNextMonth").addEventListener("click",()=>{feedbackCalendarMonth=new Date(feedbackCalendarMonth.getFullYear(),feedbackCalendarMonth.getMonth()+1,1);renderFeedbackCalendar();});
+  $("feedbackTodayBtn").addEventListener("click",()=>{const n=new Date();feedbackCalendarMonth=new Date(n.getFullYear(),n.getMonth(),1);renderFeedbackCalendar();});
+  $("feedbackSearchInput").addEventListener("input",e=>{feedbackSearchQuery=e.target.value.trim();renderFeedbackRecordList();});
+  $("feedbackModalClose").addEventListener("click",closeFeedbackModal); $("feedbackModal").addEventListener("click",e=>{if(e.target===$("feedbackModal"))closeFeedbackModal();});
+  $("feedbackPlanDate").addEventListener("change",updateFeedbackHolidayWarning);
+  $("feedbackRequested").addEventListener("change",()=>{if($("feedbackRequested").checked&&!$("feedbackRequestDate").value)$("feedbackRequestDate").value=todayYmd();});
+  $("feedbackSaveBtn").addEventListener("click",saveFeedbackModal);
+  $("feedbackCalculatorBtn").addEventListener("click",()=>{if(feedbackRecordId){const id=feedbackRecordId;closeFeedbackModal();loadRecordToCalculator(id);}});
+  $("feedbackActualBidBtn").addEventListener("click",()=>{if(feedbackRecordId){const id=feedbackRecordId;closeFeedbackModal();openActualBid(id);}});
+  $("feedbackCalendarGrid").addEventListener("dragstart",e=>{const ev=e.target.closest("[data-feedback-record-id]");if(!ev)return;feedbackDraggedRecordId=ev.dataset.feedbackRecordId;ev.classList.add("dragging");if(e.dataTransfer){e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain",feedbackDraggedRecordId);}});
+  $("feedbackCalendarGrid").addEventListener("dragend",e=>{e.target.closest("[data-feedback-record-id]")?.classList.remove("dragging");feedbackDraggedRecordId=null;document.querySelectorAll(".feedback-day.drop-target").forEach(el=>el.classList.remove("drop-target"));});
+  $("feedbackCalendarGrid").addEventListener("dragover",e=>{const day=e.target.closest("[data-feedback-day]");if(!day)return;e.preventDefault();document.querySelectorAll(".feedback-day.drop-target").forEach(el=>{if(el!==day)el.classList.remove("drop-target")});day.classList.add("drop-target");if(e.dataTransfer)e.dataTransfer.dropEffect="move";});
+  $("feedbackCalendarGrid").addEventListener("dragleave",e=>{const day=e.target.closest("[data-feedback-day]");if(day&&!day.contains(e.relatedTarget))day.classList.remove("drop-target");});
+  $("feedbackCalendarGrid").addEventListener("drop",async e=>{const day=e.target.closest("[data-feedback-day]");if(!day)return;e.preventDefault();day.classList.remove("drop-target");const id=feedbackDraggedRecordId||(e.dataTransfer?e.dataTransfer.getData("text/plain"):"");if(id)await moveFeedbackPlanDate(id,day.dataset.feedbackDay);feedbackDraggedRecordId=null;});
+
   $("savedEditorToggleBtn").addEventListener("click", () => {
     savedEditorCollapsed = !savedEditorCollapsed;
     saveSavedListPreferences();
@@ -4217,57 +4152,6 @@ const db = getFirestore(firebaseApp);
     if (!confirm("로그아웃할까요? 클라우드 자료는 삭제되지 않습니다.")) return;
     await signOut(auth);
   });
-  $("feedbackPlannerBtn").addEventListener("click", openFeedbackPlanner);
-  $("feedbackCloseBtn").addEventListener("click", closeFeedbackPlanner);
-  $("feedbackModal").addEventListener("click", event => { if (event.target === $("feedbackModal")) closeFeedbackPlanner(); });
-  $("feedbackPrevMonthBtn").addEventListener("click", () => { feedbackCalendarCursor.setMonth(feedbackCalendarCursor.getMonth()-1); renderFeedbackCalendar(); });
-  $("feedbackNextMonthBtn").addEventListener("click", () => { feedbackCalendarCursor.setMonth(feedbackCalendarCursor.getMonth()+1); renderFeedbackCalendar(); });
-  $("feedbackTodayBtn").addEventListener("click", () => { feedbackCalendarCursor=new Date(); renderFeedbackCalendar(); });
-  $("feedbackManualAddBtn").addEventListener("click", () => {
-    const title=$("feedbackManualTitle").value.trim(),auctionDate=cleanDateKey($("feedbackManualAuctionDate").value);
-    if(!title||!auctionDate){alert("물건명과 입찰기일을 모두 입력해주세요.");return;}
-    const id=`manual:${crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random().toString(36).slice(2)}`}`;
-    feedbackPlanner.items.push({id,recordId:"",title,auctionDate,requested:false,requestDate:"",status:"pending",manual:true,updatedAtMs:Date.now()});
-    feedbackPlanner=normalizeFeedbackPlanner(feedbackPlanner);$("feedbackManualTitle").value="";$("feedbackManualAuctionDate").value="";
-    saveFeedbackPlannerLocal();renderFeedbackPlanner();scheduleFeedbackSync();
-  });
-  $("feedbackHolidayAddBtn").addEventListener("click", () => {
-    const date=cleanDateKey($("feedbackHolidayDate").value),name=$("feedbackHolidayName").value.trim()||"임시공휴일";
-    if(!date){alert("휴일 날짜를 선택해주세요.");return;}
-    if(feedbackPlanner.customHolidays.some(item=>item.date===date&&item.name===name)){showToast("이미 추가된 휴일입니다.");return;}
-    feedbackPlanner.customHolidays.push({id:crypto.randomUUID?crypto.randomUUID():`holiday-${Date.now()}`,date,name});
-    $("feedbackHolidayDate").value="";$("feedbackHolidayName").value="";clearHolidayCache();saveFeedbackPlannerLocal();renderFeedbackPlanner();scheduleFeedbackSync();
-  });
-  $("feedbackItemList").addEventListener("change", event => {
-    const requestedId=event.target.dataset.feedbackRequested,requestDateId=event.target.dataset.feedbackRequestDate,statusId=event.target.dataset.feedbackStatus;
-    if(requestedId){
-      const row=feedbackRows().find(item=>item.id===requestedId);if(!row)return;
-      if(event.target.checked){
-        const active=activeFeedbackItems().filter(item=>item.id!==requestedId);
-        if(active.length>=2){event.target.checked=false;alert("동시에 진행 중인 피드백은 최대 2건입니다. 기존 물건을 패찰·낙찰·입찰취소로 처리한 뒤 요청해주세요.");return;}
-        const today=dateKey(new Date()),deadline=feedbackDeadline(row.auctionDate);
-        if(deadline&&dateFromKey(today)>deadline&&!confirm(`이 물건의 피드백 요청 마감일은 ${formatShortDate(deadline)}입니다. 마감이 지난 상태로 기록할까요?`)){event.target.checked=false;return;}
-        updateFeedbackState(requestedId,{requested:true,requestDate:today,status:"pending"},row);
-      }else updateFeedbackState(requestedId,{requested:false,requestDate:"",status:"pending"},row);
-    }else if(requestDateId){
-      const row=feedbackRows().find(item=>item.id===requestDateId);if(!row)return;
-      const requestDate=cleanDateKey(event.target.value);if(!requestDate)return;
-      const deadline=feedbackDeadline(row.auctionDate);
-      if(deadline&&dateFromKey(requestDate)>deadline) alert(`입력한 요청일은 4영업일 기준 마감일(${formatShortDate(deadline)})보다 늦습니다.`);
-      updateFeedbackState(requestDateId,{requestDate},row);
-    }else if(statusId){
-      const row=feedbackRows().find(item=>item.id===statusId);if(!row)return;
-      updateFeedbackState(statusId,{status:event.target.value},row);
-    }
-  });
-  $("feedbackItemList").addEventListener("click", event => {
-    const id=event.target.dataset.feedbackDelete;if(id&&confirm("직접 추가한 물건을 삭제할까요?"))removeFeedbackItem(id);
-  });
-  $("feedbackCustomHolidayList").addEventListener("click", event => {
-    const id=event.target.dataset.feedbackHolidayDelete;if(!id)return;
-    feedbackPlanner.customHolidays=feedbackPlanner.customHolidays.filter(item=>item.id!==id);clearHolidayCache();saveFeedbackPlannerLocal();renderFeedbackPlanner();scheduleFeedbackSync();
-  });
-  document.addEventListener("keydown", event => { if(event.key==="Escape"&&!$("feedbackModal").hidden)closeFeedbackPlanner(); });
   $("mobileNewBtn").addEventListener("click", () => $("newBtn").click());
   $("newBtn").addEventListener("click", () => {
     loadedRecordId = null;
@@ -4288,7 +4172,7 @@ const db = getFirestore(firebaseApp);
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.11.0",backupCreatedAt:new Date().toISOString(),records:records(),feedbackPlanner:normalizeFeedbackPlanner(feedbackPlanner)},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.11.1",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
@@ -4339,12 +4223,6 @@ const db = getFirestore(firebaseApp);
         });
         added++;
       }
-      if (data.feedbackPlanner){
-        const importedPlanner = normalizeFeedbackPlanner(data.feedbackPlanner);
-        const itemMap = new Map(feedbackPlanner.items.map(item => [item.id,item])); importedPlanner.items.forEach(item => itemMap.set(item.id,item));
-        const holidayMap = new Map(feedbackPlanner.customHolidays.map(item => [`${item.date}|${item.name}`,item])); importedPlanner.customHolidays.forEach(item => holidayMap.set(`${item.date}|${item.name}`,item));
-        feedbackPlanner = normalizeFeedbackPlanner({items:[...itemMap.values()],customHolidays:[...holidayMap.values()]}); saveFeedbackPlannerLocal(); renderFeedbackPlanner(); await syncFeedbackPlanner();
-      }
       setSyncStatus(`백업 ${added}건 가져오기 완료 · ${formatDateTime(new Date())}`, "good");
       alert(`${added}건을 안전하게 불러왔습니다.`);
     } catch (error){
@@ -4359,8 +4237,6 @@ const db = getFirestore(firebaseApp);
   applyCollapsedSections(collapsedSections());
   loadSavedListPreferences();
   loadFolderNamesLocal();
-  loadFeedbackPlannerLocal();
-  renderFeedbackPlanner();
   renderFolderOptions();
   renderRateRows("same");
   renderRateRows("near");
