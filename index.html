@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.11.5</title>
+  <title>경매 입찰·대출 자금 계산기 v1.11.6</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -298,6 +298,10 @@
     .region-pill{font-size:11px;padding:3px 7px;border-radius:999px;background:#ecfeff;color:#155e75;font-weight:900}
     .date-pill{font-size:11px;padding:3px 7px;border-radius:999px;background:#f0fdf4;color:#166534;font-weight:900}
     .equity-pill{font-size:11px;padding:3px 7px;border-radius:999px;background:#fff7ed;color:#9a3412;font-weight:900}
+    .low-budget-pill{font-size:11px;padding:3px 7px;border-radius:999px;background:#fef3c7;color:#92400e;border:1px solid #f59e0b;font-weight:950;box-shadow:0 0 0 1px rgba(245,158,11,.05)}
+    .scenario-mini.low{background:#f0fdf4;border-color:#bbf7d0}.scenario-mini.rep{background:#eff6ff;border-color:#bfdbfe}.scenario-mini.high{background:#fff7ed;border-color:#fed7aa}
+    .scenario-mini .scenario-capital{font-size:10.5px;color:#64748b;margin-top:3px;font-weight:800}.scenario-mini.low .scenario-capital{color:#166534}.scenario-mini.rep .scenario-capital{color:#1d4ed8}.scenario-mini.high .scenario-capital{color:#9a3412}
+    .rate-scenario-notice{margin-top:8px;padding:8px 10px;border-radius:10px;font-size:11px;font-weight:850;line-height:1.4}.rate-scenario-notice.low-only{background:#fffbeb;border:1px solid #fcd34d;color:#92400e}.rate-scenario-notice.good{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}.rate-scenario-notice.bad{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
     .mobile-save-bar{display:none}
     .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:1200;background:#111827;color:white;padding:9px 13px;border-radius:999px;font-size:12px;font-weight:900;box-shadow:0 10px 30px rgba(15,23,42,.28)}
     .toast[hidden]{display:none}
@@ -408,7 +412,7 @@
       .saved-item{padding:9px;border-radius:11px}
       .saved-meta{font-size:10px}
       .saved-bottom{margin-top:6px}
-      .pill,.region-pill,.date-pill,.equity-pill{font-size:10px}
+      .pill,.region-pill,.date-pill,.equity-pill,.low-budget-pill{font-size:10px}
       .sticky-side{position:static}
       .mobile-save-bar{position:fixed;display:grid;grid-template-columns:1fr auto;gap:7px;left:7px;right:7px;bottom:calc(7px + var(--safe-bottom));z-index:900;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);padding:7px;border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 30px rgba(15,23,42,.18)}
       .mobile-save-bar .btn{font-size:12px;padding:10px 10px}
@@ -676,7 +680,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.11.5</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.11.6</span></h1>
       <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -888,15 +892,18 @@
         </div>
 
         <div class="formula">
-          추천 입찰가율 = 동일번지 평균 × 반영비중 + 인근 평균 × 반영비중 + 안전조정<br>
-          입력값이 없는 그룹은 남아 있는 그룹만 100% 반영합니다.
+          대표 예상가율은 동일번지·인근 반영비중에 최근 연도 가중치를 더하고, 한두 건의 튀는 낙찰가율은 완화해 계산합니다.<br>
+          낮음·높음은 보정된 자료의 가중 25%·75% 지점으로 잡아, 평균 하나 때문에 후보를 너무 일찍 버리지 않도록 합니다. 안전조정은 세 값에 동일하게 반영됩니다.
         </div>
 
         <div class="recommend">
-          <div class="mini"><div class="k">동일번지 평균</div><div class="v" id="sameAvg">-</div></div>
-          <div class="mini"><div class="k">인근 평균</div><div class="v" id="nearAvg">-</div></div>
-          <div class="mini"><div class="k">자동 추천 입찰가율</div><div class="v" id="recommendedRate">-</div></div>
+          <div class="mini"><div class="k">동일번지 단순평균</div><div class="v" id="sameAvg">-</div></div>
+          <div class="mini"><div class="k">인근 단순평균</div><div class="v" id="nearAvg">-</div></div>
+          <div class="mini scenario-mini low"><div class="k">낮음 예상가율</div><div class="v" id="lowRate">-</div><div class="scenario-capital" id="lowRateCapital">최소자본 -</div></div>
+          <div class="mini scenario-mini rep"><div class="k">대표 예상가율</div><div class="v" id="recommendedRate">-</div><div class="scenario-capital" id="representativeRateCapital">최소자본 -</div></div>
+          <div class="mini scenario-mini high"><div class="k">높음 예상가율</div><div class="v" id="highRate">-</div><div class="scenario-capital" id="highRateCapital">최소자본 -</div></div>
         </div>
+        <div id="rateScenarioNotice" class="rate-scenario-notice" hidden></div>
 
         <div class="slider-card">
           <div class="slider-top">
@@ -1333,7 +1340,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.11.5 계산기·달력 관심별표 양방향 연동 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.11.6 낙찰가율 낮음·대표·높음 시나리오 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -2014,10 +2021,10 @@ const db = getFirestore(firebaseApp);
     return {years,income,dsrRate,annualLimit,matongAnnual,otherAnnual,existingAnnual,availableAnnual,calcRate,maxLoan};
   }
 
-  function calcHousehold(){
+  function calcHousehold(rateOverride = null){
     const appraisal = num("appraisal");
     const capital = num("capital");
-    const bidRate = num("bidRate") / 100;
+    const bidRate = (rateOverride === null ? num("bidRate") : Number(rateOverride)) / 100;
     const bid = appraisal * bidRate;
     const loanRate = num("householdLoanRate") / 100;
     const expenseRate = num("householdExpenseRate") / 100;
@@ -2042,6 +2049,11 @@ const db = getFirestore(firebaseApp);
     };
   }
 
+
+  function currentMinEquityAtRate(ratePct){
+    const values=[calcMethod("trust",ratePct).equity,calcMethod("mortgage",ratePct).equity,calcHousehold(ratePct).equity];
+    return Math.min(...values.filter(Number.isFinite));
+  }
 
   function sectionCards(){
     return [...document.querySelectorAll("#sectionContainer > .section-card")];
@@ -2197,29 +2209,94 @@ const db = getFirestore(firebaseApp);
     });
   }
 
-  function recommendedRate(){
-    const s = avg(sameRates);
-    const n = avg(nearRates);
-    let sw = Math.max(0, num("sameWeight"));
-    let nw = Math.max(0, num("nearWeight"));
-    const adj = num("safetyAdjust");
-    let base = 78;
-
-    if (s !== null && n !== null){
-      const total = sw + nw || 100;
-      base = s * sw / total + n * nw / total;
-    } else if (s !== null){
-      base = s;
-    } else if (n !== null){
-      base = n;
-    }
-    return clamp(base + adj, 50, 95);
+  function median(values){
+    const arr=(values||[]).map(Number).filter(Number.isFinite).sort((a,b)=>a-b);
+    if(!arr.length)return null;
+    const mid=Math.floor(arr.length/2);
+    return arr.length%2?arr[mid]:(arr[mid-1]+arr[mid])/2;
   }
 
-  function calcMethod(method){
+  function groupOutlierFactors(rates){
+    const valid=(rates||[]).map(Number).filter(v=>Number.isFinite(v)&&v>0);
+    if(valid.length<3)return (rates||[]).map(()=>1);
+    const med=median(valid);
+    const mad=median(valid.map(v=>Math.abs(v-med)))||0;
+    const threshold=Math.max(4,2.5*mad);
+    return (rates||[]).map(raw=>{
+      const v=Number(raw);
+      if(!Number.isFinite(v)||v<=0)return 0;
+      const dev=Math.abs(v-med);
+      if(dev<=threshold)return 1;
+      return Math.max(.25,threshold/dev);
+    });
+  }
+
+  function recencyFactor(year){
+    const y=Number(year);
+    if(!Number.isFinite(y)||y<2000||y>2100)return 1;
+    const age=Math.max(0,new Date().getFullYear()-y);
+    if(age<=1)return 1;
+    return Math.max(.65,1-.08*(age-1));
+  }
+
+  function weightedQuantile(points,q){
+    const rows=(points||[]).filter(x=>Number.isFinite(x.rate)&&x.weight>0).sort((a,b)=>a.rate-b.rate);
+    if(!rows.length)return null;
+    if(rows.length===1)return rows[0].rate;
+    const total=rows.reduce((sum,x)=>sum+x.weight,0);
+    if(total<=0)return rows[Math.floor((rows.length-1)*q)].rate;
+    const target=clamp(q,0,1)*total;
+    let acc=0;
+    for(const row of rows){acc+=row.weight;if(acc>=target)return row.rate;}
+    return rows[rows.length-1].rate;
+  }
+
+  function estimateRateScenarios({same=[],near=[],sameYears=[],nearYears=[],sameWeight=60,nearWeight=40,adjust=0}={}){
+    const groups=[
+      {rates:Array.isArray(same)?same:[],years:Array.isArray(sameYears)?sameYears:[],weight:Math.max(0,Number(sameWeight)||0),similarity:1},
+      {rates:Array.isArray(near)?near:[],years:Array.isArray(nearYears)?nearYears:[],weight:Math.max(0,Number(nearWeight)||0),similarity:.92}
+    ];
+    const available=groups.filter(g=>g.rates.some(v=>Number.isFinite(Number(v))&&Number(v)>0));
+    if(!available.length)return {low:78,representative:78,high:78,count:0};
+    let groupWeightTotal=available.reduce((sum,g)=>sum+g.weight,0);
+    if(groupWeightTotal<=0){available.forEach(g=>g.weight=1);groupWeightTotal=available.length;}
+    const points=[];
+    available.forEach(g=>{
+      const factors=groupOutlierFactors(g.rates);
+      const validCount=Math.max(1,g.rates.filter(v=>Number.isFinite(Number(v))&&Number(v)>0).length);
+      g.rates.forEach((raw,i)=>{
+        const rate=Number(raw);
+        if(!Number.isFinite(rate)||rate<=0)return;
+        const groupShare=(g.weight/groupWeightTotal)/validCount;
+        const weight=groupShare*g.similarity*recencyFactor(g.years[i])*factors[i];
+        points.push({rate,weight});
+      });
+    });
+    if(!points.length)return {low:78,representative:78,high:78,count:0};
+    const total=points.reduce((sum,x)=>sum+x.weight,0)||1;
+    const mean=points.reduce((sum,x)=>sum+x.rate*x.weight,0)/total;
+    const q25=weightedQuantile(points,.25);
+    const q75=weightedQuantile(points,.75);
+    const adj=Number(adjust)||0;
+    const representative=clamp(mean+adj,50,95);
+    const low=clamp(Math.min(representative,(q25??mean)+adj),50,95);
+    const high=clamp(Math.max(representative,(q75??mean)+adj),50,95);
+    return {low,representative,high,count:points.length};
+  }
+
+  function currentRateScenarios(){
+    return estimateRateScenarios({
+      same:sameRates,near:nearRates,sameYears:sameRateYears,nearYears:nearRateYears,
+      sameWeight:num("sameWeight"),nearWeight:num("nearWeight"),adjust:num("safetyAdjust")
+    });
+  }
+
+  function recommendedRate(){ return currentRateScenarios().representative; }
+
+  function calcMethod(method, rateOverride = null){
     const appraisal = num("appraisal");
     const capital = num("capital");
-    const bidRate = num("bidRate") / 100;
+    const bidRate = (rateOverride === null ? num("bidRate") : Number(rateOverride)) / 100;
     const bid = appraisal * bidRate;
     const loanRate = num(method + "LoanRate") / 100;
     const expenseRate = num(method + "ExpenseRate") / 100;
@@ -2306,10 +2383,34 @@ const db = getFirestore(firebaseApp);
   }
 
   function update(){
-    const rec = recommendedRate();
+    const scenarios = currentRateScenarios();
+    const rec = scenarios.representative;
     $("sameAvg").textContent = avg(sameRates) === null ? "-" : pct(avg(sameRates));
     $("nearAvg").textContent = avg(nearRates) === null ? "-" : pct(avg(nearRates));
+    $("lowRate").textContent = pct(scenarios.low);
     $("recommendedRate").textContent = pct(rec);
+    $("highRate").textContent = pct(scenarios.high);
+
+    const lowCapital=currentMinEquityAtRate(scenarios.low);
+    const repCapital=currentMinEquityAtRate(scenarios.representative);
+    const highCapital=currentMinEquityAtRate(scenarios.high);
+    $("lowRateCapital").textContent=`최소자본 ${shortWon(lowCapital)}`;
+    $("representativeRateCapital").textContent=`최소자본 ${shortWon(repCapital)}`;
+    $("highRateCapital").textContent=`최소자본 ${shortWon(highCapital)}`;
+    const budget=num("capital"), notice=$("rateScenarioNotice");
+    if(budget>0){
+      notice.hidden=false;
+      if(lowCapital<=budget && repCapital>budget){
+        notice.className="rate-scenario-notice low-only";
+        notice.textContent=`낮음 기준에서는 예산 안에 들어옵니다. 대표값은 초과하므로 ‘낮음 기준 예산OK’ 후보로 남겨 상세조사해볼 수 있습니다.`;
+      }else if(repCapital<=budget){
+        notice.className="rate-scenario-notice good";
+        notice.textContent=`대표 예상가율 기준으로도 예산 범위입니다.`;
+      }else{
+        notice.className="rate-scenario-notice bad";
+        notice.textContent=`낮음 예상가율에서도 현재 예산을 초과합니다.`;
+      }
+    }else notice.hidden=true;
 
     if ($("autoApply").checked){
       $("bidRate").value = rec.toFixed(1);
@@ -2642,9 +2743,21 @@ const db = getFirestore(firebaseApp);
     return {raw, time:Number.isFinite(time) ? time : null};
   }
 
-  function recordMetrics(item){
+  function recordRateScenarios(item){
+    return estimateRateScenarios({
+      same:Array.isArray(item?.state?.sameRates)?item.state.sameRates:[],
+      near:Array.isArray(item?.state?.nearRates)?item.state.nearRates:[],
+      sameYears:Array.isArray(item?.state?.sameRateYears)?item.state.sameRateYears:[],
+      nearYears:Array.isArray(item?.state?.nearRateYears)?item.state.nearRateYears:[],
+      sameWeight:stateNumber(item,"sameWeight",60),
+      nearWeight:stateNumber(item,"nearWeight",40),
+      adjust:stateNumber(item,"safetyAdjust",0)
+    });
+  }
+
+  function recordMetricsAtRate(item, ratePct){
     const appraisal = stateNumber(item,"appraisal");
-    const bidRate = stateNumber(item,"bidRate",78) / 100;
+    const bidRate = Number(ratePct||0) / 100;
     const bid = appraisal * bidRate;
     const extras = stateNumber(item,"unpaidManagement") + stateNumber(item,"extraExpense");
 
@@ -2673,8 +2786,18 @@ const db = getFirestore(firebaseApp);
     const householdCollateral = stateBool(item,"householdUseCap",true) ? Math.min(householdAppraisalLoan,householdCap) : householdAppraisalLoan;
     const householdLoan = Math.min(householdCollateral,dsrMaxLoan);
     const householdEquity = bid - householdLoan + bid * stateNumber(item,"householdExpenseRate",6) / 100 + extras;
-
     return {appraisal,bidRate,bid,trustEquity,mortgageEquity,householdEquity,minEquity:Math.min(trustEquity,mortgageEquity,householdEquity)};
+  }
+
+  function recordMetrics(item){
+    const appliedRate=stateNumber(item,"bidRate",78);
+    const base=recordMetricsAtRate(item,appliedRate);
+    const scenarios=recordRateScenarios(item);
+    const low=recordMetricsAtRate(item,scenarios.low);
+    const representative=recordMetricsAtRate(item,scenarios.representative);
+    const high=recordMetricsAtRate(item,scenarios.high);
+    const capital=stateNumber(item,"capital",0);
+    return {...base,rateScenarios:scenarios,lowMinEquity:low.minEquity,representativeMinEquity:representative.minEquity,highMinEquity:high.minEquity,capital,lowOnlyBudget:capital>0&&low.minEquity<=capital&&representative.minEquity>capital};
   }
 
   function compareSavedItems(a,b,key,direction){
@@ -3095,12 +3218,13 @@ const db = getFirestore(firebaseApp);
           <span class="pill">지역 ${escapeHtml(region)}</span>
           <span class="date-pill">경매 ${date || "미입력"}</span>
           <span class="equity-pill">최소자본 ${shortWon(metrics.minEquity)}</span>
+          ${decision === "pending" && metrics.lowOnlyBudget ? `<span class="low-budget-pill" title="대표 예상가율은 예산 초과지만 낮음 예상가율에서는 예산 범위">↘ 낮음 기준 예산OK</span>` : ""}
           ${actualReady ? `<span class="actual-ready-pill">실제입찰 입력됨</span>` : ""}
           ${needsBrokerResearch ? `<span class="research-needed-pill">부동산조사 필요</span>` : ""}
         </div>
         ${specs ? `<div class="saved-specs">${escapeHtml(specs)}</div>` : ""}
         ${specialNotes ? `<div class="saved-notes">특이사항 · ${escapeHtml(specialNotes)}</div>` : ""}
-        <div class="saved-meta">감정가 ${shortWon(metrics.appraisal)} · 입찰 ${pct(metrics.bidRate*100)} · ${formatDateTime(item.updatedAtMs)} · 수정 ${Number(item.revision||0)}회</div>
+        <div class="saved-meta">감정가 ${shortWon(metrics.appraisal)} · 입찰 ${pct(metrics.bidRate*100)} · 예상범위 ${pct(metrics.rateScenarios.low)} / ${pct(metrics.rateScenarios.representative)} / ${pct(metrics.rateScenarios.high)} · ${formatDateTime(item.updatedAtMs)} · 수정 ${Number(item.revision||0)}회</div>
         <div class="saved-bottom">
           <span class="pill">가계 ${shortWon(metrics.householdEquity)} · 신탁 ${shortWon(metrics.trustEquity)}</span>
           <div class="saved-card-actions no-print">
@@ -4251,7 +4375,7 @@ const db = getFirestore(firebaseApp);
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.11.2",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.11.6",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
