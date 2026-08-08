@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.11.6</title>
+  <title>경매 입찰·대출 자금 계산기 v1.11.7</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -299,6 +299,7 @@
     .date-pill{font-size:11px;padding:3px 7px;border-radius:999px;background:#f0fdf4;color:#166534;font-weight:900}
     .equity-pill{font-size:11px;padding:3px 7px;border-radius:999px;background:#fff7ed;color:#9a3412;font-weight:900}
     .low-budget-pill{font-size:11px;padding:3px 7px;border-radius:999px;background:#fef3c7;color:#92400e;border:1px solid #f59e0b;font-weight:950;box-shadow:0 0 0 1px rgba(245,158,11,.05)}
+    .equity-basis-pill{font-size:10px;padding:3px 6px;border-radius:999px;font-weight:900;border:1px solid #cbd5e1;background:#f8fafc;color:#475569}.equity-basis-pill.low{background:#f0fdf4;border-color:#bbf7d0;color:#166534}.equity-basis-pill.rep{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}.equity-basis-pill.high{background:#fff7ed;border-color:#fed7aa;color:#9a3412}.equity-basis-pill.custom{background:#f8fafc;border-color:#cbd5e1;color:#475569}
     .scenario-mini.low{background:#f0fdf4;border-color:#bbf7d0}.scenario-mini.rep{background:#eff6ff;border-color:#bfdbfe}.scenario-mini.high{background:#fff7ed;border-color:#fed7aa}
     .scenario-mini .scenario-capital{font-size:10.5px;color:#64748b;margin-top:3px;font-weight:800}.scenario-mini.low .scenario-capital{color:#166534}.scenario-mini.rep .scenario-capital{color:#1d4ed8}.scenario-mini.high .scenario-capital{color:#9a3412}
     .rate-scenario-notice{margin-top:8px;padding:8px 10px;border-radius:10px;font-size:11px;font-weight:850;line-height:1.4}.rate-scenario-notice.low-only{background:#fffbeb;border:1px solid #fcd34d;color:#92400e}.rate-scenario-notice.good{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}.rate-scenario-notice.bad{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
@@ -680,7 +681,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.11.6</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.11.7</span></h1>
       <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -1340,7 +1341,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.11.6 낙찰가율 낮음·대표·높음 시나리오 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.11.7 저장목록 최소자본 기준 표시 · 낙찰가율 낮음·대표·높음 시나리오 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -2800,6 +2801,16 @@ const db = getFirestore(firebaseApp);
     return {...base,rateScenarios:scenarios,lowMinEquity:low.minEquity,representativeMinEquity:representative.minEquity,highMinEquity:high.minEquity,capital,lowOnlyBudget:capital>0&&low.minEquity<=capital&&representative.minEquity>capital};
   }
 
+  function savedRateBasis(metrics){
+    const applied=Number(metrics?.bidRate||0)*100;
+    const scenarios=metrics?.rateScenarios||{};
+    const tol=0.16;
+    if(Number.isFinite(scenarios.low) && Math.abs(applied-scenarios.low)<=tol) return {key:"low",label:"낮음 기준"};
+    if(Number.isFinite(scenarios.representative) && Math.abs(applied-scenarios.representative)<=tol) return {key:"rep",label:"대표 기준"};
+    if(Number.isFinite(scenarios.high) && Math.abs(applied-scenarios.high)<=tol) return {key:"high",label:"높음 기준"};
+    return {key:"custom",label:`직접설정 ${pct(applied)}`};
+  }
+
   function compareSavedItems(a,b,key,direction){
     const dir = direction === "desc" ? -1 : 1;
     if (key === "auctionDate"){
@@ -3208,6 +3219,7 @@ const db = getFirestore(firebaseApp);
       const decisionLabel = decision === "bid" ? "입찰 O" : decision === "no" ? "입찰 X" : "고민중";
       const decisionClass = decision === "bid" ? "bid" : decision === "no" ? "" : "pending";
       const specialNotes = stateText(item,"specialNotes","");
+      const rateBasis = savedRateBasis(metrics);
       return `<div class="saved-item" data-load-id="${item.id}">
         <div class="saved-title-line">
           <div class="saved-title">${escapeHtml(item.title)}</div>
@@ -3218,6 +3230,7 @@ const db = getFirestore(firebaseApp);
           <span class="pill">지역 ${escapeHtml(region)}</span>
           <span class="date-pill">경매 ${date || "미입력"}</span>
           <span class="equity-pill">최소자본 ${shortWon(metrics.minEquity)}</span>
+          <span class="equity-basis-pill ${rateBasis.key}" title="저장 당시 적용 입찰가율 ${pct(metrics.bidRate*100)} 기준으로 계산된 최소자본입니다.">${rateBasis.label}</span>
           ${decision === "pending" && metrics.lowOnlyBudget ? `<span class="low-budget-pill" title="대표 예상가율은 예산 초과지만 낮음 예상가율에서는 예산 범위">↘ 낮음 기준 예산OK</span>` : ""}
           ${actualReady ? `<span class="actual-ready-pill">실제입찰 입력됨</span>` : ""}
           ${needsBrokerResearch ? `<span class="research-needed-pill">부동산조사 필요</span>` : ""}
@@ -4375,7 +4388,7 @@ const db = getFirestore(firebaseApp);
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.11.6",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.11.7",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
