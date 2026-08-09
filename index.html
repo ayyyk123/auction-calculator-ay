@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.11.8</title>
+  <title>경매 입찰·대출 자금 계산기 v1.11.9</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -301,6 +301,7 @@
     .low-budget-pill{font-size:11px;padding:3px 7px;border-radius:999px;background:#fef3c7;color:#92400e;border:1px solid #f59e0b;font-weight:950;box-shadow:0 0 0 1px rgba(245,158,11,.05)}
     .equity-basis-pill{font-size:10px;padding:3px 6px;border-radius:999px;font-weight:900;border:1px solid #cbd5e1;background:#f8fafc;color:#475569}.equity-basis-pill.low{background:#f0fdf4;border-color:#bbf7d0;color:#166534}.equity-basis-pill.rep{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}.equity-basis-pill.high{background:#fff7ed;border-color:#fed7aa;color:#9a3412}.equity-basis-pill.custom{background:#f8fafc;border-color:#cbd5e1;color:#475569}
     .scenario-mini.low{background:#f0fdf4;border-color:#bbf7d0}.scenario-mini.rep{background:#eff6ff;border-color:#bfdbfe}.scenario-mini.high{background:#fff7ed;border-color:#fed7aa}
+    .scenario-mini[data-rate-scenario]{cursor:pointer;transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease;user-select:none}.scenario-mini[data-rate-scenario]:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(15,23,42,.08)}.scenario-mini[data-rate-scenario]:focus-visible{outline:3px solid rgba(59,130,246,.28);outline-offset:2px}.scenario-mini[data-rate-scenario].active{box-shadow:0 0 0 2px #0f172a inset,0 4px 12px rgba(15,23,42,.10)}
     .scenario-mini .scenario-capital{font-size:10.5px;color:#64748b;margin-top:3px;font-weight:800}.scenario-mini.low .scenario-capital{color:#166534}.scenario-mini.rep .scenario-capital{color:#1d4ed8}.scenario-mini.high .scenario-capital{color:#9a3412}
     .rate-scenario-notice{margin-top:8px;padding:8px 10px;border-radius:10px;font-size:11px;font-weight:850;line-height:1.4}.rate-scenario-notice.low-only{background:#fffbeb;border:1px solid #fcd34d;color:#92400e}.rate-scenario-notice.good{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}.rate-scenario-notice.bad{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
     .mobile-save-bar{display:none}
@@ -681,7 +682,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.11.8</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.11.9</span></h1>
       <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -893,16 +894,17 @@
         </div>
 
         <div class="formula">
-          대표 예상가율은 동일번지·인근 반영비중에 최근 연도 가중치를 더하고, 한두 건의 튀는 낙찰가율은 완화해 계산합니다.<br>
-          낮음·높음은 보정된 자료의 가중 25%·75% 지점으로 잡아, 평균 하나 때문에 후보를 너무 일찍 버리지 않도록 합니다. 안전조정은 세 값에 동일하게 반영됩니다.
+          대표 예상가율은 <b>동일번지 평균 × 반영비중 + 인근 평균 × 반영비중</b>으로 단순하게 계산합니다. 각 그룹 안의 사례는 동일하게 반영하며 연도는 참고용으로만 저장합니다.<br>
+          낮음·높음은 입력한 낙찰가율 전체의 퍼짐을 이용해 대표값 아래·위의 현실적인 범위를 만듭니다. 자료가 거의 같으면 세 값도 서로 가까워질 수 있습니다. 안전조정은 세 값에 동일하게 반영됩니다.<br>
+          <b>낮음·대표·높음 카드를 누르면 적용 입찰가율 조절바와 계산결과가 즉시 그 값으로 바뀝니다.</b>
         </div>
 
         <div class="recommend">
           <div class="mini"><div class="k">동일번지 단순평균</div><div class="v" id="sameAvg">-</div></div>
           <div class="mini"><div class="k">인근 단순평균</div><div class="v" id="nearAvg">-</div></div>
-          <div class="mini scenario-mini low"><div class="k">낮음 예상가율</div><div class="v" id="lowRate">-</div><div class="scenario-capital" id="lowRateCapital">최소자본 -</div></div>
-          <div class="mini scenario-mini rep"><div class="k">대표 예상가율</div><div class="v" id="recommendedRate">-</div><div class="scenario-capital" id="representativeRateCapital">최소자본 -</div></div>
-          <div class="mini scenario-mini high"><div class="k">높음 예상가율</div><div class="v" id="highRate">-</div><div class="scenario-capital" id="highRateCapital">최소자본 -</div></div>
+          <div class="mini scenario-mini low" data-rate-scenario="low" role="button" tabindex="0" title="낮음 예상가율을 적용"><div class="k">낮음 예상가율</div><div class="v" id="lowRate">-</div><div class="scenario-capital" id="lowRateCapital">최소자본 -</div></div>
+          <div class="mini scenario-mini rep" data-rate-scenario="representative" role="button" tabindex="0" title="대표 예상가율을 적용"><div class="k">대표 예상가율</div><div class="v" id="recommendedRate">-</div><div class="scenario-capital" id="representativeRateCapital">최소자본 -</div></div>
+          <div class="mini scenario-mini high" data-rate-scenario="high" role="button" tabindex="0" title="높음 예상가율을 적용"><div class="k">높음 예상가율</div><div class="v" id="highRate">-</div><div class="scenario-capital" id="highRateCapital">최소자본 -</div></div>
         </div>
         <div id="rateScenarioNotice" class="rate-scenario-notice" hidden></div>
 
@@ -1341,7 +1343,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.11.8 저장목록 별표·최소자본 기준/예산 표시 · 낙찰가율 낮음·대표·높음 시나리오 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.11.9 단순 예상가율 범위·시나리오 원클릭 적용 · 저장목록 별표·최소자본 기준/예산 표시 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -2202,7 +2204,7 @@ const db = getFirestore(firebaseApp);
           <span class="suffix">%</span>
         </div>
         <input class="rate-year-input" type="number" min="2000" max="2100" step="1"
-               value="${years[i] ?? ""}" placeholder="연도" aria-label="낙찰연도"
+               value="${years[i] ?? ""}" placeholder="연도(참고)" aria-label="낙찰연도 참고"
                data-rate-year-type="${type}" data-rate-year-index="${i}">
         <button class="icon-btn no-print" type="button" title="삭제"
                 data-remove-type="${type}" data-remove-index="${i}">×</button>`;
@@ -2210,84 +2212,52 @@ const db = getFirestore(firebaseApp);
     });
   }
 
-  function median(values){
-    const arr=(values||[]).map(Number).filter(Number.isFinite).sort((a,b)=>a-b);
-    if(!arr.length)return null;
-    const mid=Math.floor(arr.length/2);
-    return arr.length%2?arr[mid]:(arr[mid-1]+arr[mid])/2;
+  function validRateValues(values){
+    return (values||[]).map(Number).filter(v=>Number.isFinite(v)&&v>0);
   }
 
-  function groupOutlierFactors(rates){
-    const valid=(rates||[]).map(Number).filter(v=>Number.isFinite(v)&&v>0);
-    if(valid.length<3)return (rates||[]).map(()=>1);
-    const med=median(valid);
-    const mad=median(valid.map(v=>Math.abs(v-med)))||0;
-    const threshold=Math.max(4,2.5*mad);
-    return (rates||[]).map(raw=>{
-      const v=Number(raw);
-      if(!Number.isFinite(v)||v<=0)return 0;
-      const dev=Math.abs(v-med);
-      if(dev<=threshold)return 1;
-      return Math.max(.25,threshold/dev);
-    });
+  function populationStdDev(values){
+    const arr=validRateValues(values);
+    if(arr.length<2)return 0;
+    const mean=arr.reduce((sum,v)=>sum+v,0)/arr.length;
+    const variance=arr.reduce((sum,v)=>sum+Math.pow(v-mean,2),0)/arr.length;
+    return Math.sqrt(variance);
   }
 
-  function recencyFactor(year){
-    const y=Number(year);
-    if(!Number.isFinite(y)||y<2000||y>2100)return 1;
-    const age=Math.max(0,new Date().getFullYear()-y);
-    if(age<=1)return 1;
-    return Math.max(.65,1-.08*(age-1));
-  }
-
-  function weightedQuantile(points,q){
-    const rows=(points||[]).filter(x=>Number.isFinite(x.rate)&&x.weight>0).sort((a,b)=>a.rate-b.rate);
-    if(!rows.length)return null;
-    if(rows.length===1)return rows[0].rate;
-    const total=rows.reduce((sum,x)=>sum+x.weight,0);
-    if(total<=0)return rows[Math.floor((rows.length-1)*q)].rate;
-    const target=clamp(q,0,1)*total;
-    let acc=0;
-    for(const row of rows){acc+=row.weight;if(acc>=target)return row.rate;}
-    return rows[rows.length-1].rate;
-  }
-
-  function estimateRateScenarios({same=[],near=[],sameYears=[],nearYears=[],sameWeight=60,nearWeight=40,adjust=0}={}){
-    const groups=[
-      {rates:Array.isArray(same)?same:[],years:Array.isArray(sameYears)?sameYears:[],weight:Math.max(0,Number(sameWeight)||0),similarity:1},
-      {rates:Array.isArray(near)?near:[],years:Array.isArray(nearYears)?nearYears:[],weight:Math.max(0,Number(nearWeight)||0),similarity:.92}
-    ];
-    const available=groups.filter(g=>g.rates.some(v=>Number.isFinite(Number(v))&&Number(v)>0));
-    if(!available.length)return {low:78,representative:78,high:78,count:0};
-    let groupWeightTotal=available.reduce((sum,g)=>sum+g.weight,0);
-    if(groupWeightTotal<=0){available.forEach(g=>g.weight=1);groupWeightTotal=available.length;}
-    const points=[];
-    available.forEach(g=>{
-      const factors=groupOutlierFactors(g.rates);
-      const validCount=Math.max(1,g.rates.filter(v=>Number.isFinite(Number(v))&&Number(v)>0).length);
-      g.rates.forEach((raw,i)=>{
-        const rate=Number(raw);
-        if(!Number.isFinite(rate)||rate<=0)return;
-        const groupShare=(g.weight/groupWeightTotal)/validCount;
-        const weight=groupShare*g.similarity*recencyFactor(g.years[i])*factors[i];
-        points.push({rate,weight});
-      });
-    });
-    if(!points.length)return {low:78,representative:78,high:78,count:0};
-    const total=points.reduce((sum,x)=>sum+x.weight,0)||1;
-    const mean=points.reduce((sum,x)=>sum+x.rate*x.weight,0)/total;
-    const q25=weightedQuantile(points,.25);
-    const q75=weightedQuantile(points,.75);
+  function estimateRateScenarios({same=[],near=[],sameWeight=60,nearWeight=40,adjust=0}={}){
+    const sameValid=validRateValues(same);
+    const nearValid=validRateValues(near);
+    const sameMean=sameValid.length?sameValid.reduce((a,b)=>a+b,0)/sameValid.length:null;
+    const nearMean=nearValid.length?nearValid.reduce((a,b)=>a+b,0)/nearValid.length:null;
+    const available=[];
+    if(sameMean!==null)available.push({mean:sameMean,weight:Math.max(0,Number(sameWeight)||0)});
+    if(nearMean!==null)available.push({mean:nearMean,weight:Math.max(0,Number(nearWeight)||0)});
+    if(!available.length)return {low:78,representative:78,high:78,count:0,spread:0};
+    let weightTotal=available.reduce((sum,g)=>sum+g.weight,0);
+    if(weightTotal<=0){available.forEach(g=>g.weight=1);weightTotal=available.length;}
+    const baseRepresentative=available.reduce((sum,g)=>sum+g.mean*g.weight,0)/weightTotal;
     const adj=Number(adjust)||0;
-    const representative=clamp(mean+adj,50,95);
-    const low=clamp(Math.min(representative,(q25??mean)+adj),50,95);
-    const high=clamp(Math.max(representative,(q75??mean)+adj),50,95);
-    return {low,representative,high,count:points.length};
+    const representative=clamp(baseRepresentative+adj,50,95);
+
+    const all=[...sameValid,...nearValid];
+    if(all.length<2)return {low:representative,representative,high:representative,count:all.length,spread:0};
+
+    // 낮음/높음은 복잡한 연도·분위수 가중 대신, 입력 사례 전체의 실제 퍼짐을 사용합니다.
+    // 표준편차의 60%를 현실적인 시나리오 폭으로 쓰되 관측 범위를 벗어나지 않게 제한합니다.
+    const sigma=populationStdDev(all);
+    const spread=sigma<0.15?0:clamp(sigma*0.60,0.5,8);
+    const observedMin=Math.min(...all)+adj;
+    const observedMax=Math.max(...all)+adj;
+    let low=spread?Math.max(observedMin,representative-spread):representative;
+    let high=spread?Math.min(observedMax,representative+spread):representative;
+    low=clamp(Math.min(low,representative),50,95);
+    high=clamp(Math.max(high,representative),50,95);
+    return {low,representative,high,count:all.length,spread};
   }
 
   function currentRateScenarios(){
     return estimateRateScenarios({
-      same:sameRates,near:nearRates,sameYears:sameRateYears,nearYears:nearRateYears,
+      same:sameRates,near:nearRates,
       sameWeight:num("sameWeight"),nearWeight:num("nearWeight"),adjust:num("safetyAdjust")
     });
   }
@@ -2383,6 +2353,26 @@ const db = getFirestore(firebaseApp);
     ].map(([k,v]) => `<div class="row"><span>${k}</span><strong>${v}</strong></div>`).join("");
   }
 
+  function updateRateScenarioSelection(scenarios){
+    const current=num("bidRate");
+    document.querySelectorAll("[data-rate-scenario]").forEach(card=>{
+      const key=card.dataset.rateScenario;
+      const value=Number(scenarios?.[key]);
+      const active=Number.isFinite(value)&&Math.abs(current-value)<=0.051;
+      card.classList.toggle("active",active);
+      card.setAttribute("aria-pressed",active?"true":"false");
+    });
+  }
+
+  function applyRateScenario(key){
+    const scenarios=currentRateScenarios();
+    const value=Number(scenarios?.[key]);
+    if(!Number.isFinite(value))return;
+    $("autoApply").checked=false;
+    $("bidRate").value=clamp(value,50,95).toFixed(1);
+    update();
+  }
+
   function update(){
     const scenarios = currentRateScenarios();
     const rec = scenarios.representative;
@@ -2417,6 +2407,7 @@ const db = getFirestore(firebaseApp);
       $("bidRate").value = rec.toFixed(1);
     }
     $("bidRateText").textContent = pct(num("bidRate"));
+    updateRateScenarioSelection(scenarios);
 
     const trust = calcMethod("trust");
     const mortgage = calcMethod("mortgage");
@@ -4070,7 +4061,18 @@ const db = getFirestore(firebaseApp);
     else update();
   });
 
+
+  document.addEventListener("keydown", (e) => {
+    const rateScenario=e.target.closest?.("[data-rate-scenario]");
+    if(rateScenario && (e.key==="Enter" || e.key===" ")){
+      e.preventDefault();
+      applyRateScenario(rateScenario.dataset.rateScenario);
+    }
+  });
+
   document.addEventListener("click", async (e) => {
+    const rateScenario=e.target.closest("[data-rate-scenario]");
+    if(rateScenario){applyRateScenario(rateScenario.dataset.rateScenario);return;}
     const appMode=e.target.closest("[data-app-mode]");
     if(appMode){switchAppMode(appMode.dataset.appMode);return;}
     const fbMore=e.target.closest("[data-feedback-more-date]");
@@ -4389,7 +4391,7 @@ const db = getFirestore(firebaseApp);
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.11.8",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.11.9",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
