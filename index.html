@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.12.0</title>
+  <title>경매 입찰·대출 자금 계산기 v1.12.1</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -161,9 +161,10 @@
     thead th{background:#f8fafc;color:#475569}
     .saved-list{display:grid;gap:7px;max-height:58vh;overflow:auto;padding-right:2px}
     .saved-search-row{
-      display:grid;grid-template-columns:minmax(0,1fr) minmax(124px,146px) 34px;
+      display:grid;grid-template-columns:minmax(0,1fr) minmax(124px,146px) 62px 34px;
       gap:6px;margin-top:10px
     }
+    .saved-search-row.range-mode{grid-template-columns:minmax(0,1fr) 62px 34px}
     .saved-search-wrap{position:relative}
     .saved-search-wrap input{padding-left:33px;padding-right:9px}
     .saved-search-icon{
@@ -174,6 +175,18 @@
       width:100%;height:34px;padding:5px 7px;border:1px solid #d1d5db;
       border-radius:9px;background:#fff;color:#334155;font-size:11px;font-weight:800
     }
+    .saved-date-mode-btn{
+      height:34px;padding:0 7px;border:1px solid #bfdbfe;border-radius:9px;
+      background:#eff6ff;color:#1d4ed8;font-size:10px;font-weight:900;cursor:pointer;white-space:nowrap
+    }
+    .saved-date-mode-btn.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
+    .saved-date-range-row{
+      display:grid;grid-template-columns:auto minmax(0,1fr) auto auto minmax(0,1fr);
+      gap:6px;align-items:center;margin-top:6px;padding:7px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:9px
+    }
+    .saved-date-range-row[hidden]{display:none}
+    .saved-date-range-label{font-size:10px;font-weight:900;color:#475569}
+    .saved-date-range-sep{font-size:11px;font-weight:900;color:#64748b}
     .saved-search-clear{
       width:34px;height:34px;padding:0;border:1px solid var(--line);
       background:#f8fafc;color:#64748b;border-radius:9px;
@@ -242,6 +255,10 @@
     .save-folder-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:6px;align-items:end;margin-top:8px}
     .save-folder-row .btn{height:35px;white-space:nowrap;padding-left:9px;padding-right:9px}
     .save-decision-box{display:grid;grid-template-columns:116px minmax(0,1fr);gap:6px;margin-top:8px}
+    .save-preset-field{grid-column:1/-1}
+    .save-preset-inline{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:end}
+    .save-preset-inline select:disabled{background:#f8fafc;color:#94a3b8}
+    .save-preset-helper{font-size:10px;color:#64748b;margin-top:4px;line-height:1.35}
     .auction-date-entry{display:grid;grid-template-columns:minmax(0,1fr) 42px;gap:6px}
     .auction-calendar-btn{
       position:relative;display:flex;align-items:center;justify-content:center;
@@ -272,6 +289,17 @@
     .decision-filter-btn[data-decision-filter="pending"].active{background:#d97706;border-color:#d97706}
     .decision-filter-btn[data-decision-filter="no"].active{background:#b91c1c;border-color:#b91c1c}
     .decision-filter-btn[data-decision-filter="bid"].active{background:#047857;border-color:#047857}
+    .star-filter-tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px}
+    .star-filter-btn{
+      border:1px solid var(--line);background:#fff;color:#475569;border-radius:8px;padding:6px 3px;
+      font-size:10px;font-weight:900;cursor:pointer;white-space:nowrap
+    }
+    .star-filter-btn.active{background:#334155;color:#fff;border-color:#334155}
+    .star-filter-btn[data-star-filter="outline"].active{background:#fff;color:#1d4ed8;border-color:#60a5fa;box-shadow:inset 0 0 0 1px #60a5fa}
+    .star-filter-btn[data-star-filter="black"].active{background:#111827;color:#fff;border-color:#111827}
+    .star-filter-btn[data-star-filter="yellow"].active{background:#fbbf24;color:#422006;border-color:#f59e0b}
+    .star-filter-btn[data-star-filter="red"].active{background:#dc2626;color:#fff;border-color:#dc2626}
+    .star-filter-btn[data-star-filter="none"].active{background:#64748b;color:#fff;border-color:#64748b}
     .view-tab{border:1px solid var(--line);background:#f8fafc;color:#475569;border-radius:9px;padding:7px;font-size:12px;font-weight:900;cursor:pointer}
     .view-tab.active{background:#111827;color:white;border-color:#111827}
     .folder-nav{position:relative;display:block;padding:1px 0 2px}
@@ -403,11 +431,17 @@
       .saved-editor-toggle{font-size:10px;padding:6px 8px}
       .saved-search-row{
         margin-top:8px;
-        grid-template-columns:minmax(0,1fr) minmax(112px,126px) 31px;
+        grid-template-columns:minmax(0,1fr) minmax(100px,114px) 55px 31px;
         gap:5px
       }
+      .saved-search-row.range-mode{grid-template-columns:minmax(0,1fr) 55px 31px}
       .saved-search-wrap input{font-size:12px;padding-left:30px}
       .saved-date-filter{height:31px;padding:4px 5px;font-size:9.8px;border-radius:8px}
+      .saved-date-mode-btn{height:31px;padding:0 4px;font-size:9px;border-radius:8px}
+      .saved-date-range-row{grid-template-columns:auto minmax(0,1fr);gap:5px;padding:6px}
+      .saved-date-range-row .saved-date-range-sep{display:none}
+      .saved-date-range-row .saved-date-filter{min-width:0}
+      .star-filter-btn{font-size:9px;padding:6px 1px}
       .saved-search-icon{left:9px;font-size:13px}
       .saved-search-clear{width:31px;height:31px;border-radius:8px}
       .decision-filter-btn{font-size:9.5px;padding:6px 2px}
@@ -732,7 +766,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.12.0</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.12.1</span></h1>
       <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -1285,6 +1319,16 @@
             <label for="bidDecisionReason">선택 사유</label>
             <input id="bidDecisionReason" type="text" placeholder="고민중·입찰·미입찰 선택 사유">
           </div>
+          <div class="field save-preset-field">
+            <label for="calculatorPresetSelect">실제입찰 미리 지정한 값</label>
+            <div class="save-preset-inline">
+              <select id="calculatorPresetSelect" aria-label="계산내역에 저장할 실제입찰 지정값">
+                <option value="">지정값 선택 안 함</option>
+              </select>
+              <button class="btn light" id="calculatorPresetManageBtn" type="button">지정값 관리</button>
+            </div>
+            <div class="save-preset-helper" id="calculatorPresetHelper">고민중·입찰하기 물건에 지정값을 선택하면 실제입찰 화면의 수수료율·연이율·이자기간·기존소득이 미리 채워집니다.</div>
+          </div>
         </div>
         <div class="actions no-print" style="margin-top:8px">
           <button class="btn" id="saveBtn">계산내역 저장</button>
@@ -1293,16 +1337,24 @@
         <div class="helper" id="savedHelper">이메일 로그인 후 계산내역과 지역 폴더가 자동 동기화됩니다.</div>
         </div>
 
-        <div class="saved-search-row no-print">
+        <div class="saved-search-row no-print" id="savedSearchRow">
           <div class="saved-search-wrap">
             <span class="saved-search-icon" aria-hidden="true">⌕</span>
             <input id="savedSearchInput" type="search" autocomplete="off" spellcheck="false"
                    placeholder="사건번호 또는 아파트명 검색" aria-label="저장내역 검색">
           </div>
           <input class="saved-date-filter" id="savedAuctionDateFilter" type="date"
-                 aria-label="경매기일로 저장내역 검색" title="경매기일로 검색">
+                 aria-label="경매기일 하루로 저장내역 검색" title="경매기일 하루 검색">
+          <button class="saved-date-mode-btn" id="savedDateRangeToggle" type="button" aria-pressed="false">기간검색</button>
           <button class="saved-search-clear" id="savedSearchClearBtn" type="button"
                   aria-label="검색조건 지우기" title="검색조건 지우기" hidden>×</button>
+        </div>
+        <div class="saved-date-range-row no-print" id="savedDateRangeRow" hidden>
+          <span class="saved-date-range-label">시작일</span>
+          <input class="saved-date-filter" id="savedAuctionDateFrom" type="date" aria-label="경매기일 기간검색 시작일">
+          <span class="saved-date-range-sep">~</span>
+          <span class="saved-date-range-label">종료일</span>
+          <input class="saved-date-filter" id="savedAuctionDateTo" type="date" aria-label="경매기일 기간검색 종료일">
         </div>
 
         <div class="saved-toolbar">
@@ -1318,6 +1370,14 @@
             <button class="decision-filter-btn" type="button" data-decision-filter="pending">고민중</button>
             <button class="decision-filter-btn" type="button" data-decision-filter="no">입찰 X</button>
             <button class="decision-filter-btn" type="button" data-decision-filter="bid">입찰 O</button>
+          </div>
+          <div class="star-filter-tabs no-print" aria-label="관심 별표 필터">
+            <button class="star-filter-btn active" type="button" data-star-filter="all">별 전체</button>
+            <button class="star-filter-btn" type="button" data-star-filter="outline">☆ 빈별</button>
+            <button class="star-filter-btn" type="button" data-star-filter="black">★ 검정</button>
+            <button class="star-filter-btn" type="button" data-star-filter="yellow">★ 노랑</button>
+            <button class="star-filter-btn" type="button" data-star-filter="red">★ 빨강</button>
+            <button class="star-filter-btn" type="button" data-star-filter="none">별 없음</button>
           </div>
           <div id="folderNav" class="folder-nav" hidden>
             <button class="folder-list-trigger" id="folderListBtn" type="button"><span id="folderListLabel">폴더 목록</span><span>▼</span></button>
@@ -1393,7 +1453,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.12.0 실제입찰 낮음·대표·높음 연동 · 지정값 프리셋 · 좁은 화면 물건정보 입력 개선 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.12.1 계산저장 지정값 연동 · 별색상 필터 · 경매기일 기간검색 · 실제입찰 낮음·대표·높음 연동 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -1657,6 +1717,7 @@ const db = getFirestore(firebaseApp);
   let folderNames = [];
   let actualBidPresetsRevision = 0;
   let actualBidPresets = [];
+  let currentActualBidPresetData = null;
   let suppressSectionSync = false;
   let sectionSyncTimer = null;
   let lastCloudSyncAt = null;
@@ -1666,7 +1727,11 @@ const db = getFirestore(firebaseApp);
   let savedSortDirection = "asc";
   let savedSearchQuery = "";
   let savedAuctionDateFilter = "";
+  let savedDateRangeMode = false;
+  let savedAuctionDateFrom = "";
+  let savedAuctionDateTo = "";
   let savedDecisionFilters = [];
+  let savedStarFilter = "all";
   let savedListWide = false;
   let savedEditorCollapsed = false;
   let toastTimer = null;
@@ -1829,6 +1894,13 @@ const db = getFirestore(firebaseApp);
     const appraisal = stateNumber(item,"appraisal",0);
     const scenarioValues = actualBidScenarioValuesForItem(item);
     const saved = item?.state?.actualBid || {};
+    const assignedPreset = item?.state?.actualBidPreset ? normalizeActualBidPreset(item.state.actualBidPreset,0) : null;
+    const presetValues = assignedPreset ? {
+      earlyRepaymentRate:assignedPreset.earlyRepaymentRate,
+      interestRate:assignedPreset.interestRate,
+      holdingMonths:assignedPreset.holdingMonths,
+      expectedIncome:assignedPreset.expectedIncome
+    } : {};
     const defaults = {
       enabled:true,minPrice:roundHundredThousand(appraisal * 0.7),
       acquisitionTaxMode:"auto",acquisitionTaxRate:1.1,
@@ -1843,7 +1915,7 @@ const db = getFirestore(firebaseApp);
       salePrice:appraisal,salePriceSources:[],expectedIncome:50000000,bid1:scenarioValues.bid1,
       bid2:scenarioValues.bid2,bid3:scenarioValues.bid3,scenarioSync:"low-representative-high"
     };
-    return {...defaults,...saved,enabled:true};
+    return {...defaults,...presetValues,...saved,enabled:true};
   }
 
   function actualPresetStorageKey(uid=currentUser?.uid){
@@ -1863,6 +1935,33 @@ const db = getFirestore(firebaseApp);
   function normalizeActualBidPresets(list){
     return (Array.isArray(list)?list:[]).map((p,i)=>normalizeActualBidPreset(p,i));
   }
+  function actualBidPresetValueFields(preset){
+    const p=preset?normalizeActualBidPreset(preset,0):null;
+    return p ? {earlyRepaymentRate:p.earlyRepaymentRate,interestRate:p.interestRate,holdingMonths:p.holdingMonths,expectedIncome:p.expectedIncome} : {};
+  }
+  function renderCalculatorPresetSelect(){
+    const select=$("calculatorPresetSelect"),helper=$("calculatorPresetHelper");if(!select)return;
+    const decision=$("bidDecision")?.value||"";
+    const enabled=["pending","bid"].includes(decision);
+    if(currentActualBidPresetData){
+      const live=actualBidPresets.find(p=>p.id===currentActualBidPresetData.id);
+      if(live)currentActualBidPresetData=normalizeActualBidPreset(live,0);
+    }
+    const selectedId=currentActualBidPresetData?.id||"";
+    const options=[...actualBidPresets];
+    if(currentActualBidPresetData && !options.some(p=>p.id===selectedId))options.push(normalizeActualBidPreset(currentActualBidPresetData,options.length));
+    select.innerHTML='<option value="">지정값 선택 안 함</option>'+options.map(p=>`<option value="${escapeHtml(p.id)}">${escapeHtml(p.name)}</option>`).join("");
+    select.value=selectedId && options.some(p=>p.id===selectedId)?selectedId:"";
+    select.disabled=!enabled;
+    if(helper)helper.textContent=enabled
+      ? (currentActualBidPresetData?`${currentActualBidPresetData.name} 지정값이 이 물건에 저장됩니다. 실제입찰 화면을 열면 4개 값이 미리 입력됩니다.`:"지정값을 선택하면 실제입찰 화면의 수수료율·연이율·이자기간·기존소득이 이 물건에 함께 저장됩니다.")
+      : "고민중 또는 입찰하기로 선택한 물건에서 사용할 수 있습니다.";
+  }
+  function setCalculatorPresetFromSelect(){
+    const id=$("calculatorPresetSelect")?.value||"";
+    currentActualBidPresetData=id?normalizeActualBidPreset(actualBidPresets.find(p=>p.id===id)||currentActualBidPresetData,0):null;
+    renderCalculatorPresetSelect();
+  }
   function saveActualBidPresetsLocal(){
     try{localStorage.setItem(actualPresetStorageKey(),JSON.stringify(actualBidPresets));}catch{}
   }
@@ -1871,9 +1970,12 @@ const db = getFirestore(firebaseApp);
     catch{actualBidPresets=[];}
   }
   function renderActualPresetButtons(){
-    const root=$("actualPresetButtons");if(!root)return;
-    if(!actualBidPresets.length){root.innerHTML='<span class="actual-preset-empty">저장된 지정값 없음</span>';return;}
-    root.innerHTML=actualBidPresets.map(p=>`<button class="actual-preset-apply" type="button" data-actual-preset-apply="${escapeHtml(p.id)}">${escapeHtml(p.name)} 입력</button>`).join("");
+    const root=$("actualPresetButtons");
+    if(root){
+      if(!actualBidPresets.length)root.innerHTML='<span class="actual-preset-empty">저장된 지정값 없음</span>';
+      else root.innerHTML=actualBidPresets.map(p=>`<button class="actual-preset-apply" type="button" data-actual-preset-apply="${escapeHtml(p.id)}">${escapeHtml(p.name)} 입력</button>`).join("");
+    }
+    renderCalculatorPresetSelect();
   }
   function renderActualPresetEditor(){
     const root=$("actualPresetList");if(!root)return;
@@ -2715,6 +2817,7 @@ const db = getFirestore(firebaseApp);
       sameRates:[...sameRates], nearRates:[...nearRates],
       sameRateYears:[...sameRateYears], nearRateYears:[...nearRateYears],
       actualBid:currentActualBidData ? {...currentActualBidData} : null,
+      actualBidPreset:currentActualBidPresetData ? {...normalizeActualBidPreset(currentActualBidPresetData,0)} : null,
       feedback:currentFeedbackData ? {...currentFeedbackData} : null
     };
   }
@@ -2729,6 +2832,7 @@ const db = getFirestore(firebaseApp);
       if (state.fields[key] === undefined) state.fields[key] = "";
     });
     currentActualBidData = state.actualBid ? {...state.actualBid} : null;
+    currentActualBidPresetData = state.actualBidPreset ? normalizeActualBidPreset(state.actualBidPreset,0) : null;
     currentFeedbackData = state.feedback ? {...state.feedback} : null;
     renderCalculatorStarControl();
     if (state.fields.mortgageDeduction === undefined) state.fields.mortgageDeduction = "25000000";
@@ -2768,6 +2872,7 @@ const db = getFirestore(firebaseApp);
       const dateValue = $("auctionDate").value;
       $("auctionDatePicker").value = /^\d{4}-\d{2}-\d{2}$/.test(dateValue) ? dateValue : "";
     }
+    renderCalculatorPresetSelect();
     update();
   }
 
@@ -3276,6 +3381,19 @@ const db = getFirestore(firebaseApp);
     if (!dateValue) return true;
     return stateText(item,"auctionDate","") === dateValue;
   }
+  function recordMatchesAuctionDateRange(item, fromValue, toValue){
+    const date=stateText(item,"auctionDate","");
+    if(!fromValue&&!toValue)return true;
+    if(!date)return false;
+    if(fromValue&&date<fromValue)return false;
+    if(toValue&&date>toValue)return false;
+    return true;
+  }
+  function recordMatchesStarFilter(item,filter){
+    const value=String(filter||"all");if(value==="all")return true;
+    const star=recordFeedback(item).star;
+    return value==="none" ? !star : star===value;
+  }
 
   function applySavedListWide(){
     document.body.classList.toggle("saved-list-wide", savedListWide);
@@ -3301,14 +3419,23 @@ const db = getFirestore(firebaseApp);
       btn.classList.toggle("active", active);
       btn.setAttribute("aria-pressed", String(active));
     });
-    $("savedSearchClearBtn").hidden = !(savedSearchQuery || savedAuctionDateFilter);
+    document.querySelectorAll("[data-star-filter]").forEach(btn=>{
+      const active=(btn.dataset.starFilter||"all")===savedStarFilter;
+      btn.classList.toggle("active",active);btn.setAttribute("aria-pressed",String(active));
+    });
+    const searchRow=$("savedSearchRow"),single=$("savedAuctionDateFilter"),rangeRow=$("savedDateRangeRow"),toggle=$("savedDateRangeToggle");
+    if(searchRow)searchRow.classList.toggle("range-mode",savedDateRangeMode);
+    if(single)single.hidden=savedDateRangeMode;
+    if(rangeRow)rangeRow.hidden=!savedDateRangeMode;
+    if(toggle){toggle.classList.toggle("active",savedDateRangeMode);toggle.setAttribute("aria-pressed",String(savedDateRangeMode));toggle.textContent=savedDateRangeMode?"1일검색":"기간검색";}
+    $("savedSearchClearBtn").hidden = !(savedSearchQuery || savedAuctionDateFilter || savedAuctionDateFrom || savedAuctionDateTo);
     applySavedListWide();
   }
 
   function saveSavedListPreferences(){
     localStorage.setItem(SAVED_VIEW_KEY, JSON.stringify({
       savedViewMode,selectedFolder,savedSortKey,savedSortDirection,
-      savedDecisionFilters,savedListWide,savedEditorCollapsed
+      savedDecisionFilters,savedStarFilter,savedListWide,savedEditorCollapsed
     }));
   }
 
@@ -3329,6 +3456,8 @@ const db = getFirestore(firebaseApp);
       } else {
         savedDecisionFilters = [];
       }
+      const validStarFilters=["all","outline","black","yellow","red","none"];
+      savedStarFilter=validStarFilters.includes(saved.savedStarFilter)?saved.savedStarFilter:"all";
       savedListWide = !!saved.savedListWide;
       savedEditorCollapsed = !!saved.savedEditorCollapsed;
     } catch {}
@@ -3384,7 +3513,10 @@ const db = getFirestore(firebaseApp);
       ? allItems.filter(item => recordFolder(item)===selectedFolder)
       : [...allItems];
     items = items.filter(item => recordMatchesSavedSearch(item, savedSearchQuery));
-    items = items.filter(item => recordMatchesAuctionDate(item, savedAuctionDateFilter));
+    items = items.filter(item => savedDateRangeMode
+      ? recordMatchesAuctionDateRange(item,savedAuctionDateFrom,savedAuctionDateTo)
+      : recordMatchesAuctionDate(item, savedAuctionDateFilter));
+    items = items.filter(item => recordMatchesStarFilter(item,savedStarFilter));
     if (savedDecisionFilters.length){
       items = items.filter(item => savedDecisionFilters.includes(recordDecision(item)));
     }
@@ -3396,11 +3528,15 @@ const db = getFirestore(firebaseApp);
       ? savedDecisionFilters.map(value => filterNames[value]).join(" + ")
       : "전체";
     const searchText = savedSearchQuery ? ` · 검색 “${savedSearchQuery}”` : "";
-    const dateFilterText = savedAuctionDateFilter ? ` · 경매 ${savedAuctionDateFilter}` : "";
-    summary.textContent = `${scope} · ${filterText} · ${items.length}건${searchText}${dateFilterText} · ${sortNames[savedSortKey]} ${savedSortDirection==="asc"?"오름차순":"내림차순"}`;
+    const dateFilterText = savedDateRangeMode
+      ? ((savedAuctionDateFrom||savedAuctionDateTo)?` · 경매기간 ${savedAuctionDateFrom||"처음"}~${savedAuctionDateTo||"끝"}`:"")
+      : (savedAuctionDateFilter ? ` · 경매 ${savedAuctionDateFilter}` : "");
+    const starNames={all:"별 전체",outline:"빈별",black:"검정별",yellow:"노란별",red:"빨간별",none:"별 없음"};
+    const starText=savedStarFilter!=="all"?` · ${starNames[savedStarFilter]||"별"}`:"";
+    summary.textContent = `${scope} · ${filterText}${starText} · ${items.length}건${searchText}${dateFilterText} · ${sortNames[savedSortKey]} ${savedSortDirection==="asc"?"오름차순":"내림차순"}`;
 
     if (!items.length){
-      const hasFilter = !!savedSearchQuery || !!savedAuctionDateFilter || savedDecisionFilters.length > 0;
+      const hasFilter = !!savedSearchQuery || !!savedAuctionDateFilter || !!savedAuctionDateFrom || !!savedAuctionDateTo || savedDecisionFilters.length > 0 || savedStarFilter!=="all";
       const message = hasFilter
         ? "검색 또는 입찰 여부 조건에 맞는 저장내역이 없습니다."
         : (savedViewMode === "folders" && selectedFolder
@@ -3429,6 +3565,7 @@ const db = getFirestore(firebaseApp);
       const specialNotes = stateText(item,"specialNotes","");
       const rateBasis = savedRateBasis(metrics);
       const savedStar = recordFeedback(item).star;
+      const assignedPreset = item?.state?.actualBidPreset ? normalizeActualBidPreset(item.state.actualBidPreset,0) : null;
       const budgetText = metrics.capital > 0 ? shortWon(metrics.capital) : "미입력";
       return `<div class="saved-item" data-load-id="${item.id}">
         <div class="saved-title-line">
@@ -3441,6 +3578,7 @@ const db = getFirestore(firebaseApp);
           <span class="date-pill">경매 ${date || "미입력"}</span>
           <span class="equity-pill" title="${rateBasis.label} · 저장 당시 적용 입찰가율 ${pct(metrics.bidRate*100)} 기준 최소자본 / 입력 예산">${rateBasis.shortLabel} 최소 ${shortWon(metrics.minEquity)} (예산 ${budgetText})</span>
           ${decision === "pending" && metrics.lowOnlyBudget ? `<span class="low-budget-pill" title="대표 예상가율은 예산 초과지만 낮음 예상가율에서는 예산 범위">↘ 낮음 기준 예산OK</span>` : ""}
+          ${assignedPreset && ["pending","bid"].includes(decision) ? `<span class="pill">지정값 ${escapeHtml(assignedPreset.name)}</span>` : ""}
           ${actualReady ? `<span class="actual-ready-pill">실제입찰 입력됨</span>` : ""}
           ${needsBrokerResearch ? `<span class="research-needed-pill">부동산조사 필요</span>` : ""}
         </div>
@@ -3490,6 +3628,13 @@ const db = getFirestore(firebaseApp);
     const baseRevision = loadedRecordId ? Number(loadedRecordRevision || 0) : 0;
     const state = getState();
     state.fields.saveFolder = selectedSaveFolder;
+    if(!["pending","bid"].includes(bidDecision)){
+      state.actualBidPreset=null;
+      currentActualBidPresetData=null;
+    }else if(state.actualBidPreset && state.actualBid){
+      state.actualBid={...state.actualBid,...actualBidPresetValueFields(state.actualBidPreset),presetName:state.actualBidPreset.name,presetId:state.actualBidPreset.id};
+      currentActualBidData={...state.actualBid};
+    }
     syncActualBidScenarioValuesInState(state);
     const now = Date.now();
     const payloadChecksum = checksum({title,state,deleted:false});
@@ -4130,6 +4275,7 @@ const db = getFirestore(firebaseApp);
       });
     }
 
+    renderActualPresetButtons();
     await migrateLocalRecordsWithoutOverwrite();
     const cloudSnapshot = await getDocs(recordsCollection());
     const cloudItems = cloudSnapshot.docs.map(d => normalizeCloudRecord(d.id, d.data()));
@@ -4202,6 +4348,8 @@ const db = getFirestore(firebaseApp);
     folderNames = [];
     actualBidPresetsRevision = 0;
     actualBidPresets = [];
+    currentActualBidPresetData = null;
+    renderActualPresetButtons();
     renderFolderOptions();
     renderFeedbackCalendar();
     setSyncStatus("이메일 로그인 후 PC·핸드폰 자동동기화", "");
@@ -4284,6 +4432,17 @@ const db = getFirestore(firebaseApp);
       renderSaved();
       return;
     }
+    if(e.target.id==="savedAuctionDateFrom" || e.target.id==="savedAuctionDateTo"){
+      savedAuctionDateFrom=$("savedAuctionDateFrom").value||"";
+      savedAuctionDateTo=$("savedAuctionDateTo").value||"";
+      if(savedAuctionDateFrom&&savedAuctionDateTo&&savedAuctionDateFrom>savedAuctionDateTo){
+        if(e.target.id==="savedAuctionDateFrom")savedAuctionDateTo=savedAuctionDateFrom;else savedAuctionDateFrom=savedAuctionDateTo;
+        $("savedAuctionDateFrom").value=savedAuctionDateFrom;$("savedAuctionDateTo").value=savedAuctionDateTo;
+      }
+      updateSavedFilterUi();renderSaved();return;
+    }
+    if(e.target.id==="calculatorPresetSelect"){setCalculatorPresetFromSelect();return;}
+    if(e.target.id==="bidDecision"){renderCalculatorPresetSelect();update();return;}
     if (e.target.id === "auctionDatePicker"){
       $("auctionDate").value = e.target.value || "";
       update();
@@ -4376,6 +4535,10 @@ const db = getFirestore(firebaseApp);
       renderSaved();
       return;
     }
+    const starFilter=e.target.closest("[data-star-filter]");
+    if(starFilter){savedStarFilter=starFilter.dataset.starFilter||"all";saveSavedListPreferences();updateSavedFilterUi();renderSaved();return;}
+    const dateMode=e.target.closest("#savedDateRangeToggle");
+    if(dateMode){savedDateRangeMode=!savedDateRangeMode;updateSavedFilterUi();renderSaved();return;}
     const wideButton = e.target.closest("#savedWideBtn");
     if (wideButton){
       savedListWide = !savedListWide;
@@ -4387,8 +4550,12 @@ const db = getFirestore(firebaseApp);
     if (searchClear){
       savedSearchQuery = "";
       savedAuctionDateFilter = "";
+      savedAuctionDateFrom = "";
+      savedAuctionDateTo = "";
       $("savedSearchInput").value = "";
       $("savedAuctionDateFilter").value = "";
+      $("savedAuctionDateFrom").value = "";
+      $("savedAuctionDateTo").value = "";
       updateSavedFilterUi();
       renderSaved();
       $("savedSearchInput").focus();
@@ -4515,6 +4682,7 @@ const db = getFirestore(firebaseApp);
     if (e.target === $("folderManagerModal")) closeFolderManager();
   });
   $("actualPresetManageBtn").addEventListener("click", openActualPresetManager);
+  $("calculatorPresetManageBtn").addEventListener("click", openActualPresetManager);
   $("actualPresetCloseBtn").addEventListener("click", closeActualPresetManager);
   $("actualPresetCancelBtn").addEventListener("click", closeActualPresetManager);
   $("actualPresetAddBtn").addEventListener("click", addActualPreset);
@@ -4639,7 +4807,7 @@ const db = getFirestore(firebaseApp);
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.12.0",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.12.1",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
