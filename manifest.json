@@ -1,7 +1,7 @@
 {
   "name": "경매 입찰·대출 자금 계산기",
   "short_name": "경매계산기",
-  "description": "경매 입찰·대출 자금 계산기 v1.11.9 - 단순 낙찰가율 범위·시나리오 원클릭 적용",
+  "description": "경매 입찰·대출 자금 계산기 v1.12.0 - 실제입찰 낮음·대표·높음 연동·지정값 프리셋·좁은 화면 입력 개선",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

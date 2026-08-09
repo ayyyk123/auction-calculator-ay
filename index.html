@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.11.9</title>
+  <title>경매 입찰·대출 자금 계산기 v1.12.0</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -423,10 +423,13 @@
     }
 
     .compact-property-grid{
-      display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:7px;margin-top:9px
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:7px;margin-top:9px
     }
     .compact-property-grid .field{min-width:0}
-    .floor-pair{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:4px}
+    .compact-property-grid .property-floor-field{grid-column:span 2;min-width:230px}
+    .compact-property-grid .property-unit-field{min-width:118px}
+    .floor-pair{display:grid;grid-template-columns:minmax(72px,1fr) auto minmax(72px,1fr);align-items:center;gap:6px}
+    .floor-pair input{min-width:0;width:100%;font-variant-numeric:tabular-nums}
     .floor-slash{font-size:11px;color:var(--muted);font-weight:800;text-align:center}
     .saved-title-line{display:flex;align-items:baseline;gap:7px;min-width:0}
     .saved-title-line .saved-title{min-width:0}
@@ -459,6 +462,43 @@
       display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px
     }
     .actual-inputs .field{min-width:0}
+    .actual-preset-bar{
+      display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:0 0 10px;padding:9px 10px;
+      border:1px solid #bfdbfe;background:#eff6ff;border-radius:11px
+    }
+    .actual-preset-title{font-size:11px;font-weight:950;color:#1e3a8a;white-space:nowrap}
+    .actual-preset-buttons{display:flex;gap:6px;flex-wrap:wrap;flex:1;min-width:0}
+    .actual-preset-apply{
+      border:1px solid #93c5fd;background:#fff;color:#1d4ed8;border-radius:9px;padding:7px 9px;
+      font-size:10.5px;font-weight:900;cursor:pointer;white-space:nowrap
+    }
+    .actual-preset-apply:hover{background:#dbeafe}
+    .actual-preset-empty{font-size:10.5px;color:#64748b;padding:5px 0}
+    .actual-preset-manage{white-space:nowrap}
+    .actual-scenario-note{font-size:10px;color:#475569;margin:8px 0 0;line-height:1.4}
+    .actual-preset-modal{
+      position:fixed;inset:0;background:rgba(15,23,42,.58);z-index:1650;display:flex;align-items:center;justify-content:center;padding:16px
+    }
+    .actual-preset-modal[hidden]{display:none}
+    .actual-preset-dialog{
+      width:min(920px,100%);max-height:min(86vh,820px);overflow:auto;background:#fff;border-radius:16px;padding:15px;
+      box-shadow:0 24px 70px rgba(15,23,42,.30)
+    }
+    .actual-preset-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px}
+    .actual-preset-head h2{margin:0;font-size:18px}
+    .actual-preset-head .helper{margin-top:3px}
+    .actual-preset-list{display:grid;gap:8px;margin-top:10px}
+    .actual-preset-row{
+      display:grid;grid-template-columns:minmax(120px,1.2fr) repeat(3,minmax(90px,.8fr)) minmax(145px,1fr) auto;
+      gap:6px;align-items:end;border:1px solid var(--line);border-radius:11px;padding:9px;background:#f8fafc
+    }
+    .actual-preset-row .field{min-width:0}
+    .actual-preset-row label{font-size:9.5px}
+    .actual-preset-delete{
+      border:0;background:#fee2e2;color:#991b1b;border-radius:8px;padding:8px 9px;font-size:10px;font-weight:900;cursor:pointer
+    }
+    .actual-preset-footer{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
+    .actual-preset-footer-actions{display:flex;gap:7px;margin-left:auto}
     .actual-scenarios{
       display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px
     }
@@ -578,16 +618,19 @@
     }
 
     @media(max-width:1200px) and (min-width:901px){
-      .compact-property-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+      .compact-property-grid{grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:6px}
     }
     @media(max-width:900px){
-      .compact-property-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+      .compact-property-grid{grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:6px}
       .actual-inputs{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
       .actual-bid-modal{padding:7px}
       .actual-bid-header h2{font-size:18px}
     }
     @media(max-width:600px){
-      .compact-property-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+      .compact-property-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+      .compact-property-grid .property-floor-field{grid-column:1/-1;min-width:0}
+      .compact-property-grid .property-unit-field{min-width:0}
+      .floor-pair{grid-template-columns:minmax(78px,1fr) auto minmax(78px,1fr)}
       .compact-property-grid input,.compact-property-grid select{padding:6px 5px;font-size:11.5px}
       .saved-apartment{max-width:55%;font-size:10px}
       .actual-bid-modal{padding:calc(10px + var(--safe-top)) 8px calc(10px + var(--safe-bottom))}
@@ -614,6 +657,13 @@
       .sale-price-source-option{font-size:9.5px;padding:4px 6px}
       .actual-auto-note{font-size:9px}
       .actual-income-manual input{font-size:9.5px!important;padding:6px 3px!important}
+      .actual-preset-bar{padding:7px;gap:5px}
+      .actual-preset-title{width:100%}
+      .actual-preset-apply{font-size:9.5px;padding:6px 7px}
+      .actual-preset-row{grid-template-columns:1fr 1fr;gap:5px}
+      .actual-preset-row .preset-name-field,.actual-preset-row .preset-income-field{grid-column:1/-1}
+      .actual-preset-delete{grid-column:1/-1}
+      .actual-preset-footer-actions{width:100%;display:grid;grid-template-columns:1fr 1fr}
     }
 
 
@@ -682,7 +732,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.11.9</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.12.0</span></h1>
       <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -779,7 +829,7 @@
           </div>
         </div>
         <div class="compact-property-grid">
-          <div class="field">
+          <div class="field property-floor-field">
             <label>층/최고층</label>
             <div class="floor-pair">
               <input id="floorNo" type="number" min="-5" max="200" placeholder="15" aria-label="해당층">
@@ -787,7 +837,7 @@
               <input id="maxFloor" type="number" min="1" max="200" placeholder="25" aria-label="최고층">
             </div>
           </div>
-          <div class="field">
+          <div class="field property-unit-field">
             <label for="unitNo">호수</label>
             <input id="unitNo" type="text" placeholder="1501호">
           </div>
@@ -1343,7 +1393,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.11.9 단순 예상가율 범위·시나리오 원클릭 적용 · 저장목록 별표·최소자본 기준/예산 표시 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.12.0 실제입찰 낮음·대표·높음 연동 · 지정값 프리셋 · 좁은 화면 물건정보 입력 개선 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -1358,6 +1408,11 @@
     </div>
     <section class="card">
       <div class="actual-summary" id="actualBidSummary"></div>
+      <div class="actual-preset-bar">
+        <div class="actual-preset-title">미리 지정한 값</div>
+        <div class="actual-preset-buttons" id="actualPresetButtons"></div>
+        <button class="btn light actual-preset-manage" id="actualPresetManageBtn" type="button">지정값 관리</button>
+      </div>
       <div class="actual-inputs">
         <div class="field"><label for="actualMinPrice">최저가</label><input id="actualMinPrice" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
         <div class="field">
@@ -1413,10 +1468,11 @@
         </div>
       </div>
       <div class="actual-scenarios">
-        <div class="actual-scenario-input"><strong>1차 입찰안</strong><input id="actualBid1" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
-        <div class="actual-scenario-input"><strong>2차 입찰안</strong><input id="actualBid2" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
-        <div class="actual-scenario-input"><strong>3차 입찰안</strong><input id="actualBid3" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
+        <div class="actual-scenario-input"><strong id="actualBid1Label">1차 · 낮음</strong><input id="actualBid1" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
+        <div class="actual-scenario-input"><strong id="actualBid2Label">2차 · 대표</strong><input id="actualBid2" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
+        <div class="actual-scenario-input"><strong id="actualBid3Label">3차 · 높음</strong><input id="actualBid3" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
       </div>
+      <div class="actual-scenario-note" id="actualScenarioNote">계산내역을 저장할 때 낮음·대표·높음 예상가율이 각각 1차·2차·3차 입찰안으로 자동 연동됩니다.</div>
       <div class="actual-results-wrap">
         <table class="actual-results-table">
           <thead><tr><th>구분</th><th>1차</th><th>2차</th><th>3차</th></tr></thead>
@@ -1483,6 +1539,26 @@
   </div>
 </div>
 
+
+<div class="actual-preset-modal no-print" id="actualPresetModal" hidden>
+  <div class="actual-preset-dialog" role="dialog" aria-modal="true" aria-labelledby="actualPresetTitle">
+    <div class="actual-preset-head">
+      <div>
+        <h2 id="actualPresetTitle">실제입찰 지정값 관리</h2>
+        <div class="helper">중도상환수수료율 · 대출 연이율 · 이자 계산기간 · 연간 예상 기존소득을 여러 세트로 저장하고 실제입찰 화면에서 한 번에 입력할 수 있습니다.</div>
+      </div>
+      <button class="folder-manager-close" id="actualPresetCloseBtn" type="button" aria-label="닫기">×</button>
+    </div>
+    <div class="actual-preset-list" id="actualPresetList"></div>
+    <div class="actual-preset-footer">
+      <button class="btn light" id="actualPresetAddBtn" type="button">+ 지정값 추가</button>
+      <div class="actual-preset-footer-actions">
+        <button class="btn" id="actualPresetSaveBtn" type="button">지정값 저장</button>
+        <button class="btn light" id="actualPresetCancelBtn" type="button">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="folder-manager-modal no-print" id="folderManagerModal" hidden>
   <div class="folder-manager-dialog" role="dialog" aria-modal="true" aria-labelledby="folderManagerTitle">
@@ -1559,6 +1635,7 @@ const db = getFirestore(firebaseApp);
   const SAVED_VIEW_KEY = "auctionBidCalculator.savedView.v1";
   const SAVED_SORT_KEY = "auctionBidCalculator.savedSort.v1";
   const FOLDER_NAMES_KEY = "auctionBidCalculator.folderNames.v1";
+  const ACTUAL_BID_PRESETS_KEY = "auctionBidCalculator.actualBidPresets.v1";
   const DEFAULT_SECTION_ORDER = ["basic","rates","loan","dsr","result"];
   const APP_SCHEMA_VERSION = 11;
   const deviceId = localStorage.getItem(DEVICE_ID_KEY) ||
@@ -1578,6 +1655,8 @@ const db = getFirestore(firebaseApp);
   let sectionOrderRevision = 0;
   let foldersRevision = 0;
   let folderNames = [];
+  let actualBidPresetsRevision = 0;
+  let actualBidPresets = [];
   let suppressSectionSync = false;
   let sectionSyncTimer = null;
   let lastCloudSyncAt = null;
@@ -1711,10 +1790,44 @@ const db = getFirestore(firebaseApp);
   }
   function roundHundredThousand(value){ return Math.round((Number(value) || 0) / 100000) * 100000; }
 
+  function actualBidScenarioValuesForItem(item){
+    const appraisal=stateNumber(item,"appraisal",0);
+    const scenarios=recordRateScenarios(item);
+    return {
+      scenarios,
+      bid1:roundHundredThousand(appraisal*(Number(scenarios.low)||0)/100),
+      bid2:roundHundredThousand(appraisal*(Number(scenarios.representative)||0)/100),
+      bid3:roundHundredThousand(appraisal*(Number(scenarios.high)||0)/100)
+    };
+  }
+
+  function actualBidScenarioValuesForState(state){
+    const f=state?.fields||{};
+    const appraisal=Number(f.appraisal)||0;
+    const scenarios=estimateRateScenarios({
+      same:Array.isArray(state?.sameRates)?state.sameRates:[],
+      near:Array.isArray(state?.nearRates)?state.nearRates:[],
+      sameWeight:Number(f.sameWeight)||60,nearWeight:Number(f.nearWeight)||40,adjust:Number(f.safetyAdjust)||0
+    });
+    return {
+      scenarios,
+      bid1:roundHundredThousand(appraisal*(Number(scenarios.low)||0)/100),
+      bid2:roundHundredThousand(appraisal*(Number(scenarios.representative)||0)/100),
+      bid3:roundHundredThousand(appraisal*(Number(scenarios.high)||0)/100)
+    };
+  }
+
+  function syncActualBidScenarioValuesInState(state){
+    if(!state?.actualBid)return state;
+    const values=actualBidScenarioValuesForState(state);
+    state.actualBid={...state.actualBid,bid1:values.bid1,bid2:values.bid2,bid3:values.bid3,scenarioSync:"low-representative-high"};
+    currentActualBidData={...state.actualBid};
+    return state;
+  }
+
   function defaultActualBid(item){
     const appraisal = stateNumber(item,"appraisal",0);
-    const bidRate = stateNumber(item,"bidRate",78) / 100;
-    const bid1 = roundHundredThousand(appraisal * bidRate);
+    const scenarioValues = actualBidScenarioValuesForItem(item);
     const saved = item?.state?.actualBid || {};
     const defaults = {
       enabled:true,minPrice:roundHundredThousand(appraisal * 0.7),
@@ -1727,10 +1840,109 @@ const db = getFirestore(firebaseApp);
       earlyRepaymentRate:0.5,interestRate:4.5,holdingMonths:5,
       appraisalLoanRate:stateNumber(item,"mortgageLoanRate",60),
       bidLoanRate:stateNumber(item,"mortgageBidCap",80),
-      salePrice:appraisal,salePriceSources:[],expectedIncome:50000000,bid1,
-      bid2:roundHundredThousand(bid1 + 5000000),bid3:roundHundredThousand(bid1 + 10000000)
+      salePrice:appraisal,salePriceSources:[],expectedIncome:50000000,bid1:scenarioValues.bid1,
+      bid2:scenarioValues.bid2,bid3:scenarioValues.bid3,scenarioSync:"low-representative-high"
     };
     return {...defaults,...saved,enabled:true};
+  }
+
+  function actualPresetStorageKey(uid=currentUser?.uid){
+    return `${ACTUAL_BID_PRESETS_KEY}.${uid||"guest"}`;
+  }
+  function normalizeActualBidPreset(preset,index=0){
+    const id=String(preset?.id||`preset-${Date.now()}-${index}-${Math.random().toString(36).slice(2,7)}`);
+    const name=String(preset?.name||`지정값 ${index+1}`).trim()||`지정값 ${index+1}`;
+    return {
+      id,name,
+      earlyRepaymentRate:Number(preset?.earlyRepaymentRate)||0,
+      interestRate:Number(preset?.interestRate)||0,
+      holdingMonths:Math.max(0,Number(preset?.holdingMonths)||0),
+      expectedIncome:Math.max(0,Number(preset?.expectedIncome)||0)
+    };
+  }
+  function normalizeActualBidPresets(list){
+    return (Array.isArray(list)?list:[]).map((p,i)=>normalizeActualBidPreset(p,i));
+  }
+  function saveActualBidPresetsLocal(){
+    try{localStorage.setItem(actualPresetStorageKey(),JSON.stringify(actualBidPresets));}catch{}
+  }
+  function loadActualBidPresetsLocal(){
+    try{actualBidPresets=normalizeActualBidPresets(JSON.parse(localStorage.getItem(actualPresetStorageKey())||"[]"));}
+    catch{actualBidPresets=[];}
+  }
+  function renderActualPresetButtons(){
+    const root=$("actualPresetButtons");if(!root)return;
+    if(!actualBidPresets.length){root.innerHTML='<span class="actual-preset-empty">저장된 지정값 없음</span>';return;}
+    root.innerHTML=actualBidPresets.map(p=>`<button class="actual-preset-apply" type="button" data-actual-preset-apply="${escapeHtml(p.id)}">${escapeHtml(p.name)} 입력</button>`).join("");
+  }
+  function renderActualPresetEditor(){
+    const root=$("actualPresetList");if(!root)return;
+    if(!actualBidPresets.length){root.innerHTML='<div class="empty">아직 지정값이 없습니다. 아래 ‘+ 지정값 추가’를 눌러 만들어주세요.</div>';return;}
+    root.innerHTML=actualBidPresets.map((p,i)=>`
+      <div class="actual-preset-row" data-preset-id="${escapeHtml(p.id)}">
+        <div class="field preset-name-field"><label>이름</label><input type="text" data-preset-field="name" value="${escapeHtml(p.name)}" placeholder="예: 수협 근저당"></div>
+        <div class="field"><label>중도상환수수료율</label><div class="money-wrap"><input type="number" min="0" step="0.01" data-preset-field="earlyRepaymentRate" value="${p.earlyRepaymentRate}"><span class="suffix">%</span></div></div>
+        <div class="field"><label>대출 연이율</label><div class="money-wrap"><input type="number" min="0" step="0.01" data-preset-field="interestRate" value="${p.interestRate}"><span class="suffix">%</span></div></div>
+        <div class="field"><label>이자 계산기간</label><div class="money-wrap"><input type="number" min="0" step="1" data-preset-field="holdingMonths" value="${p.holdingMonths}"><span class="suffix">개월</span></div></div>
+        <div class="field preset-income-field"><label>연간 예상 기존소득</label><input type="text" inputmode="numeric" data-money data-preset-field="expectedIncome" value="${formatMoneyValue(p.expectedIncome)}"></div>
+        <button class="actual-preset-delete" type="button" data-actual-preset-delete="${escapeHtml(p.id)}">삭제</button>
+      </div>`).join("");
+  }
+  function collectActualPresetEditor(){
+    return [...document.querySelectorAll("#actualPresetList .actual-preset-row")].map((row,index)=>{
+      const get=(field)=>row.querySelector(`[data-preset-field="${field}"]`);
+      return normalizeActualBidPreset({
+        id:row.dataset.presetId,name:get("name")?.value,
+        earlyRepaymentRate:parseFloat(numericText(get("earlyRepaymentRate")?.value))||0,
+        interestRate:parseFloat(numericText(get("interestRate")?.value))||0,
+        holdingMonths:parseFloat(numericText(get("holdingMonths")?.value))||0,
+        expectedIncome:parseFloat(numericText(get("expectedIncome")?.value))||0
+      },index);
+    });
+  }
+  function openActualPresetManager(){
+    renderActualPresetEditor();$("actualPresetModal").hidden=false;
+  }
+  function closeActualPresetManager(){
+    $("actualPresetModal").hidden=true;
+    loadActualBidPresetsLocal();
+    renderActualPresetButtons();
+  }
+  function addActualPreset(){
+    if(!$("actualPresetModal").hidden)actualBidPresets=collectActualPresetEditor();
+    const current={
+      id:crypto.randomUUID?crypto.randomUUID():`preset-${Date.now()}`,
+      name:`지정값 ${actualBidPresets.length+1}`,earlyRepaymentRate:0.5,interestRate:4.5,holdingMonths:5,expectedIncome:50000000
+    };
+    actualBidPresets=[...actualBidPresets,normalizeActualBidPreset(current,actualBidPresets.length)];renderActualPresetEditor();
+  }
+  function applyActualPreset(id){
+    const p=actualBidPresets.find(x=>x.id===id);if(!p)return;
+    $("actualEarlyRepaymentRate").value=p.earlyRepaymentRate;
+    $("actualInterestRate").value=p.interestRate;
+    $("actualHoldingMonths").value=p.holdingMonths;
+    $("actualExpectedIncome").value=p.expectedIncome;formatMoneyInput($("actualExpectedIncome"));
+    renderActualBidResults();showToast(`${p.name} 지정값 입력`);
+  }
+  async function saveActualBidPresets(){
+    if(!requireCloudReady())return;
+    const next=collectActualPresetEditor();
+    const baseRevision=actualBidPresetsRevision,now=Date.now();
+    $("actualPresetSaveBtn").disabled=true;
+    try{
+      const result=await runTransaction(db,async transaction=>{
+        const ref=settingsRef(),snap=await transaction.get(ref),data=snap.data()||{};
+        const cloudRevision=Number(data.actualBidPresetsRevision||0);
+        if(cloudRevision!==baseRevision)throw new SyncConflictError("다른 기기의 지정값 설정이 더 최신입니다.");
+        transaction.set(ref,{actualBidPresets:next,actualBidPresetsRevision:cloudRevision+1,actualBidPresetsUpdatedAt:serverTimestamp(),actualBidPresetsUpdatedAtMs:now,deviceId,schemaVersion:APP_SCHEMA_VERSION},{merge:true});
+        return cloudRevision+1;
+      });
+      actualBidPresets=next;actualBidPresetsRevision=result;saveActualBidPresetsLocal();renderActualPresetButtons();closeActualPresetManager();showToast("실제입찰 지정값 저장 완료");
+    }catch(error){
+      if(error instanceof SyncConflictError){
+        const snap=await getDoc(settingsRef()),data=snap.data()||{};actualBidPresetsRevision=Number(data.actualBidPresetsRevision||0);actualBidPresets=normalizeActualBidPresets(data.actualBidPresets);saveActualBidPresetsLocal();renderActualPresetEditor();renderActualPresetButtons();alert("다른 기기에서 지정값을 먼저 수정해 최신값을 다시 불러왔습니다.");
+      }else{console.error(error);alert("지정값을 저장하지 못했습니다.");}
+    }finally{$("actualPresetSaveBtn").disabled=false;}
   }
 
   function actualIncomeTax(income){
@@ -1947,6 +2159,11 @@ const db = getFirestore(firebaseApp);
     if (!requireCloudReady()) return;
     const item = rawLocalRecords().find(x=>x.id===id&&!x.deleted); if (!item) return;
     actualBidRecordId=id; actualBidBaseRevision=Number(item.revision||0); actualBidDraft=defaultActualBid(item); fillActualBidForm(actualBidDraft);
+    const scenarioValues=actualBidScenarioValuesForItem(item);
+    $("actualBid1Label").textContent=`1차 · 낮음 ${pct(scenarioValues.scenarios.low)}`;
+    $("actualBid2Label").textContent=`2차 · 대표 ${pct(scenarioValues.scenarios.representative)}`;
+    $("actualBid3Label").textContent=`3차 · 높음 ${pct(scenarioValues.scenarios.high)}`;
+    renderActualPresetButtons();
     const apt=recordApartmentName(item), caseNo=stateText(item,"caseNo",item.title||""), specs=recordSpecs(item);
     $("actualBidHeading").textContent=`${caseNo}${apt?` · ${apt}`:""}`;
     $("actualBidSummary").innerHTML=[`<span class="pill">사건 ${escapeHtml(caseNo||"-")}</span>`,apt?`<span class="pill">아파트 ${escapeHtml(apt)}</span>`:"",`<span class="pill">감정가 ${shortWon(stateNumber(item,"appraisal",0))}</span>`,specs?`<span class="pill">${escapeHtml(specs)}</span>`:""].join("");
@@ -3273,6 +3490,7 @@ const db = getFirestore(firebaseApp);
     const baseRevision = loadedRecordId ? Number(loadedRecordRevision || 0) : 0;
     const state = getState();
     state.fields.saveFolder = selectedSaveFolder;
+    syncActualBidScenarioValuesInState(state);
     const now = Date.now();
     const payloadChecksum = checksum({title,state,deleted:false});
 
@@ -3865,12 +4083,16 @@ const db = getFirestore(firebaseApp);
     updateAuthUi();
     setSyncStatus("클라우드 최신자료 확인 중…", "warn");
 
+    loadActualBidPresetsLocal();
     const settingsSnap = await getDoc(settingsRef());
     if (settingsSnap.exists()){
       const data = settingsSnap.data();
       sectionOrderRevision = Number(data.revision || 0);
       foldersRevision = Number(data.foldersRevision || 0);
+      actualBidPresetsRevision = Number(data.actualBidPresetsRevision || 0);
       if (Array.isArray(data.folderNames)){ folderNames = uniqueFolderNames(data.folderNames); saveFolderNamesLocal(); }
+      if (Array.isArray(data.actualBidPresets)){ actualBidPresets = normalizeActualBidPresets(data.actualBidPresets); saveActualBidPresetsLocal(); }
+      else loadActualBidPresetsLocal();
       if (Array.isArray(data.sectionOrder)){
         suppressSectionSync = true;
         applySectionOrder(data.sectionOrder);
@@ -3892,6 +4114,8 @@ const db = getFirestore(firebaseApp);
             revision: 1,
             folderNames: folderNames,
             foldersRevision: folderNames.length ? 1 : 0,
+            actualBidPresets: actualBidPresets,
+            actualBidPresetsRevision: actualBidPresets.length ? 1 : 0,
             updatedAt: serverTimestamp(),
             updatedAtMs: Date.now(),
             deviceId,
@@ -3899,6 +4123,7 @@ const db = getFirestore(firebaseApp);
           });
           sectionOrderRevision = 1;
           foldersRevision = folderNames.length ? 1 : 0;
+          actualBidPresetsRevision = actualBidPresets.length ? 1 : 0;
         } else {
           sectionOrderRevision = Number(snap.data()?.revision || 0);
         }
@@ -3948,6 +4173,14 @@ const db = getFirestore(firebaseApp);
         renderFolderOptions();
         renderSaved();
       }
+      const cloudPresetRevision = Number(data.actualBidPresetsRevision || 0);
+      if (cloudPresetRevision > actualBidPresetsRevision && Array.isArray(data.actualBidPresets)){
+        actualBidPresetsRevision = cloudPresetRevision;
+        actualBidPresets = normalizeActualBidPresets(data.actualBidPresets);
+        saveActualBidPresetsLocal();
+        renderActualPresetButtons();
+        if ($("actualPresetModal") && !$("actualPresetModal").hidden) renderActualPresetEditor();
+      }
     });
 
     cloudReady = true;
@@ -3967,6 +4200,8 @@ const db = getFirestore(firebaseApp);
     sectionOrderRevision = 0;
     foldersRevision = 0;
     folderNames = [];
+    actualBidPresetsRevision = 0;
+    actualBidPresets = [];
     renderFolderOptions();
     renderFeedbackCalendar();
     setSyncStatus("이메일 로그인 후 PC·핸드폰 자동동기화", "");
@@ -4279,6 +4514,19 @@ const db = getFirestore(firebaseApp);
   $("folderManagerModal").addEventListener("click", e => {
     if (e.target === $("folderManagerModal")) closeFolderManager();
   });
+  $("actualPresetManageBtn").addEventListener("click", openActualPresetManager);
+  $("actualPresetCloseBtn").addEventListener("click", closeActualPresetManager);
+  $("actualPresetCancelBtn").addEventListener("click", closeActualPresetManager);
+  $("actualPresetAddBtn").addEventListener("click", addActualPreset);
+  $("actualPresetSaveBtn").addEventListener("click", saveActualBidPresets);
+  $("actualPresetModal").addEventListener("click", e=>{if(e.target===$("actualPresetModal"))closeActualPresetManager();});
+  $("actualPresetList").addEventListener("input",e=>{if(e.target.matches("[data-money]"))formatMoneyInput(e.target);});
+  $("actualPresetList").addEventListener("click",e=>{
+    const del=e.target.closest("[data-actual-preset-delete]");if(!del)return;
+    actualBidPresets=collectActualPresetEditor().filter(p=>p.id!==del.dataset.actualPresetDelete);renderActualPresetEditor();
+  });
+  $("actualPresetButtons").addEventListener("click",e=>{const btn=e.target.closest("[data-actual-preset-apply]");if(btn)applyActualPreset(btn.dataset.actualPresetApply);});
+
   $("actualBidSaveBtn").addEventListener("click", saveActualBid);
   $("actualBidClearBtn").addEventListener("click", clearActualBid);
   $("actualBidCloseBtn").addEventListener("click", closeActualBid);
@@ -4391,7 +4639,7 @@ const db = getFirestore(firebaseApp);
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.11.9",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.12.0",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
