@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.12.3</title>
+  <title>경매 입찰·대출 자금 계산기 v1.12.4</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -543,10 +543,13 @@
     .actual-scenario-input{
       border:1px solid var(--line);border-radius:11px;padding:9px;background:#f8fafc
     }
-    .actual-scenario-reset{display:block;width:100%;margin:0 0 5px;padding:2px 3px;border:0;background:transparent;color:#0f172a;text-align:left;font-size:12px;font-weight:900;cursor:pointer;border-radius:6px}
-    .actual-scenario-reset:hover{background:#e2e8f0}
+    .actual-scenario-rate-row{display:flex;align-items:center;justify-content:space-between;gap:7px;margin:0 0 5px;min-width:0}
+    .actual-scenario-reset{display:inline-flex;align-items:center;min-width:0;margin:0;padding:2px 4px;border:0;background:transparent;color:#2563eb;text-align:left;font-size:12px;font-weight:950;cursor:pointer;border-radius:6px;white-space:nowrap}
+    .actual-scenario-reset:hover{background:#dbeafe}
     .actual-scenario-reset:focus-visible{outline:2px solid rgba(59,130,246,.35);outline-offset:1px}
-    .actual-scenario-reset.manual-rate{color:#7c3aed}
+    .actual-scenario-current{margin-left:auto;color:#64748b;font-size:11.5px;font-weight:900;white-space:nowrap}
+    .actual-scenario-current.manual-rate{color:#7c3aed}
+    .actual-scenario-current.same-rate{color:#64748b}
     .actual-results-wrap{overflow:auto;margin-top:10px;border:1px solid var(--line);border-radius:11px;background:#fff}
     .actual-results-table{
       width:100%;min-width:0;background:white;table-layout:fixed
@@ -773,7 +776,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.12.3</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.12.4</span></h1>
       <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -1460,7 +1463,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.12.3 모바일 제목 접기/펴기 · 하단버튼 고정해제 · 별색상 복수필터 · 실제입찰 수기 퍼센트 연동 · 계산저장 지정값 연동 · 경매기일 기간검색 · 실제입찰 낮음·대표·높음 연동 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.12.4 모바일 제목 접기/펴기 · 하단버튼 고정해제 · 별색상 복수필터 · 실제입찰 기준퍼센트 고정표시/수기퍼센트 연동 · 계산저장 지정값 연동 · 경매기일 기간검색 · 실제입찰 낮음·대표·높음 연동 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -1535,9 +1538,9 @@
         </div>
       </div>
       <div class="actual-scenarios">
-        <div class="actual-scenario-input"><button class="actual-scenario-reset" id="actualBid1Label" type="button" data-actual-scenario-reset="1" title="누르면 계산기의 낮음 예상가율 값으로 되돌립니다">1차 · 낮음</button><input id="actualBid1" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
-        <div class="actual-scenario-input"><button class="actual-scenario-reset" id="actualBid2Label" type="button" data-actual-scenario-reset="2" title="누르면 계산기의 대표 예상가율 값으로 되돌립니다">2차 · 대표</button><input id="actualBid2" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
-        <div class="actual-scenario-input"><button class="actual-scenario-reset" id="actualBid3Label" type="button" data-actual-scenario-reset="3" title="누르면 계산기의 높음 예상가율 값으로 되돌립니다">3차 · 높음</button><input id="actualBid3" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
+        <div class="actual-scenario-input"><div class="actual-scenario-rate-row"><button class="actual-scenario-reset" id="actualBid1Label" type="button" data-actual-scenario-reset="1" title="누르면 계산기의 낮음 예상가율 값으로 되돌립니다">1차 · 낮음</button><span class="actual-scenario-current" id="actualBid1CurrentRate">현재 -</span></div><input id="actualBid1" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
+        <div class="actual-scenario-input"><div class="actual-scenario-rate-row"><button class="actual-scenario-reset" id="actualBid2Label" type="button" data-actual-scenario-reset="2" title="누르면 계산기의 대표 예상가율 값으로 되돌립니다">2차 · 대표</button><span class="actual-scenario-current" id="actualBid2CurrentRate">현재 -</span></div><input id="actualBid2" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
+        <div class="actual-scenario-input"><div class="actual-scenario-rate-row"><button class="actual-scenario-reset" id="actualBid3Label" type="button" data-actual-scenario-reset="3" title="누르면 계산기의 높음 예상가율 값으로 되돌립니다">3차 · 높음</button><span class="actual-scenario-current" id="actualBid3CurrentRate">현재 -</span></div><input id="actualBid3" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
       </div>
       <div class="actual-scenario-note" id="actualScenarioNote">직접 입찰가를 입력하면 위 퍼센트도 자동 변경됩니다. 1차·2차·3차 제목을 누르면 계산기에 저장된 낮음·대표·높음 값으로 다시 돌아갑니다.</div>
       <div class="actual-results-wrap">
@@ -2257,17 +2260,23 @@ const db = getFirestore(firebaseApp);
     const appraisal=stateNumber(item,"appraisal",0);
     const scenarioValues=actualBidScenarioValuesForItem(item);
     const configs=[
-      {input:"actualBid1",label:"actualBid1Label",prefix:"1차 · 낮음",scenario:"low"},
-      {input:"actualBid2",label:"actualBid2Label",prefix:"2차 · 대표",scenario:"representative"},
-      {input:"actualBid3",label:"actualBid3Label",prefix:"3차 · 높음",scenario:"high"}
+      {input:"actualBid1",label:"actualBid1Label",current:"actualBid1CurrentRate",prefix:"1차 · 낮음",scenario:"low"},
+      {input:"actualBid2",label:"actualBid2Label",current:"actualBid2CurrentRate",prefix:"2차 · 대표",scenario:"representative"},
+      {input:"actualBid3",label:"actualBid3Label",current:"actualBid3CurrentRate",prefix:"3차 · 높음",scenario:"high"}
     ];
     configs.forEach(c=>{
       const bid=num(c.input);
-      const actualRate=appraisal>0&&bid>0 ? bid/appraisal*100 : Number(scenarioValues.scenarios[c.scenario]||0);
       const scenarioRate=Number(scenarioValues.scenarios[c.scenario]||0);
+      const actualRate=appraisal>0&&bid>0 ? bid/appraisal*100 : scenarioRate;
       const label=$(c.label);
-      label.textContent=`${c.prefix} ${pct(actualRate)}`;
-      label.classList.toggle("manual-rate",Math.abs(actualRate-scenarioRate)>0.06);
+      const current=$(c.current);
+      // 왼쪽 기준값은 계산기에서 저장된 낮음/대표/높음 퍼센트를 항상 고정 표시합니다.
+      label.textContent=`${c.prefix} ${pct(scenarioRate)}`;
+      // 오른쪽은 실제입찰에서 현재 입력한 금액의 감정가 대비 퍼센트입니다.
+      current.textContent=`현재 ${pct(actualRate)}`;
+      const isManual=Math.abs(actualRate-scenarioRate)>0.06;
+      current.classList.toggle("manual-rate",isManual);
+      current.classList.toggle("same-rate",!isManual);
     });
   }
 
@@ -4878,7 +4887,7 @@ const db = getFirestore(firebaseApp);
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.12.3",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.12.4",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
