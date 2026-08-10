@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.12.4</title>
+  <title>경매 입찰·대출 자금 계산기 v1.12.5</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -540,6 +540,10 @@
     .actual-scenarios{
       display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px
     }
+    .actual-bid-memo{margin-top:9px;margin-bottom:8px}
+    .actual-bid-memo label{display:block;font-size:11px;font-weight:950;color:#334155;margin-bottom:5px}
+    .actual-bid-memo textarea{width:100%;min-height:68px;resize:vertical;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);padding:9px 10px;font:inherit;font-size:12px;line-height:1.45;box-sizing:border-box}
+    .actual-bid-memo textarea:focus{outline:2px solid rgba(59,130,246,.20);border-color:#93c5fd}
     .actual-scenario-input{
       border:1px solid var(--line);border-radius:11px;padding:9px;background:#f8fafc
     }
@@ -776,7 +780,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.12.4</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.12.5</span></h1>
       <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -1463,7 +1467,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.12.4 모바일 제목 접기/펴기 · 하단버튼 고정해제 · 별색상 복수필터 · 실제입찰 기준퍼센트 고정표시/수기퍼센트 연동 · 계산저장 지정값 연동 · 경매기일 기간검색 · 실제입찰 낮음·대표·높음 연동 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.12.5 모바일 제목 접기/펴기 · 하단버튼 고정해제 · 별색상 복수필터 · 실제입찰 기준퍼센트 고정표시/수기퍼센트 연동 · 실제입찰 전용 메모 · 계산저장 지정값 연동 · 경매기일 기간검색 · 실제입찰 낮음·대표·높음 연동 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -1536,6 +1540,10 @@
           </div>
           <div class="actual-auto-note" id="actualIncomeTaxNote">누진세율 자동</div>
         </div>
+      </div>
+      <div class="actual-bid-memo">
+        <label for="actualBidMemo">실제입찰 메모</label>
+        <textarea id="actualBidMemo" maxlength="2000" placeholder="실제 입찰 화면에서만 볼 메모를 입력하세요. 예: 1차는 보수적으로, 2차까지만 입찰 / 부동산 확인사항 등"></textarea>
       </div>
       <div class="actual-scenarios">
         <div class="actual-scenario-input"><div class="actual-scenario-rate-row"><button class="actual-scenario-reset" id="actualBid1Label" type="button" data-actual-scenario-reset="1" title="누르면 계산기의 낮음 예상가율 값으로 되돌립니다">1차 · 낮음</button><span class="actual-scenario-current" id="actualBid1CurrentRate">현재 -</span></div><input id="actualBid1" data-actual-input type="text" inputmode="numeric" data-money min="0" step="100000"></div>
@@ -1922,7 +1930,7 @@ const db = getFirestore(firebaseApp);
       earlyRepaymentRate:0.5,interestRate:4.5,holdingMonths:5,
       appraisalLoanRate:stateNumber(item,"mortgageLoanRate",60),
       bidLoanRate:stateNumber(item,"mortgageBidCap",80),
-      salePrice:appraisal,salePriceSources:[],expectedIncome:50000000,bid1:scenarioValues.bid1,
+      salePrice:appraisal,salePriceSources:[],expectedIncome:50000000,memo:"",bid1:scenarioValues.bid1,
       bid2:scenarioValues.bid2,bid3:scenarioValues.bid3,scenarioSync:"low-representative-high"
     };
     return {...defaults,...presetValues,...saved,enabled:true};
@@ -2188,6 +2196,7 @@ const db = getFirestore(firebaseApp);
     Object.entries(actualModeMap).forEach(([id,key]) => { data[key] = $(id).value || "auto"; });
     data.salePriceSources = [...document.querySelectorAll("[data-sale-price-source]:checked")]
       .map(input => input.value);
+    data.memo = String($("actualBidMemo")?.value || "");
     data.enabled = true;
     data.updatedAtMs = Date.now();
     return data;
@@ -2214,6 +2223,7 @@ const db = getFirestore(firebaseApp);
     document.querySelectorAll("[data-sale-price-source]").forEach(input => {
       input.checked = selectedSources.includes(input.value);
     });
+    if ($("actualBidMemo")) $("actualBidMemo").value = String(data?.memo || "");
     updateActualModeUi();
   }
 
@@ -4887,7 +4897,7 @@ const db = getFirestore(firebaseApp);
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.12.4",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.12.5",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
