@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.12.5</title>
+  <title>경매 입찰·대출 자금 계산기 v1.12.7</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -155,6 +155,10 @@
     }
     .equity .label{font-size:12px;color:var(--muted)}
     .equity .value{font-size:20px;font-weight:950;margin-top:2px}
+    .equity .immediate-capital{margin-top:8px;padding-top:8px;border-top:1px dashed #cbd5e1}
+    .equity .immediate-capital .k{font-size:11px;color:#0f766e;font-weight:850}
+    .equity .immediate-capital .v{font-size:16px;color:#0f766e;font-weight:950;margin-top:2px}
+    .equity .immediate-capital .n{font-size:10px;color:#64748b;line-height:1.35;margin-top:3px}
     .status{margin-top:7px;font-size:13px;font-weight:800}
     .status.good{color:var(--good)}
     .status.bad{color:var(--bad)}
@@ -568,6 +572,7 @@
     }
     .actual-results-table thead th{background:#dbeafe}
     .actual-results-table tr.actual-key td{background:#fef9c3;font-weight:900}
+    .actual-results-table tr.actual-now td{background:#ecfdf5;font-weight:900;color:#065f46}
     .actual-results-table tr.actual-profit td{background:#ffedd5;font-weight:900}
     .actual-results-table tr.actual-loan td:first-child{color:#dc2626}
     .actual-modal-actions{
@@ -780,7 +785,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.12.5</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.12.7</span></h1>
       <div class="sub">동일번지·인근 낙찰가율을 바탕으로 추천 입찰가율을 만들고, 근저당·신탁 자금계획을 동시에 비교합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -1231,6 +1236,11 @@
               <div class="equity">
                 <div class="label">총 필요 자기자본</div>
                 <div class="value" id="trustEquity">-</div>
+                <div class="immediate-capital">
+                  <div class="k">지금 당장 필요 종잣돈</div>
+                  <div class="v" id="trustImmediateCapital">-</div>
+                  <div class="n">법무비 자동추정 + 명도비 250만원 + 수리비 200만원 + 미납관리비 · 실제입찰 저장값이 있으면 명도비·수리비 자동연동</div>
+                </div>
                 <div class="status" id="trustStatus"></div>
               </div>
               <div class="maxapp">
@@ -1247,6 +1257,11 @@
               <div class="equity">
                 <div class="label">총 필요 자기자본</div>
                 <div class="value" id="mortgageEquity">-</div>
+                <div class="immediate-capital">
+                  <div class="k">지금 당장 필요 종잣돈</div>
+                  <div class="v" id="mortgageImmediateCapital">-</div>
+                  <div class="n">법무비 자동추정 + 명도비 250만원 + 수리비 200만원 + 미납관리비 · 실제입찰 저장값이 있으면 명도비·수리비 자동연동</div>
+                </div>
                 <div class="status" id="mortgageStatus"></div>
               </div>
               <div class="maxapp">
@@ -1263,6 +1278,11 @@
               <div class="equity">
                 <div class="label">총 필요 자기자본</div>
                 <div class="value" id="householdEquity">-</div>
+                <div class="immediate-capital">
+                  <div class="k">지금 당장 필요 종잣돈</div>
+                  <div class="v" id="householdImmediateCapital">-</div>
+                  <div class="n">법무비 자동추정 + 명도비 250만원 + 수리비 200만원 + 미납관리비 · 실제입찰 저장값이 있으면 명도비·수리비 자동연동</div>
+                </div>
                 <div class="status" id="householdStatus"></div>
               </div>
               <div class="maxapp">
@@ -1281,6 +1301,7 @@
             <tbody id="summaryTable"></tbody>
           </table>
         </div>
+        <div class="helper" style="margin-top:8px">* 지금 당장 필요 종잣돈은 낙찰가−대출금 + 법무비(자동추정) + 명도비 + 수리비 + 미납관리비 기준입니다. 명도비 250만원·수리비 200만원을 기본값으로 사용하며, 이 물건의 실제입찰 자료에서 명도비·수리비를 수정해 저장하면 계산결과에도 그 값이 자동 반영됩니다. 취등록세(카드납부 전제), 매도 중개수수료, 중도상환수수료, 대출이자는 당장 필요한 현금에서 제외합니다. 총 자기자본은 기존 경비율을 포함한 보수적 전체자금 기준으로 그대로 유지됩니다.</div>
       </section>
     </main>
 
@@ -1467,7 +1488,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.12.5 모바일 제목 접기/펴기 · 하단버튼 고정해제 · 별색상 복수필터 · 실제입찰 기준퍼센트 고정표시/수기퍼센트 연동 · 실제입찰 전용 메모 · 계산저장 지정값 연동 · 경매기일 기간검색 · 실제입찰 낮음·대표·높음 연동 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.12.7 모바일 제목 접기/펴기 · 하단버튼 고정해제 · 별색상 복수필터 · 실제입찰 기준퍼센트 고정표시/수기퍼센트 연동 · 실제입찰 전용 메모 · 즉시 필요 종잣돈 명도/수리비 연동 · 계산저장 지정값 연동 · 경매기일 기간검색 · 실제입찰 낮음·대표·높음 연동 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -1558,7 +1579,7 @@
         </table>
       </div>
       <div class="actual-helper">
-        기본은 자동계산입니다. 취등록세는 일반주택·중과 미적용 기준, 법무비는 업로드한 엑셀 구간표, 중개보수는 서울시 주택 매매 상한표, 종합소득세는 누진세율로 계산합니다. 다주택 중과·법인·특수사정은 직접입력으로 바꾸세요.
+        기본은 자동계산입니다. 취등록세는 일반주택·중과 미적용 기준, 법무비는 업로드한 엑셀 구간표, 중개보수는 서울시 주택 매매 상한표, 종합소득세는 누진세율로 계산합니다. <b>지금 당장 필요 종잣돈</b>은 낙찰가−대출금 + 법무비 + 명도비 + 수리비 + 미납관리비로 계산하고, 취등록세(카드납부 전제)·매도 중개수수료·중도상환수수료·대출이자는 제외합니다. 다주택 중과·법인·특수사정은 직접입력으로 바꾸세요.
       </div>
     </section>
     <div class="actual-modal-actions">
@@ -2174,6 +2195,9 @@ const db = getFirestore(firebaseApp);
     const incomeTaxLabel = data.incomeTaxMode === "manual" ? "직접입력" : "누진세율 자동";
     const extraTotal = extraBeforeIncomeTax;
     const requiredCapital = requiredCapitalBeforeIncomeTax;
+    // 실제 현금성 종잣돈: 사용자가 당장 현금으로 준비하지 않아도 되는 비용은 제외합니다.
+    // 취등록세는 카드납부 전제, 중개수수료·중도상환수수료는 매도완료 후, 대출이자는 보유 중 월납으로 봅니다.
+    const immediateCapital = bid - finalLoan + legalFee + evictionFee + repairFee + unpaidManagement;
     const profit = salePrice - bid - extraTotal - incomeTax;
     const roi = requiredCapital > 0 ? profit / requiredCapital : 0;
     return {
@@ -2182,7 +2206,7 @@ const db = getFirestore(firebaseApp);
       legalFee,legalFeeLabel,evictionFee,repairFee,
       brokerFee,brokerRateApplied,brokerFeeLabel,
       unpaidManagement,earlyRepayment,interest,extraTotal,
-      loanByAppraisal,loanByBid,finalLoan,requiredCapital,salePrice,
+      loanByAppraisal,loanByBid,finalLoan,requiredCapital,immediateCapital,salePrice,
       combinedIncome,incomeTax,incomeTaxLabel,profit,roi
     };
   }
@@ -2258,7 +2282,9 @@ const db = getFirestore(firebaseApp);
       ["미납 관리비",r=>won(r.unpaidManagement),""],
       ["중도상환수수료",r=>won(r.earlyRepayment),""],["대출이자",r=>won(r.interest),""],["추가비용총계",r=>won(r.extraTotal),"actual-key"],
       ["대출금(감정가)",r=>won(r.loanByAppraisal),"actual-loan"],["대출금(낙찰가)",r=>won(r.loanByBid),"actual-loan"],["대출 최종",r=>won(r.finalLoan),"actual-loan"],
-      ["최종 필요 종잣돈",r=>won(r.requiredCapital),"actual-key"],["매도희망가",r=>won(r.salePrice),""],
+      ["최종 필요 종잣돈",r=>won(r.requiredCapital),"actual-key"],
+      ["지금 당장 필요 종잣돈",r=>`${won(r.immediateCapital)}<br><small>법무·명도·수리·미납관리 포함 / 취등록세·중개·중도상환·이자 제외</small>`,"actual-now"],
+      ["매도희망가",r=>won(r.salePrice),""],
       ["예상 기존소득+경매소득",r=>won(r.combinedIncome),"actual-profit"],["소득세",r=>`${won(r.incomeTax)}<br><small>${r.incomeTaxLabel}</small>`,"actual-profit"],
       ["즉시매도시 순수익",r=>won(r.profit),"actual-key"],["즉시매도 수익률",r=>pct(r.roi*100),"actual-profit"]
     ];
@@ -2341,7 +2367,7 @@ const db = getFirestore(firebaseApp);
         transaction.set(ref,next,{merge:false}); return normalizeCloudRecord(actualBidRecordId,next);
       });
       upsertLocalRecord(saved); actualBidBaseRevision=Number(saved.revision||0); actualBidDraft=data;
-      if(loadedRecordId===saved.id){loadedRecordRevision=Number(saved.revision||0);currentActualBidData=data;}
+      if(loadedRecordId===saved.id){loadedRecordRevision=Number(saved.revision||0);currentActualBidData=data;update();}
       setSyncStatus(`자동 동기화 완료 · ${formatDateTime(new Date())}`,"good"); showToast("실제입찰 자료 저장 완료"); renderSaved();
     }catch(error){
       if(error instanceof SyncConflictError){await refreshRecordFromCloud(actualBidRecordId);alert("다른 기기에서 이 물건을 먼저 수정해 덮어쓰기를 막았습니다. 화면을 닫고 최신자료를 다시 열어주세요.");}
@@ -2360,7 +2386,7 @@ const db = getFirestore(firebaseApp);
         const next={...cloud,state,revision:cloudRevision+1,deleted:false,checksum:checksum({title:cloud.title,state,deleted:false}),updatedAt:serverTimestamp(),updatedAtMs:now,deviceId,schemaVersion:APP_SCHEMA_VERSION};
         transaction.set(ref,next,{merge:false});return normalizeCloudRecord(actualBidRecordId,next);
       });
-      upsertLocalRecord(saved);if(loadedRecordId===saved.id){loadedRecordRevision=Number(saved.revision||0);currentActualBidData=null;}
+      upsertLocalRecord(saved);if(loadedRecordId===saved.id){loadedRecordRevision=Number(saved.revision||0);currentActualBidData=null;update();}
       showToast("실제입찰 지정을 해제했습니다.");closeActualBid();renderSaved();
     }catch(error){
       if(error instanceof SyncConflictError){await refreshRecordFromCloud(actualBidRecordId);alert("다른 기기의 최신 수정사항이 있어 해제를 중단했습니다.");}
@@ -2400,6 +2426,22 @@ const db = getFirestore(firebaseApp);
     return {years,income,dsrRate,annualLimit,matongAnnual,otherAnnual,existingAnnual,availableAnnual,calcRate,maxLoan};
   }
 
+  function calculatorImmediateCostAssumptions(){
+    // 계산기에서는 명도비·수리비 기본값을 사용하되, 이 물건에 저장된 실제입찰 값이 있으면 그 값을 우선합니다.
+    const actual = currentActualBidData || {};
+    const evictionManRaw = Number(actual.evictionFeeMan);
+    const repairManRaw = Number(actual.repairFeeMan);
+    const evictionFeeMan = Number.isFinite(evictionManRaw) ? Math.max(0, evictionManRaw) : 250;
+    const repairFeeMan = Number.isFinite(repairManRaw) ? Math.max(0, repairManRaw) : 200;
+    return {
+      evictionFeeMan,
+      repairFeeMan,
+      evictionFee:evictionFeeMan * 10000,
+      repairFee:repairFeeMan * 10000,
+      unpaidManagement:num("unpaidManagement")
+    };
+  }
+
   function calcHousehold(rateOverride = null){
     const appraisal = num("appraisal");
     const capital = num("capital");
@@ -2420,11 +2462,16 @@ const db = getFirestore(firebaseApp);
     const expense = bid * expenseRate;
     const extras = num("unpaidManagement") + num("extraExpense");
     const equity = bid - loan + expense + extras;
+    const legalFeeNow = automaticLegalFee(bid).amount;
+    const immediateCosts = calculatorImmediateCostAssumptions();
+    const immediateCapital = bid - loan + legalFeeNow + immediateCosts.evictionFee + immediateCosts.repairFee + immediateCosts.unpaidManagement;
     const balance = capital - equity;
 
     return {
       appraisal,bidRate,bid,loanRate,expenseRate,bidCap,useCap,
-      dsr,appraisalLoan,bidLoanCap,collateralLoan,loan,expense,extras,equity,balance,capital
+      dsr,appraisalLoan,bidLoanCap,collateralLoan,loan,expense,extras,equity,immediateCapital,legalFeeNow,
+      immediateEvictionFee:immediateCosts.evictionFee,immediateRepairFee:immediateCosts.repairFee,immediateUnpaidManagement:immediateCosts.unpaidManagement,
+      balance,capital
     };
   }
 
@@ -2659,9 +2706,14 @@ const db = getFirestore(firebaseApp);
     const expense = bid * expenseRate;
     const extras = num("unpaidManagement") + num("extraExpense");
     const equity = bid - loan + expense + extras;
+    const legalFeeNow = automaticLegalFee(bid).amount;
+    const immediateCosts = calculatorImmediateCostAssumptions();
+    const immediateCapital = bid - loan + legalFeeNow + immediateCosts.evictionFee + immediateCosts.repairFee + immediateCosts.unpaidManagement;
     const balance = capital - equity;
 
-    return {appraisal,bidRate,bid,loanRate,expenseRate,loan,bidCap,useCap,expense,extras,equity,balance,capital,deduction,appraisalLoanRaw,appraisalLoan};
+    return {appraisal,bidRate,bid,loanRate,expenseRate,loan,bidCap,useCap,expense,extras,equity,immediateCapital,legalFeeNow,
+      immediateEvictionFee:immediateCosts.evictionFee,immediateRepairFee:immediateCosts.repairFee,immediateUnpaidManagement:immediateCosts.unpaidManagement,
+      balance,capital,deduction,appraisalLoanRaw,appraisalLoan};
   }
 
   function maxAppraisal(method){
@@ -2796,6 +2848,13 @@ const db = getFirestore(firebaseApp);
     $("trustEquity").textContent = shortWon(trust.equity);
     $("mortgageEquity").textContent = shortWon(mortgage.equity);
     $("householdEquity").textContent = shortWon(household.equity);
+    $("trustImmediateCapital").textContent = shortWon(trust.immediateCapital);
+    $("mortgageImmediateCapital").textContent = shortWon(mortgage.immediateCapital);
+    $("householdImmediateCapital").textContent = shortWon(household.immediateCapital);
+    const immediateAssumptions = calculatorImmediateCostAssumptions();
+    document.querySelectorAll(".immediate-capital .n").forEach(el => {
+      el.textContent = `법무비 자동추정 + 명도비 ${immediateAssumptions.evictionFeeMan.toLocaleString()}만원 + 수리비 ${immediateAssumptions.repairFeeMan.toLocaleString()}만원 + 미납관리비 · ${currentActualBidData ? "실제입찰 저장값 연동" : "기본값 적용"}`;
+    });
 
     setStatus("trust", trust.balance);
     setStatus("mortgage", mortgage.balance);
@@ -2834,7 +2893,8 @@ const db = getFirestore(firebaseApp);
       ["예상 대출금", shortWon(trust.loan), shortWon(mortgage.loan), shortWon(household.loan)],
       ["낙찰가와 대출 차액", shortWon(trust.bid-trust.loan), shortWon(mortgage.bid-mortgage.loan), shortWon(household.bid-household.loan)],
       ["예상 경비", shortWon(trust.expense), shortWon(mortgage.expense), shortWon(household.expense)],
-      ["총 자기자본", shortWon(trust.equity), shortWon(mortgage.equity), shortWon(household.equity)]
+      ["총 자기자본", shortWon(trust.equity), shortWon(mortgage.equity), shortWon(household.equity)],
+      ["지금 당장 필요 종잣돈*", shortWon(trust.immediateCapital), shortWon(mortgage.immediateCapital), shortWon(household.immediateCapital)]
     ];
     $("summaryTable").innerHTML = tableRows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join("");
 
@@ -4897,7 +4957,7 @@ const db = getFirestore(firebaseApp);
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.12.5",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.12.7",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
