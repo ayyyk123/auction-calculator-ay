@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.15.6</title>
+  <title>경매 입찰·대출 자금 계산기 v1.15.7</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -402,6 +402,14 @@
 
     .workspace-property-header{display:none;position:sticky;top:-1px;z-index:120;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border:1px solid #dbeafe;border-radius:14px;padding:11px 12px;box-shadow:0 5px 18px rgba(15,23,42,.08);margin-bottom:8px}
     body.detail-open .workspace-property-header{display:block}
+    .workspace-property-header.workspace-collapsed{padding:8px 10px}
+    .workspace-property-header.workspace-collapsed .workspace-address,
+    .workspace-property-header.workspace-collapsed .workspace-property-chips,
+    .workspace-property-header.workspace-collapsed .workspace-range-strip{display:none!important}
+    .workspace-property-header.workspace-collapsed .workspace-property-title{font-size:16px;margin-top:1px}
+    .workspace-property-header.workspace-collapsed .workspace-property-title-row{align-items:center}
+    .workspace-header-toggle{border:1px solid #cbd5e1;background:#f8fafc;color:#334155;border-radius:9px;padding:7px 9px;font-size:11px;font-weight:900;cursor:pointer;white-space:nowrap}
+    .workspace-header-toggle:hover{background:#f1f5f9}
     .workspace-property-title-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
     .workspace-case-line{font-size:11px;color:#2563eb;font-weight:900}
     .workspace-property-title{font-size:20px;font-weight:950;letter-spacing:-.03em;margin-top:2px}
@@ -640,7 +648,7 @@
     body.detail-open #workspaceActualPanel.workspace-visible .actual-results-table th,
     body.detail-open #workspaceActualPanel.workspace-visible .actual-results-table td{vertical-align:middle}
 
-    /* v1.15.6: 오른쪽 상세영역은 탭 종류와 관계없이 화면 아래까지 자연스럽게 사용
+    /* v1.15.7: 오른쪽 상세영역은 탭 종류와 관계없이 화면 아래까지 자연스럽게 사용
        - 기존 입력/배치 순서는 그대로 유지
        - 오른쪽 상세칸 자체의 고정 높이/세로 내부스크롤 제거
        - 표/폼의 세로 내부스크롤도 풀어 아래 빈 공간으로 내용이 이어지게 함 */
@@ -1166,7 +1174,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.15.6</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.15.7</span></h1>
       <div class="sub">저장목록에서 물건을 비교하고, 예상 매도가 범위와 목표수익 10~15%를 기준으로 입찰가능가율·순수익·종잣돈 범위를 먼저 판단합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -1210,7 +1218,7 @@
             <div class="workspace-property-title" id="workspacePropertyTitle">저장목록에서 물건을 누르면 상세내용이 열립니다.</div>
             <div class="workspace-address" id="workspaceAddress"></div>
           </div>
-          <div class="workspace-head-actions no-print"><button class="workspace-head-btn primary" id="workspaceSaveBtn" type="button">저장</button><button class="workspace-head-btn" id="workspaceNewBtn" type="button">새 물건</button><button class="workspace-close-detail" id="workspaceCloseDetail" type="button">목록 크게 보기</button></div>
+          <div class="workspace-head-actions no-print"><button class="workspace-head-btn primary" id="workspaceSaveBtn" type="button">저장</button><button class="workspace-header-toggle" id="workspaceHeaderToggle" type="button" aria-expanded="true">접기</button><button class="workspace-head-btn" id="workspaceNewBtn" type="button">새 물건</button><button class="workspace-close-detail" id="workspaceCloseDetail" type="button">목록 크게 보기</button></div>
         </div>
         <div class="workspace-property-chips" id="workspacePropertyChips"></div>
         <div class="workspace-range-strip">
@@ -1979,7 +1987,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.15.6 상세영역 전체높이 활용 · 좁은 패널 자동재배치 · 종잣돈 범위 표시 · 목표수익률 10~15% 단독기준 역산범위 · 예상매도가 범위 · 고정 물건특성 · 세로 상세탭 · 입찰결과 기록 · 실제입찰/대출/피드백 기존 기능 유지 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.15.7 상단 물건요약 접기·펴기 · 상세영역 전체높이 활용 · 좁은 패널 자동재배치 · 종잣돈 범위 표시 · 목표수익률 10~15% 단독기준 역산범위 · 예상매도가 범위 · 고정 물건특성 · 세로 상세탭 · 입찰결과 기록 · 실제입찰/대출/피드백 기존 기능 유지 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -3499,6 +3507,22 @@ const db = getFirestore(firebaseApp);
     if(value===undefined||value===null||String(value).trim()==="")return "";
     return `<span class="workspace-chip ${tone}"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></span>`;
   }
+  const WORKSPACE_HEADER_COLLAPSED_KEY="auction-workspace-header-collapsed";
+  function applyWorkspaceHeaderCollapsed(collapsed){
+    const header=$("workspacePropertyHeader"),btn=$("workspaceHeaderToggle");
+    if(!header)return;
+    header.classList.toggle("workspace-collapsed",!!collapsed);
+    if(btn){btn.textContent=collapsed?"펴기":"접기";btn.setAttribute("aria-expanded",collapsed?"false":"true");}
+  }
+  function workspaceHeaderCollapsed(){
+    return localStorage.getItem(WORKSPACE_HEADER_COLLAPSED_KEY)==="1";
+  }
+  function toggleWorkspaceHeader(){
+    const next=!$("workspacePropertyHeader")?.classList.contains("workspace-collapsed");
+    localStorage.setItem(WORKSPACE_HEADER_COLLAPSED_KEY,next?"1":"0");
+    applyWorkspaceHeaderCollapsed(next);
+  }
+
   function renderWorkspaceHeader(){
     if(!document.body.classList.contains("detail-open"))return;
     const item={state:getState()},m=screeningMetrics(item);
@@ -5683,6 +5707,9 @@ const db = getFirestore(firebaseApp);
     saveSavedListPreferences();
     renderSaved();
   });
+  $("workspaceHeaderToggle")?.addEventListener("click", toggleWorkspaceHeader);
+  applyWorkspaceHeaderCollapsed(workspaceHeaderCollapsed());
+
   $("savedSortKey").addEventListener("change", () => {
     savedSortKey = $("savedSortKey").value;
     saveSavedListPreferences();
