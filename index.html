@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.15.3</title>
+  <title>경매 입찰·대출 자금 계산기 v1.15.6</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -381,7 +381,7 @@
     .toast[hidden]{display:none}
     footer{color:var(--muted);font-size:12px;text-align:center;padding:22px 0 4px}
 
-    /* v1.15.3 저장목록 중심 작업공간 */
+    /* v1.15.4 저장목록 중심 작업공간 */
     .app{max-width:1920px}
     #calculatorView.layout{grid-template-columns:minmax(0,1fr);gap:12px;align-items:start}
     #calculatorView > .sticky-side{order:1;position:static;min-width:0}
@@ -436,7 +436,7 @@
     .workspace-memo-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
     .workspace-memo-grid .full{grid-column:1/-1}
     body.detail-open .workspace-memo-bottom-save{display:none}
-    /* v1.15.3 작업공간 개선 */
+    /* v1.15.4 작업공간 개선 */
     :root{--workspace-list-width:520px}
     #workspaceResizeHandle{display:none;order:2;width:8px;min-width:8px;cursor:col-resize;align-self:stretch;position:relative;border-radius:999px;background:transparent;touch-action:none}
     #workspaceResizeHandle::after{content:"";position:absolute;top:0;bottom:0;left:3px;width:2px;border-radius:999px;background:#cbd5e1;transition:.15s}
@@ -504,7 +504,7 @@
     .workspace-special-panel > .actual-bid-modal.workspace-embedded-modal #actualBidCloseBottomBtn,
     .workspace-special-panel > .auction-result-modal.workspace-embedded-modal .auction-result-close,
     .workspace-special-panel > .auction-result-modal.workspace-embedded-modal #auctionResultCloseBottomBtn{display:none!important}
-    /* v1.15.3 좁은 화면/패널 반응형 + 저장목록 카드 정보 정리 */
+    /* v1.15.4 좁은 화면/패널 반응형 + 저장목록 카드 정보 정리 */
     .actual-inputs{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))!important;align-items:start!important}
     .actual-inputs .field{min-width:0}
     .actual-label-row{display:flex;align-items:center;justify-content:space-between;gap:5px;flex-wrap:wrap}
@@ -569,7 +569,7 @@
     .range-value-money{color:#1d4ed8!important}
     .range-value-profit{color:#b45309!important}
 
-    /* v1.15.3 오른쪽 상세칸의 남는 세로공간까지 실제 내용으로 활용 */
+    /* v1.15.4 오른쪽 상세칸의 남는 세로공간까지 실제 내용으로 활용 */
     body.detail-open #sectionContainer{
       min-height:calc(100dvh - 132px);
       align-content:stretch;
@@ -624,6 +624,84 @@
     }
     body.detail-open #workspaceMemoPanel.workspace-visible textarea{
       min-height:180px;
+    }
+
+
+    /* v1.15.4: 실제입찰 표 자체를 크게 늘려 오른쪽 하단 빈공간 제거 */
+    body.detail-open #workspaceActualPanel.workspace-visible .actual-results-wrap{
+      min-height:clamp(440px,calc(100dvh - 300px),760px)!important;
+      background:#fff!important;
+    }
+    body.detail-open #workspaceActualPanel.workspace-visible .actual-results-table{
+      height:clamp(440px,calc(100dvh - 300px),760px)!important;
+      min-height:clamp(440px,calc(100dvh - 300px),760px)!important;
+    }
+    body.detail-open #workspaceActualPanel.workspace-visible .actual-results-table tbody tr{height:auto!important}
+    body.detail-open #workspaceActualPanel.workspace-visible .actual-results-table th,
+    body.detail-open #workspaceActualPanel.workspace-visible .actual-results-table td{vertical-align:middle}
+
+    /* v1.15.6: 오른쪽 상세영역은 탭 종류와 관계없이 화면 아래까지 자연스럽게 사용
+       - 기존 입력/배치 순서는 그대로 유지
+       - 오른쪽 상세칸 자체의 고정 높이/세로 내부스크롤 제거
+       - 표/폼의 세로 내부스크롤도 풀어 아래 빈 공간으로 내용이 이어지게 함 */
+    @media(min-width:981px){
+      body.detail-open #calculatorView.layout{align-items:start!important}
+      body.detail-open #calculatorView > #sectionContainer{
+        height:auto!important;
+        min-height:calc(100dvh - 132px)!important;
+        max-height:none!important;
+        overflow:visible!important;
+        align-content:start!important;
+        grid-auto-rows:max-content!important;
+        padding-bottom:18px!important;
+      }
+      body.detail-open #sectionContainer > .section-card.workspace-visible,
+      body.detail-open #sectionContainer > .workspace-special-panel.workspace-visible{
+        height:auto!important;
+        min-height:0!important;
+        max-height:none!important;
+        overflow:visible!important;
+        align-self:start!important;
+      }
+      body.detail-open #workspaceActualPanel.workspace-visible,
+      body.detail-open #workspaceResultPanel.workspace-visible,
+      body.detail-open #workspaceMemoPanel.workspace-visible{
+        min-height:0!important;
+        height:auto!important;
+      }
+      body.detail-open #workspaceActualPanel.workspace-visible > .actual-bid-modal.workspace-embedded-modal,
+      body.detail-open #workspaceActualPanel.workspace-visible .actual-bid-shell,
+      body.detail-open #workspaceActualPanel.workspace-visible .actual-bid-shell > section.card{
+        min-height:0!important;
+        height:auto!important;
+        max-height:none!important;
+        overflow:visible!important;
+        display:block!important;
+      }
+      body.detail-open #workspaceActualPanel.workspace-visible .actual-results-wrap{
+        height:auto!important;
+        min-height:0!important;
+        max-height:none!important;
+        overflow-x:auto!important;
+        overflow-y:visible!important;
+        display:block!important;
+      }
+      body.detail-open #workspaceActualPanel.workspace-visible .actual-results-table{
+        height:auto!important;
+        min-height:0!important;
+        max-height:none!important;
+      }
+      body.detail-open #workspaceActualPanel.workspace-visible .actual-results-table tbody tr{height:auto!important}
+      body.detail-open #workspaceResultPanel.workspace-visible .auction-result-dialog{
+        height:auto!important;
+        min-height:0!important;
+        max-height:none!important;
+        overflow:visible!important;
+      }
+      body.detail-open #workspaceMemoPanel.workspace-visible .workspace-memo-grid{
+        height:auto!important;
+        min-height:0!important;
+      }
     }
 
     @media(max-width:1180px){
@@ -1088,7 +1166,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.15.3</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.15.6</span></h1>
       <div class="sub">저장목록에서 물건을 비교하고, 예상 매도가 범위와 목표수익 10~15%를 기준으로 입찰가능가율·순수익·종잣돈 범위를 먼저 판단합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -1901,7 +1979,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.15.3 저장목록 중심 대시보드 · 좁은 패널 자동재배치 · 종잣돈 범위 표시 · 목표수익률 10~15% 단독기준 역산범위 · 예상매도가 범위 · 고정 물건특성 · 세로 상세탭 · 입찰결과 기록 · 실제입찰/대출/피드백 기존 기능 유지 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.15.6 상세영역 전체높이 활용 · 좁은 패널 자동재배치 · 종잣돈 범위 표시 · 목표수익률 10~15% 단독기준 역산범위 · 예상매도가 범위 · 고정 물건특성 · 세로 상세탭 · 입찰결과 기록 · 실제입찰/대출/피드백 기존 기능 유지 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -3329,7 +3407,7 @@ const db = getFirestore(firebaseApp);
     const saleRange=screeningSaleRange(item),salePrice=salePriceOverride===null?saleRange.low:Number(salePriceOverride)||0;
     const targetRoi=Math.max(0,Number(targetRoiPct)||0)/100;
     if(salePrice<=0)return 0;
-    // v1.15.3: 순수익 금액 하한은 입찰가능 범위를 제한하지 않습니다.
+    // v1.15.4: 순수익 금액 하한은 입찰가능 범위를 제한하지 않습니다.
     // 오직 사용자가 지정한 목표 수익률(예: 10%~15%)만 충족하면 수익가능 입찰가로 인정합니다.
     const ok=(bid)=>{const r=screeningScenarioForItem(item,bid,salePrice);return r.roi>=targetRoi;};
     if(!ok(0))return 0;
@@ -3489,6 +3567,19 @@ const db = getFirestore(firebaseApp);
     return true;
   }
 
+  function fitWorkspaceActualResults(){
+    if(!document.body.classList.contains("detail-open"))return;
+    const panel=$("workspaceActualPanel");
+    if(!panel?.classList.contains("workspace-visible"))return;
+    const wrap=panel.querySelector(".actual-results-wrap");
+    const table=panel.querySelector(".actual-results-table");
+    if(!wrap||!table)return;
+    const target=Math.max(440,Math.min(760,window.innerHeight-300));
+    wrap.style.minHeight=`${target}px`;
+    table.style.height=`${target}px`;
+    table.style.minHeight=`${target}px`;
+  }
+
   function setWorkspaceTab(tab){
     if(!["detail","loan","cost","actual","result","memo"].includes(tab))tab="detail";
     workspaceActiveTab=tab;
@@ -3497,7 +3588,7 @@ const db = getFirestore(firebaseApp);
     hideWorkspaceEmbeddedPanels();
     const map={detail:["basic","screening","rates"],loan:["loan","dsr"],cost:["result"]};
     (map[tab]||[]).forEach(id=>document.querySelector(`#sectionContainer > [data-section-id="${id}"]`)?.classList.add("workspace-visible"));
-    if(tab==="actual")embedActualBidInWorkspace();
+    if(tab==="actual"){embedActualBidInWorkspace();requestAnimationFrame(fitWorkspaceActualResults);}
     if(tab==="result")embedAuctionResultInWorkspace();
     if(tab==="memo"){$("workspaceMemoPanel").classList.add("workspace-visible");syncWorkspaceMemoFromFields();}
     const main=$("sectionContainer");if(main)main.scrollTo({top:0,behavior:"smooth"});
@@ -5848,6 +5939,7 @@ const db = getFirestore(firebaseApp);
     });
   }
 })();
+  window.addEventListener("resize",()=>requestAnimationFrame(fitWorkspaceActualResults));
 </script>
 </body>
 </html>
