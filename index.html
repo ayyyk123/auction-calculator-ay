@@ -2026,7 +2026,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.16.0 옥션원 PDF 일괄가져오기·미검토 분류·상태 드래그 추가 · 신탁대출 종잣돈 계산 통일 · 상단 물건요약 접기·펴기 · 상세영역 전체높이 활용 · 좁은 패널 자동재배치 · 종잣돈 범위 표시 · 목표수익률 10~15% 단독기준 역산범위 · 예상매도가 범위 · 고정 물건특성 · 세로 상세탭 · 입찰결과 기록 · 실제입찰/대출/피드백 기존 기능 유지 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.16.1 옥션원 PDF OCR 인식보강·미검토 분류·상태 드래그 추가 · 신탁대출 종잣돈 계산 통일 · 상단 물건요약 접기·펴기 · 상세영역 전체높이 활용 · 좁은 패널 자동재배치 · 종잣돈 범위 표시 · 목표수익률 10~15% 단독기준 역산범위 · 예상매도가 범위 · 고정 물건특성 · 세로 상세탭 · 입찰결과 기록 · 실제입찰/대출/피드백 기존 기능 유지 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -4765,7 +4765,12 @@ const db = getFirestore(firebaseApp);
     const m=text.match(/(?:20)?(\d{2})\s*-\s*(\d{1,6})(?:\s*\((\d+)\))?/);if(!m)return text;
     const y=2000+Number(m[1]);return `${y}타경${Number(m[2])}${m[3]?`(${m[3]})`:''}`;
   }
-  function compactOcrLine(line){return String(line||'').replace(/[|]/g,' ').replace(/\s+/g,' ').trim();}
+  function compactOcrLine(line){
+    let text=String(line||'').replace(/[|]/g,' ').replace(/\s+/g,' ').trim();
+    // 이미지형 PDF OCR은 한글 한 글자마다 공백이 끼는 경우가 있어, 한글 1글자 토큰 사이는 붙여준다.
+    for(let i=0;i<4;i++)text=text.replace(/([가-힣])\s+(?=[가-힣](?:\s|$))/g,'$1');
+    return text.replace(/아\s+파트/g,'아파트').replace(/물\s*건\s*수/g,'물건수').trim();
+  }
   function parseWonLine(line){const m=String(line||'').match(/(\d{1,3}(?:,\d{3}){2,3})/);return m?Number(m[1].replace(/,/g,'')):0;}
   function auctionOneProvinceLine(line){return /(서울특별시|부산광역시|대구광역시|인천광역시|광주광역시|대전광역시|울산광역시|세종특별자치시|전남광주통합특별시|전남광주|경기도|강원특별자치도|강원도|충청북도|충청남도|전북특별자치도|전라북도|전라남도|경상북도|경상남도|제주특별자치도)/.test(line);}
   function cleanupAuctionAddress(text){return String(text||'').replace(/아\s+파트/g,'아파트').replace(/([가-힣])\s+아파트/g,'$1아파트').replace(/\s+/g,' ').replace(/\s+([,])/g,'$1').trim();}
@@ -4803,12 +4808,12 @@ const db = getFirestore(firebaseApp);
   }
   function parseAuctionOnePageText(text,sourceName,pageNo){
     const rawLines=String(text||'').split(/\r?\n/).map(compactOcrLine).filter(Boolean);
-    const caseRe=/^(?:20)?\d{2}\s*-\s*\d{1,6}(?:\s*\(\d+\))?$/;
+    const caseRe=/\b\d{2}\s*-\s*\d{3,6}(?:\s*\(\d+\))?/;
     const caseIdx=[];rawLines.forEach((line,i)=>{if(caseRe.test(line))caseIdx.push(i);});
     const out=[];
     caseIdx.forEach((idx,pos)=>{
       const next=caseIdx[pos+1]??rawLines.length,prev=caseIdx[pos-1]??-1;
-      const caseRaw=(rawLines[idx].match(caseRe)||[''])[0];
+      const caseRaw=(rawLines[idx].match(caseRe)||[''])[0].trim();
       const start=Math.max(prev+1,idx-6),end=Math.min(next,idx+28);const blockLines=rawLines.slice(start,end);const block=blockLines.join(' ');
       const address=extractAuctionOneAddress(rawLines,idx,next);const appt=parseAuctionOneApartment(address);
       const amounts=[];for(let i=idx;i<Math.min(next,idx+24);i++){const n=parseWonLine(rawLines[i]);if(n>=1000000&&!amounts.includes(n))amounts.push(n);if(amounts.length>=2)break;}
@@ -4902,9 +4907,25 @@ const db = getFirestore(firebaseApp);
       for(const {file,pdf} of docs){for(let pno=1;pno<=pdf.numPages;pno++){
         const page=await pdf.getPage(pno),viewport=page.getViewport({scale:2.8}),canvas=document.createElement('canvas'),ctx=canvas.getContext('2d',{willReadFrequently:true});canvas.width=Math.ceil(viewport.width);canvas.height=Math.ceil(viewport.height);await page.render({canvasContext:ctx,viewport}).promise;
         const base=donePages/pageTotal,span=1/pageTotal;$('auctionPdfProgressBar').dataset.base=String(base);$('auctionPdfProgressBar').dataset.span=String(span);setAuctionPdfProgress(base,`${file.name} · ${pno}/${pdf.numPages}페이지 읽는 중`);
-        const result=await worker.recognize(canvas,{}, {text:true,tsv:true});const expectedMatch=String(result.data.text||'').match(/물건수\s*[:：]?\s*(\d+)\s*건/);if(expectedMatch)auctionPdfExpectedCount=Math.max(auctionPdfExpectedCount,Number(expectedMatch[1])||0);let pageRecords;if(result.data.tsv){const caseLeft=Math.floor(canvas.width*.14),caseWidth=Math.floor(canvas.width*.15),caseCanvas=document.createElement('canvas'),caseCtx=caseCanvas.getContext('2d',{willReadFrequently:true});caseCanvas.width=caseWidth;caseCanvas.height=canvas.height;caseCtx.drawImage(canvas,caseLeft,0,caseWidth,canvas.height,0,0,caseWidth,canvas.height);const caseResult=await worker.recognize(caseCanvas,{tessedit_pageseg_mode:'11',tessedit_char_whitelist:'0123456789-()'}, {text:true,tsv:true});pageRecords=parseAuctionOnePageTsv(result.data.tsv,file.name,pno,caseResult.data.tsv||'',caseLeft,0);}else pageRecords=parseAuctionOnePageText(result.data.text,file.name,pno);parsed.push(...pageRecords);donePages++;setAuctionPdfProgress(donePages/pageTotal,`${file.name} · ${pno}/${pdf.numPages}페이지 완료`);await new Promise(r=>setTimeout(r,0));
+        const result=await worker.recognize(canvas,{}, {text:true,tsv:true});
+        const compactPageText=String(result.data.text||'').replace(/\s+/g,'');
+        const expectedMatch=compactPageText.match(/물건수[:：]?(\d+)건/);
+        if(expectedMatch)auctionPdfExpectedCount=Math.max(auctionPdfExpectedCount,Number(expectedMatch[1])||0);
+        let pageRecords=[];
+        if(result.data.tsv){
+          const caseLeft=Math.floor(canvas.width*.12),caseWidth=Math.floor(canvas.width*.20),caseCanvas=document.createElement('canvas'),caseCtx=caseCanvas.getContext('2d',{willReadFrequently:true});
+          caseCanvas.width=caseWidth;caseCanvas.height=canvas.height;caseCtx.drawImage(canvas,caseLeft,0,caseWidth,canvas.height,0,0,caseWidth,canvas.height);
+          const caseResult=await worker.recognize(caseCanvas,{tessedit_pageseg_mode:'11',tessedit_char_whitelist:'0123456789-()'}, {text:true,tsv:true});
+          pageRecords=parseAuctionOnePageTsv(result.data.tsv,file.name,pno,caseResult.data.tsv||'',caseLeft,0);
+        }
+        // 좌표기반 TSV가 사건번호를 못 잡으면 전체 OCR 텍스트 파서로 즉시 재시도한다.
+        if(!pageRecords.length)pageRecords=parseAuctionOnePageText(result.data.text,file.name,pno);
+        parsed.push(...pageRecords);donePages++;setAuctionPdfProgress(donePages/pageTotal,`${file.name} · ${pno}/${pdf.numPages}페이지 완료`);await new Promise(r=>setTimeout(r,0));
       }}
-      const dedup=new Map();parsed.forEach(r=>{const key=`${r.caseNo}|${normalizeSavedSearch(r.address)}`;const old=dedup.get(key);if(!old||(!old.address&&r.address))dedup.set(key,r);});auctionPdfParsedRecords=[...dedup.values()];setAuctionPdfProgress(1,`OCR 완료 · ${auctionPdfParsedRecords.length}건 인식`);renderAuctionPdfPreview();
+      const dedup=new Map();parsed.forEach(r=>{const key=`${r.caseNo}|${normalizeSavedSearch(r.address)}`;const old=dedup.get(key);if(!old||(!old.address&&r.address))dedup.set(key,r);});auctionPdfParsedRecords=[...dedup.values()];
+      setAuctionPdfProgress(1,auctionPdfParsedRecords.length?`OCR 완료 · ${auctionPdfParsedRecords.length}건 인식`:'OCR 완료 · 0건 인식 (추가 대기 불필요)');
+      renderAuctionPdfPreview();
+      if(!auctionPdfParsedRecords.length)showToast('OCR는 끝났지만 목록 인식에 실패했습니다. 추가로 기다릴 필요는 없습니다.');
     }catch(error){console.error(error);alert(`PDF를 읽지 못했습니다. ${error?.message||''}`);setAuctionPdfProgress(0,'PDF 읽기 실패');}
     finally{auctionPdfBusy=false;$('auctionPdfCancelBtn').disabled=false;$('auctionPdfImportCloseBtn').disabled=false;}
   }
