@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.15.8</title>
+  <title>경매 입찰·대출 자금 계산기 v1.16.0</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -288,13 +288,14 @@
       grid-template-columns:minmax(0,1fr) minmax(560px,680px)
     }
     .decision-filter-tabs{
-      display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px
+      display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px
     }
     .decision-filter-btn{
       border:1px solid var(--line);background:#fff;color:#475569;
       border-radius:8px;padding:6px 4px;font-size:10.5px;font-weight:900;cursor:pointer
     }
     .decision-filter-btn.active{background:#334155;color:#fff;border-color:#334155}
+    .decision-filter-btn[data-decision-filter="review"].active{background:#64748b;border-color:#64748b}
     .decision-filter-btn[data-decision-filter="pending"].active{background:#d97706;border-color:#d97706}
     .decision-filter-btn[data-decision-filter="no"].active{background:#b91c1c;border-color:#b91c1c}
     .decision-filter-btn[data-decision-filter="bid"].active{background:#047857;border-color:#047857}
@@ -486,7 +487,7 @@
     .saved-card-titleblock{min-width:0}
     .saved-card-badges{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
     .saved-status-badge{display:inline-flex;padding:4px 6px;border-radius:7px;font-size:9.5px;font-weight:950;border:1px solid #cbd5e1;background:#f8fafc;color:#475569;white-space:nowrap}
-    .saved-status-badge.pending{background:#fffbeb;border-color:#fde68a;color:#92400e}.saved-status-badge.bid{background:#f0fdf4;border-color:#bbf7d0;color:#166534}.saved-status-badge.no{background:#fef2f2;border-color:#fecaca;color:#991b1b}.saved-status-badge.completed{background:#eef2ff;border-color:#c7d2fe;color:#4338ca}
+    .saved-status-badge.review{background:#f1f5f9;border-color:#cbd5e1;color:#475569}.saved-status-badge.pending{background:#fffbeb;border-color:#fde68a;color:#92400e}.saved-status-badge.bid{background:#f0fdf4;border-color:#bbf7d0;color:#166534}.saved-status-badge.no{background:#fef2f2;border-color:#fecaca;color:#991b1b}.saved-status-badge.completed{background:#eef2ff;border-color:#c7d2fe;color:#4338ca}
     .saved-info-line{font-size:10.5px;color:#64748b;margin-top:4px;padding-left:24px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .saved-card-groups{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin-top:7px}
     .saved-card-group{padding:6px 7px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc;min-width:0}
@@ -988,6 +989,36 @@
       display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px
     }
     .actual-income-manual input{padding:7px 4px!important;font-size:10.5px!important}
+    /* v1.16.0 옥션원 PDF 후보 일괄가져오기 + 상태 드래그 */
+    .auction-pdf-import-btn{border:1px solid #a7f3d0;background:#ecfdf5;color:#047857;border-radius:8px;padding:6px 9px;font-size:11px;font-weight:950;cursor:pointer;white-space:nowrap}
+    .auction-pdf-import-btn:hover{background:#d1fae5}
+    .saved-status-dropboard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:7px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:10px}
+    .status-dropzone{min-height:48px;border:1px dashed #cbd5e1;background:#fff;border-radius:8px;padding:6px 5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center;transition:.14s ease}
+    .status-dropzone .t{font-size:10px;font-weight:950;color:#334155}.status-dropzone .n{font-size:9px;color:#94a3b8}
+    .status-dropzone[data-drop-decision="review"]{background:#f8fafc}.status-dropzone[data-drop-decision="pending"]{background:#fffbeb}.status-dropzone[data-drop-decision="bid"]{background:#f0fdf4}.status-dropzone[data-drop-decision="no"]{background:#fef2f2}
+    .status-dropzone.drag-over{transform:translateY(-1px);box-shadow:0 0 0 3px rgba(37,99,235,.15);border-color:#60a5fa;background:#eff6ff}
+    .saved-item[draggable="true"]{cursor:grab}.saved-item.dragging-record{opacity:.45;cursor:grabbing}
+    .auction1-badge{display:inline-flex;align-items:center;padding:3px 6px;border-radius:999px;background:#ecfeff;color:#0e7490;border:1px solid #a5f3fc;font-size:9px;font-weight:950}
+    .auction1-warning-badge{display:inline-flex;align-items:center;padding:3px 6px;border-radius:999px;background:#fff7ed;color:#c2410c;border:1px solid #fdba74;font-size:9px;font-weight:900}
+    .pdf-import-modal{position:fixed;inset:0;background:rgba(15,23,42,.62);z-index:1700;display:flex;align-items:center;justify-content:center;padding:18px}
+    .pdf-import-modal[hidden]{display:none}
+    .pdf-import-dialog{width:min(1000px,100%);max-height:min(90vh,900px);overflow:hidden;background:#fff;border-radius:17px;box-shadow:0 28px 80px rgba(15,23,42,.34);display:flex;flex-direction:column}
+    .pdf-import-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:16px 17px 12px;border-bottom:1px solid #e2e8f0}
+    .pdf-import-head h2{font-size:19px;margin:0}.pdf-import-head p{font-size:11px;color:#64748b;margin:5px 0 0;line-height:1.45}
+    .pdf-import-body{padding:14px 17px;overflow:auto;display:grid;gap:11px}
+    .pdf-dropzone{border:2px dashed #bfdbfe;background:#f8fbff;border-radius:13px;padding:18px;text-align:center;cursor:pointer;transition:.15s}
+    .pdf-dropzone.drag-over{background:#eff6ff;border-color:#3b82f6}.pdf-dropzone strong{display:block;color:#1e3a8a;font-size:13px}.pdf-dropzone span{display:block;color:#64748b;font-size:10.5px;margin-top:4px}
+    .pdf-import-progress{border:1px solid #dbeafe;background:#eff6ff;border-radius:11px;padding:10px 11px}
+    .pdf-progress-row{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:10.5px;color:#1e3a8a;font-weight:850}
+    .pdf-progress-track{height:8px;background:#dbeafe;border-radius:999px;overflow:hidden;margin-top:7px}.pdf-progress-bar{height:100%;width:0;background:#2563eb;transition:width .2s}
+    .pdf-import-note{font-size:10px;line-height:1.5;color:#64748b;background:#f8fafc;border:1px solid #e2e8f0;border-radius:9px;padding:8px 9px}
+    .pdf-preview-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.pdf-preview-summary{font-size:11px;color:#334155;font-weight:900}
+    .pdf-preview-table-wrap{overflow:auto;border:1px solid #e2e8f0;border-radius:10px;max-height:410px}.pdf-preview-table{min-width:870px;font-size:10.5px}.pdf-preview-table th{position:sticky;top:0;z-index:1;background:#f8fafc}.pdf-preview-table td,.pdf-preview-table th{padding:7px 6px;text-align:left;vertical-align:top}.pdf-preview-table input[type="checkbox"]{width:16px;height:16px}.pdf-preview-table .money-cell{text-align:right;white-space:nowrap}.pdf-preview-table .uncertain{color:#b45309;font-weight:900}
+    .pdf-import-actions{display:flex;justify-content:flex-end;gap:7px;padding:12px 17px;border-top:1px solid #e2e8f0;background:#fff}
+    .pdf-import-actions .btn{min-width:110px}
+    .pdf-libraries-note{font-size:9.5px;color:#94a3b8}
+    @media(max-width:760px){.saved-status-dropboard{grid-template-columns:1fr 1fr}.pdf-import-dialog{max-height:94vh}.pdf-import-body{padding:12px}.pdf-import-head{padding:13px}.pdf-import-actions{padding:10px 12px}.auction-pdf-import-btn{padding:6px 7px}}
+
     .folder-manager-modal{
       position:fixed;inset:0;background:rgba(15,23,42,.58);z-index:1550;
       display:flex;align-items:center;justify-content:center;padding:18px
@@ -1174,7 +1205,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.15.8</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.16.0</span></h1>
       <div class="sub">저장목록에서 물건을 비교하고, 예상 매도가 범위와 목표수익 10~15%를 기준으로 입찰가능가율·순수익·종잣돈 범위를 먼저 판단합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -1779,7 +1810,7 @@
             <tbody id="summaryTable"></tbody>
           </table>
         </div>
-        <div class="helper" style="margin-top:8px">* v1.15.8부터 비용메뉴의 <b>최종 필요 종잣돈</b>과 <b>지금 당장 필요 종잣돈</b>은 실제입찰과 같은 상세비용 산식으로 계산합니다. 신탁대출 열의 금액은 저장카드·실제입찰과 같은 신탁대출 기준입니다. 지금 당장 필요 종잣돈은 낙찰가−대출금 + 법무비 + 명도비 + 수리비 + 미납관리비이며, 취등록세(카드납부 전제), 매도 중개수수료, 중도상환수수료, 대출이자는 제외합니다.</div>
+        <div class="helper" style="margin-top:8px">* v1.16.0에서도 비용메뉴의 <b>최종 필요 종잣돈</b>과 <b>지금 당장 필요 종잣돈</b>은 실제입찰과 같은 상세비용 산식으로 계산합니다. 신탁대출 열의 금액은 저장카드·실제입찰과 같은 신탁대출 기준입니다. 지금 당장 필요 종잣돈은 낙찰가−대출금 + 법무비 + 명도비 + 수리비 + 미납관리비이며, 취등록세(카드납부 전제), 매도 중개수수료, 중도상환수수료, 대출이자는 제외합니다.</div>
       </section>
     </main>
     <div id="workspaceResizeHandle" class="no-print" role="separator" aria-orientation="vertical" aria-label="저장목록 너비 조절" title="마우스로 끌어 저장목록 너비 조절"></div>
@@ -1788,7 +1819,7 @@
       <section class="card saved-section-card" id="savedSectionCard">
         <div class="saved-card-title-row">
           <h2>저장목록</h2>
-          <div class="saved-title-actions no-print"><button class="saved-new-property" id="savedNewPropertyBtn" type="button">+ 새 물건</button>
+          <div class="saved-title-actions no-print"><button class="auction-pdf-import-btn" id="auctionPdfImportBtn" type="button">PDF 일괄가져오기</button><button class="saved-new-property" id="savedNewPropertyBtn" type="button">+ 새 물건</button>
           <button class="saved-editor-toggle" id="savedEditorToggleBtn" type="button"
                   aria-expanded="true" aria-controls="savedEditorArea">
             <span id="savedEditorToggleText">입력영역 접기</span>
@@ -1814,6 +1845,7 @@
             <div class="decision-star-inline">
               <select id="bidDecision">
                 <option value="">선택</option>
+                <option value="review">미검토</option>
                 <option value="pending">고민중</option>
                 <option value="bid">입찰하기</option>
                 <option value="completed">입찰완료</option>
@@ -1883,6 +1915,7 @@
           </div>
           <div class="decision-filter-tabs no-print" aria-label="입찰 여부 복수 선택 필터">
             <button class="decision-filter-btn active" type="button" data-decision-filter="all">전체</button>
+            <button class="decision-filter-btn" type="button" data-decision-filter="review">미검토</button>
             <button class="decision-filter-btn" type="button" data-decision-filter="pending">고민중</button>
             <button class="decision-filter-btn" type="button" data-decision-filter="no">입찰 X</button>
             <button class="decision-filter-btn" type="button" data-decision-filter="bid">입찰 O</button>
@@ -1897,7 +1930,7 @@
           </div>
           <div class="saved-bulk-toolbar no-print">
             <label><input id="savedBulkSelectAll" type="checkbox"> 현재목록 전체선택</label>
-            <select id="savedBulkDecision" aria-label="선택한 물건 상태 변경"><option value="">상태 선택</option><option value="pending">고민중</option><option value="bid">입찰 O</option><option value="completed">입찰완료</option><option value="no">입찰 X</option></select>
+            <select id="savedBulkDecision" aria-label="선택한 물건 상태 변경"><option value="">상태 선택</option><option value="review">미검토</option><option value="pending">고민중</option><option value="bid">입찰 O</option><option value="completed">입찰완료</option><option value="no">입찰 X</option></select>
             <span class="saved-bulk-count" id="savedBulkCount">0건 선택</span>
             <button class="btn secondary" id="savedBulkApply" type="button">상태변경</button>
           </div>
@@ -1929,6 +1962,12 @@
             <button class="sort-direction" type="button" id="sortDirectionBtn" title="정렬방향">↑</button>
           </div>
           <div class="saved-summary" id="savedListSummary"></div>
+          <div class="saved-status-dropboard no-print" id="savedStatusDropboard" aria-label="사건카드 상태 드래그 이동">
+            <div class="status-dropzone" data-drop-decision="review"><span class="t">미검토</span><span class="n" data-drop-count="review">0건</span></div>
+            <div class="status-dropzone" data-drop-decision="pending"><span class="t">고민중</span><span class="n" data-drop-count="pending">0건</span></div>
+            <div class="status-dropzone" data-drop-decision="bid"><span class="t">입찰하기</span><span class="n" data-drop-count="bid">0건</span></div>
+            <div class="status-dropzone" data-drop-decision="no"><span class="t">입찰안함</span><span class="n" data-drop-count="no">0건</span></div>
+          </div>
         </div>
         <div id="savedList" class="saved-list" style="margin-top:9px"></div>
       </section>
@@ -1987,7 +2026,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.15.8 신탁대출 종잣돈 계산 통일 · 상단 물건요약 접기·펴기 · 상세영역 전체높이 활용 · 좁은 패널 자동재배치 · 종잣돈 범위 표시 · 목표수익률 10~15% 단독기준 역산범위 · 예상매도가 범위 · 고정 물건특성 · 세로 상세탭 · 입찰결과 기록 · 실제입찰/대출/피드백 기존 기능 유지 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.16.0 옥션원 PDF 일괄가져오기·미검토 분류·상태 드래그 추가 · 신탁대출 종잣돈 계산 통일 · 상단 물건요약 접기·펴기 · 상세영역 전체높이 활용 · 좁은 패널 자동재배치 · 종잣돈 범위 표시 · 목표수익률 10~15% 단독기준 역산범위 · 예상매도가 범위 · 고정 물건특성 · 세로 상세탭 · 입찰결과 기록 · 실제입찰/대출/피드백 기존 기능 유지 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -2183,6 +2222,43 @@
   </div>
 </div>
 
+
+<div class="pdf-import-modal no-print" id="auctionPdfImportModal" hidden>
+  <div class="pdf-import-dialog" role="dialog" aria-modal="true" aria-labelledby="auctionPdfImportTitle">
+    <div class="pdf-import-head">
+      <div>
+        <h2 id="auctionPdfImportTitle">옥션원 목록 PDF 일괄가져오기</h2>
+        <p>옥션원에서 저장한 목록 PDF를 여러 개 한 번에 넣으면 무료 OCR로 사건번호·주소·감정가·최저가·경매기일·층·평형 등을 읽어 미검토 목록으로 등록합니다.</p>
+      </div>
+      <button class="folder-manager-close" id="auctionPdfImportCloseBtn" type="button" aria-label="닫기">×</button>
+    </div>
+    <div class="pdf-import-body">
+      <label class="pdf-dropzone" id="auctionPdfDropzone">
+        <input id="auctionPdfFiles" type="file" accept="application/pdf,.pdf" multiple hidden>
+        <strong>PDF를 여기에 끌어놓거나 눌러서 선택</strong>
+        <span>여러 날짜 PDF를 동시에 선택해도 됩니다. 중복 후보는 사건번호+주소 기준으로 건너뜁니다.</span>
+      </label>
+      <div class="pdf-import-progress" id="auctionPdfProgress" hidden>
+        <div class="pdf-progress-row"><span id="auctionPdfProgressText">OCR 준비 중…</span><span id="auctionPdfProgressPct">0%</span></div>
+        <div class="pdf-progress-track"><div class="pdf-progress-bar" id="auctionPdfProgressBar"></div></div>
+      </div>
+      <div class="pdf-import-note">PDF가 이미지형 목록이라 브라우저 안에서 OCR을 돌립니다. 최초 실행 때 OCR 언어파일을 내려받기 때문에 인터넷이 필요하고, 페이지 수가 많으면 몇 분 걸릴 수 있습니다. 인식값은 저장 전 미리보기에서 확인할 수 있고, 불확실한 항목은 저장 후 개별 물건에서 수정하면 됩니다.</div>
+      <div class="pdf-preview-toolbar" id="auctionPdfPreviewToolbar" hidden>
+        <div class="pdf-preview-summary" id="auctionPdfPreviewSummary">-</div>
+        <div><button class="btn light" id="auctionPdfSelectAllBtn" type="button">전체 선택</button> <button class="btn light" id="auctionPdfSelectNoneBtn" type="button">전체 해제</button></div>
+      </div>
+      <div class="pdf-preview-table-wrap" id="auctionPdfPreviewWrap" hidden>
+        <table class="pdf-preview-table"><thead><tr><th>선택</th><th>사건번호</th><th>주소/단지</th><th>층·호</th><th>평형</th><th>감정가</th><th>최저가</th><th>기일</th><th>특이표시</th></tr></thead><tbody id="auctionPdfPreviewBody"></tbody></table>
+      </div>
+      <div class="pdf-libraries-note">OCR: Tesseract.js · PDF 렌더링: PDF.js · AI API 사용 없음</div>
+    </div>
+    <div class="pdf-import-actions">
+      <button class="btn light" id="auctionPdfCancelBtn" type="button">닫기</button>
+      <button class="btn" id="auctionPdfSaveBtn" type="button" disabled>선택한 물건 저장</button>
+    </div>
+  </div>
+</div>
+
 <div class="folder-manager-modal no-print" id="folderManagerModal" hidden>
   <div class="folder-manager-dialog" role="dialog" aria-modal="true" aria-labelledby="folderManagerTitle">
     <div class="folder-manager-head">
@@ -2233,7 +2309,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
 import {
   getFirestore, collection, doc, getDoc, getDocs, onSnapshot,
-  runTransaction, serverTimestamp
+  runTransaction, writeBatch, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -2260,7 +2336,7 @@ const db = getFirestore(firebaseApp);
   const FOLDER_NAMES_KEY = "auctionBidCalculator.folderNames.v1";
   const ACTUAL_BID_PRESETS_KEY = "auctionBidCalculator.actualBidPresets.v1";
   const DEFAULT_SECTION_ORDER = ["basic","screening","rates","loan","dsr","result"];
-  const APP_SCHEMA_VERSION = 15;
+  const APP_SCHEMA_VERSION = 16;
   const deviceId = localStorage.getItem(DEVICE_ID_KEY) ||
     (crypto.randomUUID ? crypto.randomUUID() : `device-${Date.now()}-${Math.random().toString(36).slice(2)}`);
   localStorage.setItem(DEVICE_ID_KEY, deviceId);
@@ -2316,6 +2392,11 @@ const db = getFirestore(firebaseApp);
   let feedbackListFilter = "active";
   let feedbackDraggedRecordId = null;
   const expandedFeedbackDates = new Set();
+  let draggedSavedRecordId = null;
+  let auctionPdfParsedRecords = [];
+  let auctionPdfExpectedCount = 0;
+  let auctionPdfOcrWorker = null;
+  let auctionPdfBusy = false;
 
   const numericText = (value) => String(value ?? "").replace(/,/g,"").trim();
   const num = (id) => {
@@ -4152,8 +4233,8 @@ const db = getFirestore(firebaseApp);
   function recordDecision(item){
     if(item?.state?.auctionResult?.status)return "completed";
     const actualReady = !!item?.state?.actualBid;
-    const value = stateText(item,"bidDecision",actualReady ? "bid" : "pending");
-    return ["bid","no","pending","completed"].includes(value) ? value : "pending";
+    const value = stateText(item,"bidDecision",actualReady ? "bid" : "review");
+    return ["review","bid","no","pending","completed"].includes(value) ? value : "review";
   }
 
 
@@ -4460,7 +4541,7 @@ const db = getFirestore(firebaseApp);
       selectedFolder = String(saved.selectedFolder || "");
       savedSortKey = ["auctionDate","screenGrade","bidRoom","minEquity","householdEquity","trustEquity","mortgageEquity","updatedAt"].includes(saved.savedSortKey) ? saved.savedSortKey : "auctionDate";
       savedSortDirection = saved.savedSortDirection === "desc" ? "desc" : "asc";
-      const validDecisionFilters = ["pending","no","bid","completed"];
+      const validDecisionFilters = ["review","pending","no","bid","completed"];
       if (Array.isArray(saved.savedDecisionFilters)){
         savedDecisionFilters = [...new Set(
           saved.savedDecisionFilters.filter(value => validDecisionFilters.includes(value))
@@ -4545,7 +4626,7 @@ const db = getFirestore(firebaseApp);
     items.sort((a,b)=>compareSavedItems(a,b,savedSortKey,savedSortDirection));
     const sortNames={auctionDate:"경매기일",screenGrade:"물건선정 등급",roi10Rate:"10% 수익 입찰가율",marketRoom:"시장 대비 입찰여유",bidRoom:"입찰여유",minEquity:"최소 자기자본",householdEquity:"가계 자기자본",trustEquity:"신탁 자기자본",mortgageEquity:"사업자근저당 자기자본",updatedAt:"저장일"};
     const scope = savedViewMode === "folders" ? (selectedFolder || "폴더 미선택") : "전체";
-    const filterNames = {pending:"고민중",no:"입찰 X",bid:"입찰 O",completed:"입찰완료"};
+    const filterNames = {review:"미검토",pending:"고민중",no:"입찰 X",bid:"입찰 O",completed:"입찰완료"};
     const filterText = savedDecisionFilters.length
       ? savedDecisionFilters.map(value => filterNames[value]).join(" + ")
       : "전체";
@@ -4573,19 +4654,21 @@ const db = getFirestore(firebaseApp);
       const metrics=recordMetrics(item),screening=screeningMetrics(item),auctionResult=item?.state?.auctionResult||null,date=recordAuctionDate(item).raw,folder=recordFolder(item),region=recordRegion(item),apartmentName=recordApartmentName(item),specs=recordSpecs(item),actualReady=!!item?.state?.actualBid;
       const actualSources=Array.isArray(item?.state?.actualBid?.salePriceSources)?item.state.actualBid.salePriceSources:[],selectionSources=Array.isArray(item?.state?.selectionSalePriceSources)?item.state.selectionSalePriceSources:[],sourcePool=actualSources.length?actualSources:selectionSources;
       const needsBrokerResearch=screening.maxBid>0&&!sourcePool.includes("broker"),decision=recordDecision(item),decisionReason=stateText(item,"bidDecisionReason",""),savedStar=recordFeedback(item).star,budgetText=metrics.capital>0?shortWon(metrics.capital):"미입력";
-      const decisionLabel=decision==="completed"?"입찰완료":decision==="bid"?"입찰 O":decision==="no"?"입찰 X":"고민중";
+      const decisionLabel=decision==="completed"?"입찰완료":decision==="bid"?"입찰 O":decision==="no"?"입찰 X":decision==="pending"?"고민중":"미검토";
       const marketText=screening.marketHigh>0?formatPctRange(screening.marketLow,screening.marketHigh):"-",capitalText=screening.capitalRange?.high>0?formatWonRange(screening.capitalRange.low,screening.capitalRange.high):`예산 ${budgetText}`,immediateText=screening.immediateRange?.high>0?formatWonRange(screening.immediateRange.low,screening.immediateRange.high):"-",selected=savedBulkSelectedIds.has(item.id);
-      return `<div class="saved-item${loadedRecordId===item.id?" workspace-selected":""}${selected?" bulk-selected":""}" data-load-id="${item.id}">
+      const auctionOne=item?.state?.auctionOneImport||null;
+      return `<div class="saved-item${loadedRecordId===item.id?" workspace-selected":""}${selected?" bulk-selected":""}" data-load-id="${item.id}" draggable="true">
         <input class="saved-select-check no-print" type="checkbox" data-bulk-select-id="${item.id}" ${selected?"checked":""} aria-label="${escapeHtml(item.title)} 선택">
         <div class="saved-card-top"><div class="saved-card-titleblock"><div class="saved-title">${feedbackStarHtml(savedStar)}${escapeHtml(item.title)}</div>${apartmentName?`<div class="saved-apartment">${escapeHtml(apartmentName)}</div>`:""}</div><div class="saved-card-badges"><span class="screening-pill ${screening.grade}">${escapeHtml(screening.label)}</span><span class="saved-status-badge ${decision}">${decisionLabel}</span></div></div>
         <div class="saved-info-line">${date?`경매 ${date} · `:""}${escapeHtml(region||folder)}${specs?` · ${escapeHtml(specs)}`:""}</div>
         <div class="saved-card-groups"><div class="saved-card-group"><span class="k">예상매도 · 목표수익</span><span class="v">${screening.maxBid>0?`${formatWonRange(screening.saleRange.low,screening.saleRange.high)} · ${screening.targetRoiLow}%~${screening.targetRoiHigh}%`:"미입력"}</span></div><div class="saved-card-group"><span class="k">수익가능 입찰가율</span><span class="v">${screening.maxBid>0?formatPctRange(screening.bidRateLow,screening.bidRateHigh):"-"}</span></div><div class="saved-card-group"><span class="k">시장 예상 · 입찰여유</span><span class="v">${screening.maxBid>0?`${marketText} · ${formatSignedPctRange(screening.marketRoomLow,screening.marketRoomHigh)}`:"-"}</span></div><div class="saved-card-group"><span class="k">예상 순수익</span><span class="v">${screening.maxBid>0?formatWonRangeDescending(screening.profitRange.low,screening.profitRange.high):"-"}</span></div><div class="saved-card-group"><span class="k">최종 필요 종잣돈</span><span class="v">${screening.maxBid>0?capitalText:"-"}</span></div><div class="saved-card-group"><span class="k">지금 당장 필요 종잣돈</span><span class="v">${screening.maxBid>0?immediateText:"-"}</span></div></div>
-        <div class="saved-card-alerts">${screening.lowBidCandidate?`<span class="lowbid-pill">저가낙찰 대기</span>`:""}${screening.saleCertainty==="high"?`<span class="pill">빠른매도 높음</span>`:""}${screening.competition==="high"?`<span class="pill">실거주경쟁 높음</span>`:""}${actualReady?`<span class="actual-ready-pill">실제입찰 입력됨</span>`:""}${auctionResult?`<span class="result-ready-pill">결과 ${escapeHtml(auctionResultLabel(auctionResult.status))}</span>`:""}${needsBrokerResearch?`<span class="research-needed-pill">부동산조사 필요</span>`:""}</div>
+        <div class="saved-card-alerts">${auctionOne?`<span class="auction1-badge">옥션원 PDF</span>${(auctionOne.flags||[]).map(flag=>`<span class="auction1-warning-badge">${escapeHtml(flag)}</span>`).join("")}`:""}${screening.lowBidCandidate?`<span class="lowbid-pill">저가낙찰 대기</span>`:""}${screening.saleCertainty==="high"?`<span class="pill">빠른매도 높음</span>`:""}${screening.competition==="high"?`<span class="pill">실거주경쟁 높음</span>`:""}${actualReady?`<span class="actual-ready-pill">실제입찰 입력됨</span>`:""}${auctionResult?`<span class="result-ready-pill">결과 ${escapeHtml(auctionResultLabel(auctionResult.status))}</span>`:""}${needsBrokerResearch?`<span class="research-needed-pill">부동산조사 필요</span>`:""}</div>
         ${auctionResult?auctionResultSavedLine(item,auctionResult):""}
         <div class="saved-bottom"><span class="pill">가계 ${shortWon(metrics.householdEquity)} · 신탁 ${shortWon(metrics.trustEquity)}</span><div class="saved-card-actions no-print">${decision!=="no"?`<button class="btn secondary actual-card-btn" type="button" data-actual-bid-id="${item.id}">${actualReady?"실제입찰 수정":"실제입찰"}</button>`:""}<button class="btn light" type="button" data-auction-result-id="${item.id}">${auctionResult?"결과수정":"결과입력"}</button><button class="icon-btn" style="width:42px;height:30px" data-delete-id="${item.id}">삭제</button></div></div>${decisionReason?`<div class="saved-notes">선택사유 · ${escapeHtml(decisionReason)}</div>`:""}
       </div>`;
     }).join("");
     updateSavedBulkUi();
+    updateStatusDropCounts();
   }
 
   function escapeHtml(str){
@@ -4639,6 +4722,215 @@ const db = getFirestore(firebaseApp);
     try{const saved=await runTransaction(db,async transaction=>{const ref=recordRef(id),snap=await transaction.get(ref);if(!snap.exists())throw new Error("저장자료를 찾을 수 없습니다.");const cloud=snap.data(),rev=Number(cloud.revision||0);if(rev!==auctionResultBaseRevision)throw new SyncConflictError();const state={...(cloud.state||{})};delete state.auctionResult;state.fields={...(state.fields||{})};if(state.fields.bidDecision==="completed")state.fields.bidDecision="bid";state.feedback={...(state.feedback||{}),result:""};const next={...cloud,state,revision:rev+1,checksum:checksum({title:cloud.title,state,deleted:false}),updatedAt:serverTimestamp(),updatedAtMs:now,deviceId,schemaVersion:APP_SCHEMA_VERSION};transaction.set(ref,next,{merge:false});return normalizeCloudRecord(id,next);});upsertLocalRecord(saved);if(loadedRecordId===id){loadedRecordRevision=Number(saved.revision||0);currentAuctionResultData=null;currentFeedbackData=saved.state?.feedback?{...saved.state.feedback}:null;setState(saved.state);}showToast("입찰결과 삭제 완료");const reopenWorkspaceResult=document.body.classList.contains("detail-open")&&workspaceActiveTab==="result";closeAuctionResult();renderSaved();if(reopenWorkspaceResult)setTimeout(()=>setWorkspaceTab("result"),0);}catch(error){console.error(error);alert("입찰결과를 삭제하지 못했습니다.");}
   }
 
+
+  function updateStatusDropCounts(){
+    if(!$('savedStatusDropboard'))return;
+    const counts={review:0,pending:0,bid:0,no:0};
+    records().forEach(item=>{const d=recordDecision(item);if(counts[d]!==undefined)counts[d]++;});
+    Object.entries(counts).forEach(([key,value])=>{const el=document.querySelector(`[data-drop-count="${key}"]`);if(el)el.textContent=`${value}건`;});
+  }
+
+  async function updateRecordDecision(id,decision){
+    if(!["review","pending","bid","no"].includes(decision))return;
+    if(!requireCloudReady())return;
+    const local=rawLocalRecords().find(x=>x.id===id&&!x.deleted);if(!local)return;
+    const expected=Number(local.revision||0),now=Date.now();
+    try{
+      const saved=await runTransaction(db,async transaction=>{
+        const ref=recordRef(id),snap=await transaction.get(ref);if(!snap.exists())throw new Error('저장자료를 찾을 수 없습니다.');
+        const cloud=snap.data(),rev=Number(cloud.revision||0);if(rev!==expected)throw new SyncConflictError();
+        const state={...(cloud.state||{}),fields:{...(cloud.state?.fields||{}),bidDecision:decision}};
+        if(!["pending","bid"].includes(decision)){state.actualBidPreset=null;}
+        const next={...cloud,state,revision:rev+1,deleted:false,checksum:checksum({title:cloud.title,state,deleted:false}),updatedAt:serverTimestamp(),updatedAtMs:now,deviceId,schemaVersion:APP_SCHEMA_VERSION};
+        transaction.set(ref,next,{merge:false});return normalizeCloudRecord(id,next);
+      });
+      upsertLocalRecord(saved);if(loadedRecordId===id){loadedRecordRevision=Number(saved.revision||0);setState(saved.state);}renderSaved();updateStatusDropCounts();
+      showToast(`${decision==="review"?"미검토":decision==="pending"?"고민중":decision==="bid"?"입찰하기":"입찰안함"}으로 이동`);
+    }catch(error){console.error(error);if(error instanceof SyncConflictError){await refreshRecordFromCloud(id);alert('다른 기기에서 먼저 수정된 물건입니다. 최신자료를 다시 불러왔습니다.');renderSaved();}else alert(`상태를 바꾸지 못했습니다. ${error?.message||''}`);}
+  }
+
+  function setupSavedStatusDrag(){
+    const list=$('savedList'),board=$('savedStatusDropboard');if(!list||!board)return;
+    list.addEventListener('dragstart',e=>{const card=e.target.closest('.saved-item[data-load-id]');if(!card)return;draggedSavedRecordId=card.dataset.loadId;card.classList.add('dragging-record');try{e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',draggedSavedRecordId);}catch{}});
+    list.addEventListener('dragend',e=>{e.target.closest('.saved-item')?.classList.remove('dragging-record');draggedSavedRecordId=null;board.querySelectorAll('.status-dropzone').forEach(z=>z.classList.remove('drag-over'));});
+    board.querySelectorAll('.status-dropzone').forEach(zone=>{
+      zone.addEventListener('dragover',e=>{if(!draggedSavedRecordId)return;e.preventDefault();zone.classList.add('drag-over');if(e.dataTransfer)e.dataTransfer.dropEffect='move';});
+      zone.addEventListener('dragleave',()=>zone.classList.remove('drag-over'));
+      zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('drag-over');const id=draggedSavedRecordId||e.dataTransfer?.getData('text/plain');draggedSavedRecordId=null;if(id)updateRecordDecision(id,zone.dataset.dropDecision);});
+    });
+  }
+
+  function normalizeAuctionOneCaseNo(raw){
+    const text=String(raw||'').replace(/[‐–—]/g,'-').replace(/\s+/g,' ').trim();
+    const m=text.match(/(?:20)?(\d{2})\s*-\s*(\d{1,6})(?:\s*\((\d+)\))?/);if(!m)return text;
+    const y=2000+Number(m[1]);return `${y}타경${Number(m[2])}${m[3]?`(${m[3]})`:''}`;
+  }
+  function compactOcrLine(line){return String(line||'').replace(/[|]/g,' ').replace(/\s+/g,' ').trim();}
+  function parseWonLine(line){const m=String(line||'').match(/(\d{1,3}(?:,\d{3}){2,3})/);return m?Number(m[1].replace(/,/g,'')):0;}
+  function auctionOneProvinceLine(line){return /(서울특별시|부산광역시|대구광역시|인천광역시|광주광역시|대전광역시|울산광역시|세종특별자치시|전남광주통합특별시|전남광주|경기도|강원특별자치도|강원도|충청북도|충청남도|전북특별자치도|전라북도|전라남도|경상북도|경상남도|제주특별자치도)/.test(line);}
+  function cleanupAuctionAddress(text){return String(text||'').replace(/아\s+파트/g,'아파트').replace(/([가-힣])\s+아파트/g,'$1아파트').replace(/\s+/g,' ').replace(/\s+([,])/g,'$1').trim();}
+  function extractAuctionOneAddress(lines,caseIndex,nextIndex){
+    let candidates=[];const start=Math.max(0,caseIndex-5),end=Math.min(lines.length,nextIndex,caseIndex+12);
+    for(let i=start;i<end;i++){const l=compactOcrLine(lines[i]);if(auctionOneProvinceLine(l))candidates.push({i,l,d:Math.abs(i-caseIndex)});}
+    if(!candidates.length){for(let i=caseIndex;i<Math.min(lines.length,nextIndex,caseIndex+12);i++){const l=compactOcrLine(lines[i]);if(/[가-힣]{2,}(시|군|구)\s/.test(l)&&/(동|읍|면)\s*\d/.test(l))candidates.push({i,l,d:i-caseIndex});}}
+    if(!candidates.length)return '';
+    candidates.sort((a,b)=>a.d-b.d);const hit=candidates[0];let parts=[hit.l];
+    for(let j=hit.i+1;j<Math.min(end,hit.i+3);j++){const l=compactOcrLine(lines[j]);if(!l||/^(아파트|주상복합|오피스텔)$/.test(l)||/^\d{1,3}(?:,\d{3}){2,3}$/.test(l)||/^202\d[.\-]/.test(l)||/^(유찰|평당|\[대지권|\[선순위|\[임차|\[재매각|\[대항력)/.test(l))break;if(/(동|층|호|아파트|주상복합|오피스텔|빌라|연립|타운|센트럴|파크|푸르지오|자이|래미안|힐스테이트|e편한|아이파크|코아루)/i.test(l)||/^파트\b/.test(l))parts.push(l);else break;}
+    return cleanupAuctionAddress(parts.join(' '));
+  }
+  function parseAuctionOneApartment(address){
+    let text=String(address||'').trim();if(!text)return '';
+    const afterComma=text.includes(',')?text.split(',').slice(1).join(',').trim():text.replace(/^(?:[^ ]+ ){2,4}/,'');
+    let name=afterComma.replace(/\s*\d+\s*(?:동|동?\s*)?\s*\d*\s*층.*$/,'').replace(/\s+\d+동.*$/,'').trim();
+    name=name.replace(/\[.*$/,'').trim();
+    if(name.length>45)name=name.slice(0,45).trim();return name;
+  }
+  function parseAuctionOneFloorUnit(address,windowText){
+    const text=`${address} ${windowText}`.replace(/[Oo]/g,'0');
+    let floor='',unit='';let m=text.match(/(\d{1,3})\s*층\s*(\d{2,4})\s*호/);if(m){floor=m[1];unit=`${m[2]}호`;return {floor,unit};}
+    m=text.match(/(\d{1,3})\s*층/);if(m)floor=m[1];m=text.match(/(\d{2,4})\s*호/);if(m)unit=`${m[1]}호`;return {floor,unit};
+  }
+  function parseAuctionOneAreas(windowText){
+    const text=String(windowText||'');let exclusive='',supply='';
+    let m=text.match(/건물\s*([\d.]+)\s*[m㎡]/i);if(m)exclusive=m[1];
+    m=text.match(/공급\s*(\d{1,3})\s*평/);if(m)supply=m[1];
+    if(!supply){const p=text.match(/건물\s*[\d.]+\s*[m㎡]?[^(]*\((\d{1,3}(?:\.\d+)?)\s*평\)/);if(p){const ep=Number(p[1]);if(ep>0)supply=String(Math.round(ep*1.3));}}
+    return {exclusive,supply};
+  }
+  function parseAuctionOneFlags(windowText){
+    const keys=['선순위임차권','선순위전세권','임차권등기','대항력','HUG인수조건변경','재매각','토지별도등기','법정지상권','유치권','공유지분','농취증','매각제외'];
+    const compact=String(windowText||'').replace(/\s+/g,'');return keys.filter(k=>compact.includes(k.replace(/\s+/g,'')));
+  }
+  function parseAuctionOnePageText(text,sourceName,pageNo){
+    const rawLines=String(text||'').split(/\r?\n/).map(compactOcrLine).filter(Boolean);
+    const caseRe=/^(?:20)?\d{2}\s*-\s*\d{1,6}(?:\s*\(\d+\))?$/;
+    const caseIdx=[];rawLines.forEach((line,i)=>{if(caseRe.test(line))caseIdx.push(i);});
+    const out=[];
+    caseIdx.forEach((idx,pos)=>{
+      const next=caseIdx[pos+1]??rawLines.length,prev=caseIdx[pos-1]??-1;
+      const caseRaw=(rawLines[idx].match(caseRe)||[''])[0];
+      const start=Math.max(prev+1,idx-6),end=Math.min(next,idx+28);const blockLines=rawLines.slice(start,end);const block=blockLines.join(' ');
+      const address=extractAuctionOneAddress(rawLines,idx,next);const appt=parseAuctionOneApartment(address);
+      const amounts=[];for(let i=idx;i<Math.min(next,idx+24);i++){const n=parseWonLine(rawLines[i]);if(n>=1000000&&!amounts.includes(n))amounts.push(n);if(amounts.length>=2)break;}
+      const appraisal=amounts[0]||0,minPrice=amounts[1]||0;
+      let date='';for(let i=idx;i<Math.min(next,idx+26);i++){const m=rawLines[i].match(/(20\d{2})[.\-](\d{2})[.\-](\d{2})/);if(m){date=`${m[1]}-${m[2]}-${m[3]}`;break;}}
+      const {floor,unit}=parseAuctionOneFloorUnit(address,block);const {exclusive,supply}=parseAuctionOneAreas(block);const flags=parseAuctionOneFlags(block);
+      let propertyType='아파트';if(/주상복합/.test(block))propertyType='주상복합';else if(/오피스텔/.test(block))propertyType='오피스텔';
+      const discount=appraisal>0&&minPrice>0?Math.round(minPrice/appraisal*1000)/10:0;
+      out.push({sourceName,pageNo,caseRaw,caseNo:normalizeAuctionOneCaseNo(caseRaw),address,apartmentName:appt,floorNo:floor,unitNo:unit,exclusiveArea:exclusive,supplyAreaPyeong:supply,propertyType,appraisal,minPrice,discount,auctionDate:date,flags,rawText:block,selected:true,confidence:{caseNo:!!caseRaw,address:!!address,appraisal:!!appraisal,minPrice:!!minPrice,date:!!date}});
+    });
+    return out;
+  }
+
+  function parseAuctionOneTsvWords(tsv){
+    const lines=String(tsv||'').trim().split(/\r?\n/);if(lines.length<2)return [];
+    const headers=lines[0].split('\t');return lines.slice(1).map(line=>{const parts=line.split('\t'),obj={};headers.forEach((key,i)=>obj[key]=parts[i]??'');return {text:String(obj.text||'').trim(),left:Number(obj.left)||0,top:Number(obj.top)||0,width:Number(obj.width)||0,height:Number(obj.height)||0,level:Number(obj.level)||0,conf:Number(obj.conf)||0};}).filter(w=>w.level===5&&w.text);
+  }
+  function joinAuctionOneSpatialWords(words){
+    const rows=[];[...words].sort((a,b)=>a.top-b.top||a.left-b.left).forEach(word=>{const cy=word.top+word.height/2;let row=rows.find(x=>Math.abs(x.cy-cy)<=8);if(!row){row={cy,words:[]};rows.push(row);}row.words.push(word);});
+    rows.sort((a,b)=>a.cy-b.cy);return rows.map(row=>{row.words.sort((a,b)=>a.left-b.left);let out='',prev=null;row.words.forEach(word=>{if(prev){const gap=word.left-(prev.left+prev.width),singleA=/^[가-힣]$/.test(prev.text),singleB=/^[가-힣]$/.test(word.text);if(!((singleA&&singleB&&gap<=20)||gap<=3))out+=' ';}out+=word.text;prev=word;});return out;}).join(' ');
+  }
+  function cleanAuctionOneSpatialAddress(text){
+    let out=String(text||'').replace(/아\s+파트/g,'아파트').replace(/([가-힣])\s+아파트/g,'$1아파트').replace(/대전\s+광역시/g,'대전광역시').replace(/대구\s+광역시/g,'대구광역시').replace(/부산\s+광역시/g,'부산광역시').replace(/광주\s+광역시/g,'광주광역시').replace(/인천\s+광역시/g,'인천광역시').replace(/울산\s+광역시/g,'울산광역시').replace(/서울\s+특별시/g,'서울특별시').replace(/\s+/g,' ').trim();
+    out=out.replace(/^주\s*광역시/,'광주광역시');
+    const province=/(서울특별시|부산광역시|대구광역시|인천광역시|광주광역시|대전광역시|울산광역시|세종특별자치시|경기도|강원특별자치도|강원도|충청북도|충청남도|전북특별자치도|전라북도|전라남도|경상북도|경상남도|제주특별자치도)/.exec(out);
+    if(province&&province.index>0)out=out.slice(province.index);
+    return out.replace(/\s+,/g,',').replace(/\s+/g,' ').trim();
+  }
+  function parseAuctionOneFloorUnitHeuristic(address){
+    const text=String(address||'').replace(/[Oo]/g,'0');let floor='',unit='',m=text.match(/(\d{1,3})\s*층\s*(\d{2,4})\s*호/);if(m)return {floor:m[1],unit:`${m[2]}호`};
+    m=text.match(/(\d{1,3})\s*층/);if(m)floor=m[1];if(!floor){m=text.match(/\b(\d{1,2})\s*[Ss]\b/);if(m)floor=m[1];}if(!floor){m=text.match(/\b(\d{1,2})3\b(?=\s+\d{3,5})/);if(m)floor=m[1];}
+    m=text.match(/(\d{2,4})\s*호/);if(m)unit=`${m[1]}호`;
+    if(floor&&!unit){const floorAt=Math.max(0,text.search(new RegExp(`(?:${floor}\\s*층|\\b${floor}\\s*[Ss]\\b|\\b${floor}3\\b)`))),after=text.slice(floorAt);const nums=after.match(/\b\d{3,5}\.?/g)||[];for(const raw of nums){let digits=raw.replace(/\D/g,'');if(digits.length>=4&&/[25]$/.test(digits)){unit=`${digits.slice(0,-1)}호`;break;}if(digits.length===3||digits.length===4){unit=`${digits}호`;break;}}
+    }
+    return {floor,unit};
+  }
+  function parseAuctionOneAreasFromSpatial(text){
+    const src=String(text||'').replace(/,/g,'.');let exclusive='',supply='';let m=src.match(/건물\s*(\d+(?:\.\d+)?)\s*m/i);if(m)exclusive=String(Math.round(Number(m[1])*100)/100);m=src.match(/급\s*(\d+(?:\.\d+)?)\s*평\s*형/);if(m){const n=Number(m[1]);if(n>=8&&n<=200)supply=String(n);}return {exclusive,supply};
+  }
+  function parseAuctionOneCaseAnchors(tsv,offsetLeft=0,offsetTop=0){
+    const rawWords=parseAuctionOneTsvWords(tsv).map(w=>({...w,left:w.left+offsetLeft,top:w.top+offsetTop})),words=offsetLeft?rawWords.filter(w=>w.left<=offsetLeft+230):rawWords,rows=[];
+    [...words].sort((a,b)=>a.top-b.top||a.left-b.left).forEach(word=>{const cy=word.top+word.height/2;let row=rows.find(x=>Math.abs(x.cy-cy)<=10);if(!row){row={cy,words:[]};rows.push(row);}row.words.push(word);});
+    const anchors=[];rows.forEach(row=>{row.words.sort((a,b)=>a.left-b.left);const compact=row.words.map(w=>w.text).join('').replace(/\s+/g,'');const m=compact.match(/((?:20)?\d{2}-\d{1,6})(?:\((\d+)\))?/);if(!m)return;const left=Math.min(...row.words.map(w=>w.left)),top=Math.min(...row.words.map(w=>w.top)),right=Math.max(...row.words.map(w=>w.left+w.width)),bottom=Math.max(...row.words.map(w=>w.top+w.height));anchors.push({text:m[1],caseRaw:`${m[1]}${m[2]?` (${m[2]})`:''}`,left,top,width:right-left,height:bottom-top,conf:Math.max(...row.words.map(w=>w.conf))});});
+    anchors.sort((a,b)=>a.top-b.top);const merged=[];anchors.forEach(a=>{const hit=merged.find(x=>Math.abs((x.top+x.height/2)-(a.top+a.height/2))<12);if(!hit)merged.push(a);else if(a.caseRaw.includes('(')&&!hit.caseRaw.includes('('))Object.assign(hit,a);});return merged;
+  }
+  function parseAuctionOnePageTsv(tsv,sourceName,pageNo,caseTsv="",caseOffsetLeft=0,caseOffsetTop=0){
+    const words=parseAuctionOneTsvWords(tsv);if(!words.length)return [];
+    const pageW=Math.max(...words.map(w=>w.left+w.width),1),pageH=Math.max(...words.map(w=>w.top+w.height),1);
+    const fullAnchors=parseAuctionOneCaseAnchors(tsv),caseAnchors=caseTsv?parseAuctionOneCaseAnchors(caseTsv,caseOffsetLeft,caseOffsetTop):[],anchors=caseAnchors.length?caseAnchors:fullAnchors;if(!anchors.length)return [];
+    return anchors.map((anchor,index)=>{
+      const cy=anchor.top+anchor.height/2,prevCy=index?anchors[index-1].top+anchors[index-1].height/2:cy-pageH*.08,nextCy=index<anchors.length-1?anchors[index+1].top+anchors[index+1].height/2:cy+pageH*.08,upper=index?prevCy+pageH*.027:Math.max(0,cy-pageH*.055),lower=index<anchors.length-1?nextCy-pageH*.027:pageH;
+      const row=words.filter(w=>{const y=w.top+w.height/2;return y>=upper&&y<lower;});
+      const suffix=anchor.caseRaw&&anchor.caseRaw.includes('(')?null:row.find(w=>/^\(\d+\)$/.test(w.text)&&Math.abs((w.top+w.height/2)-cy)<pageH*.012&&w.left>anchor.left);
+      const addressWords=row.filter(w=>{const y=w.top+w.height/2;return w.left>=pageW*.29&&w.left<=pageW*.69&&y>=cy-pageH*.020&&y<=cy+pageH*.008;});
+      const address=cleanAuctionOneSpatialAddress(joinAuctionOneSpatialWords(addressWords));const floorUnit=parseAuctionOneFloorUnitHeuristic(address);
+      const amounts=row.filter(w=>w.left>pageW*.66&&/^\d{1,3}(?:,\d{3}){2,3}$/.test(w.text)).sort((a,b)=>a.top-b.top).map(w=>Number(w.text.replace(/,/g,''))).filter(n=>n>=1000000),appraisal=amounts[0]||0,minPrice=amounts[1]||0;
+      const dateWord=row.find(w=>/^20\d{2}[.\-]\d{2}[.\-]\d{2}$/.test(w.text)),auctionDate=dateWord?dateWord.text.replace(/\./g,'-'):'';
+      const rowText=joinAuctionOneSpatialWords(row),compact=row.map(w=>w.text).join('');const areas=parseAuctionOneAreasFromSpatial(rowText),flags=parseAuctionOneFlags(compact);
+      let propertyType='아파트';if(/주상복합/.test(compact))propertyType='주상복합';else if(/오피스텔/.test(compact))propertyType='오피스텔';
+      const caseRaw=anchor.caseRaw||`${anchor.text}${suffix?` ${suffix.text}`:''}`,discount=appraisal>0&&minPrice>0?Math.round(minPrice/appraisal*1000)/10:0;
+      return {sourceName,pageNo,caseRaw,caseNo:normalizeAuctionOneCaseNo(caseRaw),address,apartmentName:parseAuctionOneApartment(address),floorNo:floorUnit.floor,unitNo:floorUnit.unit,exclusiveArea:areas.exclusive,supplyAreaPyeong:areas.supply,propertyType,appraisal,minPrice,discount,auctionDate,flags,rawText:rowText,selected:true,confidence:{caseNo:true,address:auctionOneProvinceLine(address),appraisal:!!appraisal,minPrice:!!minPrice,date:!!auctionDate}};
+    });
+  }
+  async function loadAuctionPdfLibraries(){
+    const pdfjs=await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs');
+    pdfjs.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs';
+    if(!window.Tesseract){await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js';script.onload=resolve;script.onerror=()=>reject(new Error('OCR 라이브러리를 불러오지 못했습니다.'));document.head.appendChild(script);});}
+    return pdfjs;
+  }
+  async function getAuctionPdfWorker(){
+    if(auctionPdfOcrWorker)return auctionPdfOcrWorker;
+    auctionPdfOcrWorker=await window.Tesseract.createWorker('kor+eng',1,{logger:m=>{if(m.status&&typeof m.progress==='number'&&auctionPdfBusy){const base=Number($('auctionPdfProgressBar')?.dataset.base||0),span=Number($('auctionPdfProgressBar')?.dataset.span||0);setAuctionPdfProgress(base+span*m.progress,`OCR · ${m.status}`);}}});
+    await auctionPdfOcrWorker.setParameters({tessedit_pageseg_mode:'11',preserve_interword_spaces:'1'});
+    return auctionPdfOcrWorker;
+  }
+  function setAuctionPdfProgress(frac,text){const f=Math.max(0,Math.min(1,Number(frac)||0));$('auctionPdfProgress').hidden=false;$('auctionPdfProgressBar').style.width=`${Math.round(f*100)}%`;$('auctionPdfProgressPct').textContent=`${Math.round(f*100)}%`;if(text)$('auctionPdfProgressText').textContent=text;}
+  function closeAuctionPdfImport(){if(auctionPdfBusy)return;$('auctionPdfImportModal').hidden=true;}
+  function resetAuctionPdfImport(){auctionPdfParsedRecords=[];auctionPdfExpectedCount=0;$('auctionPdfFiles').value='';$('auctionPdfPreviewWrap').hidden=true;$('auctionPdfPreviewToolbar').hidden=true;$('auctionPdfProgress').hidden=true;$('auctionPdfSaveBtn').disabled=true;$('auctionPdfPreviewBody').innerHTML='';}
+  function renderAuctionPdfPreview(){
+    const body=$('auctionPdfPreviewBody');const total=auctionPdfParsedRecords.length,selected=auctionPdfParsedRecords.filter(r=>r.selected).length,weak=auctionPdfParsedRecords.filter(r=>!r.confidence.address||!r.confidence.appraisal||!r.confidence.minPrice).length;
+    const countCheck=auctionPdfExpectedCount?` · PDF 목록 ${auctionPdfExpectedCount}건${total<auctionPdfExpectedCount?` / ⚠ ${auctionPdfExpectedCount-total}건 덜 인식`:total===auctionPdfExpectedCount?' / 일치':''}`:'';$('auctionPdfPreviewSummary').textContent=`인식 ${total}건 · 저장 선택 ${selected}건${weak?` · 확인필요 ${weak}건`:''}${countCheck}`;$('auctionPdfPreviewToolbar').hidden=false;$('auctionPdfPreviewWrap').hidden=false;$('auctionPdfSaveBtn').disabled=selected===0;
+    body.innerHTML=auctionPdfParsedRecords.map((r,i)=>`<tr><td><input type="checkbox" data-pdf-select="${i}" ${r.selected?'checked':''}></td><td class="${r.confidence.caseNo?'':'uncertain'}">${escapeHtml(r.caseNo||r.caseRaw||'확인필요')}</td><td class="${r.confidence.address?'':'uncertain'}"><b>${escapeHtml(r.apartmentName||'')}</b><br>${escapeHtml(r.address||'주소 확인필요')}</td><td>${escapeHtml([r.floorNo&&`${r.floorNo}층`,r.unitNo].filter(Boolean).join(' · ')||'-')}</td><td>${escapeHtml(r.supplyAreaPyeong?`${r.supplyAreaPyeong}평`:r.exclusiveArea?`${r.exclusiveArea}㎡`:'-')}</td><td class="money-cell ${r.confidence.appraisal?'':'uncertain'}">${r.appraisal?r.appraisal.toLocaleString('ko-KR'):'-'}</td><td class="money-cell ${r.confidence.minPrice?'':'uncertain'}">${r.minPrice?r.minPrice.toLocaleString('ko-KR'):'-'}${r.discount?`<br><small>${r.discount}%</small>`:''}</td><td class="${r.confidence.date?'':'uncertain'}">${escapeHtml(r.auctionDate||'-')}</td><td>${r.flags.map(f=>`<span class="auction1-warning-badge">${escapeHtml(f)}</span>`).join(' ')||'-'}</td></tr>`).join('');
+  }
+  async function processAuctionPdfFiles(files){
+    if(auctionPdfBusy||!files?.length)return;if(!requireCloudReady())return;
+    auctionPdfBusy=true;resetAuctionPdfImport();$('auctionPdfSaveBtn').disabled=true;$('auctionPdfCancelBtn').disabled=true;$('auctionPdfImportCloseBtn').disabled=true;setAuctionPdfProgress(0.01,'PDF/OCR 준비 중…');
+    try{
+      const pdfjs=await loadAuctionPdfLibraries(),worker=await getAuctionPdfWorker();let docs=[];let pageTotal=0;
+      for(const file of files){const buf=await file.arrayBuffer();const pdf=await pdfjs.getDocument({data:buf}).promise;docs.push({file,pdf});pageTotal+=pdf.numPages;}
+      let donePages=0,parsed=[];
+      for(const {file,pdf} of docs){for(let pno=1;pno<=pdf.numPages;pno++){
+        const page=await pdf.getPage(pno),viewport=page.getViewport({scale:2.8}),canvas=document.createElement('canvas'),ctx=canvas.getContext('2d',{willReadFrequently:true});canvas.width=Math.ceil(viewport.width);canvas.height=Math.ceil(viewport.height);await page.render({canvasContext:ctx,viewport}).promise;
+        const base=donePages/pageTotal,span=1/pageTotal;$('auctionPdfProgressBar').dataset.base=String(base);$('auctionPdfProgressBar').dataset.span=String(span);setAuctionPdfProgress(base,`${file.name} · ${pno}/${pdf.numPages}페이지 읽는 중`);
+        const result=await worker.recognize(canvas,{}, {text:true,tsv:true});const expectedMatch=String(result.data.text||'').match(/물건수\s*[:：]?\s*(\d+)\s*건/);if(expectedMatch)auctionPdfExpectedCount=Math.max(auctionPdfExpectedCount,Number(expectedMatch[1])||0);let pageRecords;if(result.data.tsv){const caseLeft=Math.floor(canvas.width*.14),caseWidth=Math.floor(canvas.width*.15),caseCanvas=document.createElement('canvas'),caseCtx=caseCanvas.getContext('2d',{willReadFrequently:true});caseCanvas.width=caseWidth;caseCanvas.height=canvas.height;caseCtx.drawImage(canvas,caseLeft,0,caseWidth,canvas.height,0,0,caseWidth,canvas.height);const caseResult=await worker.recognize(caseCanvas,{tessedit_pageseg_mode:'11',tessedit_char_whitelist:'0123456789-()'}, {text:true,tsv:true});pageRecords=parseAuctionOnePageTsv(result.data.tsv,file.name,pno,caseResult.data.tsv||'',caseLeft,0);}else pageRecords=parseAuctionOnePageText(result.data.text,file.name,pno);parsed.push(...pageRecords);donePages++;setAuctionPdfProgress(donePages/pageTotal,`${file.name} · ${pno}/${pdf.numPages}페이지 완료`);await new Promise(r=>setTimeout(r,0));
+      }}
+      const dedup=new Map();parsed.forEach(r=>{const key=`${r.caseNo}|${normalizeSavedSearch(r.address)}`;const old=dedup.get(key);if(!old||(!old.address&&r.address))dedup.set(key,r);});auctionPdfParsedRecords=[...dedup.values()];setAuctionPdfProgress(1,`OCR 완료 · ${auctionPdfParsedRecords.length}건 인식`);renderAuctionPdfPreview();
+    }catch(error){console.error(error);alert(`PDF를 읽지 못했습니다. ${error?.message||''}`);setAuctionPdfProgress(0,'PDF 읽기 실패');}
+    finally{auctionPdfBusy=false;$('auctionPdfCancelBtn').disabled=false;$('auctionPdfImportCloseBtn').disabled=false;}
+  }
+  function importedRecordFolder(r){
+    const addr=String(r.address||'').replace(/,/g,' ');const m=addr.match(/^(전남광주통합특별시|전남광주|서울특별시|부산광역시|대구광역시|인천광역시|광주광역시|대전광역시|울산광역시|세종특별자치시|경기도|강원특별자치도|강원도|충청북도|충청남도|전북특별자치도|전라북도|전라남도|경상북도|경상남도|제주특별자치도)(?:\s+([가-힣]+(?:시|군|구)))?/);return m?[m[1],m[2]].filter(Boolean).join(' '):'옥션원 가져오기';
+  }
+  function buildImportedRecordState(r){
+    const folder=importedRecordFolder(r);return {
+      fields:{caseNo:r.caseNo||'',apartmentName:r.apartmentName||'',propertyName:'',region:r.address||'',saveFolder:folder,auctionDate:r.auctionDate||'',floorNo:r.floorNo||'',maxFloor:'',unitNo:r.unitNo||'',apartmentAge:'',exclusiveArea:r.exclusiveArea||'',supplyAreaPyeong:r.supplyAreaPyeong||'',householdCount:'',buildingType:'',roomCount:'',bathCount:'',direction:'',specialNotes:[r.propertyType?`옥션원 물건종류: ${r.propertyType}`:'',r.flags?.length?`옥션원 표시: ${r.flags.join(' / ')}`:''].filter(Boolean).join(' · '),bidDecision:'review',bidDecisionReason:'',appraisal:String(r.appraisal||0),capital:'44000000',selectionMinPrice:String(r.minPrice||0),selectionQuickSalePrice:'',selectionQuickSalePriceHigh:'',selectionTargetProfit:'0',selectionTargetRoi:'10',selectionTargetRoiHigh:'15',selectionSaleCertainty:'medium',selectionResidentCompetition:'medium',selectionTradeActivity:'normal',selectionRisk:r.flags?.some(x=>['대항력','선순위임차권','선순위전세권','법정지상권','유치권'].includes(x))?'medium':'low',selectionFinanceMethod:'trust',selectionEvictionFeeMan:'250',selectionRepairFeeMan:'200',selectionMemo:'',sameWeight:'60',nearWeight:'40',safetyAdjust:'0',bidRate:'78',autoApply:true,trustLoanRate:'60',trustExpenseRate:'7',trustBidCap:'80',trustUseCap:true,mortgageLoanRate:'60',mortgageDeduction:'25000000',mortgageUseDeduction:true,mortgageExpenseRate:'6',mortgageBidCap:'80',mortgageUseCap:true,dsrIncome:'30000000',dsrLimitRate:'50',matongLimit:'26000000',matongRate:'6',matongDsrYears:'5',otherAnnualDebt:'0',householdActualRate:'5',householdStressRate:'0.75',householdTerm:'35',householdLoanRate:'60',householdExpenseRate:'6',householdBidCap:'80',householdUseCap:true,unpaidManagement:'0',extraExpense:'0',saveTitle:r.caseNo||r.apartmentName||'옥션원 물건'},
+      sameRates:[78,78,78],nearRates:[78,78,78],sameRateYears:['','',''],nearRateYears:['','',''],selectionSalePriceSources:[],actualBid:null,auctionResult:null,actualBidPreset:null,feedback:null,
+      auctionOneImport:{sourceName:r.sourceName,pageNo:r.pageNo,caseRaw:r.caseRaw,address:r.address,appraisal:r.appraisal,minPrice:r.minPrice,discount:r.discount,flags:[...(r.flags||[])],rawText:r.rawText,importedAtMs:Date.now()}
+    };
+  }
+  async function saveAuctionPdfRecords(){
+    if(auctionPdfBusy||!requireCloudReady())return;const chosen=auctionPdfParsedRecords.filter(r=>r.selected);if(!chosen.length)return;
+    const existingKeys=new Set(records().map(item=>`${normalizeSavedSearch(stateText(item,'caseNo',item.title))}|${normalizeSavedSearch(stateText(item,'propertyName',stateText(item,'region','')))}`));let candidates=[];let skipped=0;
+    chosen.forEach(r=>{const key=`${normalizeSavedSearch(r.caseNo)}|${normalizeSavedSearch(r.address)}`;if(existingKeys.has(key)){skipped++;return;}existingKeys.add(key);candidates.push(r);});
+    if(!candidates.length){alert(`모두 이미 저장된 물건입니다.${skipped?` (${skipped}건 중복)`:''}`);return;}if(!confirm(`${candidates.length}건을 ‘미검토’ 상태로 저장할까요?${skipped?`\n이미 있는 ${skipped}건은 건너뜁니다.`:''}`))return;
+    $('auctionPdfSaveBtn').disabled=true;$('auctionPdfCancelBtn').disabled=true;setSyncStatus(`옥션원 PDF ${candidates.length}건 저장 중…`,'warn');
+    try{
+      const newFolders=[];for(const chunkStart of Array.from({length:Math.ceil(candidates.length/350)},(_,i)=>i*350)){const chunk=candidates.slice(chunkStart,chunkStart+350),batch=writeBatch(db),now=Date.now();for(const r of chunk){const id=crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random().toString(36).slice(2)}`,state=buildImportedRecordState(r),title=r.caseNo||r.apartmentName||'옥션원 물건',ref=recordRef(id);newFolders.push(state.fields.saveFolder);batch.set(ref,{title,state,revision:1,deleted:false,checksum:checksum({title,state,deleted:false}),updatedAt:serverTimestamp(),updatedAtMs:now,deviceId,schemaVersion:APP_SCHEMA_VERSION,importedFromAuctionOnePdf:true});}await batch.commit();}
+      folderNames=uniqueFolderNames([...folderNames,...newFolders]);saveFolderNamesLocal();try{await syncFolderNames();}catch(error){console.warn('folder sync',error);}setSyncStatus(`옥션원 PDF ${candidates.length}건 저장 완료 · ${formatDateTime(new Date())}`,'good');showToast(`${candidates.length}건 미검토 목록에 추가`);$('auctionPdfImportModal').hidden=true;resetAuctionPdfImport();
+    }catch(error){console.error(error);alert(`PDF 물건을 저장하지 못했습니다. ${error?.message||''}`);setSyncStatus('PDF 가져오기 저장 실패','bad');}
+    finally{$('auctionPdfSaveBtn').disabled=false;$('auctionPdfCancelBtn').disabled=false;}
+  }
+
   async function refreshRecordFromCloud(id){
     if (!currentUser) return;
     const snap = await getDoc(recordRef(id));
@@ -4650,7 +4942,7 @@ const db = getFirestore(firebaseApp);
     const selectedSaveFolder = cleanFolderName($("saveFolder").value);
     const bidDecision = $("bidDecision").value;
     if (!bidDecision){
-      alert("고민중·입찰하기·입찰완료·입찰 안 함 중 하나를 선택해주세요.");
+      alert("미검토·고민중·입찰하기·입찰완료·입찰 안 함 중 하나를 선택해주세요.");
       $("bidDecision").focus();
       return;
     }
@@ -5966,6 +6258,20 @@ const db = getFirestore(firebaseApp);
       e.target.value = "";
     }
   });
+
+
+  setupSavedStatusDrag();
+  $('auctionPdfImportBtn')?.addEventListener('click',()=>{if(!requireCloudReady())return;resetAuctionPdfImport();$('auctionPdfImportModal').hidden=false;});
+  $('auctionPdfImportCloseBtn')?.addEventListener('click',closeAuctionPdfImport);
+  $('auctionPdfCancelBtn')?.addEventListener('click',closeAuctionPdfImport);
+  $('auctionPdfImportModal')?.addEventListener('click',e=>{if(e.target===$('auctionPdfImportModal'))closeAuctionPdfImport();});
+  $('auctionPdfFiles')?.addEventListener('change',e=>processAuctionPdfFiles([...e.target.files||[]]));
+  const pdfDrop=$('auctionPdfDropzone');
+  if(pdfDrop){['dragenter','dragover'].forEach(type=>pdfDrop.addEventListener(type,e=>{e.preventDefault();pdfDrop.classList.add('drag-over');}));['dragleave','drop'].forEach(type=>pdfDrop.addEventListener(type,e=>{e.preventDefault();pdfDrop.classList.remove('drag-over');}));pdfDrop.addEventListener('drop',e=>{const files=[...e.dataTransfer.files].filter(f=>/\.pdf$/i.test(f.name)||f.type==='application/pdf');processAuctionPdfFiles(files);});}
+  $('auctionPdfPreviewBody')?.addEventListener('change',e=>{const idx=Number(e.target.dataset.pdfSelect);if(Number.isInteger(idx)&&auctionPdfParsedRecords[idx]){auctionPdfParsedRecords[idx].selected=e.target.checked;renderAuctionPdfPreview();}});
+  $('auctionPdfSelectAllBtn')?.addEventListener('click',()=>{auctionPdfParsedRecords.forEach(r=>r.selected=true);renderAuctionPdfPreview();});
+  $('auctionPdfSelectNoneBtn')?.addEventListener('click',()=>{auctionPdfParsedRecords.forEach(r=>r.selected=false);renderAuctionPdfPreview();});
+  $('auctionPdfSaveBtn')?.addEventListener('click',saveAuctionPdfRecords);
 
   loadSectionOrder();
   applyCollapsedSections(collapsedSections());

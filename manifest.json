@@ -1,7 +1,7 @@
 {
   "name": "경매 입찰·대출 자금 계산기",
   "short_name": "경매계산기",
-  "description": "경매 입찰·대출 자금 계산기 v1.15.8 - 신탁대출 기본·저장카드/비용/실제입찰 종잣돈 산식 통일·상단 물건요약 접기",
+  "description": "경매 입찰·대출 자금 계산기 v1.16.0 - 옥션원 PDF 일괄가져오기·미검토 상태·카드 드래그 분류 추가",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
