@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.16.0</title>
+  <title>경매 입찰·대출 자금 계산기 v1.16.2</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -989,7 +989,7 @@
       display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px
     }
     .actual-income-manual input{padding:7px 4px!important;font-size:10.5px!important}
-    /* v1.16.0 옥션원 PDF 후보 일괄가져오기 + 상태 드래그 */
+    /* v1.16.2 옥션원 PDF 후보 일괄가져오기 + 상태 드래그 */
     .auction-pdf-import-btn{border:1px solid #a7f3d0;background:#ecfdf5;color:#047857;border-radius:8px;padding:6px 9px;font-size:11px;font-weight:950;cursor:pointer;white-space:nowrap}
     .auction-pdf-import-btn:hover{background:#d1fae5}
     .saved-status-dropboard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:7px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:10px}
@@ -1014,6 +1014,8 @@
     .pdf-import-note{font-size:10px;line-height:1.5;color:#64748b;background:#f8fafc;border:1px solid #e2e8f0;border-radius:9px;padding:8px 9px}
     .pdf-preview-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.pdf-preview-summary{font-size:11px;color:#334155;font-weight:900}
     .pdf-preview-table-wrap{overflow:auto;border:1px solid #e2e8f0;border-radius:10px;max-height:410px}.pdf-preview-table{min-width:870px;font-size:10.5px}.pdf-preview-table th{position:sticky;top:0;z-index:1;background:#f8fafc}.pdf-preview-table td,.pdf-preview-table th{padding:7px 6px;text-align:left;vertical-align:top}.pdf-preview-table input[type="checkbox"]{width:16px;height:16px}.pdf-preview-table .money-cell{text-align:right;white-space:nowrap}.pdf-preview-table .uncertain{color:#b45309;font-weight:900}
+    .pdf-edit-input{width:100%;min-width:86px;border:1px solid #dbe3ef;border-radius:6px;padding:5px 6px;background:#fff;color:#0f172a;font-size:10px;line-height:1.25}
+    .pdf-edit-input:focus{outline:2px solid #bfdbfe;border-color:#60a5fa}.pdf-edit-address{min-width:310px}.pdf-edit-small{min-width:48px;width:62px}.pdf-edit-money{min-width:105px;text-align:right}.pdf-ocr-method{display:inline-flex;align-items:center;border:1px solid #bbf7d0;background:#f0fdf4;color:#047857;border-radius:999px;padding:2px 6px;font-size:8px;font-weight:900;margin-left:4px}
     .pdf-import-actions{display:flex;justify-content:flex-end;gap:7px;padding:12px 17px;border-top:1px solid #e2e8f0;background:#fff}
     .pdf-import-actions .btn{min-width:110px}
     .pdf-libraries-note{font-size:9.5px;color:#94a3b8}
@@ -1205,7 +1207,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.16.0</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.16.2</span></h1>
       <div class="sub">저장목록에서 물건을 비교하고, 예상 매도가 범위와 목표수익 10~15%를 기준으로 입찰가능가율·순수익·종잣돈 범위를 먼저 판단합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -1810,7 +1812,7 @@
             <tbody id="summaryTable"></tbody>
           </table>
         </div>
-        <div class="helper" style="margin-top:8px">* v1.16.0에서도 비용메뉴의 <b>최종 필요 종잣돈</b>과 <b>지금 당장 필요 종잣돈</b>은 실제입찰과 같은 상세비용 산식으로 계산합니다. 신탁대출 열의 금액은 저장카드·실제입찰과 같은 신탁대출 기준입니다. 지금 당장 필요 종잣돈은 낙찰가−대출금 + 법무비 + 명도비 + 수리비 + 미납관리비이며, 취등록세(카드납부 전제), 매도 중개수수료, 중도상환수수료, 대출이자는 제외합니다.</div>
+        <div class="helper" style="margin-top:8px">* v1.16.2에서도 비용메뉴의 <b>최종 필요 종잣돈</b>과 <b>지금 당장 필요 종잣돈</b>은 실제입찰과 같은 상세비용 산식으로 계산합니다. 신탁대출 열의 금액은 저장카드·실제입찰과 같은 신탁대출 기준입니다. 지금 당장 필요 종잣돈은 낙찰가−대출금 + 법무비 + 명도비 + 수리비 + 미납관리비이며, 취등록세(카드납부 전제), 매도 중개수수료, 중도상환수수료, 대출이자는 제외합니다.</div>
       </section>
     </main>
     <div id="workspaceResizeHandle" class="no-print" role="separator" aria-orientation="vertical" aria-label="저장목록 너비 조절" title="마우스로 끌어 저장목록 너비 조절"></div>
@@ -2026,7 +2028,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.16.1 옥션원 PDF OCR 인식보강·미검토 분류·상태 드래그 추가 · 신탁대출 종잣돈 계산 통일 · 상단 물건요약 접기·펴기 · 상세영역 전체높이 활용 · 좁은 패널 자동재배치 · 종잣돈 범위 표시 · 목표수익률 10~15% 단독기준 역산범위 · 예상매도가 범위 · 고정 물건특성 · 세로 상세탭 · 입찰결과 기록 · 실제입찰/대출/피드백 기존 기능 유지 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.16.2 옥션원 PDF 고정밀 열분리 OCR·미검토 분류·상태 드래그 추가 · 신탁대출 종잣돈 계산 통일 · 상단 물건요약 접기·펴기 · 상세영역 전체높이 활용 · 좁은 패널 자동재배치 · 종잣돈 범위 표시 · 목표수익률 10~15% 단독기준 역산범위 · 예상매도가 범위 · 고정 물건특성 · 세로 상세탭 · 입찰결과 기록 · 실제입찰/대출/피드백 기존 기능 유지 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -2242,7 +2244,7 @@
         <div class="pdf-progress-row"><span id="auctionPdfProgressText">OCR 준비 중…</span><span id="auctionPdfProgressPct">0%</span></div>
         <div class="pdf-progress-track"><div class="pdf-progress-bar" id="auctionPdfProgressBar"></div></div>
       </div>
-      <div class="pdf-import-note">PDF가 이미지형 목록이라 브라우저 안에서 OCR을 돌립니다. 최초 실행 때 OCR 언어파일을 내려받기 때문에 인터넷이 필요하고, 페이지 수가 많으면 몇 분 걸릴 수 있습니다. 인식값은 저장 전 미리보기에서 확인할 수 있고, 불확실한 항목은 저장 후 개별 물건에서 수정하면 됩니다.</div>
+      <div class="pdf-import-note">PDF가 이미지형 목록이라 브라우저 안에서 무료 OCR을 돌립니다. v1.16.2부터 한 페이지를 통째로 읽지 않고 사건번호·주소/단지·가격·기일 열을 따로 확대 인식해 정확도를 높였습니다. OCR 특성상 일부 한글은 틀릴 수 있어 저장 전 표에서 바로 수정할 수 있습니다.</div>
       <div class="pdf-preview-toolbar" id="auctionPdfPreviewToolbar" hidden>
         <div class="pdf-preview-summary" id="auctionPdfPreviewSummary">-</div>
         <div><button class="btn light" id="auctionPdfSelectAllBtn" type="button">전체 선택</button> <button class="btn light" id="auctionPdfSelectNoneBtn" type="button">전체 해제</button></div>
@@ -2250,7 +2252,7 @@
       <div class="pdf-preview-table-wrap" id="auctionPdfPreviewWrap" hidden>
         <table class="pdf-preview-table"><thead><tr><th>선택</th><th>사건번호</th><th>주소/단지</th><th>층·호</th><th>평형</th><th>감정가</th><th>최저가</th><th>기일</th><th>특이표시</th></tr></thead><tbody id="auctionPdfPreviewBody"></tbody></table>
       </div>
-      <div class="pdf-libraries-note">OCR: Tesseract.js · PDF 렌더링: PDF.js · AI API 사용 없음</div>
+      <div class="pdf-libraries-note">OCR: Tesseract.js · 고정밀 열분리 인식 · PDF 렌더링: PDF.js · AI API 사용 없음</div>
     </div>
     <div class="pdf-import-actions">
       <button class="btn light" id="auctionPdfCancelBtn" type="button">닫기</button>
@@ -2396,6 +2398,7 @@ const db = getFirestore(firebaseApp);
   let auctionPdfParsedRecords = [];
   let auctionPdfExpectedCount = 0;
   let auctionPdfOcrWorker = null;
+  let auctionPdfNumericWorker = null;
   let auctionPdfBusy = false;
 
   const numericText = (value) => String(value ?? "").replace(/,/g,"").trim();
@@ -4832,100 +4835,114 @@ const db = getFirestore(firebaseApp);
     const headers=lines[0].split('\t');return lines.slice(1).map(line=>{const parts=line.split('\t'),obj={};headers.forEach((key,i)=>obj[key]=parts[i]??'');return {text:String(obj.text||'').trim(),left:Number(obj.left)||0,top:Number(obj.top)||0,width:Number(obj.width)||0,height:Number(obj.height)||0,level:Number(obj.level)||0,conf:Number(obj.conf)||0};}).filter(w=>w.level===5&&w.text);
   }
   function joinAuctionOneSpatialWords(words){
-    const rows=[];[...words].sort((a,b)=>a.top-b.top||a.left-b.left).forEach(word=>{const cy=word.top+word.height/2;let row=rows.find(x=>Math.abs(x.cy-cy)<=8);if(!row){row={cy,words:[]};rows.push(row);}row.words.push(word);});
-    rows.sort((a,b)=>a.cy-b.cy);return rows.map(row=>{row.words.sort((a,b)=>a.left-b.left);let out='',prev=null;row.words.forEach(word=>{if(prev){const gap=word.left-(prev.left+prev.width),singleA=/^[가-힣]$/.test(prev.text),singleB=/^[가-힣]$/.test(word.text);if(!((singleA&&singleB&&gap<=20)||gap<=3))out+=' ';}out+=word.text;prev=word;});return out;}).join(' ');
+    const rows=[];[...words].sort((a,b)=>a.top-b.top||a.left-b.left).forEach(word=>{const cy=word.top+word.height/2;let row=rows.find(x=>Math.abs(x.cy-cy)<=10);if(!row){row={cy,words:[]};rows.push(row);}row.words.push(word);});
+    rows.sort((a,b)=>a.cy-b.cy);return rows.map(row=>{row.words.sort((a,b)=>a.left-b.left);let out='',prev=null;row.words.forEach(word=>{if(prev){const gap=word.left-(prev.left+prev.width),singleA=/^[가-힣]$/.test(prev.text),singleB=/^[가-힣]$/.test(word.text);if(!((singleA&&singleB&&gap<=24)||gap<=4))out+=' ';}out+=word.text;prev=word;});return compactOcrLine(out);}).join('\n');
   }
+  function auctionOneSpatialLines(words){return joinAuctionOneSpatialWords(words).split(/\n+/).map(compactOcrLine).map(x=>x.replace(/^[-_=~|.·:;]+\s*/, '').trim()).filter(Boolean);}
   function cleanAuctionOneSpatialAddress(text){
-    let out=String(text||'').replace(/아\s+파트/g,'아파트').replace(/([가-힣])\s+아파트/g,'$1아파트').replace(/대전\s+광역시/g,'대전광역시').replace(/대구\s+광역시/g,'대구광역시').replace(/부산\s+광역시/g,'부산광역시').replace(/광주\s+광역시/g,'광주광역시').replace(/인천\s+광역시/g,'인천광역시').replace(/울산\s+광역시/g,'울산광역시').replace(/서울\s+특별시/g,'서울특별시').replace(/\s+/g,' ').trim();
-    out=out.replace(/^주\s*광역시/,'광주광역시');
+    let out=String(text||'').split(/\n+/).map(compactOcrLine).join(' ').replace(/아\s+파트/g,'아파트').replace(/([가-힣])\s+아파트/g,'$1아파트').replace(/대전\s*광역시/g,'대전광역시').replace(/대구\s*광역시/g,'대구광역시').replace(/부산\s*광역시/g,'부산광역시').replace(/광주\s*광역시/g,'광주광역시').replace(/인천\s*광역시/g,'인천광역시').replace(/울산\s*광역시/g,'울산광역시').replace(/서울\s*특별시/g,'서울특별시').replace(/충청\s*남도/g,'충청남도').replace(/충청\s*북도/g,'충청북도').replace(/전라\s*남도/g,'전라남도').replace(/전라\s*북도/g,'전라북도').replace(/경상\s*남도/g,'경상남도').replace(/경상\s*북도/g,'경상북도').replace(/강원\s*특별자치도/g,'강원특별자치도').replace(/전북\s*특별자치도/g,'전북특별자치도').replace(/제주\s*특별자치도/g,'제주특별자치도').replace(/\s+/g,' ').trim();
+    out=out.replace(/^주\s*광역시/,'광주광역시').replace(/\s+,/g,',');
     const province=/(서울특별시|부산광역시|대구광역시|인천광역시|광주광역시|대전광역시|울산광역시|세종특별자치시|경기도|강원특별자치도|강원도|충청북도|충청남도|전북특별자치도|전라북도|전라남도|경상북도|경상남도|제주특별자치도)/.exec(out);
     if(province&&province.index>0)out=out.slice(province.index);
-    return out.replace(/\s+,/g,',').replace(/\s+/g,' ').trim();
+    return out.replace(/\s+/g,' ').trim();
+  }
+  function extractAuctionOneAddressFromWords(words){
+    const lines=auctionOneSpatialLines(words);if(!lines.length)return '';
+    const stop=/^(?:\[?\s*)?(?:대지권|건물|공급|급\s*\d|선순위|임차권|대항력|재매각|공시가격|토지별도|HUG|법정지상권|유치권)/;
+    let start=lines.findIndex(l=>auctionOneProvinceLine(cleanAuctionOneSpatialAddress(l)));
+    if(start<0)start=lines.findIndex(l=>/[가-힣]{2,}(?:시|군|구).*(?:동|읍|면|리)\s*\d/.test(l));
+    if(start<0)return '';
+    const picked=[];
+    for(let i=start;i<Math.min(lines.length,start+4);i++){
+      let l=lines[i].replace(/\s+\d{1,2}\s*$/,'').trim();if(!l)continue;
+      if(i>start&&stop.test(l))break;
+      if(i===start||/(동|층|호|아파트|파트|오피스텔|주상복합|빌라|연립|맨션|타운|센트럴|파크|푸르지오|자이|래미안|힐스테이트|e편한|아이파크|코아루)/i.test(l))picked.push(l);else break;
+    }
+    return cleanAuctionOneSpatialAddress(picked.join(' '));
   }
   function parseAuctionOneFloorUnitHeuristic(address){
     const text=String(address||'').replace(/[Oo]/g,'0');let floor='',unit='',m=text.match(/(\d{1,3})\s*층\s*(\d{2,4})\s*호/);if(m)return {floor:m[1],unit:`${m[2]}호`};
-    m=text.match(/(\d{1,3})\s*층/);if(m)floor=m[1];if(!floor){m=text.match(/\b(\d{1,2})\s*[Ss]\b/);if(m)floor=m[1];}if(!floor){m=text.match(/\b(\d{1,2})3\b(?=\s+\d{3,5})/);if(m)floor=m[1];}
-    m=text.match(/(\d{2,4})\s*호/);if(m)unit=`${m[1]}호`;
-    if(floor&&!unit){const floorAt=Math.max(0,text.search(new RegExp(`(?:${floor}\\s*층|\\b${floor}\\s*[Ss]\\b|\\b${floor}3\\b)`))),after=text.slice(floorAt);const nums=after.match(/\b\d{3,5}\.?/g)||[];for(const raw of nums){let digits=raw.replace(/\D/g,'');if(digits.length>=4&&/[25]$/.test(digits)){unit=`${digits.slice(0,-1)}호`;break;}if(digits.length===3||digits.length===4){unit=`${digits}호`;break;}}
-    }
-    return {floor,unit};
+    m=text.match(/(\d{1,3})\s*층/);if(m)floor=m[1];m=text.match(/(\d{2,4})\s*호/);if(m)unit=`${m[1]}호`;return {floor,unit};
   }
   function parseAuctionOneAreasFromSpatial(text){
-    const src=String(text||'').replace(/,/g,'.');let exclusive='',supply='';let m=src.match(/건물\s*(\d+(?:\.\d+)?)\s*m/i);if(m)exclusive=String(Math.round(Number(m[1])*100)/100);m=src.match(/급\s*(\d+(?:\.\d+)?)\s*평\s*형/);if(m){const n=Number(m[1]);if(n>=8&&n<=200)supply=String(n);}return {exclusive,supply};
+    const src=String(text||'').replace(/,/g,'.');let exclusive='',supply='';let m=src.match(/건물\s*(\d+(?:\.\d+)?)\s*(?:m|㎡)/i);if(m)exclusive=String(Math.round(Number(m[1])*100)/100);m=src.replace(/\s+/g,'').match(/(?:공급|급)(\d+(?:\.\d+)?)평형/);if(m){const n=Number(m[1]);if(n>=8&&n<=200)supply=String(n);}return {exclusive,supply};
   }
   function parseAuctionOneCaseAnchors(tsv,offsetLeft=0,offsetTop=0){
-    const rawWords=parseAuctionOneTsvWords(tsv).map(w=>({...w,left:w.left+offsetLeft,top:w.top+offsetTop})),words=offsetLeft?rawWords.filter(w=>w.left<=offsetLeft+230):rawWords,rows=[];
-    [...words].sort((a,b)=>a.top-b.top||a.left-b.left).forEach(word=>{const cy=word.top+word.height/2;let row=rows.find(x=>Math.abs(x.cy-cy)<=10);if(!row){row={cy,words:[]};rows.push(row);}row.words.push(word);});
+    const rawWords=parseAuctionOneTsvWords(tsv).map(w=>({...w,left:w.left+offsetLeft,top:w.top+offsetTop})),rows=[];
+    [...rawWords].sort((a,b)=>a.top-b.top||a.left-b.left).forEach(word=>{const cy=word.top+word.height/2;let row=rows.find(x=>Math.abs(x.cy-cy)<=12);if(!row){row={cy,words:[]};rows.push(row);}row.words.push(word);});
     const anchors=[];rows.forEach(row=>{row.words.sort((a,b)=>a.left-b.left);const compact=row.words.map(w=>w.text).join('').replace(/\s+/g,'');const m=compact.match(/((?:20)?\d{2}-\d{1,6})(?:\((\d+)\))?/);if(!m)return;const left=Math.min(...row.words.map(w=>w.left)),top=Math.min(...row.words.map(w=>w.top)),right=Math.max(...row.words.map(w=>w.left+w.width)),bottom=Math.max(...row.words.map(w=>w.top+w.height));anchors.push({text:m[1],caseRaw:`${m[1]}${m[2]?` (${m[2]})`:''}`,left,top,width:right-left,height:bottom-top,conf:Math.max(...row.words.map(w=>w.conf))});});
-    anchors.sort((a,b)=>a.top-b.top);const merged=[];anchors.forEach(a=>{const hit=merged.find(x=>Math.abs((x.top+x.height/2)-(a.top+a.height/2))<12);if(!hit)merged.push(a);else if(a.caseRaw.includes('(')&&!hit.caseRaw.includes('('))Object.assign(hit,a);});return merged;
+    anchors.sort((a,b)=>a.top-b.top);const merged=[];anchors.forEach(a=>{const hit=merged.find(x=>Math.abs((x.top+x.height/2)-(a.top+a.height/2))<14);if(!hit)merged.push(a);else if(a.caseRaw.includes('(')&&!hit.caseRaw.includes('('))Object.assign(hit,a);});return merged;
   }
-  function parseAuctionOnePageTsv(tsv,sourceName,pageNo,caseTsv="",caseOffsetLeft=0,caseOffsetTop=0){
-    const words=parseAuctionOneTsvWords(tsv);if(!words.length)return [];
-    const pageW=Math.max(...words.map(w=>w.left+w.width),1),pageH=Math.max(...words.map(w=>w.top+w.height),1);
-    const fullAnchors=parseAuctionOneCaseAnchors(tsv),caseAnchors=caseTsv?parseAuctionOneCaseAnchors(caseTsv,caseOffsetLeft,caseOffsetTop):[],anchors=caseAnchors.length?caseAnchors:fullAnchors;if(!anchors.length)return [];
+  function offsetAuctionWords(tsv,left=0,top=0){return parseAuctionOneTsvWords(tsv).map(w=>({...w,left:w.left+left,top:w.top+top}));}
+  function detectAuctionOneHorizontalLines(canvas){
+    const ctx=canvas.getContext('2d',{willReadFrequently:true}),w=canvas.width,h=canvas.height,img=ctx.getImageData(0,0,w,h).data,x1=Math.floor(w*.02),x2=Math.floor(w*.98),step=5,hits=[];
+    for(let y=0;y<h;y+=2){let dark=0,total=0;for(let x=x1;x<x2;x+=step){const i=(y*w+x)*4,g=(img[i]*299+img[i+1]*587+img[i+2]*114)/1000;if(g<242)dark++;total++;}if(total&&dark/total>.68)hits.push(y);}
+    const groups=[];for(const y of hits){const last=groups[groups.length-1];if(last&&y-last[1]<=4)last[1]=y;else groups.push([y,y]);}
+    return groups.map(([a,b])=>Math.round((a+b)/2));
+  }
+  function auctionOneRowBand(cy,separators,pageH,anchors,index){
+    const prev=separators.filter(y=>y<cy).pop(),next=separators.find(y=>y>cy);if(prev!=null&&next!=null&&next-prev>pageH*.035&&next-prev<pageH*.13)return [prev+2,next-2];
+    const prevCy=index?anchors[index-1].top+anchors[index-1].height/2:0,nextCy=index<anchors.length-1?anchors[index+1].top+anchors[index+1].height/2:pageH;return [index?(prevCy+cy)/2:Math.max(0,cy-pageH*.045),index<anchors.length-1?(cy+nextCy)/2:Math.min(pageH,cy+pageH*.05)];
+  }
+  function parseAuctionMoneyWords(words){
+    const vals=[];[...words].sort((a,b)=>a.top-b.top||a.left-b.left).forEach(w=>{let t=String(w.text||'').replace(/\./g,',');const m=t.match(/\d{1,3}(?:,\d{3}){2,3}/);let n=m?Number(m[0].replace(/,/g,'')):0;if(!n){const d=t.replace(/\D/g,'');if(d.length>=7&&d.length<=10)n=Number(d);}if(n>=1000000&&n<=5000000000&&!vals.includes(n))vals.push(n);});return vals;
+  }
+  function auctionOneAddressQuality(address){
+    const t=String(address||'');let score=0;if(auctionOneProvinceLine(t))score+=3;if(/[가-힣]{2,}(?:시|군|구)/.test(t))score+=1;if(/(?:동|읍|면|리)\s*\d/.test(t))score+=2;if(/(아파트|오피스텔|주상복합|맨션|빌라|연립|타운)/.test(t))score+=1;if(/층|호/.test(t))score+=1;const latin=(t.match(/[A-Za-z]{2,}/g)||[]).length;if(latin)score-=Math.min(3,latin);return score;
+  }
+  function parseAuctionOneColumnTsv(caseTsv,mainTsv,priceTsv,metaTsv,sourceName,pageNo,offsets,separators,pageH){
+    const anchors=parseAuctionOneCaseAnchors(caseTsv,offsets.caseLeft,0);if(!anchors.length)return [];
+    const mainWords=offsetAuctionWords(mainTsv,offsets.mainLeft,0),priceWords=offsetAuctionWords(priceTsv,offsets.priceLeft,0),metaWords=offsetAuctionWords(metaTsv,offsets.metaLeft,0);
     return anchors.map((anchor,index)=>{
-      const cy=anchor.top+anchor.height/2,prevCy=index?anchors[index-1].top+anchors[index-1].height/2:cy-pageH*.08,nextCy=index<anchors.length-1?anchors[index+1].top+anchors[index+1].height/2:cy+pageH*.08,upper=index?prevCy+pageH*.027:Math.max(0,cy-pageH*.055),lower=index<anchors.length-1?nextCy-pageH*.027:pageH;
-      const row=words.filter(w=>{const y=w.top+w.height/2;return y>=upper&&y<lower;});
-      const suffix=anchor.caseRaw&&anchor.caseRaw.includes('(')?null:row.find(w=>/^\(\d+\)$/.test(w.text)&&Math.abs((w.top+w.height/2)-cy)<pageH*.012&&w.left>anchor.left);
-      const addressWords=row.filter(w=>{const y=w.top+w.height/2;return w.left>=pageW*.29&&w.left<=pageW*.69&&y>=cy-pageH*.020&&y<=cy+pageH*.008;});
-      const address=cleanAuctionOneSpatialAddress(joinAuctionOneSpatialWords(addressWords));const floorUnit=parseAuctionOneFloorUnitHeuristic(address);
-      const amounts=row.filter(w=>w.left>pageW*.66&&/^\d{1,3}(?:,\d{3}){2,3}$/.test(w.text)).sort((a,b)=>a.top-b.top).map(w=>Number(w.text.replace(/,/g,''))).filter(n=>n>=1000000),appraisal=amounts[0]||0,minPrice=amounts[1]||0;
-      const dateWord=row.find(w=>/^20\d{2}[.\-]\d{2}[.\-]\d{2}$/.test(w.text)),auctionDate=dateWord?dateWord.text.replace(/\./g,'-'):'';
-      const rowText=joinAuctionOneSpatialWords(row),compact=row.map(w=>w.text).join('');const areas=parseAuctionOneAreasFromSpatial(rowText),flags=parseAuctionOneFlags(compact);
-      let propertyType='아파트';if(/주상복합/.test(compact))propertyType='주상복합';else if(/오피스텔/.test(compact))propertyType='오피스텔';
-      const caseRaw=anchor.caseRaw||`${anchor.text}${suffix?` ${suffix.text}`:''}`,discount=appraisal>0&&minPrice>0?Math.round(minPrice/appraisal*1000)/10:0;
-      return {sourceName,pageNo,caseRaw,caseNo:normalizeAuctionOneCaseNo(caseRaw),address,apartmentName:parseAuctionOneApartment(address),floorNo:floorUnit.floor,unitNo:floorUnit.unit,exclusiveArea:areas.exclusive,supplyAreaPyeong:areas.supply,propertyType,appraisal,minPrice,discount,auctionDate,flags,rawText:rowText,selected:true,confidence:{caseNo:true,address:auctionOneProvinceLine(address),appraisal:!!appraisal,minPrice:!!minPrice,date:!!auctionDate}};
+      const cy=anchor.top+anchor.height/2,[upper,lower]=auctionOneRowBand(cy,separators,pageH,anchors,index),inBand=w=>{const y=w.top+w.height/2;return y>=upper&&y<lower;};
+      const mw=mainWords.filter(inBand),pw=priceWords.filter(inBand),tw=metaWords.filter(inBand),mainText=auctionOneSpatialLines(mw).join('\n'),address=extractAuctionOneAddressFromWords(mw),floorUnit=parseAuctionOneFloorUnitHeuristic(address),areas=parseAuctionOneAreasFromSpatial(mainText),amounts=parseAuctionMoneyWords(pw),appraisal=amounts[0]||0,minPrice=amounts[1]||0,metaText=auctionOneSpatialLines(tw).join(' '),dateMatch=metaText.match(/(20\d{2})[.\-](\d{2})[.\-](\d{2})/),auctionDate=dateMatch?`${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}`:'',flags=parseAuctionOneFlags(mainText);
+      let propertyType='아파트';if(/주상복합/.test(mainText+address))propertyType='주상복합';else if(/오피스텔/.test(mainText+address))propertyType='오피스텔';
+      const discount=appraisal>0&&minPrice>0?Math.round(minPrice/appraisal*1000)/10:0,caseRaw=anchor.caseRaw,quality=auctionOneAddressQuality(address);
+      return {sourceName,pageNo,caseRaw,caseNo:normalizeAuctionOneCaseNo(caseRaw),address,apartmentName:parseAuctionOneApartment(address),floorNo:floorUnit.floor,unitNo:floorUnit.unit,exclusiveArea:areas.exclusive,supplyAreaPyeong:areas.supply,propertyType,appraisal,minPrice,discount,auctionDate,flags,rawText:`${mainText}\n${metaText}`,selected:true,ocrMethod:'열분리',confidence:{caseNo:true,address:quality>=5,appraisal:!!appraisal,minPrice:!!minPrice,date:!!auctionDate}};
     });
   }
+  function makeAuctionOcrCrop(canvas,leftRatio,rightRatio){
+    const x=Math.max(0,Math.floor(canvas.width*leftRatio)),right=Math.min(canvas.width,Math.ceil(canvas.width*rightRatio)),w=Math.max(1,right-x),out=document.createElement('canvas'),ctx=out.getContext('2d',{willReadFrequently:true});out.width=w;out.height=canvas.height;ctx.drawImage(canvas,x,0,w,canvas.height,0,0,w,canvas.height);
+    const img=ctx.getImageData(0,0,w,out.height),d=img.data;for(let i=0;i<d.length;i+=4){const g=(d[i]*299+d[i+1]*587+d[i+2]*114)/1000;let v=(g-128)*1.22+128;if(v>244)v=255;else if(v<0)v=0;d[i]=d[i+1]=d[i+2]=v;}ctx.putImageData(img,0,0);return {canvas:out,left:x};
+  }
   async function loadAuctionPdfLibraries(){
-    const pdfjs=await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs');
-    pdfjs.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs';
-    if(!window.Tesseract){await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js';script.onload=resolve;script.onerror=()=>reject(new Error('OCR 라이브러리를 불러오지 못했습니다.'));document.head.appendChild(script);});}
-    return pdfjs;
+    const pdfjs=await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs');pdfjs.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs';
+    if(!window.Tesseract){await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js';script.onload=resolve;script.onerror=()=>reject(new Error('OCR 라이브러리를 불러오지 못했습니다.'));document.head.appendChild(script);});}return pdfjs;
   }
   async function getAuctionPdfWorker(){
-    if(auctionPdfOcrWorker)return auctionPdfOcrWorker;
-    auctionPdfOcrWorker=await window.Tesseract.createWorker('kor+eng',1,{logger:m=>{if(m.status&&typeof m.progress==='number'&&auctionPdfBusy){const base=Number($('auctionPdfProgressBar')?.dataset.base||0),span=Number($('auctionPdfProgressBar')?.dataset.span||0);setAuctionPdfProgress(base+span*m.progress,`OCR · ${m.status}`);}}});
-    await auctionPdfOcrWorker.setParameters({tessedit_pageseg_mode:'11',preserve_interword_spaces:'1'});
-    return auctionPdfOcrWorker;
+    if(auctionPdfOcrWorker)return auctionPdfOcrWorker;auctionPdfOcrWorker=await window.Tesseract.createWorker('kor+eng',1,{logger:m=>{if(m.status&&typeof m.progress==='number'&&auctionPdfBusy){const base=Number($('auctionPdfProgressBar')?.dataset.base||0),span=Number($('auctionPdfProgressBar')?.dataset.span||0);setAuctionPdfProgress(base+span*m.progress,`OCR · ${m.status}`);}}});await auctionPdfOcrWorker.setParameters({tessedit_pageseg_mode:'6',preserve_interword_spaces:'1'});return auctionPdfOcrWorker;
   }
+  async function getAuctionPdfNumericWorker(){
+    if(auctionPdfNumericWorker)return auctionPdfNumericWorker;auctionPdfNumericWorker=await window.Tesseract.createWorker('eng',1);await auctionPdfNumericWorker.setParameters({tessedit_pageseg_mode:'6',preserve_interword_spaces:'1'});return auctionPdfNumericWorker;
+  }
+  async function recognizeAuctionCrop(worker,canvas,params={}){if(params&&Object.keys(params).length)await worker.setParameters(params);return worker.recognize(canvas,{}, {text:true,tsv:true});}
   function setAuctionPdfProgress(frac,text){const f=Math.max(0,Math.min(1,Number(frac)||0));$('auctionPdfProgress').hidden=false;$('auctionPdfProgressBar').style.width=`${Math.round(f*100)}%`;$('auctionPdfProgressPct').textContent=`${Math.round(f*100)}%`;if(text)$('auctionPdfProgressText').textContent=text;}
   function closeAuctionPdfImport(){if(auctionPdfBusy)return;$('auctionPdfImportModal').hidden=true;}
   function resetAuctionPdfImport(){auctionPdfParsedRecords=[];auctionPdfExpectedCount=0;$('auctionPdfFiles').value='';$('auctionPdfPreviewWrap').hidden=true;$('auctionPdfPreviewToolbar').hidden=true;$('auctionPdfProgress').hidden=true;$('auctionPdfSaveBtn').disabled=true;$('auctionPdfPreviewBody').innerHTML='';}
   function renderAuctionPdfPreview(){
-    const body=$('auctionPdfPreviewBody');const total=auctionPdfParsedRecords.length,selected=auctionPdfParsedRecords.filter(r=>r.selected).length,weak=auctionPdfParsedRecords.filter(r=>!r.confidence.address||!r.confidence.appraisal||!r.confidence.minPrice).length;
-    const countCheck=auctionPdfExpectedCount?` · PDF 목록 ${auctionPdfExpectedCount}건${total<auctionPdfExpectedCount?` / ⚠ ${auctionPdfExpectedCount-total}건 덜 인식`:total===auctionPdfExpectedCount?' / 일치':''}`:'';$('auctionPdfPreviewSummary').textContent=`인식 ${total}건 · 저장 선택 ${selected}건${weak?` · 확인필요 ${weak}건`:''}${countCheck}`;$('auctionPdfPreviewToolbar').hidden=false;$('auctionPdfPreviewWrap').hidden=false;$('auctionPdfSaveBtn').disabled=selected===0;
-    body.innerHTML=auctionPdfParsedRecords.map((r,i)=>`<tr><td><input type="checkbox" data-pdf-select="${i}" ${r.selected?'checked':''}></td><td class="${r.confidence.caseNo?'':'uncertain'}">${escapeHtml(r.caseNo||r.caseRaw||'확인필요')}</td><td class="${r.confidence.address?'':'uncertain'}"><b>${escapeHtml(r.apartmentName||'')}</b><br>${escapeHtml(r.address||'주소 확인필요')}</td><td>${escapeHtml([r.floorNo&&`${r.floorNo}층`,r.unitNo].filter(Boolean).join(' · ')||'-')}</td><td>${escapeHtml(r.supplyAreaPyeong?`${r.supplyAreaPyeong}평`:r.exclusiveArea?`${r.exclusiveArea}㎡`:'-')}</td><td class="money-cell ${r.confidence.appraisal?'':'uncertain'}">${r.appraisal?r.appraisal.toLocaleString('ko-KR'):'-'}</td><td class="money-cell ${r.confidence.minPrice?'':'uncertain'}">${r.minPrice?r.minPrice.toLocaleString('ko-KR'):'-'}${r.discount?`<br><small>${r.discount}%</small>`:''}</td><td class="${r.confidence.date?'':'uncertain'}">${escapeHtml(r.auctionDate||'-')}</td><td>${r.flags.map(f=>`<span class="auction1-warning-badge">${escapeHtml(f)}</span>`).join(' ')||'-'}</td></tr>`).join('');
+    const body=$('auctionPdfPreviewBody'),total=auctionPdfParsedRecords.length,selected=auctionPdfParsedRecords.filter(r=>r.selected).length,weak=auctionPdfParsedRecords.filter(r=>!r.confidence.address||!r.confidence.appraisal||!r.confidence.minPrice).length,countCheck=auctionPdfExpectedCount?` · PDF 목록 ${auctionPdfExpectedCount}건${total<auctionPdfExpectedCount?` / ⚠ ${auctionPdfExpectedCount-total}건 덜 인식`:total===auctionPdfExpectedCount?' / 일치':''}`:'';
+    $('auctionPdfPreviewSummary').textContent=`인식 ${total}건 · 저장 선택 ${selected}건${weak?` · 확인필요 ${weak}건`:''}${countCheck}`;$('auctionPdfPreviewToolbar').hidden=false;$('auctionPdfPreviewWrap').hidden=false;$('auctionPdfSaveBtn').disabled=selected===0;
+    body.innerHTML=auctionPdfParsedRecords.map((r,i)=>`<tr><td><input type="checkbox" data-pdf-select="${i}" ${r.selected?'checked':''}></td><td><input class="pdf-edit-input" data-pdf-edit="caseNo" data-pdf-index="${i}" value="${escapeHtml(r.caseNo||r.caseRaw||'')}">${r.ocrMethod?`<span class="pdf-ocr-method">${escapeHtml(r.ocrMethod)}</span>`:''}</td><td><input class="pdf-edit-input pdf-edit-address ${r.confidence.address?'':'uncertain'}" data-pdf-edit="address" data-pdf-index="${i}" value="${escapeHtml(r.address||'')}"></td><td><div style="display:flex;gap:3px"><input class="pdf-edit-input pdf-edit-small" data-pdf-edit="floorNo" data-pdf-index="${i}" value="${escapeHtml(r.floorNo||'')}" placeholder="층"><input class="pdf-edit-input pdf-edit-small" data-pdf-edit="unitNo" data-pdf-index="${i}" value="${escapeHtml(r.unitNo||'')}" placeholder="호"></div></td><td><input class="pdf-edit-input pdf-edit-small" data-pdf-edit="supplyAreaPyeong" data-pdf-index="${i}" value="${escapeHtml(r.supplyAreaPyeong||'')}" placeholder="평"></td><td><input class="pdf-edit-input pdf-edit-money" data-pdf-edit="appraisal" data-pdf-index="${i}" value="${r.appraisal?r.appraisal.toLocaleString('ko-KR'):''}"></td><td><input class="pdf-edit-input pdf-edit-money" data-pdf-edit="minPrice" data-pdf-index="${i}" value="${r.minPrice?r.minPrice.toLocaleString('ko-KR'):''}">${r.discount?`<br><small>${r.discount}%</small>`:''}</td><td><input class="pdf-edit-input" data-pdf-edit="auctionDate" data-pdf-index="${i}" value="${escapeHtml(r.auctionDate||'')}"></td><td>${r.flags.map(f=>`<span class="auction1-warning-badge">${escapeHtml(f)}</span>`).join(' ')||'-'}</td></tr>`).join('');
   }
   async function processAuctionPdfFiles(files){
-    if(auctionPdfBusy||!files?.length)return;if(!requireCloudReady())return;
-    auctionPdfBusy=true;resetAuctionPdfImport();$('auctionPdfSaveBtn').disabled=true;$('auctionPdfCancelBtn').disabled=true;$('auctionPdfImportCloseBtn').disabled=true;setAuctionPdfProgress(0.01,'PDF/OCR 준비 중…');
+    if(auctionPdfBusy||!files?.length)return;if(!requireCloudReady())return;auctionPdfBusy=true;resetAuctionPdfImport();$('auctionPdfSaveBtn').disabled=true;$('auctionPdfCancelBtn').disabled=true;$('auctionPdfImportCloseBtn').disabled=true;setAuctionPdfProgress(.01,'고정밀 OCR 준비 중…');
     try{
-      const pdfjs=await loadAuctionPdfLibraries(),worker=await getAuctionPdfWorker();let docs=[];let pageTotal=0;
-      for(const file of files){const buf=await file.arrayBuffer();const pdf=await pdfjs.getDocument({data:buf}).promise;docs.push({file,pdf});pageTotal+=pdf.numPages;}
-      let donePages=0,parsed=[];
-      for(const {file,pdf} of docs){for(let pno=1;pno<=pdf.numPages;pno++){
-        const page=await pdf.getPage(pno),viewport=page.getViewport({scale:2.8}),canvas=document.createElement('canvas'),ctx=canvas.getContext('2d',{willReadFrequently:true});canvas.width=Math.ceil(viewport.width);canvas.height=Math.ceil(viewport.height);await page.render({canvasContext:ctx,viewport}).promise;
-        const base=donePages/pageTotal,span=1/pageTotal;$('auctionPdfProgressBar').dataset.base=String(base);$('auctionPdfProgressBar').dataset.span=String(span);setAuctionPdfProgress(base,`${file.name} · ${pno}/${pdf.numPages}페이지 읽는 중`);
-        const result=await worker.recognize(canvas,{}, {text:true,tsv:true});
-        const compactPageText=String(result.data.text||'').replace(/\s+/g,'');
-        const expectedMatch=compactPageText.match(/물건수[:：]?(\d+)건/);
-        if(expectedMatch)auctionPdfExpectedCount=Math.max(auctionPdfExpectedCount,Number(expectedMatch[1])||0);
-        let pageRecords=[];
-        if(result.data.tsv){
-          const caseLeft=Math.floor(canvas.width*.12),caseWidth=Math.floor(canvas.width*.20),caseCanvas=document.createElement('canvas'),caseCtx=caseCanvas.getContext('2d',{willReadFrequently:true});
-          caseCanvas.width=caseWidth;caseCanvas.height=canvas.height;caseCtx.drawImage(canvas,caseLeft,0,caseWidth,canvas.height,0,0,caseWidth,canvas.height);
-          const caseResult=await worker.recognize(caseCanvas,{tessedit_pageseg_mode:'11',tessedit_char_whitelist:'0123456789-()'}, {text:true,tsv:true});
-          pageRecords=parseAuctionOnePageTsv(result.data.tsv,file.name,pno,caseResult.data.tsv||'',caseLeft,0);
-        }
-        // 좌표기반 TSV가 사건번호를 못 잡으면 전체 OCR 텍스트 파서로 즉시 재시도한다.
-        if(!pageRecords.length)pageRecords=parseAuctionOnePageText(result.data.text,file.name,pno);
-        parsed.push(...pageRecords);donePages++;setAuctionPdfProgress(donePages/pageTotal,`${file.name} · ${pno}/${pdf.numPages}페이지 완료`);await new Promise(r=>setTimeout(r,0));
+      const pdfjs=await loadAuctionPdfLibraries(),worker=await getAuctionPdfWorker(),numWorker=await getAuctionPdfNumericWorker();let docs=[],pageTotal=0;for(const file of files){const buf=await file.arrayBuffer(),pdf=await pdfjs.getDocument({data:buf}).promise;docs.push({file,pdf});pageTotal+=pdf.numPages;}
+      let donePages=0,parsed=[];for(const {file,pdf} of docs){for(let pno=1;pno<=pdf.numPages;pno++){
+        const page=await pdf.getPage(pno),viewport=page.getViewport({scale:4.0}),canvas=document.createElement('canvas'),ctx=canvas.getContext('2d',{willReadFrequently:true});canvas.width=Math.ceil(viewport.width);canvas.height=Math.ceil(viewport.height);await page.render({canvasContext:ctx,viewport}).promise;
+        const pageBase=donePages/pageTotal,pageSpan=1/pageTotal,separators=detectAuctionOneHorizontalLines(canvas),caseCrop=makeAuctionOcrCrop(canvas,.13,.28),mainCrop=makeAuctionOcrCrop(canvas,.25,.67),priceCrop=makeAuctionOcrCrop(canvas,.655,.805),metaCrop=makeAuctionOcrCrop(canvas,.79,.995);
+        $('auctionPdfProgressBar').dataset.base=String(pageBase);$('auctionPdfProgressBar').dataset.span=String(pageSpan*.22);setAuctionPdfProgress(pageBase,`${file.name} · ${pno}/${pdf.numPages} · 사건번호 인식`);
+        const caseResult=await recognizeAuctionCrop(numWorker,caseCrop.canvas,{tessedit_pageseg_mode:'6',tessedit_char_whitelist:'0123456789-()'});
+        $('auctionPdfProgressBar').dataset.base=String(pageBase+pageSpan*.22);$('auctionPdfProgressBar').dataset.span=String(pageSpan*.38);setAuctionPdfProgress(pageBase+pageSpan*.22,`${file.name} · ${pno}/${pdf.numPages} · 주소/단지 정밀인식`);
+        const mainResult=await recognizeAuctionCrop(worker,mainCrop.canvas,{tessedit_pageseg_mode:'6',preserve_interword_spaces:'1',});
+        $('auctionPdfProgressBar').dataset.base=String(pageBase+pageSpan*.60);$('auctionPdfProgressBar').dataset.span=String(pageSpan*.18);setAuctionPdfProgress(pageBase+pageSpan*.60,`${file.name} · ${pno}/${pdf.numPages} · 가격 인식`);
+        const priceResult=await recognizeAuctionCrop(numWorker,priceCrop.canvas,{tessedit_pageseg_mode:'6',tessedit_char_whitelist:'0123456789,.'});
+        $('auctionPdfProgressBar').dataset.base=String(pageBase+pageSpan*.78);$('auctionPdfProgressBar').dataset.span=String(pageSpan*.22);setAuctionPdfProgress(pageBase+pageSpan*.78,`${file.name} · ${pno}/${pdf.numPages} · 기일/유찰 인식`);
+        const metaResult=await recognizeAuctionCrop(worker,metaCrop.canvas,{tessedit_pageseg_mode:'6',preserve_interword_spaces:'1',});
+        if(donePages===0){const compact=`${mainResult.data.text||''} ${metaResult.data.text||''}`.replace(/\s+/g,''),m=compact.match(/물건수[:：]?(\d+)건/);if(m)auctionPdfExpectedCount=Number(m[1])||0;}
+        const pageRecords=parseAuctionOneColumnTsv(caseResult.data.tsv||'',mainResult.data.tsv||'',priceResult.data.tsv||'',metaResult.data.tsv||'',file.name,pno,{caseLeft:caseCrop.left,mainLeft:mainCrop.left,priceLeft:priceCrop.left,metaLeft:metaCrop.left},separators,canvas.height);parsed.push(...pageRecords);donePages++;setAuctionPdfProgress(donePages/pageTotal,`${file.name} · ${pno}/${pdf.numPages}페이지 완료 · ${pageRecords.length}건`);await new Promise(r=>setTimeout(r,0));
       }}
-      const dedup=new Map();parsed.forEach(r=>{const key=`${r.caseNo}|${normalizeSavedSearch(r.address)}`;const old=dedup.get(key);if(!old||(!old.address&&r.address))dedup.set(key,r);});auctionPdfParsedRecords=[...dedup.values()];
-      setAuctionPdfProgress(1,auctionPdfParsedRecords.length?`OCR 완료 · ${auctionPdfParsedRecords.length}건 인식`:'OCR 완료 · 0건 인식 (추가 대기 불필요)');
-      renderAuctionPdfPreview();
-      if(!auctionPdfParsedRecords.length)showToast('OCR는 끝났지만 목록 인식에 실패했습니다. 추가로 기다릴 필요는 없습니다.');
+      const dedup=new Map();parsed.forEach(r=>{const key=`${r.caseNo}|${normalizeSavedSearch(r.address)}`;const old=dedup.get(key);if(!old||auctionOneAddressQuality(r.address)>auctionOneAddressQuality(old.address))dedup.set(key,r);});auctionPdfParsedRecords=[...dedup.values()];setAuctionPdfProgress(1,auctionPdfParsedRecords.length?`고정밀 OCR 완료 · ${auctionPdfParsedRecords.length}건 인식`:'OCR 완료 · 0건 인식');renderAuctionPdfPreview();if(!auctionPdfParsedRecords.length)showToast('OCR는 끝났지만 목록 인식에 실패했습니다.');
     }catch(error){console.error(error);alert(`PDF를 읽지 못했습니다. ${error?.message||''}`);setAuctionPdfProgress(0,'PDF 읽기 실패');}
     finally{auctionPdfBusy=false;$('auctionPdfCancelBtn').disabled=false;$('auctionPdfImportCloseBtn').disabled=false;}
   }
@@ -6289,7 +6306,7 @@ const db = getFirestore(firebaseApp);
   $('auctionPdfFiles')?.addEventListener('change',e=>processAuctionPdfFiles([...e.target.files||[]]));
   const pdfDrop=$('auctionPdfDropzone');
   if(pdfDrop){['dragenter','dragover'].forEach(type=>pdfDrop.addEventListener(type,e=>{e.preventDefault();pdfDrop.classList.add('drag-over');}));['dragleave','drop'].forEach(type=>pdfDrop.addEventListener(type,e=>{e.preventDefault();pdfDrop.classList.remove('drag-over');}));pdfDrop.addEventListener('drop',e=>{const files=[...e.dataTransfer.files].filter(f=>/\.pdf$/i.test(f.name)||f.type==='application/pdf');processAuctionPdfFiles(files);});}
-  $('auctionPdfPreviewBody')?.addEventListener('change',e=>{const idx=Number(e.target.dataset.pdfSelect);if(Number.isInteger(idx)&&auctionPdfParsedRecords[idx]){auctionPdfParsedRecords[idx].selected=e.target.checked;renderAuctionPdfPreview();}});
+  $('auctionPdfPreviewBody')?.addEventListener('change',e=>{const el=e.target;if(el.matches('[data-pdf-select]')){const idx=Number(el.dataset.pdfSelect);if(Number.isInteger(idx)&&auctionPdfParsedRecords[idx]){auctionPdfParsedRecords[idx].selected=el.checked;renderAuctionPdfPreview();}return;}if(!el.matches('[data-pdf-edit]'))return;const idx=Number(el.dataset.pdfIndex),field=el.dataset.pdfEdit,r=auctionPdfParsedRecords[idx];if(!Number.isInteger(idx)||!r)return;let value=String(el.value||'').trim();if(['appraisal','minPrice'].includes(field))value=Number(value.replace(/[^0-9]/g,''))||0;r[field]=value;if(field==='address'){r.apartmentName=parseAuctionOneApartment(value);r.confidence.address=auctionOneAddressQuality(value)>=5;}if(field==='caseNo')r.confidence.caseNo=!!value;if(field==='appraisal')r.confidence.appraisal=!!value;if(field==='minPrice')r.confidence.minPrice=!!value;if(field==='auctionDate')r.confidence.date=!!value;if(r.appraisal&&r.minPrice)r.discount=Math.round(r.minPrice/r.appraisal*1000)/10;renderAuctionPdfPreview();});
   $('auctionPdfSelectAllBtn')?.addEventListener('click',()=>{auctionPdfParsedRecords.forEach(r=>r.selected=true);renderAuctionPdfPreview();});
   $('auctionPdfSelectNoneBtn')?.addEventListener('click',()=>{auctionPdfParsedRecords.forEach(r=>r.selected=false);renderAuctionPdfPreview();});
   $('auctionPdfSaveBtn')?.addEventListener('click',saveAuctionPdfRecords);

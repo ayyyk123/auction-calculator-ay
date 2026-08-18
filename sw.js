@@ -1,4 +1,4 @@
-const CACHE_NAME = "auction-calculator-v1.16.0";
+const CACHE_NAME = "auction-calculator-v1.16.2";
 const APP_SHELL = [
   "./",
   "./index.html",
