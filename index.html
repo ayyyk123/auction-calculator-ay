@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.19.0</title>
+  <title>경매 입찰·대출 자금 계산기 v1.20.2</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -989,7 +989,7 @@
       display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px
     }
     .actual-income-manual input{padding:7px 4px!important;font-size:10.5px!important}
-    /* v1.19.0 옥션원 목록 텍스트 붙여넣기 + 상태 드래그 */
+    /* v1.20.2 옥션원 목록 텍스트 붙여넣기 + 상태 드래그 */
     .auction-pdf-import-btn{border:1px solid #a7f3d0;background:#ecfdf5;color:#047857;border-radius:8px;padding:6px 9px;font-size:11px;font-weight:950;cursor:pointer;white-space:nowrap}
     .auction-pdf-import-btn:hover{background:#d1fae5}
     .saved-status-dropboard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:7px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:10px}
@@ -1204,7 +1204,7 @@
       .app{max-width:none;padding:0}
     }
   
-    /* v1.19.0 옥션원 자료완성도·목록 일괄자동보완 */
+    /* v1.20.2 옥션원 자료완성도·목록 일괄자동보완 */
     .auction1-enrichment-panel{border:1px solid #c7d2fe;background:linear-gradient(180deg,#f8faff,#fff);border-radius:16px;padding:12px 14px;box-shadow:0 8px 22px rgba(59,76,155,.07)}
     .auction1-enrichment-head{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}.auction1-enrichment-head>div:first-child{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.auction1-enrichment-head strong{font-size:14px;color:#303f73}.auction1-enrichment-head #auctionOneCompletenessText{font-size:12px;font-weight:800;color:#4f46e5;background:#eef2ff;padding:4px 8px;border-radius:999px}
     .auction1-enrichment-actions{display:flex;gap:6px;flex-wrap:wrap}.auction1-enrichment-actions .btn{padding:6px 9px;font-size:12px}
@@ -1216,11 +1216,11 @@
     .saved-completeness-line{font-size:11px;color:#64748b;margin-top:6px}.saved-completeness-line b{color:#334155}.auction1-badge-soft{display:inline-flex;align-items:center;padding:3px 6px;border-radius:999px;font-size:10px;font-weight:800;background:#eef2ff;color:#4338ca}.unknown-pill{background:#f1f5f9!important;color:#64748b!important;border-color:#e2e8f0!important}
     @media(max-width:900px){.auction1-completeness-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.auction1-source-grid{grid-template-columns:1fr}}
 
-    /* v1.19.0 원문 재분석 · 공공데이터 · 기존자료 확인적용 */
+    /* v1.20.2 원문 재분석 · 공공데이터 · 기존자료 확인적용 */
     .data-modal{position:fixed;inset:0;background:rgba(15,23,42,.52);z-index:9998;display:flex;align-items:center;justify-content:center;padding:18px}.data-modal[hidden]{display:none!important}.data-dialog{width:min(1040px,96vw);max-height:90vh;overflow:auto;background:#fff;border-radius:18px;box-shadow:0 24px 80px rgba(15,23,42,.28);padding:18px}.data-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}.data-head h2{margin:0;font-size:18px}.data-head p{margin:5px 0 0;color:#64748b;font-size:12px;line-height:1.5}.data-close{border:0;background:#f1f5f9;border-radius:9px;width:34px;height:34px;font-size:20px;cursor:pointer}.data-actions{display:flex;gap:7px;justify-content:flex-end;flex-wrap:wrap;margin-top:12px}.data-table-wrap{overflow:auto;border:1px solid #e5e7eb;border-radius:12px}.data-table{width:100%;border-collapse:collapse;font-size:12px;min-width:780px}.data-table th,.data-table td{padding:8px;border-bottom:1px solid #eef2f7;text-align:left;vertical-align:top}.data-table th{background:#f8fafc;position:sticky;top:0;z-index:1}.data-table tr.conflict{background:#fff7ed}.data-table tr.safe{background:#f8fff9}.data-source-chip{display:inline-flex;padding:2px 6px;border-radius:999px;background:#eef2ff;color:#4338ca;font-size:10px;font-weight:800}.data-conflict{font-size:10px;font-weight:900;color:#c2410c}.api-settings-grid{display:grid;grid-template-columns:1fr;gap:10px}.api-key-note{padding:10px;border-radius:10px;background:#f8fafc;color:#475569;font-size:11px;line-height:1.55}.public-data-summary{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.public-data-chip{font-size:10px;font-weight:800;padding:3px 6px;border-radius:999px;background:#ecfeff;color:#155e75;border:1px solid #cffafe}.public-data-chip.price{background:#f0fdf4;color:#166534;border-color:#bbf7d0}.public-data-chip.warn{background:#fff7ed;color:#9a3412;border-color:#fed7aa}.api-progress{font-size:11px;color:#475569;padding:8px 10px;background:#f8fafc;border-radius:9px;margin-top:8px}.history-group-row td{background:#eef2ff!important;color:#3730a3;font-weight:900}.field-source-note{display:block;font-size:9px;color:#64748b;margin-top:2px}.saved-review-enrichment-toolbar{align-items:center}.saved-review-enrichment-toolbar .review-auto-hint{flex-basis:100%;order:10}.auction1-complete-field .src{font-size:8.5px;color:#94a3b8;margin-left:2px}
 
 
-    /* ===== v1.19.0 표목록형 · 접이식 상세 · 비교 · 시세 · 피드백 경우의수 ===== */
+    /* ===== v1.20.2 표목록형 · 접이식 상세 · 비교 · 시세 · 피드백 경우의수 ===== */
     :root{--saved-table-height:62vh}
     #calculatorView.layout{display:flex!important;flex-direction:column!important;gap:8px!important;max-width:none!important}
     #calculatorView>.sticky-side{display:none!important}
@@ -1256,6 +1256,71 @@
     .saved-table-filterbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:7px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:9px}
     .saved-table-filterbar label{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:850;color:#475569}
     .saved-table-filterbar select{padding:5px 7px;font-size:10.5px;min-width:90px}
+    /* v1.20.2 엑셀형 헤더 필터 */
+    #savedSearchRow,#savedDateRangeRow,.view-tabs,.decision-filter-tabs,.grade-filter-tabs,#savedTableFilterBar,.star-filter-tabs,#folderNav,.sort-row{display:none!important}
+    .saved-toolbar{display:flex!important;flex-direction:column!important;gap:7px!important}
+    .saved-review-enrichment-toolbar{order:1}
+    .saved-bulk-toolbar{order:2;display:none!important;padding:7px 9px;border:1px solid #dbeafe;background:#f8fbff;border-radius:9px;align-items:center;gap:7px;flex-wrap:wrap}
+    .saved-bulk-toolbar.has-selection{display:flex!important}
+    .saved-summary{order:3;margin:0!important;padding:3px 2px;font-size:10.5px;color:#64748b}
+    .saved-list-table thead th{cursor:default!important;padding-right:5px!important}
+    .saved-table-head{display:flex;align-items:center;justify-content:space-between;gap:3px;min-height:22px}
+    .saved-table-head-label{overflow:hidden;text-overflow:ellipsis}
+    .column-filter-btn{flex:0 0 auto;width:20px;height:20px;padding:0;border:1px solid transparent;border-radius:5px;background:transparent;color:#64748b;cursor:pointer;font-size:9px;line-height:18px;position:relative}
+    .column-filter-btn:hover{background:#eef2ff;color:#1d4ed8;border-color:#c7d2fe}
+    .column-filter-btn.active{background:#dbeafe;color:#1d4ed8;border-color:#93c5fd;font-weight:950}
+    .column-filter-btn.sorted{color:#2563eb}
+    .column-filter-count{position:absolute;right:-5px;top:-6px;min-width:13px;height:13px;padding:0 3px;border-radius:999px;background:#2563eb;color:#fff;font-size:7.5px;line-height:13px;text-align:center}
+    .column-sort-mark{font-size:8px;color:#2563eb;font-weight:950;margin-left:2px}
+    .column-filter-menu{position:fixed;z-index:10050;width:min(286px,calc(100vw - 20px));max-height:min(500px,76vh);display:flex;flex-direction:column;background:#fff;border:1px solid #cbd5e1;border-radius:12px;box-shadow:0 18px 50px rgba(15,23,42,.24);overflow:hidden}
+    .column-filter-menu[hidden]{display:none!important}
+    .column-filter-menu-head{padding:9px 10px;border-bottom:1px solid #e5e7eb;background:#f8fafc;display:flex;justify-content:space-between;align-items:center;gap:6px}
+    .column-filter-menu-head b{font-size:12px;color:#334155}.column-filter-menu-head button{border:0;background:transparent;font-size:18px;color:#64748b;cursor:pointer}
+    .column-filter-sort{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:8px 9px;border-bottom:1px solid #eef2f7}
+    .column-filter-sort button{padding:7px 8px;border:1px solid #dbe3ee;border-radius:8px;background:#fff;color:#334155;font-size:10.5px;font-weight:850;cursor:pointer;text-align:left}
+    .column-filter-sort button:hover,.column-filter-sort button.active{border-color:#93c5fd;background:#eff6ff;color:#1d4ed8}
+    .column-filter-sort .clear-sort{grid-column:1/-1;text-align:center;color:#64748b}
+    .column-filter-search{padding:8px 9px;border-bottom:1px solid #eef2f7}
+    .column-filter-search input{width:100%;padding:7px 9px;border:1px solid #cbd5e1;border-radius:8px;font-size:11px}
+    .column-filter-selectall{display:flex;align-items:center;gap:7px;padding:7px 10px;border-bottom:1px solid #eef2f7;font-size:10.5px;font-weight:900;color:#334155}
+    .column-filter-values{overflow:auto;min-height:92px;max-height:230px;padding:4px 0}
+    .column-filter-option{display:flex;align-items:center;gap:7px;padding:5px 10px;font-size:10.5px;color:#334155;cursor:pointer}
+    .column-filter-option:hover{background:#f8fafc}.column-filter-option span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .column-filter-empty{padding:18px 10px;text-align:center;color:#94a3b8;font-size:10.5px}
+    .column-filter-actions{display:flex;gap:6px;justify-content:flex-end;padding:8px 9px;border-top:1px solid #e5e7eb;background:#f8fafc}
+    .column-filter-actions button{padding:6px 10px;border-radius:7px;border:1px solid #cbd5e1;background:#fff;font-size:10.5px;font-weight:850;cursor:pointer}
+    .column-filter-actions .clear{margin-right:auto;color:#b91c1c;border-color:#fecaca}.column-filter-actions .apply{background:#2563eb;color:#fff;border-color:#2563eb}
+    .column-filter-active-summary{display:flex;gap:5px;flex-wrap:wrap;padding:0 2px 3px;order:2}
+    .column-filter-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 7px;border-radius:999px;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;font-size:9.5px;font-weight:850}
+    .column-filter-chip button{border:0;background:transparent;color:#2563eb;padding:0;cursor:pointer;font-weight:950}
+    @media(max-width:800px){.column-filter-menu{width:min(300px,calc(100vw - 12px))}.saved-review-enrichment-toolbar .review-auto-hint{display:none}}
+
+    /* v1.20.2 피드백 일정 선택모드 */
+    .saved-bulk-toolbar{gap:6px;align-items:center;flex-wrap:wrap}
+    .feedback-plan-launch{background:#7c3aed!important;border-color:#7c3aed!important;color:#fff!important}
+    .feedback-plan-launch.active{background:#5b21b6!important;border-color:#5b21b6!important;box-shadow:0 0 0 2px rgba(124,58,237,.15)}
+    .feedback-plan-bar{display:none;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 10px;border:1px solid #c4b5fd;background:#f5f3ff;border-radius:10px;color:#4c1d95}
+    .feedback-plan-bar.active{display:flex}
+    .feedback-plan-bar .feedback-plan-title{font-weight:950;font-size:11.5px}
+    .feedback-plan-bar .feedback-plan-summary{flex:1 1 420px;font-size:10.5px;line-height:1.45;color:#5b21b6}
+    .feedback-plan-bar .feedback-plan-summary b{color:#3b0764}
+    .feedback-plan-bar .btn{padding:6px 9px;font-size:10.5px}
+    body.feedback-planning .saved-bulk-toolbar>label,
+    body.feedback-planning #savedBulkDecision,
+    body.feedback-planning #savedBulkApply,
+    body.feedback-planning #savedCompareBtn,
+    body.feedback-planning #savedBulkDeleteBtn,
+    body.feedback-planning #savedBulkCount{display:none!important}
+    body.feedback-planning .saved-list-table tbody tr.saved-item{cursor:pointer}
+    .saved-list-table tbody tr.feedback-plan-selected td{background:#ede9fe!important;border-top-color:#a78bfa!important;border-bottom-color:#a78bfa!important}
+    .saved-list-table tbody tr.feedback-plan-disabled td{background:#f8fafc!important;color:#94a3b8!important;opacity:.72}
+    .saved-list-table tbody tr.feedback-plan-locked td{background:#fff7ed!important;color:#9a3412!important}
+    .feedback-plan-check{width:16px;height:16px;accent-color:#7c3aed}
+    .feedback-plan-disabled-note{font-size:9px;color:#94a3b8;font-weight:800}
+    .feedback-plan-inline-badge{display:inline-flex;margin-left:4px;padding:2px 5px;border-radius:999px;font-size:8.5px;font-weight:900;background:#ede9fe;color:#6d28d9}
+    .feedback-plan-inline-badge.locked{background:#ffedd5;color:#9a3412}
+    #feedbackView{scroll-margin-top:6px}
+
     .saved-bulk-toolbar .danger{border-color:#fecaca!important;background:#fff!important;color:#b91c1c!important}
     .saved-compare-btn{background:#eef2ff!important;color:#3730a3!important;border-color:#c7d2fe!important}
     .table-detail-resize-handle{height:12px;display:none;align-items:center;justify-content:center;cursor:ns-resize;touch-action:none;border-radius:8px;background:transparent;position:relative}
@@ -1294,8 +1359,18 @@
     .feedback-scenario-head{display:flex;justify-content:space-between;align-items:flex-end;gap:8px;flex-wrap:wrap}
     .feedback-scenario-head h3{margin:0;font-size:14px}
     .feedback-scenario-controls{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap}
-    .feedback-scenario-controls label{font-size:10px;font-weight:900;color:#475569}
-    .feedback-scenario-controls select{display:block;margin-top:3px;min-width:220px;padding:6px 7px}
+    .feedback-scenario-toggle{white-space:nowrap}
+    .feedback-scenario-body[hidden]{display:none!important}
+    .feedback-must-picker{position:relative;min-width:250px}
+    .feedback-must-label{font-size:10px;font-weight:900;color:#475569;margin-bottom:3px}
+    .feedback-must-button{width:100%;min-width:250px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 9px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;color:#0f172a;font-size:11px;font-weight:800;cursor:pointer}
+    .feedback-must-menu{position:absolute;z-index:90;right:0;top:calc(100% + 4px);width:min(420px,78vw);max-height:300px;overflow:auto;padding:8px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;box-shadow:0 14px 35px rgba(15,23,42,.16)}
+    .feedback-must-menu[hidden]{display:none!important}
+    .feedback-must-menu-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:2px 3px 7px;border-bottom:1px solid #e2e8f0;margin-bottom:5px}
+    .feedback-must-option{display:flex;align-items:flex-start;gap:7px;padding:7px 5px;border-radius:7px;cursor:pointer;font-size:11px;line-height:1.35}
+    .feedback-must-option:hover{background:#f1f5f9}
+    .feedback-must-option input{margin-top:2px}
+    .feedback-must-empty{padding:9px 5px;color:#64748b;font-size:11px}
     .feedback-scenario-result{margin-top:10px;display:grid;gap:8px}
     .scenario-summary{padding:9px 10px;border-radius:9px;background:#ecfeff;color:#155e75;font-size:11px;font-weight:900}
     .scenario-option{padding:9px 10px;border:1px solid #e2e8f0;border-radius:9px;background:#fff}
@@ -1312,14 +1387,74 @@
       .table-detail-resize-handle .resize-label{display:none}
     }
 
-    #savedSectionCard .sort-row{display:none!important}
+
+    /* ===== v1.20.2 상세 상단 초압축 + 항상 보이는 상세메뉴 + 실제 작동 세로 리사이저 ===== */
+    .workspace-property-header{
+      padding:7px 9px!important;
+      margin-bottom:5px!important;
+      border-radius:11px!important;
+      box-shadow:0 3px 12px rgba(15,23,42,.07)!important;
+    }
+    .workspace-property-title-row{gap:7px!important;align-items:center!important}
+    .workspace-case-line{font-size:10px!important;line-height:1.2!important}
+    .workspace-property-title{font-size:16px!important;line-height:1.18!important;margin-top:1px!important}
+    .workspace-address{font-size:10px!important;line-height:1.2!important;margin-top:2px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .workspace-head-actions{gap:3px!important;flex-wrap:nowrap!important}
+    .workspace-head-btn,.workspace-close-detail,.workspace-header-toggle{padding:5px 7px!important;font-size:10px!important;border-radius:7px!important}
+    .workspace-property-chips{margin-top:4px!important;gap:3px!important;flex-wrap:nowrap!important;overflow-x:auto;padding-bottom:1px;scrollbar-width:thin}
+    .workspace-chip{padding:2px 5px!important;border-radius:6px!important;font-size:9.5px!important;white-space:nowrap!important}
+    .workspace-range-strip{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:3px!important;margin-top:4px!important}
+    .workspace-range-strip>div{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:5px!important;padding:3px 6px!important;border-radius:7px!important;min-height:24px!important}
+    .workspace-range-strip span{display:inline!important;font-size:8.7px!important;line-height:1.1!important;white-space:nowrap!important}
+    .workspace-range-strip b{display:inline!important;margin:0!important;font-size:10.5px!important;line-height:1.15!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;text-align:right!important}
+
+    /* 상세메뉴를 고정 요약박스 안으로 넣어서 절대 사라지지 않게 */
+    .workspace-property-header .workspace-tab-rail{
+      position:static!important;top:auto!important;z-index:auto!important;
+      display:flex!important;width:100%!important;height:auto!important;min-height:0!important;
+      margin:4px 0 0!important;padding:4px 0 0!important;
+      gap:3px!important;overflow-x:auto!important;overflow-y:hidden!important;
+      border-top:1px solid #e5e7eb!important;border-bottom:0!important;background:transparent!important;
+      grid-auto-rows:auto!important;justify-content:flex-start!important;scrollbar-width:thin;
+    }
+    .workspace-property-header .workspace-tab{padding:4px 8px!important;font-size:9.8px!important;border-radius:7px!important;box-shadow:none!important;white-space:nowrap!important;min-width:max-content!important}
+    .workspace-property-header.workspace-collapsed{padding:6px 8px!important}
+    .workspace-property-header.workspace-collapsed .workspace-tab-rail{display:flex!important;margin-top:4px!important}
+
+    /* 목록/상세 높이: max-height가 아니라 실제 height를 바꿔야 드래그가 눈에 보임 */
+    body.detail-open .saved-list,body.compare-open .saved-list{
+      height:var(--saved-table-height)!important;
+      min-height:120px!important;
+      max-height:none!important;
+      overflow:auto!important;
+    }
+    .table-detail-resize-handle{
+      height:16px!important;min-height:16px!important;display:none;align-items:center;justify-content:center;
+      cursor:ns-resize!important;touch-action:none!important;user-select:none!important;
+      border-radius:7px!important;background:#eff6ff!important;border:1px solid #dbeafe!important;
+      position:relative!important;margin:0!important;
+    }
+    body.detail-open .table-detail-resize-handle,body.compare-open .table-detail-resize-handle{display:flex!important}
+    .table-detail-resize-handle::before{width:90px!important;height:4px!important;background:#60a5fa!important}
+    .table-detail-resize-handle:hover{background:#dbeafe!important}
+    .table-detail-resize-handle.dragging{background:#bfdbfe!important}
+    .table-detail-resize-handle .resize-label{font-size:9px!important;color:#475569!important;font-weight:800!important}
+
+    @media(max-width:1180px){
+      .workspace-range-strip{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+    }
+    @media(max-width:700px){
+      .workspace-range-strip{grid-template-columns:1fr!important}
+      .workspace-head-actions{flex-wrap:wrap!important}
+    }
+
 </style>
 </head>
 <body>
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.19.0</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.20.2</span></h1>
       <div class="sub">저장목록에서 물건을 비교하고, 예상 매도가 범위와 목표수익 10~15%를 기준으로 입찰가능가율·순수익·종잣돈 범위를 먼저 판단합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -1993,7 +2128,7 @@
             <tbody id="summaryTable"></tbody>
           </table>
         </div>
-        <div class="helper" style="margin-top:8px">* v1.19.0에서도 비용메뉴의 <b>최종 필요 종잣돈</b>과 <b>지금 당장 필요 종잣돈</b>은 실제입찰과 같은 상세비용 산식으로 계산합니다. 신탁대출 열의 금액은 저장카드·실제입찰과 같은 신탁대출 기준입니다. 지금 당장 필요 종잣돈은 낙찰가−대출금 + 법무비 + 명도비 + 수리비 + 미납관리비이며, 취등록세(카드납부 전제), 매도 중개수수료, 중도상환수수료, 대출이자는 제외합니다.</div>
+        <div class="helper" style="margin-top:8px">* v1.20.2에서도 비용메뉴의 <b>최종 필요 종잣돈</b>과 <b>지금 당장 필요 종잣돈</b>은 실제입찰과 같은 상세비용 산식으로 계산합니다. 신탁대출 열의 금액은 저장카드·실제입찰과 같은 신탁대출 기준입니다. 지금 당장 필요 종잣돈은 낙찰가−대출금 + 법무비 + 명도비 + 수리비 + 미납관리비이며, 취등록세(카드납부 전제), 매도 중개수수료, 중도상환수수료, 대출이자는 제외합니다.</div>
       </section>
     </main>
     <div id="workspaceResizeHandle" class="no-print" role="separator" aria-orientation="vertical" aria-label="저장목록 너비 조절" title="마우스로 끌어 저장목록 너비 조절"></div>
@@ -2136,6 +2271,15 @@
             <button class="btn secondary" id="savedBulkApply" type="button">상태변경</button>
             <button class="btn saved-compare-btn" id="savedCompareBtn" type="button">선택비교 (2~4건)</button>
             <button class="btn danger" id="savedBulkDeleteBtn" type="button">선택삭제</button>
+            <button class="btn feedback-plan-launch" id="feedbackPlanningBtn" type="button">피드백 일정짜기</button>
+          </div>
+          <div class="feedback-plan-bar no-print" id="feedbackPlanningBar">
+            <span class="feedback-plan-title">피드백 일정 선택</span>
+            <span class="feedback-plan-summary" id="feedbackPlanningSummary">고민중·입찰 O 물건을 클릭해서 선택하세요. 동시 진행 최대 2건 기준으로 불가능한 일정은 자동 잠금됩니다.</span>
+            <button class="btn light" id="feedbackPlanResetBtn" type="button">선택 초기화</button>
+            <button class="btn secondary" id="feedbackPlanSaveBtn" type="button">선택 일정 저장</button>
+            <button class="btn light" id="feedbackPlanCalendarBtn" type="button">달력에서 보기</button>
+            <button class="btn light" id="feedbackPlanCancelBtn" type="button">일정짜기 종료</button>
           </div>
           <div class="star-filter-tabs no-print" aria-label="관심 별표 복수 선택 필터">
             <button class="star-filter-btn active" type="button" data-star-filter="all">별 전체</button>
@@ -2177,34 +2321,9 @@
     </aside>
   </div>
 
+  <div id="savedColumnFilterMenu" class="column-filter-menu no-print" hidden></div>
 
   <section class="feedback-page no-print" id="feedbackView" hidden>
-    <section class="card feedback-top-card">
-      <div class="section-head" style="margin-bottom:0">
-        <div>
-          <h2>피드백 일정 자동계산</h2>
-          <div class="helper">입찰기일 기준 4영업일을 계산하며 토·일요일과 대한민국 공휴일·대체공휴일을 제외합니다.</div>
-        </div>
-      </div>
-      <div class="feedback-summary-grid">
-        <div class="feedback-summary-box" id="feedbackSlotSummary"><div class="k">현재 피드백 진행</div><div class="v">-</div></div>
-        <div class="feedback-summary-box" id="feedbackNextSlotSummary"><div class="k">다음 요청 가능 예상</div><div class="v">-</div></div>
-        <div class="feedback-summary-box" id="feedbackNextCaseSummary"><div class="k">다음 피드백 후보</div><div class="v">-</div></div>
-      </div> 
-      <div class="feedback-scenario-card">
-        <div class="feedback-scenario-head">
-          <div><h3>피드백 경우의 수</h3><div class="helper" style="margin-top:3px">동시 진행 최대 2건, 각 물건은 요청계획일(기본 4영업일 전)부터 경매일까지 한 슬롯을 사용한다고 보고 계산합니다.</div></div>
-          <div class="feedback-scenario-controls">
-            <label>꼭 들어갈 물건
-              <select id="feedbackScenarioMustInclude"><option value="">지정 없음</option></select>
-            </label>
-            <button class="btn secondary" id="feedbackScenarioCalcBtn" type="button">경우의 수 계산</button>
-          </div>
-        </div>
-        <div class="feedback-scenario-result" id="feedbackScenarioResult"><div class="helper">고민중·입찰 O 물건이 생기면 가능한 일정 조합을 계산합니다.</div></div>
-      </div>
-    </section>
-
     <section class="card feedback-calendar-card">
       <div class="feedback-calendar-head">
         <div class="feedback-calendar-nav">
@@ -2221,6 +2340,38 @@
       <div class="feedback-calendar-grid" id="feedbackCalendarGrid"></div>
       <div class="feedback-calendar-note">고민중·입찰하기로 저장한 물건만 달력에 표시됩니다. 고민중 목록에서 별표 우선도를 표시할 수 있고 달력에도 그대로 반영됩니다. 사건번호를 끌어 다른 날짜에 놓으면 피드백 요청 계획일이 바뀝니다.</div>
     </section>
+    <section class="card feedback-top-card">
+      <div class="section-head" style="margin-bottom:0">
+        <div>
+          <h2>피드백 일정 자동계산</h2>
+          <div class="helper">입찰기일 기준 4영업일을 계산하며 토·일요일과 대한민국 공휴일·대체공휴일을 제외합니다.</div>
+        </div>
+      </div>
+      <div class="feedback-summary-grid">
+        <div class="feedback-summary-box" id="feedbackSlotSummary"><div class="k">현재 피드백 진행</div><div class="v">-</div></div>
+        <div class="feedback-summary-box" id="feedbackNextSlotSummary"><div class="k">다음 요청 가능 예상</div><div class="v">-</div></div>
+        <div class="feedback-summary-box" id="feedbackNextCaseSummary"><div class="k">다음 피드백 후보</div><div class="v">-</div></div>
+      </div> 
+      <div class="feedback-scenario-card" id="feedbackScenarioCard">
+        <div class="feedback-scenario-head">
+          <div><h3>피드백 경우의 수</h3><div class="helper" style="margin-top:3px">동시 진행 최대 2건, 각 물건은 요청계획일(기본 4영업일 전)부터 경매일까지 한 슬롯을 사용한다고 보고 계산합니다.</div></div>
+          <button class="btn light feedback-scenario-toggle" id="feedbackScenarioToggleBtn" type="button" aria-expanded="true">접기 ▲</button>
+        </div>
+        <div class="feedback-scenario-body" id="feedbackScenarioBody">
+          <div class="feedback-scenario-controls" style="margin-top:9px">
+            <div class="feedback-must-picker">
+              <div class="feedback-must-label">꼭 들어갈 물건 · 복수선택 가능</div>
+              <button class="feedback-must-button" id="feedbackScenarioMustBtn" type="button" aria-expanded="false"><span id="feedbackScenarioMustBtnText">지정 없음</span><span>▼</span></button>
+              <div class="feedback-must-menu" id="feedbackScenarioMustMenu" hidden></div>
+            </div>
+            <button class="btn secondary" id="feedbackScenarioCalcBtn" type="button">경우의 수 계산</button>
+          </div>
+          <div class="feedback-scenario-result" id="feedbackScenarioResult"><div class="helper">고민중·입찰 O 물건이 생기면 가능한 일정 조합을 계산합니다.</div></div>
+        </div>
+      </div>
+    </section>
+
+
 
     <section class="card feedback-list-card">
       <div class="feedback-list-toolbar">
@@ -2241,7 +2392,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.19.0 옥션원 텍스트 정밀가져오기·원문 선택/전체 재분석·공공데이터 자동조회·기존자료 후보 확인후적용·자료완성도 출처구분·미검토 분류·상태 드래그 · 신탁대출 종잣돈 계산 통일 · 상단 물건요약 접기·펴기 · 상세영역 전체높이 활용 · 좁은 패널 자동재배치 · 종잣돈 범위 표시 · 목표수익률 10~15% 단독기준 역산범위 · 예상매도가 범위 · 고정 물건특성 · 세로 상세탭 · 입찰결과 기록 · 실제입찰·대출·피드백달력 유지 · 피드백 경우의수 · 표목록형·필터·열정렬·비교·가변높이·시세입력·피드백요청양식 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.20.2 엑셀형 열필터·복수선택·열별 오름/내림차순 · 표목록형 접이식 상세·비교·가변높이 · 옥션원 원문 재분석·공공데이터 자동조회·기존자료 후보 확인후적용 · 시세입력·피드백요청양식 · 저장목록 피드백 일정짜기(선택 즉시 충돌일정 잠금) · 피드백 달력 상단전환·경우의수 · 실제입찰/대출/비용/입찰결과 기존 기능 유지 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -2624,7 +2775,14 @@ const db = getFirestore(firebaseApp);
   let tableFailFilter = 0;
   let tableMinRateFilter = "all";
   let tableMarketFilter = "all";
+  let savedColumnFilters = {};
+  let activeSavedColumnFilterKey = "";
+  let activeSavedColumnFilterValues = [];
   let savedCompareIds = [];
+  let feedbackPlanningMode = false;
+  let feedbackPlanSelectedIds = new Set();
+  let feedbackScenarioMustIds = new Set();
+  let feedbackScenarioCollapsed = localStorage.getItem("auctionFeedbackScenarioCollapsed") === "1";
   let currentPublicDataEnrichmentData = null;
   let toastTimer = null;
   let currentActualBidData = null;
@@ -4639,10 +4797,17 @@ const db = getFirestore(firebaseApp);
   function feedbackCalendarItems(){ if(!currentUser)return []; return records().filter(item=>["pending","bid"].includes(recordDecision(item))&&recordAuctionDate(item).raw); }
   function feedbackActiveRequests(){ return feedbackCalendarItems().filter(item=>{const f=recordFeedback(item);return f.requested&&!f.result;}); }
   function switchAppMode(mode){
-    const feedback=mode==="feedback"; if(feedback&&document.body.classList.contains("detail-open"))closeWorkspaceDetail(); $("calculatorView").hidden=feedback; $("feedbackView").hidden=!feedback;
+    const feedback=mode==="feedback";
+    if(feedback&&document.body.classList.contains("detail-open"))closeWorkspaceDetail();
+    if(feedbackPlanningMode)exitFeedbackPlanning(false);
+    $("calculatorView").hidden=feedback; $("feedbackView").hidden=!feedback;
     document.querySelectorAll("[data-app-mode]").forEach(btn=>btn.classList.toggle("active",btn.dataset.appMode===mode));
     $("mobileSaveBtn").closest(".mobile-save-bar").style.display=feedback?"none":"";
-    if(feedback){renderFeedbackCalendar();window.scrollTo({top:0,behavior:"smooth"});}
+    if(feedback){
+      renderFeedbackCalendar();
+      window.scrollTo({top:0,left:0,behavior:"auto"});
+      requestAnimationFrame(()=>{window.scrollTo({top:0,left:0,behavior:"auto"});$("feedbackView")?.scrollIntoView({block:"start",behavior:"auto"});});
+    }
   }
   function renderFeedbackSummary(){
     const active=feedbackActiveRequests().sort((a,b)=>(recordAuctionDate(a).time??Infinity)-(recordAuctionDate(b).time??Infinity));
@@ -4759,6 +4924,7 @@ const db = getFirestore(firebaseApp);
   function updateSavedBulkUi(){
     const count=$("savedBulkCount"),all=$("savedBulkSelectAll"),visible=[...document.querySelectorAll("[data-bulk-select-id]")];
     if(count)count.textContent=`${savedBulkSelectedIds.size}건 선택`;
+    const bulkToolbar=document.querySelector('.saved-bulk-toolbar');if(bulkToolbar)bulkToolbar.classList.toggle('has-selection',savedBulkSelectedIds.size>0);
     if(all){const checked=visible.length>0&&visible.every(el=>savedBulkSelectedIds.has(el.dataset.bulkSelectId));all.checked=checked;all.indeterminate=!checked&&visible.some(el=>savedBulkSelectedIds.has(el.dataset.bulkSelectId));}
     ["reviewReparseSelectedBtn","reviewPublicFillSelectedBtn","reviewHistoryPreviewSelectedBtn"].forEach(id=>{const el=$(id);if(el)el.disabled=savedBulkSelectedIds.size===0;});
     if($("savedCompareBtn"))$("savedCompareBtn").disabled=savedBulkSelectedIds.size<2||savedBulkSelectedIds.size>4;
@@ -4812,7 +4978,7 @@ const db = getFirestore(firebaseApp);
   function saveSavedListPreferences(){
     localStorage.setItem(SAVED_VIEW_KEY, JSON.stringify({
       savedViewMode,selectedFolder,savedSortKey,savedSortDirection,
-      savedDecisionFilters,savedStarFilters,savedGradeFilters,savedListWide,savedEditorCollapsed,savedTableSortKey,savedTableSortDirection,tableFloorFilter,tableResistanceFilter,tableFailFilter,tableMinRateFilter,tableMarketFilter
+      savedDecisionFilters,savedStarFilters,savedGradeFilters,savedListWide,savedEditorCollapsed,savedTableSortKey,savedTableSortDirection,tableFloorFilter,tableResistanceFilter,tableFailFilter,tableMinRateFilter,tableMarketFilter,savedColumnFilters
     }));
   }
 
@@ -4845,7 +5011,10 @@ const db = getFirestore(firebaseApp);
       savedListWide = !!saved.savedListWide;
       savedEditorCollapsed = saved.savedEditorCollapsed === undefined ? true : !!saved.savedEditorCollapsed;
       savedTableSortKey=String(saved.savedTableSortKey||"auctionDate");savedTableSortDirection=saved.savedTableSortDirection==="desc"?"desc":"asc";
-      tableFloorFilter=String(saved.tableFloorFilter||"all");tableResistanceFilter=String(saved.tableResistanceFilter||"all");tableFailFilter=Number(saved.tableFailFilter||0);tableMinRateFilter=String(saved.tableMinRateFilter||"all");tableMarketFilter=String(saved.tableMarketFilter||"all");
+      tableFloorFilter="all";tableResistanceFilter="all";tableFailFilter=0;tableMinRateFilter="all";tableMarketFilter="all";
+      savedColumnFilters=(saved.savedColumnFilters&&typeof saved.savedColumnFilters==="object")?Object.fromEntries(Object.entries(saved.savedColumnFilters).filter(([k,v])=>Array.isArray(v)).map(([k,v])=>[k,[...new Set(v.map(String))]])):{};
+      // v1.20부터 화면 상단의 예전 상태/등급/별/검색 필터는 사용하지 않고, 표 헤더 필터 하나로 통일합니다.
+      savedViewMode="all";savedDecisionFilters=[];savedStarFilters=[];savedGradeFilters=[];savedSearchQuery="";savedAuctionDateFilter="";savedAuctionDateFrom="";savedAuctionDateTo="";savedDateRangeMode=false;
     } catch {}
     $("savedSortKey").value = savedSortKey;
     $("sortDirectionBtn").textContent = savedSortDirection === "asc" ? "↑" : "↓";
@@ -4863,6 +5032,88 @@ const db = getFirestore(firebaseApp);
   function recordTradeCount12(item){return Number(item?.state?.publicDataEnrichment?.tradeStats?.count12||0);}
   function recordMarketPrice(item){return stateNumber(item,"selectionQuickSalePrice",0);}
   function recordPossibleBidRate(item){const s=screeningMetrics(item);return s.maxBid>0?Number(s.bidRateHigh||s.bidRateLow||0):0;}
+  const SAVED_COLUMN_META={
+    state:{label:"상태",type:"text"},caseNo:{label:"사건번호",type:"text"},apartmentName:{label:"아파트",type:"text"},region:{label:"소재지",type:"text"},
+    floor:{label:"층",type:"number"},area:{label:"전용㎡",type:"number"},supply:{label:"공급평",type:"number"},householdCount:{label:"세대",type:"number"},apartmentAge:{label:"준공",type:"number"},
+    appraisal:{label:"감정가",type:"number"},minPrice:{label:"최저가",type:"number"},minRate:{label:"최저가율",type:"number"},fail:{label:"유찰",type:"number"},resistance:{label:"대항력",type:"text"},
+    auctionDate:{label:"매각기일",type:"date"},views:{label:"조회",type:"number"},tradeCount:{label:"12개월거래",type:"number"},marketPrice:{label:"예상매도가",type:"number"},possibleRate:{label:"가능입찰가율",type:"number"},grade:{label:"등급",type:"text"}
+  };
+  function savedColumnRawValue(item,key){
+    const screen=key==="grade"?screeningMetrics(item):null;
+    const map={
+      state:()=>recordDecision(item),caseNo:()=>stateText(item,"caseNo",item.title||""),apartmentName:()=>recordApartmentName(item),region:()=>recordRegion(item),
+      floor:()=>recordFloorNumber(item)||"",area:()=>stateNumber(item,"exclusiveArea",0)||"",supply:()=>stateNumber(item,"supplyAreaPyeong",0)||"",householdCount:()=>stateNumber(item,"householdCount",0)||"",apartmentAge:()=>stateNumber(item,"apartmentAge",0)||"",
+      appraisal:()=>stateNumber(item,"appraisal",0)||"",minPrice:()=>stateNumber(item,"selectionMinPrice",0)||"",minRate:()=>recordMinRate(item)||"",fail:()=>recordFailCount(item),resistance:()=>recordHasResistance(item)?"yes":"no",
+      auctionDate:()=>recordAuctionDate(item).raw||"",views:()=>Number(item?.state?.auctionOneImport?.viewCount||0)||"",tradeCount:()=>recordTradeCount12(item)||"",marketPrice:()=>recordMarketPrice(item)||"",possibleRate:()=>recordPossibleBidRate(item)||"",grade:()=>screen?.grade||"hold"
+    };
+    const v=(map[key]||(()=>""))();return v===""||v===null||v===undefined?"__BLANK__":String(v);
+  }
+  function savedColumnDisplayValue(key,raw){
+    if(raw==="__BLANK__")return "(빈칸)";
+    if(key==="state")return ({review:"미검토",pending:"고민중",no:"입찰 X",bid:"입찰 O",completed:"입찰완료"})[raw]||raw;
+    if(key==="resistance")return raw==="yes"?"있음":"없음";
+    if(key==="grade")return ({a:"A",b:"B",c:"C",hold:"미분류"})[raw]||raw;
+    if(["appraisal","minPrice","marketPrice"].includes(key)){const n=Number(raw);return Number.isFinite(n)?n.toLocaleString():raw;}
+    if(["minRate","possibleRate"].includes(key)){const n=Number(raw);return Number.isFinite(n)?`${Math.round(n*10)/10}%`:raw;}
+    if(key==="fail")return `${raw}회`;
+    return raw;
+  }
+  function savedColumnFilterMatch(item,exceptKey=""){
+    for(const [key,values] of Object.entries(savedColumnFilters||{})){
+      if(key===exceptKey||!Array.isArray(values)||!values.length)continue;
+      if(!values.includes(savedColumnRawValue(item,key)))return false;
+    }
+    return true;
+  }
+  function legacyFreeBaseItems(){
+    const allItems=records();
+    // v1.20 표 헤더가 모든 필터를 담당하므로, 숨겨진 예전 필터/검색 조건은 적용하지 않습니다.
+    return [...allItems];
+  }
+  function savedColumnUniqueValues(key){
+    const items=legacyFreeBaseItems().filter(i=>savedColumnFilterMatch(i,key));
+    const vals=[...new Set(items.map(i=>savedColumnRawValue(i,key)))];
+    const type=SAVED_COLUMN_META[key]?.type||"text";
+    vals.sort((a,b)=>{
+      if(a==="__BLANK__")return 1;if(b==="__BLANK__")return -1;
+      if(type==="number")return Number(a)-Number(b);
+      return String(a).localeCompare(String(b),"ko",{numeric:true});
+    });
+    return vals;
+  }
+  function activeColumnFilterCount(key){const v=savedColumnFilters?.[key];return Array.isArray(v)&&v.length?v.length:0;}
+  function tableHeader(label,key,cls=""){
+    const filterCount=activeColumnFilterCount(key),sorted=savedTableSortKey===key,arrow=sorted?(savedTableSortDirection==="asc"?"▲":"▼"):"";
+    return `<th class="${cls}"><div class="saved-table-head"><span class="saved-table-head-label">${label}${arrow?`<span class="column-sort-mark">${arrow}</span>`:""}</span><button type="button" class="column-filter-btn${filterCount?" active":""}${sorted?" sorted":""}" data-column-filter-btn="${key}" title="${label} 필터/정렬">▼${filterCount?`<span class="column-filter-count">${filterCount}</span>`:""}</button></div></th>`;
+  }
+  function renderActiveColumnFilterSummary(){
+    let box=$("savedColumnActiveSummary");if(!box){box=document.createElement("div");box.id="savedColumnActiveSummary";box.className="column-filter-active-summary no-print";const toolbar=$("savedReviewEnrichmentToolbar");toolbar?.insertAdjacentElement("afterend",box);}
+    const chips=Object.entries(savedColumnFilters||{}).filter(([,v])=>Array.isArray(v)&&v.length).map(([k,v])=>`<span class="column-filter-chip">${escapeHtml(SAVED_COLUMN_META[k]?.label||k)} ${v.length}개<button type="button" data-clear-column-filter="${k}" title="이 필터 지우기">×</button></span>`);
+    box.innerHTML=chips.join("");box.hidden=!chips.length;
+  }
+  function closeSavedColumnFilterMenu(){const m=$("savedColumnFilterMenu");if(m)m.hidden=true;activeSavedColumnFilterKey="";activeSavedColumnFilterValues=[];}
+  function positionSavedColumnFilterMenu(anchor){const m=$("savedColumnFilterMenu");if(!m||!anchor)return;const r=anchor.getBoundingClientRect(),w=Math.min(286,window.innerWidth-20),left=Math.max(8,Math.min(window.innerWidth-w-8,r.right-w)),estimated=470;let top=r.bottom+4;if(top+estimated>window.innerHeight-8)top=Math.max(8,r.top-estimated-4);m.style.left=`${Math.round(left)}px`;m.style.top=`${Math.round(top)}px`;}
+  function openSavedColumnFilterMenu(key,anchor){
+    const menu=$("savedColumnFilterMenu"),meta=SAVED_COLUMN_META[key];if(!menu||!meta)return;
+    activeSavedColumnFilterKey=key;activeSavedColumnFilterValues=savedColumnUniqueValues(key);
+    const current=Array.isArray(savedColumnFilters[key])&&savedColumnFilters[key].length?new Set(savedColumnFilters[key]):new Set(activeSavedColumnFilterValues);
+    const sorted=savedTableSortKey===key;
+    menu.innerHTML=`<div class="column-filter-menu-head"><b>${escapeHtml(meta.label)} 필터</b><button type="button" data-column-filter-close aria-label="닫기">×</button></div>
+      <div class="column-filter-sort"><button type="button" data-column-sort="asc" class="${sorted&&savedTableSortDirection==="asc"?"active":""}">↑ 오름차순 정렬</button><button type="button" data-column-sort="desc" class="${sorted&&savedTableSortDirection==="desc"?"active":""}">↓ 내림차순 정렬</button><button type="button" class="clear-sort" data-column-sort-clear>정렬 해제</button></div>
+      <div class="column-filter-search"><input id="columnFilterSearchInput" type="search" placeholder="값 검색" autocomplete="off"></div>
+      <label class="column-filter-selectall"><input id="columnFilterSelectAll" type="checkbox"> <span>전체 선택</span></label>
+      <div class="column-filter-values" id="columnFilterValues">${activeSavedColumnFilterValues.map((raw,i)=>`<label class="column-filter-option" data-filter-option-row="${i}"><input type="checkbox" data-filter-option="${i}" ${current.has(raw)?"checked":""}><span title="${escapeHtml(savedColumnDisplayValue(key,raw))}">${escapeHtml(savedColumnDisplayValue(key,raw))}</span></label>`).join("")||`<div class="column-filter-empty">선택할 값이 없습니다.</div>`}</div>
+      <div class="column-filter-actions"><button type="button" class="clear" data-column-filter-clear>필터 지우기</button><button type="button" data-column-filter-cancel>취소</button><button type="button" class="apply" data-column-filter-apply>적용</button></div>`;
+    menu.hidden=false;positionSavedColumnFilterMenu(anchor);updateColumnFilterSelectAll();setTimeout(()=>$("columnFilterSearchInput")?.focus(),0);
+  }
+  function visibleColumnFilterCheckboxes(){return [...document.querySelectorAll('#columnFilterValues [data-filter-option]')].filter(cb=>cb.closest('[data-filter-option-row]')?.style.display!=="none");}
+  function updateColumnFilterSelectAll(){const all=$("columnFilterSelectAll"),vis=visibleColumnFilterCheckboxes();if(!all)return;const checked=vis.filter(x=>x.checked).length;all.checked=vis.length>0&&checked===vis.length;all.indeterminate=checked>0&&checked<vis.length;}
+  function applyActiveSavedColumnFilter(){
+    const key=activeSavedColumnFilterKey;if(!key)return;const checked=[...document.querySelectorAll('#columnFilterValues [data-filter-option]:checked')].map(x=>activeSavedColumnFilterValues[Number(x.dataset.filterOption)]).filter(v=>v!==undefined);
+    const all=activeSavedColumnFilterValues;if(!checked.length){alert("필터값을 하나 이상 선택해주세요.");return;}if(checked.length===all.length)delete savedColumnFilters[key];else savedColumnFilters[key]=checked;
+    saveSavedListPreferences();closeSavedColumnFilterMenu();renderSaved();
+  }
+  function clearSavedColumnFilter(key){if(key)delete savedColumnFilters[key];else savedColumnFilters={};saveSavedListPreferences();closeSavedColumnFilterMenu();renderSaved();}
   function compareSavedTableItems(a,b,key){
     const text=v=>String(v||""),num=v=>Number(v||0);
     const map={
@@ -4874,6 +5125,7 @@ const db = getFirestore(firebaseApp);
       views:x=>Number(x?.state?.auctionOneImport?.viewCount||0),householdCount:x=>stateNumber(x,"householdCount",0),apartmentAge:x=>stateNumber(x,"apartmentAge",0),
       tradeCount:x=>recordTradeCount12(x),marketPrice:x=>recordMarketPrice(x),possibleRate:x=>recordPossibleBidRate(x)
     };
+    if(key==="grade"){const order={a:0,b:1,c:2,hold:3};const av=order[screeningMetrics(a).grade]??9,bv=order[screeningMetrics(b).grade]??9;return savedTableSortDirection==="desc"?bv-av:av-bv;}
     const fn=map[key]||map.auctionDate,av=fn(a),bv=fn(b);let c=(typeof av==="string"||typeof bv==="string")?String(av).localeCompare(String(bv),"ko"):num(av)-num(bv);return savedTableSortDirection==="desc"?-c:c;
   }
   function savedTableFilterMatch(item){
@@ -4883,7 +5135,6 @@ const db = getFirestore(firebaseApp);
     if(tableMinRateFilter==="le50"&&!(r<=50))return false;if(tableMinRateFilter==="le70"&&!(r<=70))return false;if(tableMinRateFilter==="eq70"&&r!==70)return false;if(tableMinRateFilter==="eq100"&&r!==100)return false;
     const market=recordMarketPrice(item)>0;if(tableMarketFilter==="filled"&&!market)return false;if(tableMarketFilter==="missing"&&market)return false;return true;
   }
-  function tableHeader(label,key,cls=""){const active=savedTableSortKey===key,arrow=active?(savedTableSortDirection==="asc"?"↑":"↓"):"↕";return `<th class="${cls}" data-table-sort="${key}">${label}<span class="table-sort-ind">${arrow}</span></th>`;}
 function renderSaved(){
     const root=$("savedList"),folderNav=$("folderNav"),folderListBtn=$("folderListBtn"),folderListLabel=$("folderListLabel"),folderMenu=$("folderMenu"),summary=$("savedListSummary");
     document.querySelectorAll("[data-saved-view]").forEach(btn=>btn.classList.toggle("active",btn.dataset.savedView===savedViewMode));
@@ -4893,22 +5144,27 @@ function renderSaved(){
     const allItems=records(),folderCounts=new Map();folderNames.forEach(n=>folderCounts.set(n,0));allItems.forEach(i=>folderCounts.set(recordFolder(i),(folderCounts.get(recordFolder(i))||0)+1));
     const folders=[...folderCounts.keys()].sort((a,b)=>a.localeCompare(b,"ko"));if(savedViewMode==="folders"&&!folders.includes(selectedFolder))selectedFolder=folders[0]||"";
     folderListBtn.disabled=folders.length===0;folderListLabel.textContent=selectedFolder?`${selectedFolder} · ${folderCounts.get(selectedFolder)||0}건`:"폴더 목록";folderMenu.innerHTML=folders.map(folder=>`<button class="folder-menu-item${folder===selectedFolder?" active":""}" type="button" data-folder="${escapeHtml(folder)}"><span>${escapeHtml(folder)}</span><span>${folderCounts.get(folder)||0}건</span></button>`).join("");renderFolderOptions();
-    let items=savedViewMode==="folders"?allItems.filter(i=>recordFolder(i)===selectedFolder):[...allItems];
-    items=items.filter(i=>recordMatchesSavedSearch(i,savedSearchQuery)).filter(i=>savedDateRangeMode?recordMatchesAuctionDateRange(i,savedAuctionDateFrom,savedAuctionDateTo):recordMatchesAuctionDate(i,savedAuctionDateFilter)).filter(i=>recordMatchesStarFilters(i,savedStarFilters)).filter(i=>!savedDecisionFilters.length||savedDecisionFilters.includes(recordDecision(i))).filter(i=>!savedGradeFilters.length||savedGradeFilters.includes(screeningMetrics(i).grade)).filter(savedTableFilterMatch);
+    let items=[...allItems];
+    items=items.filter(savedColumnFilterMatch);
     items.sort((a,b)=>compareSavedTableItems(a,b,savedTableSortKey));
     if(document.body.classList.contains("detail-open")&&loadedRecordId){const idx=items.findIndex(i=>i.id===loadedRecordId);if(idx>0)items.unshift(items.splice(idx,1)[0]);}
-    const scope=savedViewMode==="folders"?(selectedFolder||"폴더 미선택"):"전체",filterNames={review:"미검토",pending:"고민중",no:"입찰 X",bid:"입찰 O",completed:"입찰완료"};
-    summary.textContent=`${scope} · ${savedDecisionFilters.length?savedDecisionFilters.map(v=>filterNames[v]).join("+"):"전체"} · ${items.length}건 · ${savedTableSortKey} ${savedTableSortDirection==="asc"?"↑":"↓"}`;
+    const activeFilterN=Object.values(savedColumnFilters||{}).filter(v=>Array.isArray(v)&&v.length).length;
+    const sortLabel=SAVED_COLUMN_META[savedTableSortKey]?.label||savedTableSortKey;
+    summary.textContent=`전체 ${allItems.length}건 · 표시 ${items.length}건${activeFilterN?` · 필터 ${activeFilterN}개`:""} · ${sortLabel} ${savedTableSortDirection==="asc"?"↑":"↓"}`;
+    renderActiveColumnFilterSummary();
     if(!items.length){root.innerHTML=`<div class="empty">현재 필터 조건에 맞는 저장내역이 없습니다.</div>`;updateSavedBulkUi();return;}
     const rows=items.map(item=>{
-      const a=item.state?.auctionOneImport||{},decision=recordDecision(item),screen=screeningMetrics(item),selected=savedBulkSelectedIds.has(item.id),resist=recordHasResistance(item),market=stateNumber(item,"selectionQuickSalePrice",0),marketHigh=stateNumber(item,"selectionQuickSalePriceHigh",0),possible=screen.maxBid>0?formatPctRange(screen.bidRateLow,screen.bidRateHigh):"-";
+      const a=item.state?.auctionOneImport||{},decision=recordDecision(item),screen=screeningMetrics(item),selected=feedbackPlanningMode?feedbackPlanSelectedIds.has(item.id):savedBulkSelectedIds.has(item.id),planEligibility=feedbackPlanningMode?feedbackPlanningEligibility(item):null,resist=recordHasResistance(item),market=stateNumber(item,"selectionQuickSalePrice",0),marketHigh=stateNumber(item,"selectionQuickSalePriceHigh",0),possible=screen.maxBid>0?formatPctRange(screen.bidRateLow,screen.bidRateHigh):"-";
       const decisionLabel=decision==="completed"?"입찰완료":decision==="bid"?"입찰 O":decision==="no"?"입찰 X":decision==="pending"?"고민중":"미검토";
       const priceText=market>0?(marketHigh>market?`${shortWon(market)}~${shortWon(marketHigh)}`:shortWon(market)):"-";
       const fail=recordFailCount(item),minRate=recordMinRate(item),views=Number(a.viewCount||0),trade=recordTradeCount12(item);
-      return `<tr class="saved-item${loadedRecordId===item.id?" workspace-selected":""}${selected?" bulk-selected":""}" data-load-id="${item.id}" draggable="true">
-        <td class="col-check sticky-col-1 no-sort"><input class="saved-select-check no-print" style="position:static" type="checkbox" data-bulk-select-id="${item.id}" ${selected?"checked":""}></td>
+      const planCls=feedbackPlanningMode?(planEligibility?.locked?" feedback-plan-locked":(!planEligibility?.eligible&&!selected?" feedback-plan-disabled":selected?" feedback-plan-selected":"")):"";
+      const planTitle=feedbackPlanningMode?` title="${escapeHtml(planEligibility?.reason||"")}"`:"";
+      const checkCell=feedbackPlanningMode?`<input class="feedback-plan-check no-print" type="checkbox" data-feedback-plan-select-id="${item.id}" ${selected?"checked":""} ${planEligibility?.locked||(!planEligibility?.eligible&&!selected)?"disabled":""}>`:`<input class="saved-select-check no-print" style="position:static" type="checkbox" data-bulk-select-id="${item.id}" ${selected?"checked":""}>`;
+      return `<tr class="saved-item${loadedRecordId===item.id?" workspace-selected":""}${!feedbackPlanningMode&&selected?" bulk-selected":""}${planCls}" data-load-id="${item.id}" draggable="${feedbackPlanningMode?"false":"true"}"${planTitle}>
+        <td class="col-check sticky-col-1 no-sort">${checkCell}</td>
         <td class="col-state sticky-col-2"><span class="saved-status-badge ${decision}">${decisionLabel}</span></td>
-        <td class="col-case">${feedbackStarHtml(recordFeedback(item).star)}${escapeHtml(stateText(item,"caseNo",item.title||"-"))}</td>
+        <td class="col-case">${feedbackStarHtml(recordFeedback(item).star)}${escapeHtml(stateText(item,"caseNo",item.title||"-"))}${feedbackPlanningMode&&planEligibility?.locked?'<span class="feedback-plan-inline-badge locked">진행중</span>':feedbackPlanningMode&&selected?'<span class="feedback-plan-inline-badge">선택</span>':''}</td>
         <td class="col-apt" title="${escapeHtml(recordApartmentName(item))}">${escapeHtml(recordApartmentName(item)||"-")}</td>
         <td class="col-address" title="${escapeHtml(recordRegion(item))}">${escapeHtml(recordRegion(item)||"-")}</td>
         <td class="num">${recordFloorNumber(item)||"-"}${stateNumber(item,"maxFloor",0)?`/${stateNumber(item,"maxFloor",0)}`:""}</td>
@@ -4924,12 +5180,12 @@ function renderSaved(){
       </tr>`;
     }).join("");
     root.innerHTML=`<table class="saved-list-table"><thead><tr>
-      <th class="col-check sticky-col-1 no-sort">선택</th>${tableHeader("상태","state","col-state sticky-col-2")}${tableHeader("사건번호","caseNo","col-case")}${tableHeader("아파트","apartmentName","col-apt")}${tableHeader("소재지","region","col-address")}
+      <th class="col-check sticky-col-1 no-sort">${feedbackPlanningMode?"일정":"선택"}</th>${tableHeader("상태","state","col-state sticky-col-2")}${tableHeader("사건번호","caseNo","col-case")}${tableHeader("아파트","apartmentName","col-apt")}${tableHeader("소재지","region","col-address")}
       ${tableHeader("층/최고","floor")}${tableHeader("전용㎡","area")}${tableHeader("공급평","supply")}${tableHeader("세대","householdCount")}${tableHeader("준공","apartmentAge")}
       ${tableHeader("감정가","appraisal")}${tableHeader("최저가","minPrice")}${tableHeader("최저가율","minRate")}${tableHeader("유찰","fail")}${tableHeader("대항력","resistance")}
-      ${tableHeader("매각기일","auctionDate")}${tableHeader("조회","views")}${tableHeader("12개월거래","tradeCount")}${tableHeader("예상매도가","marketPrice")}${tableHeader("가능입찰가율","possibleRate")}<th class="no-sort">등급</th>
+      ${tableHeader("매각기일","auctionDate")}${tableHeader("조회","views")}${tableHeader("12개월거래","tradeCount")}${tableHeader("예상매도가","marketPrice")}${tableHeader("가능입찰가율","possibleRate")}${tableHeader("등급","grade")}
       </tr></thead><tbody>${rows}</tbody></table>`;
-    updateSavedBulkUi();updateStatusDropCounts();
+    updateSavedBulkUi();updateStatusDropCounts();renderFeedbackPlanningUi();
   }
 
   function escapeHtml(str){
@@ -4987,13 +5243,66 @@ function renderSaved(){
 
   function initTableWorkspaceLayout(){
     const view=$("calculatorView"),saved=$("savedSectionCard"),main=$("sectionContainer"),aside=document.querySelector("#calculatorView>.sticky-side");
-    if(!view||!saved||!main)return;if(saved.parentElement!==view)view.insertBefore(saved,view.firstChild);if(aside)aside.remove();
-    let handle=$("tableDetailResizeHandle");if(!handle){handle=document.createElement("div");handle.id="tableDetailResizeHandle";handle.className="table-detail-resize-handle no-print";handle.innerHTML='<span class="resize-label">목록/상세 높이 조절</span>';saved.after(handle);}
-    let compare=$("savedComparePanel");if(!compare){compare=document.createElement("section");compare.id="savedComparePanel";compare.hidden=true;handle.after(compare);}if(main.previousElementSibling!==compare)compare.after(main);
-    const stored=Number(localStorage.getItem("auctionBidCalculator.savedTableHeight.v1")||0);if(stored>150)document.documentElement.style.setProperty("--saved-table-height",`${stored}px`);
-    let resizing=false;handle.addEventListener("pointerdown",e=>{if(!document.body.classList.contains("detail-open")&&!document.body.classList.contains("compare-open"))return;resizing=true;handle.classList.add("dragging");handle.setPointerCapture?.(e.pointerId);document.body.style.userSelect="none";});
-    handle.addEventListener("pointermove",e=>{if(!resizing)return;const listRect=$("savedList").getBoundingClientRect(),min=120,max=Math.max(240,Math.min(window.innerHeight-250,760)),h=Math.max(min,Math.min(max,e.clientY-listRect.top));document.documentElement.style.setProperty("--saved-table-height",`${Math.round(h)}px`);});
-    const stop=e=>{if(!resizing)return;resizing=false;handle.classList.remove("dragging");try{handle.releasePointerCapture?.(e.pointerId)}catch{}document.body.style.userSelect="";const h=parseInt(getComputedStyle(document.documentElement).getPropertyValue("--saved-table-height"));if(h)localStorage.setItem("auctionBidCalculator.savedTableHeight.v1",String(h));};handle.addEventListener("pointerup",stop);handle.addEventListener("pointercancel",stop);
+    if(!view||!saved||!main)return;
+    if(saved.parentElement!==view)view.insertBefore(saved,view.firstChild);
+    if(aside)aside.remove();
+
+    /* v1.20.2: 상세/대출/비용/실제입찰 메뉴를 고정 요약박스 안으로 이동 */
+    const header=$("workspacePropertyHeader"),tabs=$("workspaceTabRail");
+    if(header&&tabs&&tabs.parentElement!==header)header.appendChild(tabs);
+
+    let handle=$("tableDetailResizeHandle");
+    if(!handle){
+      handle=document.createElement("div");
+      handle.id="tableDetailResizeHandle";
+      handle.className="table-detail-resize-handle no-print";
+      handle.innerHTML='<span class="resize-label">↕ 드래그해서 목록 / 상세 높이 조절</span>';
+      saved.after(handle);
+    }
+    let compare=$("savedComparePanel");
+    if(!compare){compare=document.createElement("section");compare.id="savedComparePanel";compare.hidden=true;handle.after(compare);}
+    if(main.previousElementSibling!==compare)compare.after(main);
+
+    const savedList=()=>saved.querySelector(".saved-list");
+    const stored=Number(localStorage.getItem("auctionBidCalculator.savedTableHeight.v1")||0);
+    if(stored>=120)document.documentElement.style.setProperty("--saved-table-height",`${stored}px`);
+
+    if(handle.dataset.resizeBound!=="1"){
+      handle.dataset.resizeBound="1";
+      let resizing=false,startY=0,startHeight=0,activePointer=null;
+      const setHeight=h=>{
+        const min=120;
+        const max=Math.max(260,window.innerHeight-145);
+        const next=Math.max(min,Math.min(max,Math.round(h)));
+        document.documentElement.style.setProperty("--saved-table-height",`${next}px`);
+        return next;
+      };
+      const move=e=>{
+        if(!resizing)return;
+        if(activePointer!==null&&e.pointerId!==undefined&&e.pointerId!==activePointer)return;
+        e.preventDefault?.();
+        setHeight(startHeight+(e.clientY-startY));
+      };
+      const stop=e=>{
+        if(!resizing)return;
+        resizing=false;activePointer=null;handle.classList.remove("dragging");document.body.style.userSelect="";document.body.style.cursor="";
+        const h=parseInt(getComputedStyle(document.documentElement).getPropertyValue("--saved-table-height"));
+        if(h)localStorage.setItem("auctionBidCalculator.savedTableHeight.v1",String(h));
+      };
+      handle.addEventListener("pointerdown",e=>{
+        if(!document.body.classList.contains("detail-open")&&!document.body.classList.contains("compare-open"))return;
+        const list=savedList();if(!list)return;
+        resizing=true;activePointer=e.pointerId??null;startY=e.clientY;startHeight=list.getBoundingClientRect().height||300;
+        handle.classList.add("dragging");document.body.style.userSelect="none";document.body.style.cursor="ns-resize";
+        try{handle.setPointerCapture?.(e.pointerId)}catch{}
+        e.preventDefault();
+      });
+      /* window에 걸어 마우스가 손잡이를 벗어나도 계속 움직이게 */
+      window.addEventListener("pointermove",move,{passive:false});
+      window.addEventListener("pointerup",stop);
+      window.addEventListener("pointercancel",stop);
+      handle.addEventListener("dblclick",()=>{const h=setHeight(Math.round(window.innerHeight*.46));localStorage.setItem("auctionBidCalculator.savedTableHeight.v1",String(h));});
+    }
   }
   function closeSavedComparison(clear=true){document.body.classList.remove("compare-open");const p=$("savedComparePanel");if(p)p.hidden=true;if(clear)savedCompareIds=[];}
   function comparisonValueRows(items){
@@ -5029,15 +5338,92 @@ function renderSaved(){
   function syncFeedbackRequestPanel(){const item=records().find(x=>x.id===loadedRecordId);$("feedbackRequestTemplate").value=currentFeedbackTemplate();$("workspaceFeedbackRequestExtra").value=item?.state?.fields?.feedbackRequestExtra||"";$("feedbackRequestOutput").value=feedbackRequestTextForItem(item);}
   function saveFeedbackTemplate(){localStorage.setItem(FEEDBACK_TEMPLATE_KEY,$("feedbackRequestTemplate").value||DEFAULT_FEEDBACK_TEMPLATE);showToast("피드백 기본양식 저장 완료");syncFeedbackRequestPanel();}
   function applyFeedbackExtraToField(){$("feedbackRequestExtra").value=$("workspaceFeedbackRequestExtra").value;syncFeedbackRequestPanel();}
+  function feedbackPlanningCandidates(){
+    const today=todayYmd();
+    return feedbackCalendarItems().filter(i=>{const f=recordFeedback(i);return !f.result&&recordAuctionDate(i).raw>=today;}).sort((a,b)=>recordAuctionDate(a).raw.localeCompare(recordAuctionDate(b).raw));
+  }
+  function feedbackPlanningLockedItems(){return feedbackPlanningCandidates().filter(i=>{const f=recordFeedback(i);return f.requested&&!f.result;});}
+  function feedbackPlanningSelectedItems(){const byId=new Map(records().map(i=>[i.id,i]));return [...feedbackPlanSelectedIds].map(id=>byId.get(id)).filter(Boolean);}
+  function feedbackPlanningBaseSet(extraId=""){
+    const locked=feedbackPlanningLockedItems();
+    const selected=feedbackPlanningSelectedItems().filter(i=>!locked.some(x=>x.id===i.id));
+    if(extraId&&!selected.some(i=>i.id===extraId)&&!locked.some(i=>i.id===extraId)){const item=records().find(i=>i.id===extraId);if(item)selected.push(item);}
+    return [...locked,...selected];
+  }
+  function feedbackPlanningEligibility(item){
+    const f=recordFeedback(item),date=recordAuctionDate(item).raw,today=todayYmd();
+    if(!["pending","bid"].includes(recordDecision(item)))return {eligible:false,locked:false,reason:"고민중·입찰 O만 일정 선택 가능"};
+    if(!date||date<today||f.result)return {eligible:false,locked:false,reason:"지난 일정 또는 완료 물건"};
+    if(f.requested&&!f.result)return {eligible:true,locked:true,reason:`이미 피드백 진행중 · 요청 ${md(f.requestDate||f.planDate||feedbackBaseDate(item))}`};
+    if(feedbackPlanSelectedIds.has(item.id))return {eligible:true,locked:false,reason:"선택됨"};
+    const set=feedbackPlanningBaseSet(item.id);
+    if(!feasibleFeedbackSet(set))return {eligible:false,locked:false,reason:"현재 선택과 겹치면 동시 진행 3건 이상"};
+    return {eligible:true,locked:false,reason:"선택 가능"};
+  }
+  function feedbackPlanningDisabledCandidates(){return feedbackPlanningCandidates().filter(i=>{const e=feedbackPlanningEligibility(i);return !e.eligible&&!recordFeedback(i).requested;});}
+  function renderFeedbackPlanningUi(){
+    const btn=$("feedbackPlanningBtn"),bar=$("feedbackPlanningBar"),sum=$("feedbackPlanningSummary");
+    document.body.classList.toggle("feedback-planning",feedbackPlanningMode);if(btn)btn.classList.toggle("active",feedbackPlanningMode);if(btn)btn.textContent=feedbackPlanningMode?"피드백 일정짜는 중":"피드백 일정짜기";if(bar)bar.classList.toggle("active",feedbackPlanningMode);
+    if(!feedbackPlanningMode){if(sum)sum.textContent="고민중·입찰 O 물건을 클릭해서 선택하세요. 동시 진행 최대 2건 기준으로 불가능한 일정은 자동 잠금됩니다.";return;}
+    const selected=feedbackPlanningSelectedItems().sort((a,b)=>recordAuctionDate(a).raw.localeCompare(recordAuctionDate(b).raw));const locked=feedbackPlanningLockedItems();const disabled=feedbackPlanningDisabledCandidates();
+    const selectedText=selected.length?selected.map(i=>`${md(recordAuctionDate(i).raw)} ${stateText(i,"caseNo",i.title)}`).join(" · "):"아직 선택 없음";
+    const disabledDates=[...new Set(disabled.map(i=>md(recordAuctionDate(i).raw)))];
+    if(sum)sum.innerHTML=`<b>선택 ${selected.length}건</b> · ${escapeHtml(selectedText)}${locked.length?` · 이미 진행중 ${locked.length}건`:""}${disabledDates.length?`<br>현재 선택으로 추가 선택 불가: <b>${escapeHtml(disabledDates.join(", "))}</b>`:""}`;
+  }
+  function enterFeedbackPlanning(){feedbackPlanningMode=true;feedbackPlanSelectedIds.clear();savedBulkSelectedIds.clear();closeSavedComparison();if(document.body.classList.contains("detail-open"))closeWorkspaceDetail();renderSaved();renderFeedbackPlanningUi();requestAnimationFrame(()=>$("savedList")?.scrollIntoView({block:"start",behavior:"smooth"}));}
+  function exitFeedbackPlanning(rerender=true){feedbackPlanningMode=false;feedbackPlanSelectedIds.clear();document.body.classList.remove("feedback-planning");renderFeedbackPlanningUi();if(rerender)renderSaved();}
+  function toggleFeedbackPlanningItem(id){
+    const item=records().find(i=>i.id===id);if(!item)return;const e=feedbackPlanningEligibility(item);if(e.locked){showToast("이미 요청 진행중인 물건이라 일정 슬롯에 자동 포함됩니다.");return;}if(feedbackPlanSelectedIds.has(id)){feedbackPlanSelectedIds.delete(id);renderSaved();renderFeedbackPlanningUi();return;}if(!e.eligible){showToast(e.reason||"현재 선택과 함께 진행할 수 없습니다.");return;}feedbackPlanSelectedIds.add(id);renderSaved();renderFeedbackPlanningUi();
+  }
+  async function saveFeedbackPlanningSelection(){
+    const items=feedbackPlanningSelectedItems();if(!items.length){alert("피드백 일정을 잡을 물건을 먼저 선택해주세요.");return;}if(!requireCloudReady())return;const btn=$("feedbackPlanSaveBtn");if(btn)btn.disabled=true;let done=0;setSyncStatus(`피드백 일정 저장 0/${items.length}건…`,"warn");
+    try{
+      for(const item of items){const f=recordFeedback(item),plan=f.planDate||feedbackBaseDate(item);const saved=await saveFeedbackForRecord(item.id,{...f,planDate:plan},Number(item.revision||0));if(saved)done++;setSyncStatus(`피드백 일정 저장 ${done}/${items.length}건…`,"warn");}
+      showToast(`${done}건 피드백 일정 저장 완료`);feedbackPlanSelectedIds.clear();renderSaved();renderFeedbackPlanningUi();renderFeedbackCalendar();setSyncStatus(`자동 동기화 완료 · ${formatDateTime(new Date())}`,"good");
+    }catch(error){console.error(error);alert(`피드백 일정 저장 중 오류가 발생했습니다. ${done}/${items.length}건 저장됨\n${error?.message||""}`);}finally{if(btn)btn.disabled=false;}
+  }
   function feedbackScenarioCandidates(){const today=todayYmd();return feedbackCalendarItems().filter(i=>{const f=recordFeedback(i);return !f.result&&recordAuctionDate(i).raw>=today;}).sort((a,b)=>recordAuctionDate(a).raw.localeCompare(recordAuctionDate(b).raw));}
   function feedbackWindow(item){const f=recordFeedback(item),start=(f.requested&&f.requestDate)||f.planDate||feedbackBaseDate(item),end=recordAuctionDate(item).raw;return {start,end};}
   function feasibleFeedbackSet(items){const points=[];items.forEach(i=>{const w=feedbackWindow(i);if(w.start&&w.end)points.push(w.start,w.end);});const dates=[...new Set(points)].sort();for(const d of dates){let n=0;items.forEach(i=>{const w=feedbackWindow(i);if(w.start&&w.end&&w.start<=d&&d<w.end)n++;});if(n>2)return false;}return true;}
-  function computeFeedbackScenarios(forceId=""){
-    const all=feedbackScenarioCandidates(),locked=all.filter(i=>{const f=recordFeedback(i);return f.requested&&!f.result;});let optional=all.filter(i=>!locked.some(x=>x.id===i.id));const force=forceId?all.find(i=>i.id===forceId):null;const baseLocked=[...locked];if(force&&!baseLocked.some(i=>i.id===force.id)){baseLocked.push(force);optional=optional.filter(i=>i.id!==force.id);}if(!feasibleFeedbackSet(baseLocked))return {all,options:[],locked:baseLocked,reason:"현재 진행중인 피드백 또는 꼭 들어갈 물건끼리 이미 동시 2건 제한을 초과합니다."};if(optional.length>12)optional=optional.slice(0,12);
-    const opts=[];for(let mask=0;mask<(1<<optional.length);mask++){const set=[...baseLocked];for(let i=0;i<optional.length;i++)if(mask&(1<<i))set.push(optional[i]);if(feasibleFeedbackSet(set))opts.push(set);}opts.sort((a,b)=>b.length-a.length||a.reduce((s,i)=>s+(recordAuctionDate(i).time||0),0)-b.reduce((s,i)=>s+(recordAuctionDate(i).time||0),0));const max=opts[0]?.length||baseLocked.length;const best=opts.filter(x=>x.length===max).slice(0,5);return {all,options:best,locked:baseLocked,max,limited:all.length>12+locked.length};
+  function computeFeedbackScenarios(forceIds=[]){
+    const all=feedbackScenarioCandidates(),locked=all.filter(i=>{const f=recordFeedback(i);return f.requested&&!f.result;});
+    const forceSet=new Set(Array.isArray(forceIds)?forceIds:[forceIds].filter(Boolean));
+    let optional=all.filter(i=>!locked.some(x=>x.id===i.id));
+    const forced=all.filter(i=>forceSet.has(i.id));
+    const baseLocked=[...locked];
+    forced.forEach(force=>{if(!baseLocked.some(i=>i.id===force.id))baseLocked.push(force);});
+    optional=optional.filter(i=>!forceSet.has(i.id));
+    if(!feasibleFeedbackSet(baseLocked))return {all,options:[],locked:baseLocked,reason:"현재 진행중인 피드백 또는 꼭 들어갈 물건끼리 이미 동시 2건 제한을 초과합니다."};
+    if(optional.length>12)optional=optional.slice(0,12);
+    const opts=[];for(let mask=0;mask<(1<<optional.length);mask++){const set=[...baseLocked];for(let i=0;i<optional.length;i++)if(mask&(1<<i))set.push(optional[i]);if(feasibleFeedbackSet(set))opts.push(set);}
+    opts.sort((a,b)=>b.length-a.length||a.reduce((sum,i)=>sum+(recordAuctionDate(i).time||0),0)-b.reduce((sum,i)=>sum+(recordAuctionDate(i).time||0),0));
+    const max=opts[0]?.length||baseLocked.length;const best=opts.filter(x=>x.length===max).slice(0,5);
+    return {all,options:best,locked:baseLocked,max,limited:all.length>12+locked.length,forced};
   }
-  function renderFeedbackScenarioPlanner(){const select=$("feedbackScenarioMustInclude"),root=$("feedbackScenarioResult");if(!select||!root)return;const current=select.value,items=feedbackScenarioCandidates();select.innerHTML='<option value="">지정 없음</option>'+items.map(i=>`<option value="${i.id}">${md(recordAuctionDate(i).raw)} · ${escapeHtml(stateText(i,"caseNo",i.title))}</option>`).join("");if(items.some(i=>i.id===current))select.value=current;if(!items.length){root.innerHTML='<div class="helper">고민중·입찰 O 예정물건이 없습니다.</div>';return;}renderFeedbackScenarioResult();}
-  function renderFeedbackScenarioResult(){const root=$("feedbackScenarioResult");if(!root)return;const force=$("feedbackScenarioMustInclude")?.value||"",r=computeFeedbackScenarios(force);if(r.reason){root.innerHTML=`<div class="scenario-conflict">${escapeHtml(r.reason)}</div>`;return;}const all=r.all||[];root.innerHTML=`<div class="scenario-summary">현재 후보 ${all.length}건 중 최대 ${r.max||0}건까지 피드백 일정에 넣을 수 있습니다.${r.limited?" · 가까운 일정 12건 기준 계산":""}</div>`+(r.options||[]).map((set,idx)=>{const ids=new Set(set.map(i=>i.id)),drop=all.filter(i=>!ids.has(i.id));return `<div class="scenario-option"><div class="title">${idx+1}안 · ${set.length}건 가능</div><div class="cases">${set.map(i=>`${md(recordAuctionDate(i).raw)} ${escapeHtml(stateText(i,"caseNo",i.title))} <span style="color:#64748b">[요청 ${md(feedbackWindow(i).start)}]</span>`).join(" · ")}</div>${drop.length?`<div class="drop">이 안을 선택하면 포기/후순위: ${drop.map(i=>`${md(recordAuctionDate(i).raw)} ${escapeHtml(stateText(i,"caseNo",i.title))}`).join(" · ")}</div>`:'<div class="drop" style="color:#047857">현재 후보 전부 가능</div>'}</div>`;}).join("");}
+  function syncFeedbackScenarioCollapse(){
+    const body=$("feedbackScenarioBody"),btn=$("feedbackScenarioToggleBtn");if(!body||!btn)return;
+    body.hidden=feedbackScenarioCollapsed;btn.textContent=feedbackScenarioCollapsed?"펴기 ▼":"접기 ▲";btn.setAttribute("aria-expanded",feedbackScenarioCollapsed?"false":"true");
+  }
+  function toggleFeedbackScenarioCollapse(){
+    feedbackScenarioCollapsed=!feedbackScenarioCollapsed;localStorage.setItem("auctionFeedbackScenarioCollapsed",feedbackScenarioCollapsed?"1":"0");syncFeedbackScenarioCollapse();
+  }
+  function renderFeedbackScenarioMustPicker(items=feedbackScenarioCandidates()){
+    const menu=$("feedbackScenarioMustMenu"),text=$("feedbackScenarioMustBtnText");if(!menu||!text)return;
+    const validIds=new Set(items.map(i=>i.id));[...feedbackScenarioMustIds].forEach(id=>{if(!validIds.has(id))feedbackScenarioMustIds.delete(id);});
+    const selectedItems=items.filter(i=>feedbackScenarioMustIds.has(i.id));
+    text.textContent=selectedItems.length?`선택 ${selectedItems.length}건 · ${selectedItems.slice(0,2).map(i=>md(recordAuctionDate(i).raw)).join(", ")}${selectedItems.length>2?" 외":""}`:"지정 없음";
+    menu.innerHTML=`<div class="feedback-must-menu-head"><b>꼭 들어갈 물건 선택</b><button class="btn light" type="button" id="feedbackScenarioMustClearBtn" style="padding:4px 7px">전체해제</button></div>`+(items.length?items.map(i=>`<label class="feedback-must-option"><input type="checkbox" data-feedback-scenario-must-id="${i.id}" ${feedbackScenarioMustIds.has(i.id)?"checked":""}><span><b>${md(recordAuctionDate(i).raw)} · ${escapeHtml(stateText(i,"caseNo",i.title))}</b><br><span style="color:#64748b">${escapeHtml(recordApartmentName(i)||"")}</span></span></label>`).join(""):`<div class="feedback-must-empty">고민중·입찰 O 예정물건이 없습니다.</div>`);
+  }
+  function renderFeedbackScenarioPlanner(){
+    const root=$("feedbackScenarioResult");if(!root)return;const items=feedbackScenarioCandidates();renderFeedbackScenarioMustPicker(items);syncFeedbackScenarioCollapse();
+    if(!items.length){root.innerHTML='<div class="helper">고민중·입찰 O 예정물건이 없습니다.</div>';return;}renderFeedbackScenarioResult();
+  }
+  function renderFeedbackScenarioResult(){
+    const root=$("feedbackScenarioResult");if(!root)return;const r=computeFeedbackScenarios([...feedbackScenarioMustIds]);
+    if(r.reason){root.innerHTML=`<div class="scenario-conflict">${escapeHtml(r.reason)}</div>`;return;}
+    const all=r.all||[],forcedSet=new Set(feedbackScenarioMustIds);
+    root.innerHTML=`<div class="scenario-summary">현재 후보 ${all.length}건 중 최대 ${r.max||0}건까지 피드백 일정에 넣을 수 있습니다.${forcedSet.size?` · 꼭 포함 ${forcedSet.size}건 고정`:""}${r.limited?" · 가까운 일정 12건 기준 계산":""}</div>`+(r.options||[]).map((set,idx)=>{const ids=new Set(set.map(i=>i.id)),drop=all.filter(i=>!ids.has(i.id));return `<div class="scenario-option"><div class="title">${idx+1}안 · ${set.length}건 가능</div><div class="cases">${set.map(i=>`${forcedSet.has(i.id)?'<b style="color:#1d4ed8">[필수]</b> ':''}${md(recordAuctionDate(i).raw)} ${escapeHtml(stateText(i,"caseNo",i.title))} <span style="color:#64748b">[요청 ${md(feedbackWindow(i).start)}]</span>`).join(" · ")}</div>${drop.length?`<div class="drop">이 안을 선택하면 포기/후순위: ${drop.map(i=>`${md(recordAuctionDate(i).raw)} ${escapeHtml(stateText(i,"caseNo",i.title))}`).join(" · ")}</div>`:'<div class="drop" style="color:#047857">현재 후보 전부 가능</div>'}</div>`;}).join("");
+  }
   function updateStatusDropCounts(){
     if(!$('savedStatusDropboard'))return;
     const counts={review:0,pending:0,bid:0,no:0};
@@ -5474,9 +5860,9 @@ function renderSaved(){
     $('auctionOneCompletenessGrid').innerHTML=c.details.map(g=>`<div class="auction1-complete-card ${g.done===g.total?'good':g.done?'partial':'empty'}"><div class="auction1-complete-card-head"><b>${escapeHtml(g.name)}</b><span class="auction1-complete-count">${g.done}/${g.total}</span></div><span class="auction1-complete-source">${escapeHtml(g.source)}</span><div class="auction1-complete-fields">${g.items.map(x=>`<span class="auction1-complete-field ${x.done?'done':'missing'}">${x.done?'✓':'○'} ${escapeHtml(x.label)}</span>`).join('')}</div></div>`).join('');
     const missing=currentMissingResearch();$('auctionOneNextResearch').innerHTML=missing.length?`<b>다음 확인 ${missing.length}개</b> · ${missing.slice(0,8).map(x=>escapeHtml(x.label)).join(' · ')}${missing.length>8?' …':''}`:'<b>필수 조사칸이 모두 채워졌습니다.</b>';
   }
-  // 기존 저장자료는 자동 적용하지 않습니다. v1.19.0의 후보 확인 모달을 통해서만 선택 적용됩니다.
+  // 기존 저장자료는 자동 적용하지 않습니다. v1.20.2의 후보 확인 모달을 통해서만 선택 적용됩니다.
 
-  // ===== v1.19.0: 옥션원 원문 재분석 / 기존자료 확인적용 / 공공데이터 자동조회 =====
+  // ===== v1.20.2: 옥션원 원문 재분석 / 기존자료 확인적용 / 공공데이터 자동조회 =====
   const PUBLIC_FIELD_LABELS={propertyName:'도로명주소',apartmentAge:'사용승인년도',maxFloor:'최고층',householdCount:'세대수',buildingType:'현관구조',roomCount:'방수',bathCount:'욕실수',direction:'향',selectionTradeActivity:'거래활발도',sameRates:'동일번지 낙찰가율',nearRates:'인근 낙찰가율'};
   let historySuggestionRows=[];
   const publicTradeCache=new Map();
@@ -6477,6 +6863,15 @@ function renderSaved(){
   });
 
   document.addEventListener("click", async (e) => {
+    const columnFilterBtn=e.target.closest("[data-column-filter-btn]");
+    if(columnFilterBtn){e.stopPropagation();const key=columnFilterBtn.dataset.columnFilterBtn;if(!$("savedColumnFilterMenu")?.hidden&&activeSavedColumnFilterKey===key){closeSavedColumnFilterMenu();}else openSavedColumnFilterMenu(key,columnFilterBtn);return;}
+    if(e.target.closest("[data-column-filter-close],[data-column-filter-cancel]")){closeSavedColumnFilterMenu();return;}
+    if(e.target.closest("[data-column-filter-apply]")){applyActiveSavedColumnFilter();return;}
+    if(e.target.closest("[data-column-filter-clear]")){clearSavedColumnFilter(activeSavedColumnFilterKey);return;}
+    const clearChip=e.target.closest("[data-clear-column-filter]");if(clearChip){clearSavedColumnFilter(clearChip.dataset.clearColumnFilter);return;}
+    const sortBtn=e.target.closest("[data-column-sort]");if(sortBtn&&activeSavedColumnFilterKey){savedTableSortKey=activeSavedColumnFilterKey;savedTableSortDirection=sortBtn.dataset.columnSort==="desc"?"desc":"asc";saveSavedListPreferences();closeSavedColumnFilterMenu();renderSaved();return;}
+    if(e.target.closest("[data-column-sort-clear]")){savedTableSortKey="auctionDate";savedTableSortDirection="asc";saveSavedListPreferences();closeSavedColumnFilterMenu();renderSaved();return;}
+    if(!e.target.closest("#savedColumnFilterMenu")&&!e.target.closest("[data-column-filter-btn]"))closeSavedColumnFilterMenu();
     const rateScenario=e.target.closest("[data-rate-scenario]");
     if(rateScenario){applyRateScenario(rateScenario.dataset.rateScenario);return;}
     const appMode=e.target.closest("[data-app-mode]");
@@ -6554,6 +6949,12 @@ function renderSaved(){
     }
     const gradeFilter=e.target.closest("[data-grade-filter]");
     if(gradeFilter){const value=gradeFilter.dataset.gradeFilter||"all";if(value==="all")savedGradeFilters=[];else if(savedGradeFilters.includes(value))savedGradeFilters=savedGradeFilters.filter(v=>v!==value);else savedGradeFilters=[...savedGradeFilters,value];saveSavedListPreferences();updateSavedFilterUi();renderSaved();return;}
+    const planLaunch=e.target.closest("#feedbackPlanningBtn");if(planLaunch){feedbackPlanningMode?exitFeedbackPlanning():enterFeedbackPlanning();return;}
+    if(e.target.closest("#feedbackPlanCancelBtn")){exitFeedbackPlanning();return;}
+    if(e.target.closest("#feedbackPlanResetBtn")){feedbackPlanSelectedIds.clear();renderSaved();renderFeedbackPlanningUi();return;}
+    if(e.target.closest("#feedbackPlanSaveBtn")){await saveFeedbackPlanningSelection();return;}
+    if(e.target.closest("#feedbackPlanCalendarBtn")){switchAppMode("feedback");return;}
+    const planCheck=e.target.closest("[data-feedback-plan-select-id]");if(planCheck){e.stopPropagation();toggleFeedbackPlanningItem(planCheck.dataset.feedbackPlanSelectId);return;}
     const bulkCheck=e.target.closest("[data-bulk-select-id]");if(bulkCheck){e.stopPropagation();const id=bulkCheck.dataset.bulkSelectId;if(bulkCheck.checked)savedBulkSelectedIds.add(id);else savedBulkSelectedIds.delete(id);bulkCheck.closest(".saved-item")?.classList.toggle("bulk-selected",bulkCheck.checked);updateSavedBulkUi();return;}
     const starFilter=e.target.closest("[data-star-filter]");
     if(starFilter){
@@ -6653,7 +7054,7 @@ function renderSaved(){
     if(tableSort){const key=tableSort.dataset.tableSort;if(savedTableSortKey===key)savedTableSortDirection=savedTableSortDirection==="asc"?"desc":"asc";else{savedTableSortKey=key;savedTableSortDirection="asc";}saveSavedListPreferences();renderSaved();return;}
     const compareOpen=e.target.closest("[data-compare-open-id]");if(compareOpen){openWorkspaceDetail(compareOpen.dataset.compareOpenId,"detail");return;}
     const load = e.target.closest("[data-load-id]");
-    if (load){const id=load.dataset.loadId;if(document.body.classList.contains("detail-open")&&loadedRecordId===id)closeWorkspaceDetail();else openWorkspaceDetail(id,"detail");}
+    if (load){if(feedbackPlanningMode){toggleFeedbackPlanningItem(load.dataset.loadId);return;}openWorkspaceDetail(load.dataset.loadId,"detail");}
   });
 
 
@@ -6692,27 +7093,35 @@ function renderSaved(){
   const scheduleAuctionOneCompletionRefresh=e=>{if(!currentAuctionOneImportData||!e?.target?.id||!auctionOneCompletionFieldIds.has(e.target.id))return;cancelAnimationFrame(auctionOneCompletionRefreshRaf);auctionOneCompletionRefreshRaf=requestAnimationFrame(()=>renderAuctionOneEnrichmentPanel());};
   $("sectionContainer")?.addEventListener("input",scheduleAuctionOneCompletionRefresh);
   $("sectionContainer")?.addEventListener("change",scheduleAuctionOneCompletionRefresh);
-  $("savedBulkSelectAll")?.addEventListener("change",e=>{document.querySelectorAll("[data-bulk-select-id]").forEach(cb=>{const id=cb.dataset.bulkSelectId;cb.checked=e.target.checked;if(e.target.checked)savedBulkSelectedIds.add(id);else savedBulkSelectedIds.delete(id);cb.closest(".saved-item")?.classList.toggle("bulk-selected",e.target.checked);});updateSavedBulkUi();});
+  $("savedBulkSelectAll")?.addEventListener("change",e=>{if(feedbackPlanningMode){e.target.checked=false;return;}document.querySelectorAll("[data-bulk-select-id]").forEach(cb=>{const id=cb.dataset.bulkSelectId;cb.checked=e.target.checked;if(e.target.checked)savedBulkSelectedIds.add(id);else savedBulkSelectedIds.delete(id);cb.closest(".saved-item")?.classList.toggle("bulk-selected",e.target.checked);});updateSavedBulkUi();});
   $("savedBulkApply")?.addEventListener("click",applyBulkDecision);
   $("savedCompareBtn")?.addEventListener("click",openSavedComparison);
   $("savedBulkDeleteBtn")?.addEventListener("click",bulkDeleteSelected);
   $("savedComparePanel")?.addEventListener("click",e=>{if(e.target.closest("#savedCompareCloseBtn")){closeSavedComparison();return;}const b=e.target.closest("[data-compare-open-id]");if(b)openWorkspaceDetail(b.dataset.compareOpenId,"detail");});
   ["tableFloorFilter","tableResistanceFilter","tableFailFilter","tableMinRateFilter","tableMarketFilter"].forEach(id=>$(id)?.addEventListener("change",()=>{tableFloorFilter=$("tableFloorFilter").value;tableResistanceFilter=$("tableResistanceFilter").value;tableFailFilter=Number($("tableFailFilter").value||0);tableMinRateFilter=$("tableMinRateFilter").value;tableMarketFilter=$("tableMarketFilter").value;saveSavedListPreferences();renderSaved();}));
   $("tableFilterResetBtn")?.addEventListener("click",()=>{tableFloorFilter="all";tableResistanceFilter="all";tableFailFilter=0;tableMinRateFilter="all";tableMarketFilter="all";["tableFloorFilter","tableResistanceFilter","tableMinRateFilter","tableMarketFilter"].forEach(id=>$(id).value="all");$("tableFailFilter").value="0";saveSavedListPreferences();renderSaved();});
+  $("savedColumnFilterMenu")?.addEventListener("input",e=>{if(e.target.id!=="columnFilterSearchInput")return;const q=e.target.value.trim().toLowerCase();document.querySelectorAll('#columnFilterValues [data-filter-option-row]').forEach(row=>{const i=Number(row.dataset.filterOptionRow),raw=activeSavedColumnFilterValues[i],txt=savedColumnDisplayValue(activeSavedColumnFilterKey,raw).toLowerCase();row.style.display=!q||txt.includes(q)?"":"none";});updateColumnFilterSelectAll();});
+  $("savedColumnFilterMenu")?.addEventListener("change",e=>{if(e.target.id==="columnFilterSelectAll"){visibleColumnFilterCheckboxes().forEach(cb=>cb.checked=e.target.checked);updateColumnFilterSelectAll();return;}if(e.target.matches('[data-filter-option]'))updateColumnFilterSelectAll();});
+  window.addEventListener("resize",()=>{if(!$("savedColumnFilterMenu")?.hidden)closeSavedColumnFilterMenu();});
+  $("savedList")?.addEventListener("scroll",()=>{if(!$("savedColumnFilterMenu")?.hidden)closeSavedColumnFilterMenu();},{passive:true});
   ["workspaceMarketLow","workspaceMarketHigh","workspaceMarketAskingMemo","workspaceMarketBrokerMemo"].forEach(id=>$(id)?.addEventListener("input",applyWorkspaceMarketToFields));
   document.querySelectorAll("[data-market-source]").forEach(x=>x.addEventListener("change",applyWorkspaceMarketToFields));
   $("workspaceMarketSaveBtn")?.addEventListener("click",()=>{applyWorkspaceMarketToFields();$("saveBtn").click();});
   $("workspaceMarketSaveTopBtn")?.addEventListener("click",()=>{applyWorkspaceMarketToFields();$("saveBtn").click();});
   $("workspaceUsePublicSuggestedBtn")?.addEventListener("click",usePublicSuggestedMarket);
   $("feedbackTemplateSaveBtn")?.addEventListener("click",saveFeedbackTemplate);
-  $("feedbackTemplateDefaultBtn")?.addEventListener("click",()=>{$("feedbackRequestTemplate").value=DEFAULT_FEEDBACK_TEMPLATE;localStorage.setItem(FEEDBACK_TEMPLATE_KEY,DEFAULT_FEEDBACK_TEMPLATE);syncFeedbackRequestPanel();showToast("추천양식 적용 완료");});
+  $("feedbackTemplateDefaultBtn")?.addEventListener("click",()=>{$("feedbackRequestTemplate").value=DEFAULT_FEEDBACK_TEMPLATE;});
   $("feedbackRequestRefreshBtn")?.addEventListener("click",syncFeedbackRequestPanel);
   $("feedbackRequestCopyBtn")?.addEventListener("click",async()=>{const t=$("feedbackRequestOutput").value;try{await navigator.clipboard.writeText(t);showToast("피드백 요청문 복사 완료");}catch{alert(t);}});
   $("workspaceFeedbackRequestExtra")?.addEventListener("input",()=>{$("feedbackRequestExtra").value=$("workspaceFeedbackRequestExtra").value;});
   $("workspaceFeedbackExtraSaveBtn")?.addEventListener("click",()=>{applyFeedbackExtraToField();$("saveBtn").click();});
   $("workspaceFeedbackExtraSaveTopBtn")?.addEventListener("click",()=>{applyFeedbackExtraToField();$("saveBtn").click();});
   $("feedbackScenarioCalcBtn")?.addEventListener("click",renderFeedbackScenarioResult);
-  $("feedbackScenarioMustInclude")?.addEventListener("change",renderFeedbackScenarioResult);
+  $("feedbackScenarioToggleBtn")?.addEventListener("click",toggleFeedbackScenarioCollapse);
+  $("feedbackScenarioMustBtn")?.addEventListener("click",e=>{e.stopPropagation();const menu=$("feedbackScenarioMustMenu"),btn=$("feedbackScenarioMustBtn");if(!menu||!btn)return;menu.hidden=!menu.hidden;btn.setAttribute("aria-expanded",menu.hidden?"false":"true");});
+  $("feedbackScenarioMustMenu")?.addEventListener("change",e=>{const cb=e.target.closest("[data-feedback-scenario-must-id]");if(!cb)return;const id=cb.dataset.feedbackScenarioMustId;if(cb.checked)feedbackScenarioMustIds.add(id);else feedbackScenarioMustIds.delete(id);renderFeedbackScenarioMustPicker();renderFeedbackScenarioResult();});
+  $("feedbackScenarioMustMenu")?.addEventListener("click",e=>{e.stopPropagation();if(e.target.closest("#feedbackScenarioMustClearBtn")){feedbackScenarioMustIds.clear();renderFeedbackScenarioMustPicker();renderFeedbackScenarioResult();}});
+  document.addEventListener("click",e=>{const menu=$("feedbackScenarioMustMenu"),picker=e.target.closest?.(".feedback-must-picker");if(menu&&!menu.hidden&&!picker){menu.hidden=true;$("feedbackScenarioMustBtn")?.setAttribute("aria-expanded","false");}});
 
   $("reviewReparseSelectedBtn")?.addEventListener("click",()=>batchReparseAuctionOneRaw(false));
   $("reviewReparseAllBtn")?.addEventListener("click",()=>batchReparseAuctionOneRaw(true));
@@ -6900,7 +7309,7 @@ function renderSaved(){
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.19.0",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.20.0",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
