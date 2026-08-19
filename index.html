@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.20.4</title>
+  <title>경매 입찰·대출 자금 계산기 v1.20.5</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -989,7 +989,7 @@
       display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px
     }
     .actual-income-manual input{padding:7px 4px!important;font-size:10.5px!important}
-    /* v1.20.4 옥션원 목록 텍스트 붙여넣기 + 상태 드래그 */
+    /* v1.20.5 옥션원 목록 텍스트 붙여넣기 + 상태 드래그 */
     .auction-pdf-import-btn{border:1px solid #a7f3d0;background:#ecfdf5;color:#047857;border-radius:8px;padding:6px 9px;font-size:11px;font-weight:950;cursor:pointer;white-space:nowrap}
     .auction-pdf-import-btn:hover{background:#d1fae5}
     .saved-status-dropboard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:7px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:10px}
@@ -1204,7 +1204,7 @@
       .app{max-width:none;padding:0}
     }
   
-    /* v1.20.4 옥션원 자료완성도·목록 일괄자동보완 */
+    /* v1.20.5 옥션원 자료완성도·목록 일괄자동보완 */
     .auction1-enrichment-panel{border:1px solid #c7d2fe;background:linear-gradient(180deg,#f8faff,#fff);border-radius:16px;padding:12px 14px;box-shadow:0 8px 22px rgba(59,76,155,.07)}
     .auction1-enrichment-head{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}.auction1-enrichment-head>div:first-child{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.auction1-enrichment-head strong{font-size:14px;color:#303f73}.auction1-enrichment-head #auctionOneCompletenessText{font-size:12px;font-weight:800;color:#4f46e5;background:#eef2ff;padding:4px 8px;border-radius:999px}
     .auction1-enrichment-actions{display:flex;gap:6px;flex-wrap:wrap}.auction1-enrichment-actions .btn{padding:6px 9px;font-size:12px}
@@ -1216,11 +1216,11 @@
     .saved-completeness-line{font-size:11px;color:#64748b;margin-top:6px}.saved-completeness-line b{color:#334155}.auction1-badge-soft{display:inline-flex;align-items:center;padding:3px 6px;border-radius:999px;font-size:10px;font-weight:800;background:#eef2ff;color:#4338ca}.unknown-pill{background:#f1f5f9!important;color:#64748b!important;border-color:#e2e8f0!important}
     @media(max-width:900px){.auction1-completeness-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.auction1-source-grid{grid-template-columns:1fr}}
 
-    /* v1.20.4 원문 재분석 · 공공데이터 · 기존자료 확인적용 */
+    /* v1.20.5 원문 재분석 · 공공데이터 · 기존자료 확인적용 */
     .data-modal{position:fixed;inset:0;background:rgba(15,23,42,.52);z-index:9998;display:flex;align-items:center;justify-content:center;padding:18px}.data-modal[hidden]{display:none!important}.data-dialog{width:min(1040px,96vw);max-height:90vh;overflow:auto;background:#fff;border-radius:18px;box-shadow:0 24px 80px rgba(15,23,42,.28);padding:18px}.data-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}.data-head h2{margin:0;font-size:18px}.data-head p{margin:5px 0 0;color:#64748b;font-size:12px;line-height:1.5}.data-close{border:0;background:#f1f5f9;border-radius:9px;width:34px;height:34px;font-size:20px;cursor:pointer}.data-actions{display:flex;gap:7px;justify-content:flex-end;flex-wrap:wrap;margin-top:12px}.data-table-wrap{overflow:auto;border:1px solid #e5e7eb;border-radius:12px}.data-table{width:100%;border-collapse:collapse;font-size:12px;min-width:780px}.data-table th,.data-table td{padding:8px;border-bottom:1px solid #eef2f7;text-align:left;vertical-align:top}.data-table th{background:#f8fafc;position:sticky;top:0;z-index:1}.data-table tr.conflict{background:#fff7ed}.data-table tr.safe{background:#f8fff9}.data-source-chip{display:inline-flex;padding:2px 6px;border-radius:999px;background:#eef2ff;color:#4338ca;font-size:10px;font-weight:800}.data-conflict{font-size:10px;font-weight:900;color:#c2410c}.api-settings-grid{display:grid;grid-template-columns:1fr;gap:10px}.api-key-note{padding:10px;border-radius:10px;background:#f8fafc;color:#475569;font-size:11px;line-height:1.55}.public-data-summary{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.public-data-chip{font-size:10px;font-weight:800;padding:3px 6px;border-radius:999px;background:#ecfeff;color:#155e75;border:1px solid #cffafe}.public-data-chip.price{background:#f0fdf4;color:#166534;border-color:#bbf7d0}.public-data-chip.warn{background:#fff7ed;color:#9a3412;border-color:#fed7aa}.api-progress{font-size:11px;color:#475569;padding:8px 10px;background:#f8fafc;border-radius:9px;margin-top:8px}.history-group-row td{background:#eef2ff!important;color:#3730a3;font-weight:900}.field-source-note{display:block;font-size:9px;color:#64748b;margin-top:2px}.saved-review-enrichment-toolbar{align-items:center}.saved-review-enrichment-toolbar .review-auto-hint{flex-basis:100%;order:10}.auction1-complete-field .src{font-size:8.5px;color:#94a3b8;margin-left:2px}
 
 
-    /* ===== v1.20.4 표목록형 · 접이식 상세 · 비교 · 시세 · 피드백 경우의수 ===== */
+    /* ===== v1.20.5 표목록형 · 접이식 상세 · 비교 · 시세 · 피드백 경우의수 ===== */
     :root{--saved-table-height:62vh}
     #calculatorView.layout{display:flex!important;flex-direction:column!important;gap:8px!important;max-width:none!important}
     #calculatorView>.sticky-side{display:none!important}
@@ -1256,7 +1256,7 @@
     .saved-table-filterbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:7px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:9px}
     .saved-table-filterbar label{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:850;color:#475569}
     .saved-table-filterbar select{padding:5px 7px;font-size:10.5px;min-width:90px}
-    /* v1.20.4 엑셀형 헤더 필터 */
+    /* v1.20.5 엑셀형 헤더 필터 */
     #savedSearchRow,#savedDateRangeRow,.view-tabs,.decision-filter-tabs,.grade-filter-tabs,#savedTableFilterBar,.star-filter-tabs,#folderNav,.sort-row{display:none!important}
     .saved-toolbar{display:flex!important;flex-direction:column!important;gap:7px!important}
     .saved-review-enrichment-toolbar{order:1}
@@ -1295,7 +1295,7 @@
     .column-filter-chip button{border:0;background:transparent;color:#2563eb;padding:0;cursor:pointer;font-weight:950}
     @media(max-width:800px){.column-filter-menu{width:min(300px,calc(100vw - 12px))}.saved-review-enrichment-toolbar .review-auto-hint{display:none}}
 
-    /* v1.20.4 피드백 일정 선택모드 */
+    /* v1.20.5 피드백 일정 선택모드 */
     .saved-bulk-toolbar{gap:6px;align-items:center;flex-wrap:wrap}
     .feedback-plan-launch{background:#7c3aed!important;border-color:#7c3aed!important;color:#fff!important}
     .feedback-plan-launch.active{background:#5b21b6!important;border-color:#5b21b6!important;box-shadow:0 0 0 2px rgba(124,58,237,.15)}
@@ -1389,7 +1389,7 @@
 
 
 
-    /* ===== v1.20.4 저장목록 검색 복구 ===== */
+    /* ===== v1.20.5 저장목록 검색 복구 ===== */
     #savedSearchRow{
       display:flex!important;
       align-items:center!important;
@@ -1405,7 +1405,7 @@
     #savedSearchRow #savedDateRangeToggle{display:none!important}
     #savedSearchRow .saved-search-clear{flex:0 0 auto!important}
 
-    /* ===== v1.20.4 상세 상단 초압축 + 항상 보이는 상세메뉴 + 실제 작동 세로 리사이저 ===== */
+    /* ===== v1.20.5 상세 상단 초압축 + 항상 보이는 상세메뉴 + 실제 작동 세로 리사이저 ===== */
     .workspace-property-header{
       padding:7px 9px!important;
       margin-bottom:5px!important;
@@ -1465,13 +1465,123 @@
       .workspace-head-actions{flex-wrap:wrap!important}
     }
 
+
+    /* ===== v1.20.5 열 드래그순서 · 날짜검색 복구 · 모바일 상세 개선 ===== */
+    /* 검색창 옆 날짜검색을 다시 노출하고, 기간검색은 별도 한 줄로 펼침 */
+    #savedSearchRow .saved-date-filter{
+      display:block!important;flex:0 0 150px!important;width:150px!important;min-width:132px!important;
+    }
+    #savedSearchRow #savedDateRangeToggle{
+      display:inline-flex!important;align-items:center!important;justify-content:center!important;
+      min-width:66px!important;white-space:nowrap!important;
+    }
+    #savedDateRangeRow:not([hidden]){
+      display:grid!important;
+      grid-template-columns:auto minmax(140px,190px) auto auto minmax(140px,190px)!important;
+      align-items:center!important;gap:6px!important;
+      margin:-1px 0 7px!important;padding:6px 8px!important;
+      border:1px solid #e2e8f0!important;border-radius:9px!important;background:#f8fafc!important;
+    }
+    #savedDateRangeRow[hidden]{display:none!important}
+    #savedSearchRow.range-mode .saved-search-wrap{flex:1 1 420px!important}
+    #savedSearchRow.range-mode #savedAuctionDateFilter{display:none!important}
+    .saved-date-mode-btn.active{background:#eff6ff!important;color:#1d4ed8!important;border-color:#93c5fd!important}
+
+    /* 표 열 순서는 선택열을 제외하고 마우스로 드래그해서 변경 */
+    .saved-list-table thead th[data-column-key]{cursor:grab!important}
+    .saved-list-table thead th[data-column-key]:active{cursor:grabbing!important}
+    .saved-list-table thead th.column-dragging{opacity:.45;background:#dbeafe!important}
+    .saved-list-table thead th.column-drop-before{box-shadow:inset 3px 0 0 #2563eb}
+    .saved-list-table thead th.column-drop-after{box-shadow:inset -3px 0 0 #2563eb}
+    .saved-list-table .sticky-col-2{position:static!important;left:auto!important;z-index:auto!important}
+    .saved-list-table thead .sticky-col-2{position:static!important;left:auto!important;z-index:7!important;background:#f8fafc}
+
+    /* 모바일: 목록은 가로 스크롤, 상세는 화면폭 전체. 고정 요약은 2열로 압축 */
+    @media(max-width:700px){
+      html,body{max-width:100%;overflow-x:hidden}
+      #calculatorView.layout,#savedSectionCard,#sectionContainer,
+      body.detail-open #sectionContainer,body.compare-open #savedComparePanel{width:100%!important;max-width:100%!important;min-width:0!important}
+      .saved-list{width:100%!important;max-width:100%!important;overflow:auto!important;-webkit-overflow-scrolling:touch!important}
+      body.detail-open .saved-list,body.compare-open .saved-list{
+        height:clamp(150px,32vh,290px)!important;min-height:150px!important;max-height:32vh!important
+      }
+      .saved-list-table{font-size:9.5px!important}
+      .saved-list-table th,.saved-list-table td{padding:5px 6px!important}
+      .table-detail-resize-handle{height:12px!important;min-height:12px!important}
+
+      #savedSearchRow{display:flex!important;flex-wrap:wrap!important;gap:5px!important;margin-bottom:5px!important}
+      #savedSearchRow .saved-search-wrap{flex:1 1 calc(100% - 165px)!important;max-width:none!important;min-width:150px!important}
+      #savedSearchRow .saved-date-filter{flex:0 0 124px!important;width:124px!important;min-width:124px!important;height:32px!important;font-size:10px!important}
+      #savedSearchRow #savedDateRangeToggle{flex:0 0 58px!important;min-width:58px!important;height:32px!important;font-size:9px!important;padding:0 5px!important}
+      #savedSearchRow .saved-search-clear{flex:0 0 31px!important}
+      #savedDateRangeRow:not([hidden]){
+        grid-template-columns:auto minmax(0,1fr)!important;gap:5px!important;margin-bottom:6px!important;padding:6px!important
+      }
+      #savedDateRangeRow .saved-date-range-sep{display:none!important}
+      #savedDateRangeRow .saved-date-filter{width:100%!important;min-width:0!important}
+
+      .workspace-property-header{padding:5px 6px!important;margin-bottom:4px!important}
+      .workspace-property-title-row{align-items:flex-start!important;gap:4px!important}
+      .workspace-property-title{font-size:14px!important}
+      .workspace-case-line,.workspace-address{font-size:9px!important}
+      .workspace-head-actions{gap:2px!important}
+      .workspace-head-btn,.workspace-close-detail,.workspace-header-toggle{padding:4px 5px!important;font-size:9px!important}
+      .workspace-property-chips{margin-top:3px!important}
+      .workspace-chip{font-size:8.8px!important;padding:2px 4px!important}
+      .workspace-range-strip{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:3px!important;margin-top:3px!important}
+      .workspace-range-strip>div{padding:3px 4px!important;min-height:22px!important}
+      .workspace-range-strip span{font-size:8px!important}
+      .workspace-range-strip b{font-size:9.5px!important}
+      .workspace-property-header .workspace-tab-rail{margin-top:3px!important;padding-top:3px!important}
+      .workspace-property-header .workspace-tab{font-size:9px!important;padding:4px 7px!important}
+
+      body.detail-open #sectionContainer>.section-card.workspace-visible,
+      body.detail-open #sectionContainer>.workspace-special-panel.workspace-visible{width:100%!important;max-width:100%!important;min-width:0!important;overflow:visible!important}
+      .workspace-special-panel>.actual-bid-modal.workspace-embedded-modal,
+      .workspace-special-panel>.actual-bid-modal.workspace-embedded-modal .actual-bid-shell,
+      .workspace-special-panel>.actual-bid-modal.workspace-embedded-modal .card{width:100%!important;max-width:100%!important;min-width:0!important}
+
+      /* 실제입찰: 1·2·3차 입력을 세로로 모두 보이게 */
+      .workspace-embedded-modal .actual-inputs,.actual-inputs{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:5px!important}
+      .actual-scenarios{grid-template-columns:1fr!important;gap:6px!important}
+      .actual-scenario-input{min-width:0!important;width:100%!important;padding:7px!important}
+      .actual-scenario-input input{width:100%!important;box-sizing:border-box!important;font-size:13px!important;padding:8px 7px!important}
+      .actual-scenario-rate-row{flex-wrap:nowrap!important}
+      .actual-scenario-reset{font-size:11px!important}
+      .actual-scenario-current{font-size:10px!important}
+      .actual-scenario-modebar{display:flex!important;flex-wrap:wrap!important;gap:5px!important}
+      .actual-scenario-mode-note{flex-basis:100%!important;font-size:9px!important}
+
+      /* 결과표도 1·2·3차를 한 화면에서 동시에 읽을 수 있도록 4열 압축 */
+      .actual-results-wrap{width:100%!important;max-width:100%!important;overflow-x:hidden!important;margin-top:7px!important}
+      .actual-results-table{width:100%!important;min-width:0!important;table-layout:fixed!important}
+      .actual-results-table th,.actual-results-table td{
+        white-space:normal!important;word-break:keep-all!important;overflow-wrap:anywhere!important;
+        font-size:9px!important;line-height:1.25!important;padding:5px 2px!important
+      }
+      .actual-results-table th:first-child,.actual-results-table td:first-child{width:31%!important;position:static!important}
+      .actual-results-table th:not(:first-child),.actual-results-table td:not(:first-child){width:23%!important}
+      .actual-results-table small{font-size:7px!important;line-height:1.15!important}
+      .actual-income-manual{grid-template-columns:1fr!important;gap:4px!important}
+      .actual-bid-memo textarea{min-height:58px!important}
+      .actual-helper{font-size:9px!important}
+      .actual-bid-header-actions{gap:4px!important}
+      .actual-bid-header-actions .btn{padding:6px 8px!important;font-size:10px!important}
+    }
+    @media(max-width:430px){
+      #savedSearchRow .saved-search-wrap{flex:1 1 100%!important}
+      #savedSearchRow .saved-date-filter{flex:1 1 120px!important;width:auto!important}
+      .workspace-embedded-modal .actual-inputs,.actual-inputs{grid-template-columns:1fr!important}
+      .workspace-range-strip{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+    }
+
 </style>
 </head>
 <body>
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.20.4</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.20.5</span></h1>
       <div class="sub">저장목록에서 물건을 비교하고, 예상 매도가 범위와 목표수익 10~15%를 기준으로 입찰가능가율·순수익·종잣돈 범위를 먼저 판단합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -2145,7 +2255,7 @@
             <tbody id="summaryTable"></tbody>
           </table>
         </div>
-        <div class="helper" style="margin-top:8px">* v1.20.4에서도 비용메뉴의 <b>최종 필요 종잣돈</b>과 <b>지금 당장 필요 종잣돈</b>은 실제입찰과 같은 상세비용 산식으로 계산합니다. 신탁대출 열의 금액은 저장카드·실제입찰과 같은 신탁대출 기준입니다. 지금 당장 필요 종잣돈은 낙찰가−대출금 + 법무비 + 명도비 + 수리비 + 미납관리비이며, 취등록세(카드납부 전제), 매도 중개수수료, 중도상환수수료, 대출이자는 제외합니다.</div>
+        <div class="helper" style="margin-top:8px">* v1.20.5에서도 비용메뉴의 <b>최종 필요 종잣돈</b>과 <b>지금 당장 필요 종잣돈</b>은 실제입찰과 같은 상세비용 산식으로 계산합니다. 신탁대출 열의 금액은 저장카드·실제입찰과 같은 신탁대출 기준입니다. 지금 당장 필요 종잣돈은 낙찰가−대출금 + 법무비 + 명도비 + 수리비 + 미납관리비이며, 취등록세(카드납부 전제), 매도 중개수수료, 중도상환수수료, 대출이자는 제외합니다.</div>
       </section>
     </main>
     <div id="workspaceResizeHandle" class="no-print" role="separator" aria-orientation="vertical" aria-label="저장목록 너비 조절" title="마우스로 끌어 저장목록 너비 조절"></div>
@@ -2406,7 +2516,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.20.4 엑셀형 열필터·복수선택·열별 오름/내림차순 · 표목록형 접이식 상세·비교·가변높이 · 옥션원 원문 재분석·공공데이터 자동조회·기존자료 후보 확인후적용 · 시세입력·피드백요청양식 · 저장목록 피드백 일정짜기(선택 즉시 충돌일정 잠금) · 피드백 달력 상단전환·경우의수 · 실제입찰/대출/비용/입찰결과 기존 기능 유지 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.20.5 엑셀형 열필터·복수선택·열별 오름/내림차순 · 표목록형 접이식 상세·비교·가변높이 · 옥션원 원문 재분석·공공데이터 자동조회·기존자료 후보 확인후적용 · 시세입력·피드백요청양식 · 저장목록 피드백 일정짜기(선택 즉시 충돌일정 잠금) · 피드백 달력 상단전환·경우의수 · 실제입찰/대출/비용/입찰결과 기존 기능 유지 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -2790,6 +2900,9 @@ const db = getFirestore(firebaseApp);
   let tableMinRateFilter = "all";
   let tableMarketFilter = "all";
   let savedColumnFilters = {};
+  const DEFAULT_SAVED_COLUMN_ORDER = ["state","caseNo","apartmentName","region","floor","area","supply","householdCount","apartmentAge","appraisal","minPrice","minRate","fail","resistance","auctionDate","views","tradeCount","marketPrice","possibleRate","grade"];
+  let savedColumnOrder = [...DEFAULT_SAVED_COLUMN_ORDER];
+  let draggedSavedColumnKey = "";
   let activeSavedColumnFilterKey = "";
   let activeSavedColumnFilterValues = [];
   let savedCompareIds = [];
@@ -4997,7 +5110,7 @@ const db = getFirestore(firebaseApp);
   function saveSavedListPreferences(){
     localStorage.setItem(SAVED_VIEW_KEY, JSON.stringify({
       savedViewMode,selectedFolder,savedSortKey,savedSortDirection,
-      savedDecisionFilters,savedStarFilters,savedGradeFilters,savedListWide,savedEditorCollapsed,savedTableSortKey,savedTableSortDirection,tableFloorFilter,tableResistanceFilter,tableFailFilter,tableMinRateFilter,tableMarketFilter,savedColumnFilters
+      savedDecisionFilters,savedStarFilters,savedGradeFilters,savedListWide,savedEditorCollapsed,savedTableSortKey,savedTableSortDirection,tableFloorFilter,tableResistanceFilter,tableFailFilter,tableMinRateFilter,tableMarketFilter,savedColumnFilters,savedColumnOrder
     }));
   }
 
@@ -5032,7 +5145,8 @@ const db = getFirestore(firebaseApp);
       savedTableSortKey=String(saved.savedTableSortKey||"auctionDate");savedTableSortDirection=saved.savedTableSortDirection==="desc"?"desc":"asc";
       tableFloorFilter="all";tableResistanceFilter="all";tableFailFilter=0;tableMinRateFilter="all";tableMarketFilter="all";
       savedColumnFilters=(saved.savedColumnFilters&&typeof saved.savedColumnFilters==="object")?Object.fromEntries(Object.entries(saved.savedColumnFilters).filter(([k,v])=>Array.isArray(v)).map(([k,v])=>[k,[...new Set(v.map(String))]])):{};
-      // v1.20부터 화면 상단의 예전 상태/등급/별/검색 필터는 사용하지 않고, 표 헤더 필터 하나로 통일합니다.
+      savedColumnOrder=normalizeSavedColumnOrder(saved.savedColumnOrder);
+      // 예전 상단 상태/등급/별 필터는 쓰지 않지만 검색·날짜검색은 별도로 사용합니다.
       savedViewMode="all";savedDecisionFilters=[];savedStarFilters=[];savedGradeFilters=[];savedSearchQuery="";savedAuctionDateFilter="";savedAuctionDateFrom="";savedAuctionDateTo="";savedDateRangeMode=false;
     } catch {}
     $("savedSortKey").value = savedSortKey;
@@ -5057,6 +5171,33 @@ const db = getFirestore(firebaseApp);
     appraisal:{label:"감정가",type:"number"},minPrice:{label:"최저가",type:"number"},minRate:{label:"최저가율",type:"number"},fail:{label:"유찰",type:"number"},resistance:{label:"대항력",type:"text"},
     auctionDate:{label:"매각기일",type:"date"},views:{label:"조회",type:"number"},tradeCount:{label:"12개월거래",type:"number"},marketPrice:{label:"예상매도가",type:"number"},possibleRate:{label:"가능입찰가율",type:"number"},grade:{label:"등급",type:"text"}
   };
+  const SAVED_COLUMN_CLASS={state:"col-state",caseNo:"col-case",apartmentName:"col-apt",region:"col-address"};
+  function normalizeSavedColumnOrder(order){
+    const valid=new Set(DEFAULT_SAVED_COLUMN_ORDER),seen=new Set(),out=[];
+    (Array.isArray(order)?order:[]).forEach(k=>{k=String(k);if(valid.has(k)&&!seen.has(k)){seen.add(k);out.push(k);}});
+    DEFAULT_SAVED_COLUMN_ORDER.forEach(k=>{if(!seen.has(k))out.push(k);});
+    return out;
+  }
+  function recordAuctionDateYmd(item){
+    const raw=String(recordAuctionDate(item).raw||"");
+    const m=raw.match(/(20\d{2})[-./년\s]*(\d{1,2})[-./월\s]*(\d{1,2})/);
+    if(!m)return "";
+    return `${m[1]}-${String(m[2]).padStart(2,"0")}-${String(m[3]).padStart(2,"0")}`;
+  }
+  function savedTopSearchMatch(item){
+    if(savedSearchQuery){
+      const q=savedSearchQuery.toLocaleLowerCase("ko-KR");
+      const hay=[stateText(item,"caseNo",item.title||""),recordApartmentName(item),recordRegion(item),stateText(item,"propertyName","")].join(" ").toLocaleLowerCase("ko-KR");
+      if(!hay.includes(q))return false;
+    }
+    const d=recordAuctionDateYmd(item);
+    if(savedDateRangeMode){
+      if(savedAuctionDateFrom&&(!d||d<savedAuctionDateFrom))return false;
+      if(savedAuctionDateTo&&(!d||d>savedAuctionDateTo))return false;
+    }else if(savedAuctionDateFilter&&d!==savedAuctionDateFilter)return false;
+    return true;
+  }
+
   function savedColumnRawValue(item,key){
     const screen=key==="grade"?screeningMetrics(item):null;
     const map={
@@ -5086,8 +5227,8 @@ const db = getFirestore(firebaseApp);
   }
   function legacyFreeBaseItems(){
     const allItems=records();
-    // v1.20 표 헤더가 모든 필터를 담당하므로, 숨겨진 예전 필터/검색 조건은 적용하지 않습니다.
-    return [...allItems];
+    // 표 열 필터의 값목록도 현재 검색어·매각기일(하루/기간) 조건 안에서만 보여줍니다.
+    return allItems.filter(savedTopSearchMatch);
   }
   function savedColumnUniqueValues(key){
     const items=legacyFreeBaseItems().filter(i=>savedColumnFilterMatch(i,key));
@@ -5103,7 +5244,7 @@ const db = getFirestore(firebaseApp);
   function activeColumnFilterCount(key){const v=savedColumnFilters?.[key];return Array.isArray(v)&&v.length?v.length:0;}
   function tableHeader(label,key,cls=""){
     const filterCount=activeColumnFilterCount(key),sorted=savedTableSortKey===key,arrow=sorted?(savedTableSortDirection==="asc"?"▲":"▼"):"";
-    return `<th class="${cls}"><div class="saved-table-head"><span class="saved-table-head-label">${label}${arrow?`<span class="column-sort-mark">${arrow}</span>`:""}</span><button type="button" class="column-filter-btn${filterCount?" active":""}${sorted?" sorted":""}" data-column-filter-btn="${key}" title="${label} 필터/정렬">▼${filterCount?`<span class="column-filter-count">${filterCount}</span>`:""}</button></div></th>`;
+    return `<th class="${cls}" draggable="true" data-column-key="${key}" title="마우스로 끌어 열 순서 변경"><div class="saved-table-head"><span class="saved-table-head-label">${label}${arrow?`<span class="column-sort-mark">${arrow}</span>`:""}</span><button type="button" draggable="false" class="column-filter-btn${filterCount?" active":""}${sorted?" sorted":""}" data-column-filter-btn="${key}" title="${label} 필터/정렬">▼${filterCount?`<span class="column-filter-count">${filterCount}</span>`:""}</button></div></th>`;
   }
   function renderActiveColumnFilterSummary(){
     let box=$("savedColumnActiveSummary");if(!box){box=document.createElement("div");box.id="savedColumnActiveSummary";box.className="column-filter-active-summary no-print";const toolbar=$("savedReviewEnrichmentToolbar");toolbar?.insertAdjacentElement("afterend",box);}
@@ -5154,6 +5295,32 @@ const db = getFirestore(firebaseApp);
     if(tableMinRateFilter==="le50"&&!(r<=50))return false;if(tableMinRateFilter==="le70"&&!(r<=70))return false;if(tableMinRateFilter==="eq70"&&r!==70)return false;if(tableMinRateFilter==="eq100"&&r!==100)return false;
     const market=recordMarketPrice(item)>0;if(tableMarketFilter==="filled"&&!market)return false;if(tableMarketFilter==="missing"&&market)return false;return true;
   }
+function savedTableCellHtml(item,key,ctx){
+    const {a,decision,screen,resist,market,marketHigh,possible,decisionLabel,priceText,fail,minRate,views,trade,planEligibility,selected}=ctx;
+    const classes=[];
+    if(key==="state")classes.push("col-state");if(key==="caseNo")classes.push("col-case");if(key==="apartmentName")classes.push("col-apt");if(key==="region")classes.push("col-address");
+    if(["floor","area","supply","householdCount","apartmentAge","appraisal","minPrice","minRate","fail","views","tradeCount","marketPrice","possibleRate"].includes(key))classes.push("num");
+    if(["resistance","auctionDate","grade"].includes(key))classes.push("center");
+    if(key==="resistance")classes.push(resist?"flag-yes":"flag-no");
+    const cls=classes.filter(Boolean).join(" ");
+    const value={
+      state:`<span class="saved-status-badge ${decision}">${decisionLabel}</span>`,
+      caseNo:`${feedbackStarHtml(recordFeedback(item).star)}${escapeHtml(stateText(item,"caseNo",item.title||"-"))}${feedbackPlanningMode&&planEligibility?.locked?'<span class="feedback-plan-inline-badge locked">진행중</span>':feedbackPlanningMode&&selected?'<span class="feedback-plan-inline-badge">선택</span>':''}`,
+      apartmentName:escapeHtml(recordApartmentName(item)||"-"),
+      region:escapeHtml(recordRegion(item)||"-"),
+      floor:`${recordFloorNumber(item)||"-"}${stateNumber(item,"maxFloor",0)?`/${stateNumber(item,"maxFloor",0)}`:""}`,
+      area:String(stateNumber(item,"exclusiveArea",0)||"-"),supply:String(stateNumber(item,"supplyAreaPyeong",0)||"-"),
+      householdCount:String(stateNumber(item,"householdCount",0)||"-"),apartmentAge:String(stateNumber(item,"apartmentAge",0)||"-"),
+      appraisal:stateNumber(item,"appraisal",0)?Number(stateNumber(item,"appraisal",0)).toLocaleString():"-",
+      minPrice:stateNumber(item,"selectionMinPrice",0)?Number(stateNumber(item,"selectionMinPrice",0)).toLocaleString():"-",
+      minRate:minRate?`${Math.round(minRate*10)/10}%`:"-",fail:String(fail),resistance:resist?"있음":"없음",
+      auctionDate:escapeHtml(recordAuctionDate(item).raw||"-"),views:views?views.toLocaleString():"-",tradeCount:String(trade||"-"),
+      marketPrice:priceText,possibleRate:possible,grade:escapeHtml(screen.label||"-")
+    }[key]??"-";
+    const title=key==="apartmentName"?` title="${escapeHtml(recordApartmentName(item))}"`:key==="region"?` title="${escapeHtml(recordRegion(item))}"`:"";
+    return `<td class="${cls}"${title}>${value}</td>`;
+  }
+
 function renderSaved(){
     const root=$("savedList"),folderNav=$("folderNav"),folderListBtn=$("folderListBtn"),folderListLabel=$("folderListLabel"),folderMenu=$("folderMenu"),summary=$("savedListSummary");
     document.querySelectorAll("[data-saved-view]").forEach(btn=>btn.classList.toggle("active",btn.dataset.savedView===savedViewMode));
@@ -5164,12 +5331,13 @@ function renderSaved(){
     const folders=[...folderCounts.keys()].sort((a,b)=>a.localeCompare(b,"ko"));if(savedViewMode==="folders"&&!folders.includes(selectedFolder))selectedFolder=folders[0]||"";
     folderListBtn.disabled=folders.length===0;folderListLabel.textContent=selectedFolder?`${selectedFolder} · ${folderCounts.get(selectedFolder)||0}건`:"폴더 목록";folderMenu.innerHTML=folders.map(folder=>`<button class="folder-menu-item${folder===selectedFolder?" active":""}" type="button" data-folder="${escapeHtml(folder)}"><span>${escapeHtml(folder)}</span><span>${folderCounts.get(folder)||0}건</span></button>`).join("");renderFolderOptions();
     let items=[...allItems];
-    items=items.filter(savedColumnFilterMatch);
+    items=items.filter(savedTopSearchMatch).filter(savedColumnFilterMatch);
     items.sort((a,b)=>compareSavedTableItems(a,b,savedTableSortKey));
     if(document.body.classList.contains("detail-open")&&loadedRecordId){const idx=items.findIndex(i=>i.id===loadedRecordId);if(idx>0)items.unshift(items.splice(idx,1)[0]);}
     const activeFilterN=Object.values(savedColumnFilters||{}).filter(v=>Array.isArray(v)&&v.length).length;
     const sortLabel=SAVED_COLUMN_META[savedTableSortKey]?.label||savedTableSortKey;
-    summary.textContent=`전체 ${allItems.length}건 · 표시 ${items.length}건${activeFilterN?` · 필터 ${activeFilterN}개`:""} · ${sortLabel} ${savedTableSortDirection==="asc"?"↑":"↓"}`;
+    const topFilterText=savedSearchQuery?` · 검색 “${savedSearchQuery}”`:savedDateRangeMode&&(savedAuctionDateFrom||savedAuctionDateTo)?` · 기간 ${savedAuctionDateFrom||"처음"}~${savedAuctionDateTo||"끝"}`:savedAuctionDateFilter?` · 날짜 ${savedAuctionDateFilter}`:"";
+    summary.textContent=`전체 ${allItems.length}건 · 표시 ${items.length}건${activeFilterN?` · 열필터 ${activeFilterN}개`:""}${topFilterText} · ${sortLabel} ${savedTableSortDirection==="asc"?"↑":"↓"}`;
     renderActiveColumnFilterSummary();
     if(!items.length){root.innerHTML=`<div class="empty">현재 필터 조건에 맞는 저장내역이 없습니다.</div>`;updateSavedBulkUi();return;}
     const rows=items.map(item=>{
@@ -5182,27 +5350,12 @@ function renderSaved(){
       const checkCell=feedbackPlanningMode?`<input class="feedback-plan-check no-print" type="checkbox" data-feedback-plan-select-id="${item.id}" ${selected?"checked":""} ${planEligibility?.locked||(!planEligibility?.eligible&&!selected)?"disabled":""}>`:`<input class="saved-select-check no-print" style="position:static" type="checkbox" data-bulk-select-id="${item.id}" ${selected?"checked":""}>`;
       return `<tr class="saved-item${loadedRecordId===item.id?" workspace-selected":""}${!feedbackPlanningMode&&selected?" bulk-selected":""}${planCls}" data-load-id="${item.id}" draggable="${feedbackPlanningMode?"false":"true"}"${planTitle}>
         <td class="col-check sticky-col-1 no-sort">${checkCell}</td>
-        <td class="col-state sticky-col-2"><span class="saved-status-badge ${decision}">${decisionLabel}</span></td>
-        <td class="col-case">${feedbackStarHtml(recordFeedback(item).star)}${escapeHtml(stateText(item,"caseNo",item.title||"-"))}${feedbackPlanningMode&&planEligibility?.locked?'<span class="feedback-plan-inline-badge locked">진행중</span>':feedbackPlanningMode&&selected?'<span class="feedback-plan-inline-badge">선택</span>':''}</td>
-        <td class="col-apt" title="${escapeHtml(recordApartmentName(item))}">${escapeHtml(recordApartmentName(item)||"-")}</td>
-        <td class="col-address" title="${escapeHtml(recordRegion(item))}">${escapeHtml(recordRegion(item)||"-")}</td>
-        <td class="num">${recordFloorNumber(item)||"-"}${stateNumber(item,"maxFloor",0)?`/${stateNumber(item,"maxFloor",0)}`:""}</td>
-        <td class="num">${stateNumber(item,"exclusiveArea",0)||"-"}</td><td class="num">${stateNumber(item,"supplyAreaPyeong",0)||"-"}</td>
-        <td class="num">${stateNumber(item,"householdCount",0)||"-"}</td><td class="num">${stateNumber(item,"apartmentAge",0)||"-"}</td>
-        <td class="num">${stateNumber(item,"appraisal",0)?Number(stateNumber(item,"appraisal",0)).toLocaleString():"-"}</td>
-        <td class="num">${stateNumber(item,"selectionMinPrice",0)?Number(stateNumber(item,"selectionMinPrice",0)).toLocaleString():"-"}</td>
-        <td class="num">${minRate?`${Math.round(minRate*10)/10}%`:"-"}</td><td class="num">${fail}</td>
-        <td class="center ${resist?"flag-yes":"flag-no"}">${resist?"있음":"없음"}</td>
-        <td class="center">${recordAuctionDate(item).raw||"-"}</td><td class="num">${views?views.toLocaleString():"-"}</td>
-        <td class="num">${trade||"-"}</td><td class="num">${priceText}</td><td class="num">${possible}</td>
-        <td class="center">${screen.label||"-"}</td>
+        ${savedColumnOrder.map(key=>savedTableCellHtml(item,key,{a,decision,screen,resist,market,marketHigh,possible,decisionLabel,priceText,fail,minRate,views,trade,planEligibility,selected})).join("")}
       </tr>`;
     }).join("");
+    const headerCells=savedColumnOrder.map(key=>tableHeader(SAVED_COLUMN_META[key]?.label||key,key,SAVED_COLUMN_CLASS[key]||"")).join("");
     root.innerHTML=`<table class="saved-list-table"><thead><tr>
-      <th class="col-check sticky-col-1 no-sort">${feedbackPlanningMode?"일정":"선택"}</th>${tableHeader("상태","state","col-state sticky-col-2")}${tableHeader("사건번호","caseNo","col-case")}${tableHeader("아파트","apartmentName","col-apt")}${tableHeader("소재지","region","col-address")}
-      ${tableHeader("층/최고","floor")}${tableHeader("전용㎡","area")}${tableHeader("공급평","supply")}${tableHeader("세대","householdCount")}${tableHeader("준공","apartmentAge")}
-      ${tableHeader("감정가","appraisal")}${tableHeader("최저가","minPrice")}${tableHeader("최저가율","minRate")}${tableHeader("유찰","fail")}${tableHeader("대항력","resistance")}
-      ${tableHeader("매각기일","auctionDate")}${tableHeader("조회","views")}${tableHeader("12개월거래","tradeCount")}${tableHeader("예상매도가","marketPrice")}${tableHeader("가능입찰가율","possibleRate")}${tableHeader("등급","grade")}
+      <th class="col-check sticky-col-1 no-sort">${feedbackPlanningMode?"일정":"선택"}</th>${headerCells}
       </tr></thead><tbody>${rows}</tbody></table>`;
     updateSavedBulkUi();updateStatusDropCounts();renderFeedbackPlanningUi();
   }
@@ -5266,7 +5419,7 @@ function renderSaved(){
     if(saved.parentElement!==view)view.insertBefore(saved,view.firstChild);
     if(aside)aside.remove();
 
-    /* v1.20.4: 상세/대출/비용/실제입찰 메뉴를 고정 요약박스 안으로 이동 */
+    /* v1.20.5: 상세/대출/비용/실제입찰 메뉴를 고정 요약박스 안으로 이동 */
     const header=$("workspacePropertyHeader"),tabs=$("workspaceTabRail");
     if(header&&tabs&&tabs.parentElement!==header)header.appendChild(tabs);
 
@@ -5879,9 +6032,9 @@ function renderSaved(){
     $('auctionOneCompletenessGrid').innerHTML=c.details.map(g=>`<div class="auction1-complete-card ${g.done===g.total?'good':g.done?'partial':'empty'}"><div class="auction1-complete-card-head"><b>${escapeHtml(g.name)}</b><span class="auction1-complete-count">${g.done}/${g.total}</span></div><span class="auction1-complete-source">${escapeHtml(g.source)}</span><div class="auction1-complete-fields">${g.items.map(x=>`<span class="auction1-complete-field ${x.done?'done':'missing'}">${x.done?'✓':'○'} ${escapeHtml(x.label)}</span>`).join('')}</div></div>`).join('');
     const missing=currentMissingResearch();$('auctionOneNextResearch').innerHTML=missing.length?`<b>다음 확인 ${missing.length}개</b> · ${missing.slice(0,8).map(x=>escapeHtml(x.label)).join(' · ')}${missing.length>8?' …':''}`:'<b>필수 조사칸이 모두 채워졌습니다.</b>';
   }
-  // 기존 저장자료는 자동 적용하지 않습니다. v1.20.4의 후보 확인 모달을 통해서만 선택 적용됩니다.
+  // 기존 저장자료는 자동 적용하지 않습니다. v1.20.5의 후보 확인 모달을 통해서만 선택 적용됩니다.
 
-  // ===== v1.20.4: 옥션원 원문 재분석 / 기존자료 확인적용 / 공공데이터 자동조회 =====
+  // ===== v1.20.5: 옥션원 원문 재분석 / 기존자료 확인적용 / 공공데이터 자동조회 =====
   const PUBLIC_FIELD_LABELS={propertyName:'도로명주소',apartmentAge:'사용승인년도',maxFloor:'최고층',householdCount:'세대수',buildingType:'현관구조',roomCount:'방수',bathCount:'욕실수',direction:'향',selectionTradeActivity:'거래활발도',sameRates:'동일번지 낙찰가율',nearRates:'인근 낙찰가율'};
   let historySuggestionRows=[];
   const publicTradeCache=new Map();
@@ -6880,6 +7033,36 @@ function renderSaved(){
       if(card)toggleSection(card);
     }
   });
+
+  document.addEventListener("dragstart",e=>{
+    const th=e.target.closest?.(".saved-list-table thead th[data-column-key]");
+    if(!th||e.target.closest?.(".column-filter-btn"))return;
+    draggedSavedColumnKey=th.dataset.columnKey||"";if(!draggedSavedColumnKey)return;
+    th.classList.add("column-dragging");
+    try{e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain",draggedSavedColumnKey);}catch{}
+  });
+  document.addEventListener("dragover",e=>{
+    if(!draggedSavedColumnKey)return;
+    const th=e.target.closest?.(".saved-list-table thead th[data-column-key]");if(!th||th.dataset.columnKey===draggedSavedColumnKey)return;
+    e.preventDefault();
+    document.querySelectorAll(".column-drop-before,.column-drop-after").forEach(x=>x.classList.remove("column-drop-before","column-drop-after"));
+    const r=th.getBoundingClientRect(),after=e.clientX>r.left+r.width/2;th.classList.add(after?"column-drop-after":"column-drop-before");
+    try{e.dataTransfer.dropEffect="move";}catch{}
+  });
+  document.addEventListener("drop",e=>{
+    if(!draggedSavedColumnKey)return;
+    const th=e.target.closest?.(".saved-list-table thead th[data-column-key]");
+    if(!th){draggedSavedColumnKey="";return;}
+    e.preventDefault();
+    const target=th.dataset.columnKey;if(target&&target!==draggedSavedColumnKey){
+      const r=th.getBoundingClientRect(),after=e.clientX>r.left+r.width/2;
+      const order=normalizeSavedColumnOrder(savedColumnOrder).filter(k=>k!==draggedSavedColumnKey);
+      let idx=order.indexOf(target);if(idx<0)idx=order.length;else if(after)idx++;
+      order.splice(idx,0,draggedSavedColumnKey);savedColumnOrder=normalizeSavedColumnOrder(order);saveSavedListPreferences();renderSaved();
+    }
+    draggedSavedColumnKey="";document.querySelectorAll(".column-dragging,.column-drop-before,.column-drop-after").forEach(x=>x.classList.remove("column-dragging","column-drop-before","column-drop-after"));
+  });
+  document.addEventListener("dragend",()=>{draggedSavedColumnKey="";document.querySelectorAll(".column-dragging,.column-drop-before,.column-drop-after").forEach(x=>x.classList.remove("column-dragging","column-drop-before","column-drop-after"));});
 
   document.addEventListener("click", async (e) => {
     const columnFilterBtn=e.target.closest("[data-column-filter-btn]");
