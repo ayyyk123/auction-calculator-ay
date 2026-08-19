@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.20.5</title>
+  <title>경매 입찰·대출 자금 계산기 v1.20.6</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -989,7 +989,7 @@
       display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px
     }
     .actual-income-manual input{padding:7px 4px!important;font-size:10.5px!important}
-    /* v1.20.5 옥션원 목록 텍스트 붙여넣기 + 상태 드래그 */
+    /* v1.20.6 옥션원 목록 텍스트 붙여넣기 + 상태 드래그 */
     .auction-pdf-import-btn{border:1px solid #a7f3d0;background:#ecfdf5;color:#047857;border-radius:8px;padding:6px 9px;font-size:11px;font-weight:950;cursor:pointer;white-space:nowrap}
     .auction-pdf-import-btn:hover{background:#d1fae5}
     .saved-status-dropboard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:7px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:10px}
@@ -1204,7 +1204,7 @@
       .app{max-width:none;padding:0}
     }
   
-    /* v1.20.5 옥션원 자료완성도·목록 일괄자동보완 */
+    /* v1.20.6 옥션원 자료완성도·목록 일괄자동보완 */
     .auction1-enrichment-panel{border:1px solid #c7d2fe;background:linear-gradient(180deg,#f8faff,#fff);border-radius:16px;padding:12px 14px;box-shadow:0 8px 22px rgba(59,76,155,.07)}
     .auction1-enrichment-head{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}.auction1-enrichment-head>div:first-child{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.auction1-enrichment-head strong{font-size:14px;color:#303f73}.auction1-enrichment-head #auctionOneCompletenessText{font-size:12px;font-weight:800;color:#4f46e5;background:#eef2ff;padding:4px 8px;border-radius:999px}
     .auction1-enrichment-actions{display:flex;gap:6px;flex-wrap:wrap}.auction1-enrichment-actions .btn{padding:6px 9px;font-size:12px}
@@ -1216,11 +1216,11 @@
     .saved-completeness-line{font-size:11px;color:#64748b;margin-top:6px}.saved-completeness-line b{color:#334155}.auction1-badge-soft{display:inline-flex;align-items:center;padding:3px 6px;border-radius:999px;font-size:10px;font-weight:800;background:#eef2ff;color:#4338ca}.unknown-pill{background:#f1f5f9!important;color:#64748b!important;border-color:#e2e8f0!important}
     @media(max-width:900px){.auction1-completeness-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.auction1-source-grid{grid-template-columns:1fr}}
 
-    /* v1.20.5 원문 재분석 · 공공데이터 · 기존자료 확인적용 */
+    /* v1.20.6 원문 재분석 · 공공데이터 · 기존자료 확인적용 */
     .data-modal{position:fixed;inset:0;background:rgba(15,23,42,.52);z-index:9998;display:flex;align-items:center;justify-content:center;padding:18px}.data-modal[hidden]{display:none!important}.data-dialog{width:min(1040px,96vw);max-height:90vh;overflow:auto;background:#fff;border-radius:18px;box-shadow:0 24px 80px rgba(15,23,42,.28);padding:18px}.data-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}.data-head h2{margin:0;font-size:18px}.data-head p{margin:5px 0 0;color:#64748b;font-size:12px;line-height:1.5}.data-close{border:0;background:#f1f5f9;border-radius:9px;width:34px;height:34px;font-size:20px;cursor:pointer}.data-actions{display:flex;gap:7px;justify-content:flex-end;flex-wrap:wrap;margin-top:12px}.data-table-wrap{overflow:auto;border:1px solid #e5e7eb;border-radius:12px}.data-table{width:100%;border-collapse:collapse;font-size:12px;min-width:780px}.data-table th,.data-table td{padding:8px;border-bottom:1px solid #eef2f7;text-align:left;vertical-align:top}.data-table th{background:#f8fafc;position:sticky;top:0;z-index:1}.data-table tr.conflict{background:#fff7ed}.data-table tr.safe{background:#f8fff9}.data-source-chip{display:inline-flex;padding:2px 6px;border-radius:999px;background:#eef2ff;color:#4338ca;font-size:10px;font-weight:800}.data-conflict{font-size:10px;font-weight:900;color:#c2410c}.api-settings-grid{display:grid;grid-template-columns:1fr;gap:10px}.api-key-note{padding:10px;border-radius:10px;background:#f8fafc;color:#475569;font-size:11px;line-height:1.55}.public-data-summary{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.public-data-chip{font-size:10px;font-weight:800;padding:3px 6px;border-radius:999px;background:#ecfeff;color:#155e75;border:1px solid #cffafe}.public-data-chip.price{background:#f0fdf4;color:#166534;border-color:#bbf7d0}.public-data-chip.warn{background:#fff7ed;color:#9a3412;border-color:#fed7aa}.api-progress{font-size:11px;color:#475569;padding:8px 10px;background:#f8fafc;border-radius:9px;margin-top:8px}.history-group-row td{background:#eef2ff!important;color:#3730a3;font-weight:900}.field-source-note{display:block;font-size:9px;color:#64748b;margin-top:2px}.saved-review-enrichment-toolbar{align-items:center}.saved-review-enrichment-toolbar .review-auto-hint{flex-basis:100%;order:10}.auction1-complete-field .src{font-size:8.5px;color:#94a3b8;margin-left:2px}
 
 
-    /* ===== v1.20.5 표목록형 · 접이식 상세 · 비교 · 시세 · 피드백 경우의수 ===== */
+    /* ===== v1.20.6 표목록형 · 접이식 상세 · 비교 · 시세 · 피드백 경우의수 ===== */
     :root{--saved-table-height:62vh}
     #calculatorView.layout{display:flex!important;flex-direction:column!important;gap:8px!important;max-width:none!important}
     #calculatorView>.sticky-side{display:none!important}
@@ -1256,7 +1256,7 @@
     .saved-table-filterbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:7px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:9px}
     .saved-table-filterbar label{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:850;color:#475569}
     .saved-table-filterbar select{padding:5px 7px;font-size:10.5px;min-width:90px}
-    /* v1.20.5 엑셀형 헤더 필터 */
+    /* v1.20.6 엑셀형 헤더 필터 */
     #savedSearchRow,#savedDateRangeRow,.view-tabs,.decision-filter-tabs,.grade-filter-tabs,#savedTableFilterBar,.star-filter-tabs,#folderNav,.sort-row{display:none!important}
     .saved-toolbar{display:flex!important;flex-direction:column!important;gap:7px!important}
     .saved-review-enrichment-toolbar{order:1}
@@ -1295,7 +1295,7 @@
     .column-filter-chip button{border:0;background:transparent;color:#2563eb;padding:0;cursor:pointer;font-weight:950}
     @media(max-width:800px){.column-filter-menu{width:min(300px,calc(100vw - 12px))}.saved-review-enrichment-toolbar .review-auto-hint{display:none}}
 
-    /* v1.20.5 피드백 일정 선택모드 */
+    /* v1.20.6 피드백 일정 선택모드 */
     .saved-bulk-toolbar{gap:6px;align-items:center;flex-wrap:wrap}
     .feedback-plan-launch{background:#7c3aed!important;border-color:#7c3aed!important;color:#fff!important}
     .feedback-plan-launch.active{background:#5b21b6!important;border-color:#5b21b6!important;box-shadow:0 0 0 2px rgba(124,58,237,.15)}
@@ -1378,9 +1378,49 @@
     .scenario-option .cases{margin-top:4px;font-size:10.5px;line-height:1.5;color:#334155}
     .scenario-option .drop{margin-top:4px;font-size:10px;color:#b45309}
     .scenario-conflict{font-size:10px;color:#b91c1c;padding:8px 9px;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px}
+
+    /* ===== v1.20.6 시세 조사 건별입력 + 피드백 15항목 자동완성 ===== */
+    .market-research-stack{display:grid;gap:10px}
+    .market-section-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;flex-wrap:wrap}
+    .market-section-title-row h3{margin:0 0 3px;font-size:13px}
+    .market-entry-list{display:grid;gap:7px;margin-top:8px}
+    .market-entry-row{display:grid;grid-template-columns:140px 90px 70px minmax(220px,1fr) auto;gap:6px;align-items:start;padding:7px;border:1px solid #e2e8f0;border-radius:9px;background:#f8fafc}
+    .market-entry-row.broker{grid-template-columns:170px 150px minmax(260px,1fr) auto}
+    .market-entry-row input,.market-entry-row textarea{width:100%}
+    .market-entry-row textarea{min-height:54px;resize:vertical}
+    .market-entry-label{font-size:9px;font-weight:900;color:#64748b;margin-bottom:2px}
+    .market-entry-remove{align-self:center}
+    .market-empty{padding:12px;border:1px dashed #cbd5e1;border-radius:9px;color:#64748b;font-size:10.5px;text-align:center;background:#fff}
+    .market-trade-note-list{max-height:none!important;overflow:visible!important}
+    .market-trade-note-row{display:grid;grid-template-columns:82px 52px 100px minmax(220px,1fr);gap:7px;align-items:center;padding:7px;border-bottom:1px solid #eef2f7;font-size:10.5px}
+    .market-trade-note-row .price{font-weight:950;text-align:right}
+    .market-trade-note-row input{width:100%}
+    .feedback-form-layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,.85fr);gap:10px}
+    .feedback-form-card{border:1px solid #e2e8f0;border-radius:10px;padding:10px;background:#fff}
+    .feedback-form-card.full{grid-column:1/-1}
+    .feedback-form-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+    .feedback-form-card-head h3{margin:0 0 3px;font-size:13px}
+    .feedback-structured-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .feedback-structured-grid .full{grid-column:1/-1}
+    .feedback-auto-line{padding:8px 9px;border:1px solid #bfdbfe;background:#eff6ff;border-radius:9px;color:#1e3a8a;font-size:10px;line-height:1.5}
+    .feedback-bid-pick{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
+    .mini-btn{border:1px solid #d1d5db;background:#fff;color:#475569;border-radius:6px;padding:4px 6px;font-size:9px;font-weight:900;cursor:pointer}
+    .mini-btn:hover{background:#f1f5f9}
+    .feedback-attach-check{display:flex;align-items:center;gap:6px;padding:8px 9px;border:1px solid #e2e8f0;border-radius:9px;background:#f8fafc;font-size:10.5px;font-weight:850}
+    .feedback-attach-check input{width:17px;height:17px}
+    #feedbackRequestOutput{min-height:480px;font-family:inherit;line-height:1.55}
     @media(max-width:900px){
       :root{--saved-table-height:54vh}
-      .workspace-market-grid,.feedback-request-grid{grid-template-columns:1fr}
+      .workspace-market-grid,.feedback-request-grid,.feedback-form-layout{grid-template-columns:1fr}
+      .feedback-form-card.full{grid-column:auto}
+      .feedback-structured-grid{grid-template-columns:1fr}
+      .feedback-structured-grid .full{grid-column:auto}
+      .market-entry-row,.market-entry-row.broker{grid-template-columns:1fr 1fr}
+      .market-entry-row .entry-memo,.market-entry-row.broker .entry-memo{grid-column:1/-1}
+      .market-entry-remove{grid-column:1/-1;justify-self:end}
+      .market-trade-note-row{grid-template-columns:70px 45px 85px;align-items:start}
+      .market-trade-note-row .trade-note{grid-column:1/-1}
+      #feedbackRequestOutput{min-height:380px}
       .saved-table-filterbar{align-items:stretch}.saved-table-filterbar label{flex:1 1 135px}.saved-table-filterbar select{width:100%}
       .saved-list-table{font-size:10px}
       .saved-list-table th,.saved-list-table td{padding:6px}
@@ -1389,7 +1429,7 @@
 
 
 
-    /* ===== v1.20.5 저장목록 검색 복구 ===== */
+    /* ===== v1.20.6 저장목록 검색 복구 ===== */
     #savedSearchRow{
       display:flex!important;
       align-items:center!important;
@@ -1405,7 +1445,7 @@
     #savedSearchRow #savedDateRangeToggle{display:none!important}
     #savedSearchRow .saved-search-clear{flex:0 0 auto!important}
 
-    /* ===== v1.20.5 상세 상단 초압축 + 항상 보이는 상세메뉴 + 실제 작동 세로 리사이저 ===== */
+    /* ===== v1.20.6 상세 상단 초압축 + 항상 보이는 상세메뉴 + 실제 작동 세로 리사이저 ===== */
     .workspace-property-header{
       padding:7px 9px!important;
       margin-bottom:5px!important;
@@ -1466,7 +1506,7 @@
     }
 
 
-    /* ===== v1.20.5 열 드래그순서 · 날짜검색 복구 · 모바일 상세 개선 ===== */
+    /* ===== v1.20.6 열 드래그순서 · 날짜검색 복구 · 모바일 상세 개선 ===== */
     /* 검색창 옆 날짜검색을 다시 노출하고, 기간검색은 별도 한 줄로 펼침 */
     #savedSearchRow .saved-date-filter{
       display:block!important;flex:0 0 150px!important;width:150px!important;min-width:132px!important;
@@ -1581,7 +1621,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.20.5</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.20.6</span></h1>
       <div class="sub">저장목록에서 물건을 비교하고, 예상 매도가 범위와 목표수익 10~15%를 기준으로 입찰가능가율·순수익·종잣돈 범위를 먼저 판단합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -1671,7 +1711,7 @@
         <button type="button" class="workspace-tab" data-workspace-tab="actual">실제입찰</button>
         <button type="button" class="workspace-tab" data-workspace-tab="result">입찰결과</button>
         <button type="button" class="workspace-tab" data-workspace-tab="market">시세입력</button>
-        <button type="button" class="workspace-tab" data-workspace-tab="feedbackrequest">피드백요청</button>
+        <button type="button" class="workspace-tab" data-workspace-tab="feedbackrequest">피드백</button>
         <button type="button" class="workspace-tab" data-workspace-tab="memo">메모</button>
       </nav>
       <section class="card workspace-special-panel" id="workspaceActualPanel" hidden></section>
@@ -1687,43 +1727,143 @@
       </section>
       <input id="marketAskingMemo" type="hidden"><input id="marketBrokerMemo" type="hidden"><input id="feedbackRequestExtra" type="hidden">
       <section class="card workspace-market-panel" id="workspaceMarketPanel">
-        <div class="section-head"><h2>시세 입력·실거래 확인</h2><button class="section-save-btn no-print" type="button" id="workspaceMarketSaveTopBtn">저장</button></div>
-        <div class="workspace-market-grid">
+        <div class="section-head"><h2>시세 입력 · 실거래 / 호가 / 부동산 조사</h2><button class="section-save-btn no-print" type="button" id="workspaceMarketSaveTopBtn">저장</button></div>
+
+        <div class="market-research-stack">
           <div class="market-box">
-            <h3>내 예상 매도가</h3>
-            <div class="market-price-grid">
-              <div class="field"><label for="workspaceMarketLow">예상 최저매도가</label><input id="workspaceMarketLow" type="text" inputmode="numeric" data-money></div>
-              <div class="field"><label for="workspaceMarketHigh">예상 상단매도가</label><input id="workspaceMarketHigh" type="text" inputmode="numeric" data-money></div>
+            <div class="market-section-title-row">
+              <div>
+                <h3>실거래</h3>
+                <div class="helper">공공자료 자동조회로 가져온 동일면적 실거래입니다. 각 거래 옆 메모에는 부동산 조사 후 확인한 수리·뷰·특수거래 여부 등을 적어두세요.</div>
+              </div>
+              <div id="workspaceMarketStats" class="public-data-summary"></div>
             </div>
-            <div class="market-source-row">
-              <label><input type="checkbox" value="broker" data-market-source> 부동산조사</label>
-              <label><input type="checkbox" value="guess" data-market-source> 내 추측</label>
-              <label><input type="checkbox" value="gpt" data-market-source> GPT</label>
-            </div>
-            <div class="field" style="margin-top:8px"><label for="workspaceMarketAskingMemo">현재 호가 메모</label><textarea id="workspaceMarketAskingMemo" rows="5" placeholder="예: 105동 3층 1.70억 조정가능 / 107동 탑층 1.75억 전세안고"></textarea></div>
-            <div class="field" style="margin-top:8px"><label for="workspaceMarketBrokerMemo">부동산 통화·시세판단 메모</label><textarea id="workspaceMarketBrokerMemo" rows="5" placeholder="급매 가능가격, 거래속도, 선호동·층, 수리상태 등"></textarea></div>
-            <div class="actions no-print" style="margin-top:8px"><button class="btn" id="workspaceMarketSaveBtn" type="button">시세 포함 저장</button><button class="btn light" id="workspaceUsePublicSuggestedBtn" type="button">실거래 참고가 가져오기</button></div>
+            <div id="workspaceMarketTrades" class="market-trade-list market-trade-note-list" style="margin-top:8px"></div>
           </div>
+
           <div class="market-box">
-            <h3>공공데이터 동일면적 실거래</h3>
-            <div id="workspaceMarketStats" class="public-data-summary"></div>
-            <div id="workspaceMarketTrades" class="market-trade-list" style="margin-top:8px"></div>
-            <div class="helper" style="margin-top:8px">실거래 참고가는 자동으로 예상매도가를 덮어쓰지 않습니다. 눌러서 가져온 뒤 호가·내부상태·층을 확인하고 저장하세요.</div>
+            <div class="market-section-title-row">
+              <div>
+                <h3>현재 호가</h3>
+                <div class="helper">매물을 한 건씩 입력합니다. 금액 · 동 · 층 · 조건/메모를 따로 저장합니다.</div>
+              </div>
+              <button class="btn light no-print" id="marketAskingAddBtn" type="button">+ 호가 추가</button>
+            </div>
+            <div id="marketAskingList" class="market-entry-list"></div>
+          </div>
+
+          <div class="market-box">
+            <div class="market-section-title-row">
+              <div>
+                <h3>부동산 조사</h3>
+                <div class="helper">전화한 중개사별로 가격 의견과 통화내용을 저장합니다. 피드백 요청양식 11번에 자동으로 들어갑니다.</div>
+              </div>
+              <button class="btn light no-print" id="marketBrokerAddBtn" type="button">+ 부동산 추가</button>
+            </div>
+            <div id="marketBrokerList" class="market-entry-list"></div>
           </div>
         </div>
+
+        <div class="actions no-print" style="margin-top:10px">
+          <button class="btn" id="workspaceMarketSaveBtn" type="button">시세 조사내용 저장</button>
+        </div>
+        <div class="helper" style="margin-top:8px"><b>예상매도가는 이 메뉴에서 입력하지 않습니다.</b> 예상매도가는 기존 상세계산의 물건선정 영역에서 따로 입력합니다.</div>
       </section>
+
       <section class="card workspace-feedback-request-panel" id="workspaceFeedbackRequestPanel">
-        <div class="section-head"><h2>피드백 요청 양식</h2><button class="section-save-btn no-print" type="button" id="workspaceFeedbackExtraSaveTopBtn">저장</button></div>
-        <div class="feedback-request-grid">
-          <div class="feedback-template-box">
-            <div class="field"><label for="feedbackRequestTemplate">내 기본 요청 양식</label><textarea id="feedbackRequestTemplate" placeholder="{사건번호}, {아파트}, {주소}, {매각기일}, {감정가}, {최저가}, {예상매도가}, {가능입찰가율}, {메모} 를 사용할 수 있어요."></textarea></div>
-            <div class="feedback-template-help">기본 양식은 이 브라우저에 저장됩니다. 사건별로 바꾸고 싶은 내용은 아래 추가메모에 적어두면 됩니다.</div>
-            <div class="field" style="margin-top:8px"><label for="workspaceFeedbackRequestExtra">이 물건 요청 추가메모</label><textarea id="workspaceFeedbackRequestExtra" rows="4" placeholder="예: 탑층 기본집 / 최근 탑층 실거래 1.62억 / 입찰 1.36~1.375 고민"></textarea></div>
-            <div class="actions no-print" style="margin-top:8px"><button class="btn light" id="feedbackTemplateSaveBtn" type="button">기본양식 저장</button><button class="btn light" id="feedbackTemplateDefaultBtn" type="button">추천양식 불러오기</button></div>
+        <div class="section-head"><h2>피드백</h2><button class="section-save-btn no-print" type="button" id="workspaceFeedbackExtraSaveTopBtn">저장</button></div>
+        <div class="feedback-form-layout">
+          <div class="feedback-form-card">
+            <div class="feedback-form-card-head">
+              <div>
+                <h3>피드백 요청양식</h3>
+                <div class="helper">계산기에 이미 있는 사건번호·매각기일·주소·가용투자금은 자동으로 채웁니다. 반복정보와 조사내용만 확인·수정하세요.</div>
+              </div>
+              <button class="btn light no-print" id="feedbackDefaultsSaveBtn" type="button">반복정보 기본값 저장</button>
+            </div>
+
+            <div class="feedback-structured-grid">
+              <div class="field">
+                <label for="feedbackInvestmentType">1. 투자유형</label>
+                <select id="feedbackInvestmentType"><option value="단타">단타</option><option value="갭투자">갭투자</option><option value="실거주">실거주</option></select>
+              </div>
+              <div class="field">
+                <label for="feedbackCapitalExtra">2. 가용투자금 추가메모</label>
+                <input id="feedbackCapitalExtra" type="text" placeholder="예: +300~400만원정도">
+              </div>
+              <div class="field">
+                <label for="feedbackHomeCount">3. 현재 주택 수</label>
+                <input id="feedbackHomeCount" type="text" placeholder="예: 1개">
+              </div>
+              <div class="field">
+                <label for="feedbackLoanRecall">3. 대출 회수 조건</label>
+                <input id="feedbackLoanRecall" type="text" placeholder="예: 전세 or 주담대 대출 회수 조건 X">
+              </div>
+              <div class="field">
+                <label for="feedbackBidMethod">4. 입찰방식</label>
+                <input id="feedbackBidMethod" type="text" placeholder="예: 바토너신청O">
+              </div>
+              <div class="field">
+                <label for="feedbackDesiredBid">5. 희망 입찰가</label>
+                <input id="feedbackDesiredBid" type="text" inputmode="numeric" data-money>
+                <div class="feedback-bid-pick no-print">
+                  <button type="button" class="mini-btn" data-feedback-bid-pick="1">실제입찰 1차</button>
+                  <button type="button" class="mini-btn" data-feedback-bid-pick="2">2차</button>
+                  <button type="button" class="mini-btn" data-feedback-bid-pick="3">3차</button>
+                </div>
+              </div>
+              <div class="field full">
+                <label for="feedbackPriceReason">6. 가격 선정 이유</label>
+                <textarea id="feedbackPriceReason" rows="4" placeholder="호가·부동산 조사·예상매도가·목표수익률을 바탕으로 작성"></textarea>
+              </div>
+
+              <div class="feedback-auto-line full" id="feedbackAutoPropertyInfo"></div>
+
+              <div class="field full">
+                <label for="feedbackManagementInfo">10. 미납 관리비 / 납부상태</label>
+                <textarea id="feedbackManagementInfo" rows="2" placeholder="예: 6월분까지 납부완료"></textarea>
+              </div>
+              <div class="field">
+                <label for="feedbackOccupancyInfo">10. 점유상태</label>
+                <input id="feedbackOccupancyInfo" type="text" placeholder="예: 소유자 거주중">
+              </div>
+              <div class="field">
+                <label for="feedbackLeakInfo">10. 누수 확인</label>
+                <input id="feedbackLeakInfo" type="text" placeholder="예: 관리사무소 누수신고 없음">
+              </div>
+              <div class="field full">
+                <label for="feedbackLoanLimitInfo">12. 대출 한도 확인내용</label>
+                <textarea id="feedbackLoanLimitInfo" rows="5" placeholder="금융사 2~3곳 상담내용"></textarea>
+              </div>
+              <div class="field">
+                <label for="feedbackIncome25">13. 25년 소득</label>
+                <input id="feedbackIncome25" type="text" inputmode="numeric" data-money>
+              </div>
+              <div class="field">
+                <label for="feedbackIncome26">13. 26년 예상소득</label>
+                <input id="feedbackIncome26" type="text" inputmode="numeric" data-money>
+              </div>
+              <label class="feedback-attach-check"><input type="checkbox" id="feedbackAuctionCaptureChecked"> 14. 경매지 캡처 준비완료</label>
+              <label class="feedback-attach-check"><input type="checkbox" id="feedbackCalculatorCaptureChecked"> 15. 수익률 계산기 캡처 준비완료</label>
+            </div>
           </div>
-          <div class="feedback-output-box">
-            <div class="field"><label for="feedbackRequestOutput">현재 물건 요청문</label><textarea id="feedbackRequestOutput" readonly></textarea></div>
-            <div class="actions no-print" style="margin-top:8px"><button class="btn" id="feedbackRequestCopyBtn" type="button">요청문 복사</button><button class="btn light" id="feedbackRequestRefreshBtn" type="button">다시 만들기</button><button class="btn light" id="workspaceFeedbackExtraSaveBtn" type="button">추가메모 저장</button></div>
+
+          <div class="feedback-output-box feedback-form-card">
+            <div class="field"><label for="feedbackRequestOutput">자동완성 요청문</label><textarea id="feedbackRequestOutput" rows="24" readonly></textarea></div>
+            <div class="actions no-print" style="margin-top:8px">
+              <button class="btn" id="feedbackRequestCopyBtn" type="button">요청문 복사</button>
+              <button class="btn light" id="feedbackRequestRefreshBtn" type="button">다시 만들기</button>
+            </div>
+          </div>
+
+          <div class="feedback-form-card full">
+            <div class="field">
+              <label for="workspaceFeedbackResponse">피드백 답변</label>
+              <textarea id="workspaceFeedbackResponse" rows="7" placeholder="코치 피드백 답변을 그대로 붙여넣거나 요약해서 기록하세요."></textarea>
+            </div>
+            <div class="actions no-print" style="margin-top:8px">
+              <button class="btn" id="workspaceFeedbackExtraSaveBtn" type="button">피드백 저장</button>
+            </div>
           </div>
         </div>
       </section>
@@ -2255,7 +2395,7 @@
             <tbody id="summaryTable"></tbody>
           </table>
         </div>
-        <div class="helper" style="margin-top:8px">* v1.20.5에서도 비용메뉴의 <b>최종 필요 종잣돈</b>과 <b>지금 당장 필요 종잣돈</b>은 실제입찰과 같은 상세비용 산식으로 계산합니다. 신탁대출 열의 금액은 저장카드·실제입찰과 같은 신탁대출 기준입니다. 지금 당장 필요 종잣돈은 낙찰가−대출금 + 법무비 + 명도비 + 수리비 + 미납관리비이며, 취등록세(카드납부 전제), 매도 중개수수료, 중도상환수수료, 대출이자는 제외합니다.</div>
+        <div class="helper" style="margin-top:8px">* v1.20.6에서도 비용메뉴의 <b>최종 필요 종잣돈</b>과 <b>지금 당장 필요 종잣돈</b>은 실제입찰과 같은 상세비용 산식으로 계산합니다. 신탁대출 열의 금액은 저장카드·실제입찰과 같은 신탁대출 기준입니다. 지금 당장 필요 종잣돈은 낙찰가−대출금 + 법무비 + 명도비 + 수리비 + 미납관리비이며, 취등록세(카드납부 전제), 매도 중개수수료, 중도상환수수료, 대출이자는 제외합니다.</div>
       </section>
     </main>
     <div id="workspaceResizeHandle" class="no-print" role="separator" aria-orientation="vertical" aria-label="저장목록 너비 조절" title="마우스로 끌어 저장목록 너비 조절"></div>
@@ -2462,7 +2602,7 @@
         <div class="feedback-weekday sun">일</div><div class="feedback-weekday">월</div><div class="feedback-weekday">화</div><div class="feedback-weekday">수</div><div class="feedback-weekday">목</div><div class="feedback-weekday">금</div><div class="feedback-weekday sat">토</div>
       </div>
       <div class="feedback-calendar-grid" id="feedbackCalendarGrid"></div>
-      <div class="feedback-calendar-note">고민중·입찰하기로 저장한 물건만 달력에 표시됩니다. 고민중 목록에서 별표 우선도를 표시할 수 있고 달력에도 그대로 반영됩니다. 사건번호를 끌어 다른 날짜에 놓으면 피드백 요청 계획일이 바뀝니다.</div>
+      <div class="feedback-calendar-note">고민중·입찰 O 물건과 입찰결과가 입력된 완료 물건을 달력에 표시합니다. 결과를 입력해도 기록이 사라지지 않으며 패찰·낙찰과 실제 금액이 함께 남습니다. 결과 전 물건은 사건번호를 끌어 피드백 요청 계획일을 바꿀 수 있습니다.</div>
     </section>
     <section class="card feedback-top-card">
       <div class="section-head" style="margin-bottom:0">
@@ -2503,7 +2643,7 @@
         <div class="helper" id="feedbackListSummary" style="margin:0"></div>
       </div>
       <div class="feedback-filter-tabs">
-        <button class="feedback-filter-btn active" type="button" data-feedback-filter="active">고민중·입찰 O</button>
+        <button class="feedback-filter-btn active" type="button" data-feedback-filter="active">달력·입찰기록</button>
         <button class="feedback-filter-btn" type="button" data-feedback-filter="no">입찰안함</button>
       </div>
       <div class="feedback-record-list" id="feedbackRecordList"></div>
@@ -2516,7 +2656,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.20.5 엑셀형 열필터·복수선택·열별 오름/내림차순 · 표목록형 접이식 상세·비교·가변높이 · 옥션원 원문 재분석·공공데이터 자동조회·기존자료 후보 확인후적용 · 시세입력·피드백요청양식 · 저장목록 피드백 일정짜기(선택 즉시 충돌일정 잠금) · 피드백 달력 상단전환·경우의수 · 실제입찰/대출/비용/입찰결과 기존 기능 유지 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.20.6 엑셀형 열필터·복수선택·열별 오름/내림차순 · 표목록형 접이식 상세·비교·가변높이 · 옥션원 원문 재분석·공공데이터 자동조회·기존자료 후보 확인후적용 · 실거래/호가/부동산 건별 시세기록·15항목 피드백 자동완성 · 저장목록 피드백 일정짜기(선택 즉시 충돌일정 잠금) · 피드백 달력 상단전환·경우의수 · 실제입찰/대출/비용/입찰결과 기존 기능 유지 · 실제 대출한도는 금융사 심사에 따라 달라질 수 있습니다.</footer>
 </div>
 
 
@@ -2853,7 +2993,7 @@ const db = getFirestore(firebaseApp);
   const PUBLIC_DATA_LAWD_CACHE = "auctionBidCalculator.publicDataLawdCache.v1";
   const PUBLIC_DATA_TTL_MS = 24*60*60*1000;
   const DEFAULT_SECTION_ORDER = ["basic","screening","rates","loan","dsr","result"];
-  const APP_SCHEMA_VERSION = 18;
+  const APP_SCHEMA_VERSION = 19;
   const deviceId = localStorage.getItem(DEVICE_ID_KEY) ||
     (crypto.randomUUID ? crypto.randomUUID() : `device-${Date.now()}-${Math.random().toString(36).slice(2)}`);
   localStorage.setItem(DEVICE_ID_KEY, deviceId);
@@ -2923,6 +3063,8 @@ const db = getFirestore(firebaseApp);
   let actualBidDraft = null;
   let actualScenarioInputMode = "screening";
   let currentFeedbackData = null;
+  let currentMarketResearchData = null;
+  let currentFeedbackRequestFormData = null;
   let feedbackRecordId = null;
   let feedbackBaseRevision = 0;
   let feedbackCalendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
@@ -4453,6 +4595,8 @@ const db = getFirestore(firebaseApp);
       selectionSalePriceSources:[...document.querySelectorAll("[data-selection-sale-source]:checked")].map(input=>input.value),
       actualBidPreset:currentActualBidPresetData ? {...normalizeActualBidPreset(currentActualBidPresetData,0)} : null,
       feedback:currentFeedbackData ? {...currentFeedbackData} : null,
+      marketResearch:currentMarketResearchData ? JSON.parse(JSON.stringify(currentMarketResearchData)) : null,
+      feedbackRequestForm:currentFeedbackRequestFormData ? JSON.parse(JSON.stringify(currentFeedbackRequestFormData)) : null,
       auctionOneImport:currentAuctionOneImportData ? {...currentAuctionOneImportData,flags:[...(currentAuctionOneImportData.flags||[])]} : null,
       autoEnrichment:currentAutoEnrichmentData ? {...currentAutoEnrichmentData} : null,
       publicDataEnrichment:currentPublicDataEnrichmentData ? JSON.parse(JSON.stringify(currentPublicDataEnrichmentData)) : null
@@ -4474,6 +4618,8 @@ const db = getFirestore(firebaseApp);
     currentAuctionResultData = state.auctionResult ? {...state.auctionResult} : null;
     currentActualBidPresetData = state.actualBidPreset ? normalizeActualBidPreset(state.actualBidPreset,0) : null;
     currentFeedbackData = state.feedback ? {...state.feedback} : null;
+    currentMarketResearchData = normalizeMarketResearchData(state);
+    currentFeedbackRequestFormData = normalizeFeedbackRequestFormData(state);
     currentAuctionOneImportData = state.auctionOneImport ? {...state.auctionOneImport,flags:[...(state.auctionOneImport.flags||[])]} : null;
     currentAutoEnrichmentData = state.autoEnrichment ? {...state.autoEnrichment} : null;
     currentPublicDataEnrichmentData = state.publicDataEnrichment ? JSON.parse(JSON.stringify(state.publicDataEnrichment)) : null;
@@ -4926,7 +5072,13 @@ const db = getFirestore(firebaseApp);
   function feedbackBaseDate(item){ const auction=recordAuctionDate(item).raw; return auction?subtractBusinessDays(auction,4):""; }
   function feedbackDisplayDate(item){ const f=recordFeedback(item); return (f.requested&&f.requestDate)||f.planDate||feedbackBaseDate(item); }
   function feedbackResultLabel(result){ return result==="failed"?"패찰":result==="won"?"낙찰":result==="cancelled"?"입찰취소":""; }
-  function feedbackCalendarItems(){ if(!currentUser)return []; return records().filter(item=>["pending","bid"].includes(recordDecision(item))&&recordAuctionDate(item).raw); }
+  function feedbackCalendarItems(){
+    if(!currentUser)return [];
+    return records().filter(item=>{
+      const decision=recordDecision(item),hasDate=!!recordAuctionDate(item).raw,f=recordFeedback(item),hasResult=!!(item?.state?.auctionResult||f.result);
+      return hasDate&&(["pending","bid"].includes(decision)||(decision==="completed"&&hasResult));
+    });
+  }
   function feedbackActiveRequests(){ return feedbackCalendarItems().filter(item=>{const f=recordFeedback(item);return f.requested&&!f.result;}); }
   function switchAppMode(mode){
     const feedback=mode==="feedback";
@@ -4945,21 +5097,30 @@ const db = getFirestore(firebaseApp);
     const active=feedbackActiveRequests().sort((a,b)=>(recordAuctionDate(a).time??Infinity)-(recordAuctionDate(b).time??Infinity));
     const slot=$("feedbackSlotSummary"),next=$("feedbackNextSlotSummary"),candidate=$("feedbackNextCaseSummary");
     if(!slot)return;
-    slot.className=`feedback-summary-box ${active.length>=2?"warn":"good"}`; slot.innerHTML=`<div class="k">현재 피드백 진행</div><div class="v">${active.length}/2건</div>`;
+    const completedCount=feedbackCalendarItems().filter(item=>recordDecision(item)==="completed"&&!!(item?.state?.auctionResult||recordFeedback(item).result)).length;
+    slot.className=`feedback-summary-box ${active.length>=2?"warn":"good"}`; slot.innerHTML=`<div class="k">현재 피드백 진행 · 누적 입찰기록 ${completedCount}건</div><div class="v">${active.length}/2건</div>`;
     let nextDate=todayYmd(),releaseItem=null;
     if(active.length>=2){ releaseItem=active[0]; nextDate=recordAuctionDate(releaseItem).raw||todayYmd(); }
     next.className=`feedback-summary-box ${active.length>=2?"warn":"good"}`;
     next.innerHTML=`<div class="k">다음 요청 가능 예상</div><div class="v">${md(nextDate)}${releaseItem?` · ${escapeHtml(stateText(releaseItem,"caseNo",releaseItem.title))} 결과 입력 후`:" · 지금 가능"}</div>`;
-    const notRequested=feedbackCalendarItems().filter(item=>!recordFeedback(item).requested).sort((a,b)=>(recordAuctionDate(a).time??Infinity)-(recordAuctionDate(b).time??Infinity));
+    const notRequested=feedbackCalendarItems().filter(item=>["pending","bid"].includes(recordDecision(item))&&!recordFeedback(item).requested&&!recordFeedback(item).result).sort((a,b)=>(recordAuctionDate(a).time??Infinity)-(recordAuctionDate(b).time??Infinity));
     const possible=notRequested.find(item=>{const base=feedbackBaseDate(item);return base&&base<=nextDate&&recordAuctionDate(item).raw>=nextDate;}) || notRequested.find(item=>recordAuctionDate(item).raw>=nextDate);
     if(possible){ candidate.innerHTML=`<div class="k">다음 피드백 후보</div><div class="v">${md(recordAuctionDate(possible).raw)} · ${escapeHtml(stateText(possible,"caseNo",possible.title))}</div>`; }
     else candidate.innerHTML=`<div class="k">다음 피드백 후보</div><div class="v">저장된 후보 없음 · ${md(addBusinessDays(nextDate,4))}까지 확인</div>`;
   }
   function feedbackEventHtml(item){
-    const f=recordFeedback(item),base=feedbackBaseDate(item),display=feedbackDisplayDate(item),caseNo=stateText(item,"caseNo",item.title||"사건번호 없음"),auction=recordAuctionDate(item).raw;
+    const f=recordFeedback(item),base=feedbackBaseDate(item),display=feedbackDisplayDate(item),caseNo=stateText(item,"caseNo",item.title||"사건번호 없음"),auction=recordAuctionDate(item).raw,ar=item?.state?.auctionResult||{};
     const cls=f.result==="failed"?"failed":f.result==="won"?"won":f.requested?"requested":"";
-    const moved=base&&display&&base!==display; const status=f.result?feedbackResultLabel(f.result):(f.requested?"요청완료":"요청계획");
-    return `<button class="feedback-event ${cls}" type="button" draggable="true" data-feedback-record-id="${item.id}"><span class="feedback-event-main">${feedbackStarHtml(f.star)}${auction?`(${md(auction)}) `:""}${escapeHtml(caseNo)}${moved?` · ${md(base)}`:""}</span><span class="feedback-event-sub">${moved?"원래 기준일 · ":""}${status}</span></button>`;
+    const moved=base&&display&&base!==display;
+    let status=ar?.status?auctionResultLabel(ar.status):(f.result?feedbackResultLabel(f.result):(f.requested?"요청완료":"요청계획"));
+    if(f.result&&ar){
+      const bits=[];
+      if(Number(ar.myBidPrice)>0)bits.push(`내 ${shortWon(Number(ar.myBidPrice))}`);
+      if(Number(ar.winningBidPrice)>0)bits.push(`낙찰 ${shortWon(Number(ar.winningBidPrice))}`);
+      if(Number(ar.bidderCount)>0)bits.push(`${Number(ar.bidderCount)}명`);
+      if(bits.length)status+=` · ${bits.join(" / ")}`;
+    }
+    return `<button class="feedback-event ${cls}" type="button" draggable="${f.result?"false":"true"}" data-feedback-record-id="${item.id}"><span class="feedback-event-main">${feedbackStarHtml(f.star)}${auction?`(${md(auction)}) `:""}${escapeHtml(caseNo)}${moved?` · ${md(base)}`:""}</span><span class="feedback-event-sub">${moved?"원래 기준일 · ":""}${escapeHtml(status)}</span></button>`;
   }
   function renderFeedbackCalendar(){
     const grid=$("feedbackCalendarGrid"); if(!grid)return;
@@ -4979,16 +5140,17 @@ const db = getFirestore(firebaseApp);
   function renderFeedbackRecordList(){
     const root=$("feedbackRecordList"); if(!root)return; const q=normalizeSavedSearch(feedbackSearchQuery);
     if(!currentUser){$("feedbackListSummary").textContent="로그인 필요";root.innerHTML=`<div class="empty">이메일 로그인 후 피드백 달력을 사용할 수 있습니다.</div>`;return;}
-    let items=records().filter(item=>feedbackListFilter==="no"?recordDecision(item)==="no":["pending","bid"].includes(recordDecision(item)));
+    let items=records().filter(item=>feedbackListFilter==="no"?recordDecision(item)==="no":(["pending","bid"].includes(recordDecision(item))||(recordDecision(item)==="completed"&&!!(item?.state?.auctionResult||recordFeedback(item).result))));
     if(q)items=items.filter(item=>recordMatchesSavedSearch(item,feedbackSearchQuery)); items.sort((a,b)=>(recordAuctionDate(a).time??Infinity)-(recordAuctionDate(b).time??Infinity));
-    $("feedbackListSummary").textContent=`${feedbackListFilter==="no"?"입찰안함":"달력 대상"} ${items.length}건`;
+    $("feedbackListSummary").textContent=`${feedbackListFilter==="no"?"입찰안함":"달력·입찰기록"} ${items.length}건`;
     document.querySelectorAll("[data-feedback-filter]").forEach(btn=>btn.classList.toggle("active",btn.dataset.feedbackFilter===feedbackListFilter));
     root.innerHTML=items.length?items.map(item=>{const f=recordFeedback(item),base=feedbackBaseDate(item),caseNo=stateText(item,"caseNo",item.title||"-");const colorCls=feedbackListFilter==="no"?"":(f.result==="failed"?"failed":f.result==="won"?"won":f.requested?"requested":"planned");const starView=feedbackStarButtonHtml(item);return `<div class="feedback-record-item ${colorCls}"><div><div class="feedback-record-title-row"><div class="feedback-record-title">${escapeHtml(caseNo)}${recordApartmentName(item)?` · ${escapeHtml(recordApartmentName(item))}`:""}</div>${starView}</div><div class="feedback-record-meta">경매 ${recordAuctionDate(item).raw||"미입력"}${base?` · 4영업일 기준 ${base}`:""}${f.requested?` · 요청 ${f.requestDate||"날짜 미입력"}`:""}${f.result?` · ${feedbackResultLabel(f.result)}`:""}</div>${f.memo?`<div class="feedback-record-memo">메모 · ${escapeHtml(f.memo)}</div>`:""}</div><div class="feedback-record-actions">${feedbackListFilter!=="no"?`<button class="btn secondary" type="button" data-feedback-record-id="${item.id}">피드백</button>`:""}<button class="btn light" type="button" data-feedback-calc-id="${item.id}">계산기</button></div></div>`;}).join(""):`<div class="empty">조건에 맞는 저장물건이 없습니다.</div>`;
   }
   function openFeedbackModal(id){
     const item=records().find(x=>x.id===id); if(!item)return; feedbackRecordId=id;feedbackBaseRevision=Number(item.revision||0); const f=recordFeedback(item),base=feedbackBaseDate(item),auction=recordAuctionDate(item).raw;
     $("feedbackModalHeading").textContent=`${stateText(item,"caseNo",item.title||"-")}${recordApartmentName(item)?` · ${recordApartmentName(item)}`:""}`;
-    $("feedbackModalInfo").innerHTML=`<span class="pill">경매 ${auction||"미입력"}</span><span class="pill">4영업일 기준 ${base||"계산불가"}</span><span class="pill">${recordDecision(item)==="bid"?"입찰 O":"고민중"}</span>`;
+    const decisionLabel=recordDecision(item)==="completed"?"입찰완료":recordDecision(item)==="bid"?"입찰 O":"고민중";
+    $("feedbackModalInfo").innerHTML=`<span class="pill">경매 ${auction||"미입력"}</span><span class="pill">4영업일 기준 ${base||"계산불가"}</span><span class="pill">${decisionLabel}</span>`;
     $("feedbackBaseDate").value=base; $("feedbackPlanDate").value=f.planDate||base; $("feedbackRequested").checked=f.requested; $("feedbackRequestDate").value=f.requestDate||(f.requested?todayYmd():""); $("feedbackAuctionResult").value=f.result; $("feedbackMemo").value=f.memo;
     updateFeedbackHolidayWarning(); $("feedbackModal").hidden=false;
   }
@@ -5419,7 +5581,7 @@ function renderSaved(){
     if(saved.parentElement!==view)view.insertBefore(saved,view.firstChild);
     if(aside)aside.remove();
 
-    /* v1.20.5: 상세/대출/비용/실제입찰 메뉴를 고정 요약박스 안으로 이동 */
+    /* v1.20.6: 상세/대출/비용/실제입찰 메뉴를 고정 요약박스 안으로 이동 */
     const header=$("workspacePropertyHeader"),tabs=$("workspaceTabRail");
     if(header&&tabs&&tabs.parentElement!==header)header.appendChild(tabs);
 
@@ -5489,27 +5651,185 @@ function renderSaved(){
     const ids=[...savedBulkSelectedIds];if(!ids.length)return;if(!requireCloudReady())return;if(!confirm(`선택한 ${ids.length}건을 삭제할까요?\n다른 기기에서도 삭제됩니다.`))return;let done=0;setSyncStatus(`선택삭제 0/${ids.length}건…`,"warn");
     try{for(const id of ids){const existing=rawLocalRecords().find(x=>x.id===id&&!x.deleted);if(!existing)continue;const now=Date.now(),base=Number(existing.revision||0);const deleted=await runTransaction(db,async transaction=>{const ref=recordRef(id),snap=await transaction.get(ref);if(!snap.exists())return {...existing,deleted:true,updatedAtMs:now};const cloud=snap.data(),rev=Number(cloud.revision||0);if(rev!==base)throw new SyncConflictError();const next={...cloud,revision:rev+1,deleted:true,updatedAt:serverTimestamp(),updatedAtMs:now,deviceId,schemaVersion:APP_SCHEMA_VERSION};transaction.set(ref,next,{merge:false});return normalizeCloudRecord(id,next);});upsertLocalRecord(deleted);done++;setSyncStatus(`선택삭제 ${done}/${ids.length}건…`,"warn");}savedBulkSelectedIds.clear();renderSaved();setSyncStatus(`자동 동기화 완료 · ${formatDateTime(new Date())}`,"good");showToast(`${done}건 삭제 완료`);}catch(e){console.error(e);alert(`삭제 중 중단되었습니다. ${done}/${ids.length}건 완료\n${e?.message||""}`);}
   }
+  function normalizeMarketResearchData(stateOrItem){
+    const state=stateOrItem?.state||stateOrItem||{},raw=state?.marketResearch||{},fields=state?.fields||{};
+    let askingListings=Array.isArray(raw.askingListings)?raw.askingListings.map(x=>({amount:String(x?.amount||""),dong:String(x?.dong||""),floor:String(x?.floor||""),memo:String(x?.memo||"")})):[];
+    let brokerCalls=Array.isArray(raw.brokerCalls)?raw.brokerCalls.map(x=>({officeName:String(x?.officeName||""),priceOpinion:String(x?.priceOpinion||""),memo:String(x?.memo||"")})):[];
+    if(!askingListings.length&&fields.marketAskingMemo){
+      askingListings=String(fields.marketAskingMemo).split(/\n+/).map(x=>x.trim()).filter(Boolean).map(memo=>({amount:"",dong:"",floor:"",memo}));
+    }
+    if(!brokerCalls.length&&fields.marketBrokerMemo){
+      brokerCalls=[{officeName:"기존 부동산 메모",priceOpinion:"",memo:String(fields.marketBrokerMemo)}];
+    }
+    const tradeNotes=raw.tradeNotes&&typeof raw.tradeNotes==="object"?{...raw.tradeNotes}:{};
+    return {askingListings,brokerCalls,tradeNotes};
+  }
+  function marketTradeNoteKey(t,index=0){
+    return [String(t?.date||""),String(t?.dong||t?.building||t?.buildingDong||""),String(t?.floor||""),String(t?.amount||""),String(t?.dealType||"")].join("|")||`trade-${index}`;
+  }
+  function renderMarketAskingList(){
+    const root=$("marketAskingList");if(!root)return;
+    const rows=currentMarketResearchData?.askingListings||[];
+    root.innerHTML=rows.length?rows.map((r,i)=>`<div class="market-entry-row" data-market-asking-row="${i}">
+      <div><div class="market-entry-label">금액</div><input type="text" inputmode="numeric" data-money data-market-asking-index="${i}" data-market-asking-field="amount" value="${escapeHtml(formatMoneyValue(r.amount))}" placeholder="예: 230,000,000"></div>
+      <div><div class="market-entry-label">동</div><input type="text" data-market-asking-index="${i}" data-market-asking-field="dong" value="${escapeHtml(r.dong||"")}" placeholder="예: 105동"></div>
+      <div><div class="market-entry-label">층</div><input type="text" inputmode="numeric" data-market-asking-index="${i}" data-market-asking-field="floor" value="${escapeHtml(r.floor||"")}" placeholder="9"></div>
+      <div class="entry-memo"><div class="market-entry-label">조건 / 메모</div><textarea data-market-asking-index="${i}" data-market-asking-field="memo" placeholder="예: 바다뷰 · 기본수리 · 조정가능">${escapeHtml(r.memo||"")}</textarea></div>
+      <button class="btn light market-entry-remove no-print" type="button" data-market-asking-remove="${i}">삭제</button>
+    </div>`).join(""):`<div class="market-empty">등록한 호가가 없습니다. <b>+ 호가 추가</b>로 한 건씩 입력하세요.</div>`;
+  }
+  function renderMarketBrokerList(){
+    const root=$("marketBrokerList");if(!root)return;
+    const rows=currentMarketResearchData?.brokerCalls||[];
+    root.innerHTML=rows.length?rows.map((r,i)=>`<div class="market-entry-row broker" data-market-broker-row="${i}">
+      <div><div class="market-entry-label">부동산명</div><input type="text" data-market-broker-index="${i}" data-market-broker-field="officeName" value="${escapeHtml(r.officeName||"")}" placeholder="예: 삼성공인중개사"></div>
+      <div><div class="market-entry-label">가격 의견</div><input type="text" data-market-broker-index="${i}" data-market-broker-field="priceOpinion" value="${escapeHtml(r.priceOpinion||"")}" placeholder="예: 빠른매도 2억"></div>
+      <div class="entry-memo"><div class="market-entry-label">통화내용</div><textarea data-market-broker-index="${i}" data-market-broker-field="memo" placeholder="통화내용을 그대로 적거나 요약">${escapeHtml(r.memo||"")}</textarea></div>
+      <button class="btn light market-entry-remove no-print" type="button" data-market-broker-remove="${i}">삭제</button>
+    </div>`).join(""):`<div class="market-empty">등록한 부동산 조사내용이 없습니다. <b>+ 부동산 추가</b>로 통화한 곳을 기록하세요.</div>`;
+  }
+  function renderMarketTradeList(item){
+    const root=$("workspaceMarketTrades");if(!root)return;
+    const ts=item?.state?.publicDataEnrichment?.tradeStats||{},recent=Array.isArray(ts.recent)?ts.recent:[];
+    if(!recent.length){root.innerHTML=`<div class="empty">동일면적 최근 실거래가 없습니다. 공공자료 자동조회를 먼저 실행해보세요.</div>`;return;}
+    const notes=currentMarketResearchData?.tradeNotes||{};
+    root.innerHTML=recent.map((t,i)=>{
+      const key=marketTradeNoteKey(t,i),enc=encodeURIComponent(key),dong=t?.dong||t?.building||t?.buildingDong||"";
+      const floor=t?.floor!==undefined&&t?.floor!==null&&String(t.floor)!==""?`${t.floor}층`:"-";
+      return `<div class="market-trade-note-row">
+        <span>${escapeHtml(t.date||"-")}${dong?` · ${escapeHtml(String(dong))}`:""}</span>
+        <span>${escapeHtml(floor)}</span>
+        <span class="price">${shortWon(Number(t.amount)||0)}</span>
+        <input class="trade-note" type="text" data-market-trade-note-key="${enc}" value="${escapeHtml(notes[key]||"")}" placeholder="조사 메모: 수리, 바다뷰, 특수관계인 거래 여부 등">
+      </div>`;
+    }).join("");
+  }
+  function syncLegacyMarketMemoFields(){
+    const m=currentMarketResearchData||normalizeMarketResearchData({});
+    const asking=(m.askingListings||[]).map(r=>[r.amount?formatMoneyValue(r.amount)+"원":"",r.dong,r.floor?`${r.floor}층`:"",r.memo].filter(Boolean).join(" · ")).join("\n");
+    const broker=(m.brokerCalls||[]).map(r=>[r.officeName,r.priceOpinion,r.memo].filter(Boolean).join(" · ")).join("\n");
+    if($("marketAskingMemo"))$("marketAskingMemo").value=asking;
+    if($("marketBrokerMemo"))$("marketBrokerMemo").value=broker;
+  }
   function syncWorkspaceMarketPanel(){
-    if(!loadedRecordId)return;const item=records().find(x=>x.id===loadedRecordId),f=item?.state?.fields||{},pd=item?.state?.publicDataEnrichment||{},ts=pd.tradeStats||{};
-    if($("workspaceMarketLow")){$("workspaceMarketLow").value=f.selectionQuickSalePrice||"";formatMoneyInput($("workspaceMarketLow"));}$("workspaceMarketHigh").value=f.selectionQuickSalePriceHigh||"";formatMoneyInput($("workspaceMarketHigh"));
-    $("workspaceMarketAskingMemo").value=f.marketAskingMemo||"";$("workspaceMarketBrokerMemo").value=f.marketBrokerMemo||"";const src=Array.isArray(item?.state?.selectionSalePriceSources)?item.state.selectionSalePriceSources:[];document.querySelectorAll("[data-market-source]").forEach(x=>x.checked=src.includes(x.value));
-    $("workspaceMarketStats").innerHTML=ts.count12!==undefined?`<span class="public-data-chip">3개월 ${ts.count3||0}건</span><span class="public-data-chip">6개월 ${ts.count6||0}건</span><span class="public-data-chip">12개월 ${ts.count12||0}건</span>${ts.median?`<span class="public-data-chip price">중앙 ${shortWon(ts.median)}</span>`:""}${ts.suggestedLow?`<span class="public-data-chip price">참고 ${shortWon(ts.suggestedLow)}~${shortWon(ts.suggestedHigh||ts.suggestedLow)}</span>`:""}`:`<span class="unknown-pill">공공 실거래 미조회</span>`;
-    $("workspaceMarketTrades").innerHTML=Array.isArray(ts.recent)&&ts.recent.length?ts.recent.map(t=>`<div class="market-trade-item"><span>${escapeHtml(t.date||"-")}</span><span>${t.floor||"-"}층</span><b>${shortWon(Number(t.amount)||0)}</b></div>`).join(""):`<div class="empty">동일면적 최근 실거래가 없습니다. 공공자료 자동조회를 먼저 실행해보세요.</div>`;
+    if(!loadedRecordId)return;const item=records().find(x=>x.id===loadedRecordId),pd=item?.state?.publicDataEnrichment||{},ts=pd.tradeStats||{};
+    currentMarketResearchData=normalizeMarketResearchData(item);
+    $("workspaceMarketStats").innerHTML=ts.count12!==undefined?`<span class="public-data-chip">3개월 ${ts.count3||0}건</span><span class="public-data-chip">6개월 ${ts.count6||0}건</span><span class="public-data-chip">12개월 ${ts.count12||0}건</span>${ts.median?`<span class="public-data-chip price">중앙 ${shortWon(ts.median)}</span>`:""}`:`<span class="unknown-pill">공공 실거래 미조회</span>`;
+    renderMarketTradeList(item);renderMarketAskingList();renderMarketBrokerList();syncLegacyMarketMemoFields();
   }
-  function applyWorkspaceMarketToFields(){
-    const low=$("workspaceMarketLow"),high=$("workspaceMarketHigh");if(low){$("selectionQuickSalePrice").value=numericText(low.value);formatMoneyInput($("selectionQuickSalePrice"));}if(high){$("selectionQuickSalePriceHigh").value=numericText(high.value);formatMoneyInput($("selectionQuickSalePriceHigh"));}$("marketAskingMemo").value=$("workspaceMarketAskingMemo").value;$("marketBrokerMemo").value=$("workspaceMarketBrokerMemo").value;const selected=[...document.querySelectorAll("[data-market-source]:checked")].map(x=>x.value);document.querySelectorAll("[data-selection-sale-source]").forEach(x=>x.checked=selected.includes(x.value));update();
+  function applyWorkspaceMarketToFields(){syncLegacyMarketMemoFields();}
+  function addMarketAsking(){currentMarketResearchData=currentMarketResearchData||normalizeMarketResearchData({});currentMarketResearchData.askingListings.push({amount:"",dong:"",floor:"",memo:""});renderMarketAskingList();}
+  function addMarketBroker(){currentMarketResearchData=currentMarketResearchData||normalizeMarketResearchData({});currentMarketResearchData.brokerCalls.push({officeName:"",priceOpinion:"",memo:""});renderMarketBrokerList();}
+
+  const FEEDBACK_DEFAULTS_KEY="auctionBidCalculator.feedbackRequestDefaults.v1";
+  function feedbackRequestDefaults(){
+    const base={investmentType:"단타",capitalExtra:"+300~400만원정도",homeCount:"1개",loanRecall:"전세 or 주담대 대출 회수 조건 X",bidMethod:"바토너신청O",income25:"30000000",income26:"48000000",loanLimitInfo:""};
+    try{return {...base,...(JSON.parse(localStorage.getItem(FEEDBACK_DEFAULTS_KEY)||"{}")||{})};}catch{return base;}
   }
-  function usePublicSuggestedMarket(){const item=records().find(x=>x.id===loadedRecordId),ts=item?.state?.publicDataEnrichment?.tradeStats||{};if(!ts.suggestedLow){alert("먼저 공공자료 자동조회로 동일면적 실거래를 받아주세요.");return;}$("workspaceMarketLow").value=ts.suggestedLow;$("workspaceMarketHigh").value=ts.suggestedHigh||ts.suggestedLow;formatMoneyInput($("workspaceMarketLow"));formatMoneyInput($("workspaceMarketHigh"));showToast("실거래 참고가를 입력했습니다. 확인 후 저장하세요.");}
-  const FEEDBACK_TEMPLATE_KEY="auctionBidCalculator.feedbackRequestTemplate.v1";
-  const DEFAULT_FEEDBACK_TEMPLATE=`{사건번호} {아파트}\n{주소}\n매각기일: {매각기일}\n감정가 / 최저가: {감정가} / {최저가}\n예상 빠른매도가: {예상매도가}\n가능 입찰가율: {가능입찰가율}\n\n검토 부탁드립니다.\n{메모}`;
-  function currentFeedbackTemplate(){return localStorage.getItem(FEEDBACK_TEMPLATE_KEY)||DEFAULT_FEEDBACK_TEMPLATE;}
-  function feedbackRequestTextForItem(item){
-    if(!item)return"";const f=item.state?.fields||{},s=screeningMetrics(item),range=stateNumber(item,"selectionQuickSalePrice",0)?formatWonRange(stateNumber(item,"selectionQuickSalePrice",0),stateNumber(item,"selectionQuickSalePriceHigh",0)||stateNumber(item,"selectionQuickSalePrice",0)):"미입력";
-    const values={"{사건번호}":stateText(item,"caseNo",item.title||""),"{아파트}":recordApartmentName(item)||"", "{주소}":recordRegion(item)||"", "{매각기일}":recordAuctionDate(item).raw||"", "{감정가}":shortWon(stateNumber(item,"appraisal",0)), "{최저가}":shortWon(stateNumber(item,"selectionMinPrice",0)), "{예상매도가}":range, "{가능입찰가율}":s.maxBid>0?formatPctRange(s.bidRateLow,s.bidRateHigh):"미계산", "{메모}":f.feedbackRequestExtra||f.selectionMemo||f.bidDecisionReason||""};let text=currentFeedbackTemplate();Object.entries(values).forEach(([k,v])=>text=text.split(k).join(v));return text.trim();
+  function normalizeFeedbackRequestFormData(stateOrItem){
+    const state=stateOrItem?.state||stateOrItem||{},raw=state?.feedbackRequestForm||{},fields=state?.fields||{},defaults=feedbackRequestDefaults();
+    const unpaid=Number(numericText(fields.unpaidManagement||""))||0;
+    return {
+      investmentType:String(raw.investmentType||defaults.investmentType||"단타"),
+      capitalExtra:String(raw.capitalExtra??defaults.capitalExtra??""),
+      homeCount:String(raw.homeCount??defaults.homeCount??""),
+      loanRecall:String(raw.loanRecall??defaults.loanRecall??""),
+      bidMethod:String(raw.bidMethod??defaults.bidMethod??""),
+      desiredBidPrice:String(raw.desiredBidPrice||""),
+      priceReason:String(raw.priceReason||""),
+      managementInfo:String(raw.managementInfo||(unpaid?`미납관리비 ${shortWon(unpaid)}`:"")),
+      occupancyInfo:String(raw.occupancyInfo||""),
+      leakInfo:String(raw.leakInfo||""),
+      loanLimitInfo:String(raw.loanLimitInfo??defaults.loanLimitInfo??""),
+      income25:String(raw.income25||(fields.dsrIncome||defaults.income25||"")),
+      income26:String(raw.income26||defaults.income26||""),
+      auctionCaptureChecked:!!raw.auctionCaptureChecked,
+      calculatorCaptureChecked:!!raw.calculatorCaptureChecked,
+      response:String(raw.response??fields.feedbackRequestExtra??"")
+    };
   }
-  function syncFeedbackRequestPanel(){const item=records().find(x=>x.id===loadedRecordId);$("feedbackRequestTemplate").value=currentFeedbackTemplate();$("workspaceFeedbackRequestExtra").value=item?.state?.fields?.feedbackRequestExtra||"";$("feedbackRequestOutput").value=feedbackRequestTextForItem(item);}
-  function saveFeedbackTemplate(){localStorage.setItem(FEEDBACK_TEMPLATE_KEY,$("feedbackRequestTemplate").value||DEFAULT_FEEDBACK_TEMPLATE);showToast("피드백 기본양식 저장 완료");syncFeedbackRequestPanel();}
-  function applyFeedbackExtraToField(){$("feedbackRequestExtra").value=$("workspaceFeedbackRequestExtra").value;syncFeedbackRequestPanel();}
+  function feedbackBrokerInquiryText(item){
+    const m=(loadedRecordId&&item?.id===loadedRecordId&&currentMarketResearchData)?currentMarketResearchData:normalizeMarketResearchData(item);
+    const calls=(m?.brokerCalls||[]).filter(x=>x.officeName||x.priceOpinion||x.memo);
+    if(!calls.length)return "미입력";
+    const circled=["①","②","③","④","⑤","⑥","⑦","⑧","⑨","⑩"];
+    return calls.map((c,i)=>`${circled[i]||`(${i+1})`}${c.officeName||"부동산"}\n${c.priceOpinion?`가격 의견: ${c.priceOpinion}\n`:""}${c.memo||""}`.trim()).join("\n\n");
+  }
+  function feedbackPriceReasonDefault(item){
+    const low=stateNumber(item,"selectionQuickSalePrice",0),high=stateNumber(item,"selectionQuickSalePriceHigh",0)||low,roiLow=Number(stateText(item,"selectionTargetRoi","10"))||10,roiHigh=Number(stateText(item,"selectionTargetRoiHigh","15"))||15;
+    if(!low)return "";
+    return `예상 빠른매도가를 ${formatWonRange(low,high)}로 보수적으로 잡고 목표수익률 ${roiLow}%~${roiHigh}% 범위에서 수익이 남도록 희망 입찰가를 선정했습니다.`;
+  }
+  function feedbackRequestTextForItem(item,dataOverride=null){
+    if(!item)return"";
+    const d=dataOverride||currentFeedbackRequestFormData||normalizeFeedbackRequestFormData(item),capital=stateNumber(item,"capital",0),caseNo=stateText(item,"caseNo",item.title||""),auction=recordAuctionDate(item).raw||"",address=recordRegion(item)||stateText(item,"propertyName","")||"",desired=Number(numericText(d.desiredBidPrice||""))||0;
+    const line10=[d.managementInfo,d.occupancyInfo,d.leakInfo].filter(Boolean).join("\n")||"미입력";
+    const income25=Number(numericText(d.income25||""))||0,income26=Number(numericText(d.income26||""))||0;
+    return `▶️ 요청 양식
+1.단타/갭투자/실거주(간단한 입찰 이유)  ${d.investmentType||"미입력"}
+2.본인 가용 투자금(종잣돈)   ${capital?formatMoneyValue(capital)+"원":"미입력"}${d.capitalExtra?`(${d.capitalExtra})`:""}
+3.현재 주택 수: ${d.homeCount||"미입력"}, ${d.loanRecall||""}
+4.직접 입찰/대리입찰(바토너 신청 필수 O, X)  ${d.bidMethod||"미입력"}
+5.희망 입찰가  ${desired?formatMoneyValue(desired)+"원":"미입력"}
+6.가격 선정 이유
+${d.priceReason||"미입력"}
+
+7.사건번호  ${caseNo||"미입력"}
+8.매각기일  ${auction||"미입력"}
+9.물건 주소 ${address||"미입력"}
+10.현시점 미납 관리비(관리사무소 문의)
+${line10}
+
+11.부동산 전화 문의 내용(최소2~3군데)
+${feedbackBrokerInquiryText(item)}
+
+12.대출 한도 2~3군데 확인
+${d.loanLimitInfo||"미입력"}
+
+13.25년 소득 ${income25?formatMoneyValue(income25):"미입력"}/26년 예상 소득 (소득세 산정 목적) ${income26?formatMoneyValue(income26):"미입력"}
+14.경매지 캡처 화면(상단 사건번호와 주소만 나오게) 1장  ${d.auctionCaptureChecked?"[준비완료]":"[미첨부]"}
+15.위 내용 바탕으로 수익률 계산기 캡처 화면 1장  ${d.calculatorCaptureChecked?"[준비완료]":"[미첨부]"}`;
+  }
+  function collectFeedbackRequestFormFromUi(){
+    const pick=id=>String($(id)?.value||"").trim();
+    return {
+      investmentType:pick("feedbackInvestmentType")||"단타",
+      capitalExtra:pick("feedbackCapitalExtra"),homeCount:pick("feedbackHomeCount"),loanRecall:pick("feedbackLoanRecall"),bidMethod:pick("feedbackBidMethod"),
+      desiredBidPrice:numericText(pick("feedbackDesiredBid")),priceReason:pick("feedbackPriceReason"),managementInfo:pick("feedbackManagementInfo"),occupancyInfo:pick("feedbackOccupancyInfo"),leakInfo:pick("feedbackLeakInfo"),
+      loanLimitInfo:pick("feedbackLoanLimitInfo"),income25:numericText(pick("feedbackIncome25")),income26:numericText(pick("feedbackIncome26")),
+      auctionCaptureChecked:!!$("feedbackAuctionCaptureChecked")?.checked,calculatorCaptureChecked:!!$("feedbackCalculatorCaptureChecked")?.checked,response:pick("workspaceFeedbackResponse")
+    };
+  }
+  function renderFeedbackRequestOutput(){
+    const item=records().find(x=>x.id===loadedRecordId);if(!item)return;
+    if(workspaceActiveTab==="feedbackrequest")currentFeedbackRequestFormData=collectFeedbackRequestFormFromUi();
+    const data=currentFeedbackRequestFormData||normalizeFeedbackRequestFormData(item);
+    if($("feedbackRequestOutput"))$("feedbackRequestOutput").value=feedbackRequestTextForItem(item,data);
+  }
+  function syncFeedbackRequestPanel(){
+    const item=records().find(x=>x.id===loadedRecordId);if(!item)return;
+    currentFeedbackRequestFormData=normalizeFeedbackRequestFormData(item);
+    const d=currentFeedbackRequestFormData;
+    $("feedbackInvestmentType").value=d.investmentType||"단타";$("feedbackCapitalExtra").value=d.capitalExtra||"";$("feedbackHomeCount").value=d.homeCount||"";$("feedbackLoanRecall").value=d.loanRecall||"";$("feedbackBidMethod").value=d.bidMethod||"";
+    $("feedbackDesiredBid").value=d.desiredBidPrice||"";formatMoneyInput($("feedbackDesiredBid"));
+    $("feedbackPriceReason").value=d.priceReason||feedbackPriceReasonDefault(item);
+    $("feedbackManagementInfo").value=d.managementInfo||"";$("feedbackOccupancyInfo").value=d.occupancyInfo||"";$("feedbackLeakInfo").value=d.leakInfo||"";$("feedbackLoanLimitInfo").value=d.loanLimitInfo||"";
+    $("feedbackIncome25").value=d.income25||"";formatMoneyInput($("feedbackIncome25"));$("feedbackIncome26").value=d.income26||"";formatMoneyInput($("feedbackIncome26"));
+    $("feedbackAuctionCaptureChecked").checked=!!d.auctionCaptureChecked;$("feedbackCalculatorCaptureChecked").checked=!!d.calculatorCaptureChecked;$("workspaceFeedbackResponse").value=d.response||"";
+    const capital=stateNumber(item,"capital",0);
+    $("feedbackAutoPropertyInfo").innerHTML=`<b>자동입력</b> · 가용투자금 ${capital?shortWon(capital):"미입력"} · 사건번호 ${escapeHtml(stateText(item,"caseNo",item.title||"-"))} · 매각기일 ${escapeHtml(recordAuctionDate(item).raw||"-")} · 주소 ${escapeHtml(recordRegion(item)||stateText(item,"propertyName","")||"-")}`;
+    renderFeedbackRequestOutput();
+  }
+  function saveFeedbackDefaults(){
+    const d=collectFeedbackRequestFormFromUi(),defaults={investmentType:d.investmentType,capitalExtra:d.capitalExtra,homeCount:d.homeCount,loanRecall:d.loanRecall,bidMethod:d.bidMethod,income25:d.income25,income26:d.income26,loanLimitInfo:d.loanLimitInfo};
+    localStorage.setItem(FEEDBACK_DEFAULTS_KEY,JSON.stringify(defaults));showToast("반복정보 기본값 저장 완료");
+  }
+  function applyFeedbackExtraToField(){currentFeedbackRequestFormData=collectFeedbackRequestFormFromUi();if($("feedbackRequestExtra"))$("feedbackRequestExtra").value=currentFeedbackRequestFormData.response||"";renderFeedbackRequestOutput();}
+  function pickFeedbackBid(index){
+    const item=records().find(x=>x.id===loadedRecordId),actual=item?.state?.actualBid||currentActualBidData||{},value=Number(actual[`bid${index}`])||0;
+    if(!value){showToast(`실제입찰 ${index}차 금액이 없습니다.`);return;}
+    $("feedbackDesiredBid").value=value;formatMoneyInput($("feedbackDesiredBid"));renderFeedbackRequestOutput();
+  }
   function feedbackPlanningCandidates(){
     const today=todayYmd();
     return feedbackCalendarItems().filter(i=>{const f=recordFeedback(i);return !f.result&&recordAuctionDate(i).raw>=today;}).sort((a,b)=>recordAuctionDate(a).raw.localeCompare(recordAuctionDate(b).raw));
@@ -6032,9 +6352,9 @@ function renderSaved(){
     $('auctionOneCompletenessGrid').innerHTML=c.details.map(g=>`<div class="auction1-complete-card ${g.done===g.total?'good':g.done?'partial':'empty'}"><div class="auction1-complete-card-head"><b>${escapeHtml(g.name)}</b><span class="auction1-complete-count">${g.done}/${g.total}</span></div><span class="auction1-complete-source">${escapeHtml(g.source)}</span><div class="auction1-complete-fields">${g.items.map(x=>`<span class="auction1-complete-field ${x.done?'done':'missing'}">${x.done?'✓':'○'} ${escapeHtml(x.label)}</span>`).join('')}</div></div>`).join('');
     const missing=currentMissingResearch();$('auctionOneNextResearch').innerHTML=missing.length?`<b>다음 확인 ${missing.length}개</b> · ${missing.slice(0,8).map(x=>escapeHtml(x.label)).join(' · ')}${missing.length>8?' …':''}`:'<b>필수 조사칸이 모두 채워졌습니다.</b>';
   }
-  // 기존 저장자료는 자동 적용하지 않습니다. v1.20.5의 후보 확인 모달을 통해서만 선택 적용됩니다.
+  // 기존 저장자료는 자동 적용하지 않습니다. v1.20.6의 후보 확인 모달을 통해서만 선택 적용됩니다.
 
-  // ===== v1.20.5: 옥션원 원문 재분석 / 기존자료 확인적용 / 공공데이터 자동조회 =====
+  // ===== v1.20.6: 옥션원 원문 재분석 / 기존자료 확인적용 / 공공데이터 자동조회 =====
   const PUBLIC_FIELD_LABELS={propertyName:'도로명주소',apartmentAge:'사용승인년도',maxFloor:'최고층',householdCount:'세대수',buildingType:'현관구조',roomCount:'방수',bathCount:'욕실수',direction:'향',selectionTradeActivity:'거래활발도',sameRates:'동일번지 낙찰가율',nearRates:'인근 낙찰가율'};
   let historySuggestionRows=[];
   const publicTradeCache=new Map();
@@ -7299,16 +7619,45 @@ function renderSaved(){
   $("savedColumnFilterMenu")?.addEventListener("change",e=>{if(e.target.id==="columnFilterSelectAll"){visibleColumnFilterCheckboxes().forEach(cb=>cb.checked=e.target.checked);updateColumnFilterSelectAll();return;}if(e.target.matches('[data-filter-option]'))updateColumnFilterSelectAll();});
   window.addEventListener("resize",()=>{if(!$("savedColumnFilterMenu")?.hidden)closeSavedColumnFilterMenu();});
   $("savedList")?.addEventListener("scroll",()=>{if(!$("savedColumnFilterMenu")?.hidden)closeSavedColumnFilterMenu();},{passive:true});
-  ["workspaceMarketLow","workspaceMarketHigh","workspaceMarketAskingMemo","workspaceMarketBrokerMemo"].forEach(id=>$(id)?.addEventListener("input",applyWorkspaceMarketToFields));
-  document.querySelectorAll("[data-market-source]").forEach(x=>x.addEventListener("change",applyWorkspaceMarketToFields));
+  $("marketAskingAddBtn")?.addEventListener("click",addMarketAsking);
+  $("marketBrokerAddBtn")?.addEventListener("click",addMarketBroker);
+  $("marketAskingList")?.addEventListener("input",e=>{
+    const el=e.target.closest("[data-market-asking-index]");if(!el||!currentMarketResearchData)return;
+    const i=Number(el.dataset.marketAskingIndex),field=el.dataset.marketAskingField,row=currentMarketResearchData.askingListings?.[i];if(!row||!field)return;
+    row[field]=field==="amount"?numericText(el.value):el.value;
+    if(field==="amount")formatMoneyInput(el);
+    syncLegacyMarketMemoFields();renderFeedbackRequestOutput();
+  });
+  $("marketAskingList")?.addEventListener("click",e=>{
+    const btn=e.target.closest("[data-market-asking-remove]");if(!btn||!currentMarketResearchData)return;
+    currentMarketResearchData.askingListings.splice(Number(btn.dataset.marketAskingRemove),1);renderMarketAskingList();syncLegacyMarketMemoFields();renderFeedbackRequestOutput();
+  });
+  $("marketBrokerList")?.addEventListener("input",e=>{
+    const el=e.target.closest("[data-market-broker-index]");if(!el||!currentMarketResearchData)return;
+    const i=Number(el.dataset.marketBrokerIndex),field=el.dataset.marketBrokerField,row=currentMarketResearchData.brokerCalls?.[i];if(!row||!field)return;
+    row[field]=el.value;syncLegacyMarketMemoFields();renderFeedbackRequestOutput();
+  });
+  $("marketBrokerList")?.addEventListener("click",e=>{
+    const btn=e.target.closest("[data-market-broker-remove]");if(!btn||!currentMarketResearchData)return;
+    currentMarketResearchData.brokerCalls.splice(Number(btn.dataset.marketBrokerRemove),1);renderMarketBrokerList();syncLegacyMarketMemoFields();renderFeedbackRequestOutput();
+  });
+  $("workspaceMarketTrades")?.addEventListener("input",e=>{
+    const el=e.target.closest("[data-market-trade-note-key]");if(!el)return;
+    currentMarketResearchData=currentMarketResearchData||normalizeMarketResearchData({});
+    currentMarketResearchData.tradeNotes[decodeURIComponent(el.dataset.marketTradeNoteKey)]=el.value;
+  });
   $("workspaceMarketSaveBtn")?.addEventListener("click",()=>{applyWorkspaceMarketToFields();$("saveBtn").click();});
   $("workspaceMarketSaveTopBtn")?.addEventListener("click",()=>{applyWorkspaceMarketToFields();$("saveBtn").click();});
-  $("workspaceUsePublicSuggestedBtn")?.addEventListener("click",usePublicSuggestedMarket);
-  $("feedbackTemplateSaveBtn")?.addEventListener("click",saveFeedbackTemplate);
-  $("feedbackTemplateDefaultBtn")?.addEventListener("click",()=>{$("feedbackRequestTemplate").value=DEFAULT_FEEDBACK_TEMPLATE;});
-  $("feedbackRequestRefreshBtn")?.addEventListener("click",syncFeedbackRequestPanel);
-  $("feedbackRequestCopyBtn")?.addEventListener("click",async()=>{const t=$("feedbackRequestOutput").value;try{await navigator.clipboard.writeText(t);showToast("피드백 요청문 복사 완료");}catch{alert(t);}});
-  $("workspaceFeedbackRequestExtra")?.addEventListener("input",()=>{$("feedbackRequestExtra").value=$("workspaceFeedbackRequestExtra").value;});
+
+  ["feedbackInvestmentType","feedbackCapitalExtra","feedbackHomeCount","feedbackLoanRecall","feedbackBidMethod","feedbackDesiredBid","feedbackPriceReason","feedbackManagementInfo","feedbackOccupancyInfo","feedbackLeakInfo","feedbackLoanLimitInfo","feedbackIncome25","feedbackIncome26","workspaceFeedbackResponse"].forEach(id=>{
+    $(id)?.addEventListener("input",()=>{if(["feedbackDesiredBid","feedbackIncome25","feedbackIncome26"].includes(id))formatMoneyInput($(id));renderFeedbackRequestOutput();});
+    $(id)?.addEventListener("change",renderFeedbackRequestOutput);
+  });
+  ["feedbackAuctionCaptureChecked","feedbackCalculatorCaptureChecked"].forEach(id=>$(id)?.addEventListener("change",renderFeedbackRequestOutput));
+  document.querySelectorAll("[data-feedback-bid-pick]").forEach(btn=>btn.addEventListener("click",()=>pickFeedbackBid(Number(btn.dataset.feedbackBidPick))));
+  $("feedbackDefaultsSaveBtn")?.addEventListener("click",saveFeedbackDefaults);
+  $("feedbackRequestRefreshBtn")?.addEventListener("click",renderFeedbackRequestOutput);
+  $("feedbackRequestCopyBtn")?.addEventListener("click",async()=>{renderFeedbackRequestOutput();const t=$("feedbackRequestOutput").value;try{await navigator.clipboard.writeText(t);showToast("피드백 요청문 복사 완료");}catch{alert(t);}});
   $("workspaceFeedbackExtraSaveBtn")?.addEventListener("click",()=>{applyFeedbackExtraToField();$("saveBtn").click();});
   $("workspaceFeedbackExtraSaveTopBtn")?.addEventListener("click",()=>{applyFeedbackExtraToField();$("saveBtn").click();});
   $("feedbackScenarioCalcBtn")?.addEventListener("click",renderFeedbackScenarioResult);
@@ -7504,7 +7853,7 @@ function renderSaved(){
   });
   $("printBtn").addEventListener("click", () => window.print());
   $("exportBtn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.20.0",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
+    const blob = new Blob([JSON.stringify({backupFormat:"auction-calculator",backupVersion:"1.20.6",backupCreatedAt:new Date().toISOString(),records:records()},null,2)], {type:"application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `경매입찰계산기_백업_${new Date().toISOString().slice(0,10)}.json`;
