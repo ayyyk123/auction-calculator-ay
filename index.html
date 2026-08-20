@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.21.6</title>
+  <title>경매 입찰·대출 자금 계산기 v1.21.7</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -989,7 +989,7 @@
       display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px
     }
     .actual-income-manual input{padding:7px 4px!important;font-size:10.5px!important}
-    /* v1.21.6 옥션원 목록 텍스트 붙여넣기 + 상태 드래그 */
+    /* v1.21.7 옥션원 목록 텍스트 붙여넣기 + 상태 드래그 */
     .auction-pdf-import-btn{border:1px solid #a7f3d0;background:#ecfdf5;color:#047857;border-radius:8px;padding:6px 9px;font-size:11px;font-weight:950;cursor:pointer;white-space:nowrap}
     .auction-pdf-import-btn:hover{background:#d1fae5}
     .saved-status-dropboard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:7px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:10px}
@@ -1204,7 +1204,7 @@
       .app{max-width:none;padding:0}
     }
   
-    /* v1.21.6 옥션원 자료완성도·목록 일괄자동보완 */
+    /* v1.21.7 옥션원 자료완성도·목록 일괄자동보완 */
     .auction1-enrichment-panel{border:1px solid #c7d2fe;background:linear-gradient(180deg,#f8faff,#fff);border-radius:16px;padding:12px 14px;box-shadow:0 8px 22px rgba(59,76,155,.07)}
     .auction1-enrichment-head{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}.auction1-enrichment-head>div:first-child{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.auction1-enrichment-head strong{font-size:14px;color:#303f73}.auction1-enrichment-head #auctionOneCompletenessText{font-size:12px;font-weight:800;color:#4f46e5;background:#eef2ff;padding:4px 8px;border-radius:999px}
     .auction1-enrichment-actions{display:flex;gap:6px;flex-wrap:wrap}.auction1-enrichment-actions .btn{padding:6px 9px;font-size:12px}
@@ -1216,11 +1216,11 @@
     .saved-completeness-line{font-size:11px;color:#64748b;margin-top:6px}.saved-completeness-line b{color:#334155}.auction1-badge-soft{display:inline-flex;align-items:center;padding:3px 6px;border-radius:999px;font-size:10px;font-weight:800;background:#eef2ff;color:#4338ca}.unknown-pill{background:#f1f5f9!important;color:#64748b!important;border-color:#e2e8f0!important}
     @media(max-width:900px){.auction1-completeness-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.auction1-source-grid{grid-template-columns:1fr}}
 
-    /* v1.21.6 원문 재분석 · 공공데이터 · 기존자료 확인적용 */
+    /* v1.21.7 원문 재분석 · 공공데이터 · 기존자료 확인적용 */
     .data-modal{position:fixed;inset:0;background:rgba(15,23,42,.52);z-index:9998;display:flex;align-items:center;justify-content:center;padding:18px}.data-modal[hidden]{display:none!important}.data-dialog{width:min(1040px,96vw);max-height:90vh;overflow:auto;background:#fff;border-radius:18px;box-shadow:0 24px 80px rgba(15,23,42,.28);padding:18px}.data-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}.data-head h2{margin:0;font-size:18px}.data-head p{margin:5px 0 0;color:#64748b;font-size:12px;line-height:1.5}.data-close{border:0;background:#f1f5f9;border-radius:9px;width:34px;height:34px;font-size:20px;cursor:pointer}.data-actions{display:flex;gap:7px;justify-content:flex-end;flex-wrap:wrap;margin-top:12px}.data-table-wrap{overflow:auto;border:1px solid #e5e7eb;border-radius:12px}.data-table{width:100%;border-collapse:collapse;font-size:12px;min-width:780px}.data-table th,.data-table td{padding:8px;border-bottom:1px solid #eef2f7;text-align:left;vertical-align:top}.data-table th{background:#f8fafc;position:sticky;top:0;z-index:1}.data-table tr.conflict{background:#fff7ed}.data-table tr.safe{background:#f8fff9}.data-source-chip{display:inline-flex;padding:2px 6px;border-radius:999px;background:#eef2ff;color:#4338ca;font-size:10px;font-weight:800}.data-conflict{font-size:10px;font-weight:900;color:#c2410c}.api-settings-grid{display:grid;grid-template-columns:1fr;gap:10px}.api-key-note{padding:10px;border-radius:10px;background:#f8fafc;color:#475569;font-size:11px;line-height:1.55}.public-data-summary{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.public-data-chip{font-size:10px;font-weight:800;padding:3px 6px;border-radius:999px;background:#ecfeff;color:#155e75;border:1px solid #cffafe}.public-data-chip.price{background:#f0fdf4;color:#166534;border-color:#bbf7d0}.public-data-chip.warn{background:#fff7ed;color:#9a3412;border-color:#fed7aa}.api-progress{font-size:11px;color:#475569;padding:8px 10px;background:#f8fafc;border-radius:9px;margin-top:8px}.history-group-row td{background:#eef2ff!important;color:#3730a3;font-weight:900}.field-source-note{display:block;font-size:9px;color:#64748b;margin-top:2px}.saved-review-enrichment-toolbar{align-items:center}.saved-review-enrichment-toolbar .review-auto-hint{flex-basis:100%;order:10}.auction1-complete-field .src{font-size:8.5px;color:#94a3b8;margin-left:2px}
 
 
-    /* ===== v1.21.6 표목록형 · 접이식 상세 · 비교 · 시세 · 피드백 경우의수 ===== */
+    /* ===== v1.21.7 표목록형 · 접이식 상세 · 비교 · 시세 · 피드백 경우의수 ===== */
     :root{--saved-table-height:62vh}
     #calculatorView.layout{display:flex!important;flex-direction:column!important;gap:8px!important;max-width:none!important}
     #calculatorView>.sticky-side{display:none!important}
@@ -1263,7 +1263,7 @@
     .saved-table-filterbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:7px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:9px}
     .saved-table-filterbar label{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:850;color:#475569}
     .saved-table-filterbar select{padding:5px 7px;font-size:10.5px;min-width:90px}
-    /* v1.21.6 엑셀형 헤더 필터 */
+    /* v1.21.7 엑셀형 헤더 필터 */
     #savedSearchRow,#savedDateRangeRow,.view-tabs,.decision-filter-tabs,.grade-filter-tabs,#savedTableFilterBar,.star-filter-tabs,#folderNav,.sort-row{display:none!important}
     .saved-toolbar{display:flex!important;flex-direction:column!important;gap:7px!important}
     .saved-review-enrichment-toolbar{order:1}
@@ -1302,7 +1302,7 @@
     .column-filter-chip button{border:0;background:transparent;color:#2563eb;padding:0;cursor:pointer;font-weight:950}
     @media(max-width:800px){.column-filter-menu{width:min(300px,calc(100vw - 12px))}.saved-review-enrichment-toolbar .review-auto-hint{display:none}}
 
-    /* v1.21.6 피드백 일정 선택모드 */
+    /* v1.21.7 피드백 일정 선택모드 */
     .saved-bulk-toolbar{gap:6px;align-items:center;flex-wrap:wrap}
     .feedback-plan-launch{background:#7c3aed!important;border-color:#7c3aed!important;color:#fff!important}
     .feedback-plan-launch.active{background:#5b21b6!important;border-color:#5b21b6!important;box-shadow:0 0 0 2px rgba(124,58,237,.15)}
@@ -1388,7 +1388,7 @@
     .scenario-option .drop{margin-top:4px;font-size:10px;color:#b45309}
     .scenario-conflict{font-size:10px;color:#b91c1c;padding:8px 9px;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px}
 
-    /* ===== v1.21.6 시세 조사 건별입력 + 피드백 15항목 자동완성 ===== */
+    /* ===== v1.21.7 시세 조사 건별입력 + 피드백 15항목 자동완성 ===== */
     .market-research-stack{display:grid;gap:10px}
     .market-section-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;flex-wrap:wrap}
     .market-section-title-row h3{margin:0 0 3px;font-size:13px}
@@ -1438,7 +1438,7 @@
 
 
 
-    /* ===== v1.21.6 저장목록 검색 복구 ===== */
+    /* ===== v1.21.7 저장목록 검색 복구 ===== */
     #savedSearchRow{
       display:flex!important;
       align-items:center!important;
@@ -1454,7 +1454,7 @@
     #savedSearchRow #savedDateRangeToggle{display:none!important}
     #savedSearchRow .saved-search-clear{flex:0 0 auto!important}
 
-    /* ===== v1.21.6 상세 상단 초압축 + 항상 보이는 상세메뉴 + 실제 작동 세로 리사이저 ===== */
+    /* ===== v1.21.7 상세 상단 초압축 + 항상 보이는 상세메뉴 + 실제 작동 세로 리사이저 ===== */
     .workspace-property-header{
       padding:7px 9px!important;
       margin-bottom:5px!important;
@@ -1515,7 +1515,7 @@
     }
 
 
-    /* ===== v1.21.6 열 드래그순서 · 날짜검색 복구 · 모바일 상세 개선 ===== */
+    /* ===== v1.21.7 열 드래그순서 · 날짜검색 복구 · 모바일 상세 개선 ===== */
     /* 검색창 옆 날짜검색을 다시 노출하고, 기간검색은 별도 한 줄로 펼침 */
     #savedSearchRow .saved-date-filter{
       display:block!important;flex:0 0 150px!important;width:150px!important;min-width:132px!important;
@@ -1624,13 +1624,13 @@
       .workspace-range-strip{grid-template-columns:repeat(2,minmax(0,1fr))!important}
     }
 
-    /* ===== v1.21.6 저장목록 관리항목 상시표시 · 상태/지역폴더 관리 ===== */
+    /* ===== v1.21.7 저장목록 관리항목 상시표시 · 상태/지역폴더 관리 ===== */
     .saved-list-manage-actions{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-right:2px}
     .folder-manager-bottom-actions{display:flex;justify-content:flex-end;padding-top:10px}
     .status-manager-system{font-size:9px;font-weight:850;color:#64748b;margin-left:5px}
     .folder-manager-delete[disabled]{opacity:.38;cursor:not-allowed}
     @media(max-width:720px){.saved-list-manage-actions{width:100%}.saved-list-manage-actions .btn{flex:1 1 120px}.saved-bulk-toolbar{align-items:stretch}.saved-bulk-toolbar>button,.saved-bulk-toolbar>select{min-height:36px}}
-      /* ===== v1.21.6 목록 간소화 · 달력 드래그 일정짜기 · 오류내역 ===== */
+      /* ===== v1.21.7 목록 간소화 · 달력 드래그 일정짜기 · 오류내역 ===== */
     .saved-search-date-reset,.saved-table-filter-reset{white-space:nowrap}
     .saved-review-enrichment-toolbar{gap:6px}
     .saved-review-enrichment-toolbar .review-auto-hint a{color:#2563eb;font-weight:850;text-decoration:underline;text-underline-offset:2px}
@@ -1660,7 +1660,7 @@
     @media(max-width:900px){.feedback-planner-layout.planning{grid-template-columns:minmax(0,1fr) 240px}.feedback-planner-sidebar{position:sticky;top:4px;max-height:82vh}}
     @media(max-width:720px){.feedback-planner-layout.planning{display:block}.feedback-planner-sidebar{position:static;max-height:none;margin-top:8px}.feedback-planner-candidates{max-height:300px}.feedback-plan-candidate{cursor:pointer}.feedback-calendar-head{flex-wrap:wrap}.feedback-calendar-nav{flex-wrap:wrap}}
 
-    /* ===== v1.21.6 모바일 정돈 ===== */
+    /* ===== v1.21.7 모바일 정돈 ===== */
     .public-api-settings-mini{align-self:center;color:#2563eb;font-size:10.5px;font-weight:900;text-decoration:none;white-space:nowrap;padding:5px 3px}
     .public-api-settings-mini:hover{text-decoration:underline}
     @media(max-width:720px){
@@ -1769,7 +1769,7 @@
       footer{display:none!important}
     }
   
-    /* ===== v1.21.6 표 필터초기화 · 열너비 드래그 · 공공자료 오류/참고가 ===== */
+    /* ===== v1.21.7 표 필터초기화 · 열너비 드래그 · 공공자료 오류/참고가 ===== */
     .column-filter-active-summary{align-items:center}
     .saved-table-filter-reset{border:1px solid #cbd5e1;background:#fff;color:#475569;border-radius:8px;padding:4px 8px;font-size:9.5px;font-weight:900;cursor:pointer;white-space:nowrap}
     .saved-table-filter-reset:hover{background:#f8fafc;color:#1d4ed8;border-color:#93c5fd}
@@ -1801,7 +1801,7 @@
     }
 
 
-    /* ===== v1.21.6 저장목록 우선 · 자료완성도 단순화 · 저장설정 압축 ===== */
+    /* ===== v1.21.7 저장목록 우선 · 자료완성도 단순화 · 저장설정 압축 ===== */
     #savedEditorCompactCard{display:none;width:100%;padding:7px 9px!important;margin:0!important;border-radius:10px!important;background:#fff}
     body.detail-open #savedEditorCompactCard{display:block}
     #savedEditorCompactCard.editor-collapsed .saved-editor-area{display:none!important}
@@ -1831,7 +1831,7 @@
       .auction1-enrichment-minimal-note{display:none}.saved-completeness-detail-row>td>div{font-size:9px;padding:6px}.saved-missing-item{padding:2px 5px}
     }
 
-    /* ===== v1.21.6 리사이저 단순화 · 폭 통일 · 자료완성도 바로가기 · 저장목록 접기 ===== */
+    /* ===== v1.21.7 리사이저 단순화 · 폭 통일 · 자료완성도 바로가기 · 저장목록 접기 ===== */
     .table-detail-resize-handle{
       width:100%!important;height:14px!important;min-height:14px!important;
       background:transparent!important;border:0!important;border-radius:0!important;
@@ -1876,7 +1876,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.21.6</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.21.7</span></h1>
       <div class="sub">저장목록에서 물건을 비교하고, 예상 매도가 범위와 목표수익 10~15%를 기준으로 입찰가능가율·순수익·종잣돈 범위를 먼저 판단합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -2060,13 +2060,13 @@
                 <label for="feedbackManagementInfo">10. 미납 관리비 / 납부상태</label>
                 <textarea id="feedbackManagementInfo" rows="2" placeholder="예: 6월분까지 납부완료"></textarea>
               </div>
-              <div class="field">
+              <div class="field full">
                 <label for="feedbackOccupancyInfo">10. 점유상태</label>
-                <input id="feedbackOccupancyInfo" type="text" placeholder="예: 소유자 거주중">
+                <textarea id="feedbackOccupancyInfo" rows="3" placeholder="예: 소유자 거주중 / 현황조사 내용 / 관리사무소·이웃 확인내용 등 길게 기록"></textarea>
               </div>
-              <div class="field">
+              <div class="field full">
                 <label for="feedbackLeakInfo">10. 누수 확인</label>
-                <input id="feedbackLeakInfo" type="text" placeholder="예: 관리사무소 누수신고 없음">
+                <textarea id="feedbackLeakInfo" rows="3" placeholder="예: 관리사무소 누수신고 없음 / 누수 이력·확인일·확인처 등 길게 기록"></textarea>
               </div>
               <div class="field full">
                 <label for="feedbackLoanLimitInfo">12. 대출 한도 확인내용</label>
@@ -2632,7 +2632,7 @@
             <tbody id="summaryTable"></tbody>
           </table>
         </div>
-        <div class="helper" style="margin-top:8px">* v1.21.6에서도 비용메뉴의 <b>최종 필요 종잣돈</b>과 <b>지금 당장 필요 종잣돈</b>은 실제입찰과 같은 상세비용 산식으로 계산합니다. 신탁대출 열의 금액은 저장카드·실제입찰과 같은 신탁대출 기준입니다. 지금 당장 필요 종잣돈은 낙찰가−대출금 + 법무비 + 명도비 + 수리비 + 미납관리비이며, 취등록세(카드납부 전제), 매도 중개수수료, 중도상환수수료, 대출이자는 제외합니다.</div>
+        <div class="helper" style="margin-top:8px">* v1.21.7에서도 비용메뉴의 <b>최종 필요 종잣돈</b>과 <b>지금 당장 필요 종잣돈</b>은 실제입찰과 같은 상세비용 산식으로 계산합니다. 신탁대출 열의 금액은 저장카드·실제입찰과 같은 신탁대출 기준입니다. 지금 당장 필요 종잣돈은 낙찰가−대출금 + 법무비 + 명도비 + 수리비 + 미납관리비이며, 취등록세(카드납부 전제), 매도 중개수수료, 중도상환수수료, 대출이자는 제외합니다.</div>
       </section>
     </main>
     <div id="workspaceResizeHandle" class="no-print" role="separator" aria-orientation="vertical" aria-label="저장목록 너비 조절" title="마우스로 끌어 저장목록 너비 조절"></div>
@@ -2850,7 +2850,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.21.6 엑셀형 열필터·열 드래그·검색/날짜/기간검색·필터초기화·선택열 전체선택/해제 · 상태/별/지역폴더 표에서 바로저장·상태/지역폴더는 각 열 필터에서 관리 · 원문 재분석·공공자료 조회는 선택물건 기준 · 공공자료 오류 사건별 상세기록 · 피드백 달력의 매각기일별 마감표시 유지·오른쪽 후보목록 드래그 일정짜기·동시 2건 자동잠금 · 실거래/호가/부동산 건별 시세기록·15항목 피드백 자동완성 · 실제입찰/대출/비용/입찰결과 기존 기능 유지.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.21.7 엑셀형 열필터·열 드래그·검색/날짜/기간검색·필터초기화·선택열 전체선택/해제 · 상태/별/지역폴더 표에서 바로저장·상태/지역폴더는 각 열 필터에서 관리 · 원문 재분석·공공자료 조회는 선택물건 기준 · 공공자료 오류 사건별 상세기록 · 피드백 달력의 매각기일별 마감표시 유지·오른쪽 후보목록 드래그 일정짜기·동시 2건 자동잠금 · 실거래/호가/부동산 건별 시세기록·15항목 피드백 자동완성 · 실제입찰/대출/비용/입찰결과 기존 기능 유지.</footer>
 </div>
 
 
@@ -5953,7 +5953,7 @@ function renderSaved(){
     savedEditorCollapsed=false;
     applySavedEditorCollapsed();
 
-    /* v1.21.6: 상세/대출/비용/실제입찰 메뉴를 고정 요약박스 안으로 이동 */
+    /* v1.21.7: 상세/대출/비용/실제입찰 메뉴를 고정 요약박스 안으로 이동 */
     const header=$("workspacePropertyHeader"),tabs=$("workspaceTabRail");
     if(header&&tabs&&tabs.parentElement!==header)header.appendChild(tabs);
 
@@ -6754,9 +6754,9 @@ ${error?.message||""}`);}finally{if(btn)btn.disabled=false;}
     markAuctionOneMissingInputs();
   }
 
-  // 기존 저장자료는 자동 적용하지 않습니다. v1.21.6의 후보 확인 모달을 통해서만 선택 적용됩니다.
+  // 기존 저장자료는 자동 적용하지 않습니다. v1.21.7의 후보 확인 모달을 통해서만 선택 적용됩니다.
 
-  // ===== v1.21.6: 옥션원 원문 재분석 / 기존자료 확인적용 / 공공데이터 자동조회 =====
+  // ===== v1.21.7: 옥션원 원문 재분석 / 기존자료 확인적용 / 공공데이터 자동조회 =====
   const PUBLIC_FIELD_LABELS={propertyName:'도로명주소',apartmentAge:'사용승인년도',maxFloor:'최고층',householdCount:'세대수',buildingType:'현관구조',roomCount:'방수',bathCount:'욕실수',direction:'향',selectionTradeActivity:'거래활발도',sameRates:'동일번지 낙찰가율',nearRates:'인근 낙찰가율'};
   let historySuggestionRows=[];
   const publicTradeCache=new Map();
