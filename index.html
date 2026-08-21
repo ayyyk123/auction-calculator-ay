@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.22.0</title>
+  <title>경매 입찰·대출 자금 계산기 v1.22.2</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -358,7 +358,7 @@
     .auction-result-dialog{width:min(620px,100%);max-height:min(90vh,780px);overflow:auto;background:#fff;border-radius:16px;padding:16px;box-shadow:0 24px 70px rgba(15,23,42,.32)}
     .auction-result-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.auction-result-head h2{margin:0;font-size:19px}.auction-result-sub{font-size:11px;color:#64748b;margin-top:3px}
     .auction-result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}.auction-result-grid .full{grid-column:1/-1}
-    .auction-result-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:10px}.auction-result-box{padding:8px;border:1px solid #dbeafe;background:#eff6ff;border-radius:10px}.auction-result-box .k{font-size:10px;color:#64748b}.auction-result-box .v{font-size:15px;font-weight:950;margin-top:2px}
+    .auction-result-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:10px}.auction-result-box{padding:8px;border:1px solid #dbeafe;background:#eff6ff;border-radius:10px}.auction-result-box .k{font-size:10px;color:#64748b}.auction-result-box .v{font-size:15px;font-weight:950;margin-top:2px}
     .auction-result-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:12px}
     .auction-result-close{border:0;background:#f3f4f6;color:#334155;border-radius:8px;width:34px;height:34px;font-size:20px;font-weight:900;cursor:pointer}
     @media(max-width:900px){.screening-input-grid,.screening-select-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.screening-result-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.screening-grade{grid-column:1/-1}}
@@ -487,7 +487,7 @@
     .saved-card-titleblock{min-width:0}
     .saved-card-badges{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
     .saved-status-badge{display:inline-flex;padding:4px 6px;border-radius:7px;font-size:9.5px;font-weight:950;border:1px solid #cbd5e1;background:#f8fafc;color:#475569;white-space:nowrap}
-    .saved-status-badge.review{background:#f1f5f9;border-color:#cbd5e1;color:#475569}.saved-status-badge.pending{background:#fffbeb;border-color:#fde68a;color:#92400e}.saved-status-badge.bid{background:#f0fdf4;border-color:#bbf7d0;color:#166534}.saved-status-badge.no{background:#fef2f2;border-color:#fecaca;color:#991b1b}.saved-status-badge.completed{background:#eef2ff;border-color:#c7d2fe;color:#4338ca}
+    .saved-status-badge.review{background:#f1f5f9;border-color:#cbd5e1;color:#475569}.saved-status-badge.pending{background:#fffbeb;border-color:#fde68a;color:#92400e}.saved-status-badge.bid{background:#f0fdf4;border-color:#bbf7d0;color:#166534}.saved-status-badge.no{background:#fef2f2;border-color:#fecaca;color:#991b1b}.saved-status-badge.not_bid_record{background:#fff7ed;border-color:#fed7aa;color:#9a3412}.saved-status-badge.completed{background:#eef2ff;border-color:#c7d2fe;color:#4338ca}
     .saved-info-line{font-size:10.5px;color:#64748b;margin-top:4px;padding-left:24px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .saved-card-groups{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin-top:7px}
     .saved-card-group{padding:6px 7px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc;min-width:0}
@@ -989,7 +989,7 @@
       display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px
     }
     .actual-income-manual input{padding:7px 4px!important;font-size:10.5px!important}
-    /* v1.22.0 옥션원 목록 텍스트 붙여넣기 + 상태 드래그 */
+    /* v1.22.2 옥션원 목록 텍스트 붙여넣기 + 상태 드래그 */
     .auction-pdf-import-btn{border:1px solid #a7f3d0;background:#ecfdf5;color:#047857;border-radius:8px;padding:6px 9px;font-size:11px;font-weight:950;cursor:pointer;white-space:nowrap}
     .auction-pdf-import-btn:hover{background:#d1fae5}
     .saved-status-dropboard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:7px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:10px}
@@ -1204,7 +1204,7 @@
       .app{max-width:none;padding:0}
     }
   
-    /* v1.22.0 옥션원 자료완성도·목록 일괄자동보완 */
+    /* v1.22.2 옥션원 자료완성도·목록 일괄자동보완 */
     .auction1-enrichment-panel{border:1px solid #c7d2fe;background:linear-gradient(180deg,#f8faff,#fff);border-radius:16px;padding:12px 14px;box-shadow:0 8px 22px rgba(59,76,155,.07)}
     .auction1-enrichment-head{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}.auction1-enrichment-head>div:first-child{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.auction1-enrichment-head strong{font-size:14px;color:#303f73}.auction1-enrichment-head #auctionOneCompletenessText{font-size:12px;font-weight:800;color:#4f46e5;background:#eef2ff;padding:4px 8px;border-radius:999px}
     .auction1-enrichment-actions{display:flex;gap:6px;flex-wrap:wrap}.auction1-enrichment-actions .btn{padding:6px 9px;font-size:12px}
@@ -1216,11 +1216,11 @@
     .saved-completeness-line{font-size:11px;color:#64748b;margin-top:6px}.saved-completeness-line b{color:#334155}.auction1-badge-soft{display:inline-flex;align-items:center;padding:3px 6px;border-radius:999px;font-size:10px;font-weight:800;background:#eef2ff;color:#4338ca}.unknown-pill{background:#f1f5f9!important;color:#64748b!important;border-color:#e2e8f0!important}
     @media(max-width:900px){.auction1-completeness-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.auction1-source-grid{grid-template-columns:1fr}}
 
-    /* v1.22.0 원문 재분석 · 공공데이터 · 기존자료 확인적용 */
+    /* v1.22.2 원문 재분석 · 공공데이터 · 기존자료 확인적용 */
     .data-modal{position:fixed;inset:0;background:rgba(15,23,42,.52);z-index:9998;display:flex;align-items:center;justify-content:center;padding:18px}.data-modal[hidden]{display:none!important}.data-dialog{width:min(1040px,96vw);max-height:90vh;overflow:auto;background:#fff;border-radius:18px;box-shadow:0 24px 80px rgba(15,23,42,.28);padding:18px}.data-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}.data-head h2{margin:0;font-size:18px}.data-head p{margin:5px 0 0;color:#64748b;font-size:12px;line-height:1.5}.data-close{border:0;background:#f1f5f9;border-radius:9px;width:34px;height:34px;font-size:20px;cursor:pointer}.data-actions{display:flex;gap:7px;justify-content:flex-end;flex-wrap:wrap;margin-top:12px}.data-table-wrap{overflow:auto;border:1px solid #e5e7eb;border-radius:12px}.data-table{width:100%;border-collapse:collapse;font-size:12px;min-width:780px}.data-table th,.data-table td{padding:8px;border-bottom:1px solid #eef2f7;text-align:left;vertical-align:top}.data-table th{background:#f8fafc;position:sticky;top:0;z-index:1}.data-table tr.conflict{background:#fff7ed}.data-table tr.safe{background:#f8fff9}.data-source-chip{display:inline-flex;padding:2px 6px;border-radius:999px;background:#eef2ff;color:#4338ca;font-size:10px;font-weight:800}.data-conflict{font-size:10px;font-weight:900;color:#c2410c}.api-settings-grid{display:grid;grid-template-columns:1fr;gap:10px}.api-key-note{padding:10px;border-radius:10px;background:#f8fafc;color:#475569;font-size:11px;line-height:1.55}.public-data-summary{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.public-data-chip{font-size:10px;font-weight:800;padding:3px 6px;border-radius:999px;background:#ecfeff;color:#155e75;border:1px solid #cffafe}.public-data-chip.price{background:#f0fdf4;color:#166534;border-color:#bbf7d0}.public-data-chip.warn{background:#fff7ed;color:#9a3412;border-color:#fed7aa}.api-progress{font-size:11px;color:#475569;padding:8px 10px;background:#f8fafc;border-radius:9px;margin-top:8px}.history-group-row td{background:#eef2ff!important;color:#3730a3;font-weight:900}.field-source-note{display:block;font-size:9px;color:#64748b;margin-top:2px}.saved-review-enrichment-toolbar{align-items:center}.saved-review-enrichment-toolbar .review-auto-hint{flex-basis:100%;order:10}.auction1-complete-field .src{font-size:8.5px;color:#94a3b8;margin-left:2px}
 
 
-    /* ===== v1.22.0 표목록형 · 접이식 상세 · 비교 · 시세 · 피드백 경우의수 ===== */
+    /* ===== v1.22.2 표목록형 · 접이식 상세 · 비교 · 시세 · 피드백 경우의수 ===== */
     :root{--saved-table-height:62vh}
     #calculatorView.layout{display:flex!important;flex-direction:column!important;gap:8px!important;max-width:none!important}
     #calculatorView>.sticky-side{display:none!important}
@@ -1247,7 +1247,7 @@
     .saved-list-table .col-star{min-width:82px;width:82px;text-align:center}
     .saved-list-table .col-folder{min-width:128px;max-width:170px}
     .saved-inline-control{max-width:100%;height:27px;padding:3px 22px 3px 6px;border:1px solid #cbd5e1;border-radius:7px;background:#fff;color:#334155;font-size:10px;font-weight:850;cursor:pointer}
-    .saved-inline-state.pending{background:#fffbeb;border-color:#fde68a;color:#92400e}.saved-inline-state.bid{background:#f0fdf4;border-color:#bbf7d0;color:#166534}.saved-inline-state.no{background:#fef2f2;border-color:#fecaca;color:#991b1b}.saved-inline-state.completed{background:#eff6ff;border-color:#bfdbfe;color:#1e40af}
+    .saved-inline-state.pending{background:#fffbeb;border-color:#fde68a;color:#92400e}.saved-inline-state.bid{background:#f0fdf4;border-color:#bbf7d0;color:#166534}.saved-inline-state.no{background:#fef2f2;border-color:#fecaca;color:#991b1b}.saved-inline-state.not_bid_record{background:#fff7ed;border-color:#fed7aa;color:#9a3412}.saved-inline-state.completed{background:#eff6ff;border-color:#bfdbfe;color:#1e40af}
     .saved-inline-folder{width:100%;min-width:118px;font-weight:750}
     .saved-list-table .feedback-star-control{display:inline-flex;position:relative;justify-content:center}
     .saved-list-table .feedback-star-control .star-menu{z-index:10020}
@@ -1263,7 +1263,7 @@
     .saved-table-filterbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:7px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:9px}
     .saved-table-filterbar label{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:850;color:#475569}
     .saved-table-filterbar select{padding:5px 7px;font-size:10.5px;min-width:90px}
-    /* v1.22.0 엑셀형 헤더 필터 */
+    /* v1.22.2 엑셀형 헤더 필터 */
     #savedSearchRow,#savedDateRangeRow,.view-tabs,.decision-filter-tabs,.grade-filter-tabs,#savedTableFilterBar,.star-filter-tabs,#folderNav,.sort-row{display:none!important}
     .saved-toolbar{display:flex!important;flex-direction:column!important;gap:7px!important}
     .saved-review-enrichment-toolbar{order:1}
@@ -1302,7 +1302,7 @@
     .column-filter-chip button{border:0;background:transparent;color:#2563eb;padding:0;cursor:pointer;font-weight:950}
     @media(max-width:800px){.column-filter-menu{width:min(300px,calc(100vw - 12px))}.saved-review-enrichment-toolbar .review-auto-hint{display:none}}
 
-    /* v1.22.0 피드백 일정 선택모드 */
+    /* v1.22.2 피드백 일정 선택모드 */
     .saved-bulk-toolbar{gap:6px;align-items:center;flex-wrap:wrap}
     .feedback-plan-launch{background:#7c3aed!important;border-color:#7c3aed!important;color:#fff!important}
     .feedback-plan-launch.active{background:#5b21b6!important;border-color:#5b21b6!important;box-shadow:0 0 0 2px rgba(124,58,237,.15)}
@@ -1388,13 +1388,15 @@
     .scenario-option .drop{margin-top:4px;font-size:10px;color:#b45309}
     .scenario-conflict{font-size:10px;color:#b91c1c;padding:8px 9px;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px}
 
-    /* ===== v1.22.0 시세 조사 건별입력 + 피드백 15항목 자동완성 ===== */
+    /* ===== v1.22.2 시세 조사 건별입력 + 피드백 15항목 자동완성 ===== */
     .market-research-stack{display:grid;gap:10px}
     .market-section-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;flex-wrap:wrap}
     .market-section-title-row h3{margin:0 0 3px;font-size:13px}
     .market-entry-list{display:grid;gap:7px;margin-top:8px}
     .market-entry-row{display:grid;grid-template-columns:140px 90px 70px minmax(220px,1fr) auto;gap:6px;align-items:start;padding:7px;border:1px solid #e2e8f0;border-radius:9px;background:#f8fafc}
     .market-entry-row.broker{grid-template-columns:170px 150px minmax(260px,1fr) auto}
+    .market-entry-row.trade-manual{grid-template-columns:130px 140px 90px 70px minmax(220px,1fr) auto}
+    .market-trade-subhead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid #eef2f7;font-size:10px;font-weight:900;color:#475569}
     .market-entry-row input,.market-entry-row textarea{width:100%}
     .market-entry-row textarea{min-height:54px;resize:vertical}
     .market-entry-label{font-size:9px;font-weight:900;color:#64748b;margin-bottom:2px}
@@ -1424,8 +1426,8 @@
       .feedback-form-card.full{grid-column:auto}
       .feedback-structured-grid{grid-template-columns:1fr}
       .feedback-structured-grid .full{grid-column:auto}
-      .market-entry-row,.market-entry-row.broker{grid-template-columns:1fr 1fr}
-      .market-entry-row .entry-memo,.market-entry-row.broker .entry-memo{grid-column:1/-1}
+      .market-entry-row,.market-entry-row.broker,.market-entry-row.trade-manual{grid-template-columns:1fr 1fr}
+      .market-entry-row .entry-memo,.market-entry-row.broker .entry-memo,.market-entry-row.trade-manual .entry-memo{grid-column:1/-1}
       .market-entry-remove{grid-column:1/-1;justify-self:end}
       .market-trade-note-row{grid-template-columns:70px 45px 85px;align-items:start}
       .market-trade-note-row .trade-note{grid-column:1/-1}
@@ -1438,7 +1440,7 @@
 
 
 
-    /* ===== v1.22.0 저장목록 검색 복구 ===== */
+    /* ===== v1.22.2 저장목록 검색 복구 ===== */
     #savedSearchRow{
       display:flex!important;
       align-items:center!important;
@@ -1454,7 +1456,7 @@
     #savedSearchRow #savedDateRangeToggle{display:none!important}
     #savedSearchRow .saved-search-clear{flex:0 0 auto!important}
 
-    /* ===== v1.22.0 상세 상단 초압축 + 항상 보이는 상세메뉴 + 실제 작동 세로 리사이저 ===== */
+    /* ===== v1.22.2 상세 상단 초압축 + 항상 보이는 상세메뉴 + 실제 작동 세로 리사이저 ===== */
     .workspace-property-header{
       padding:7px 9px!important;
       margin-bottom:5px!important;
@@ -1515,7 +1517,7 @@
     }
 
 
-    /* ===== v1.22.0 열 드래그순서 · 날짜검색 복구 · 모바일 상세 개선 ===== */
+    /* ===== v1.22.2 열 드래그순서 · 날짜검색 복구 · 모바일 상세 개선 ===== */
     /* 검색창 옆 날짜검색을 다시 노출하고, 기간검색은 별도 한 줄로 펼침 */
     #savedSearchRow .saved-date-filter{
       display:block!important;flex:0 0 150px!important;width:150px!important;min-width:132px!important;
@@ -1626,13 +1628,13 @@
       .workspace-range-strip{grid-template-columns:repeat(2,minmax(0,1fr))!important}
     }
 
-    /* ===== v1.22.0 저장목록 관리항목 상시표시 · 상태/지역폴더 관리 ===== */
+    /* ===== v1.22.2 저장목록 관리항목 상시표시 · 상태/지역폴더 관리 ===== */
     .saved-list-manage-actions{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-right:2px}
     .folder-manager-bottom-actions{display:flex;justify-content:flex-end;padding-top:10px}
     .status-manager-system{font-size:9px;font-weight:850;color:#64748b;margin-left:5px}
     .folder-manager-delete[disabled]{opacity:.38;cursor:not-allowed}
     @media(max-width:720px){.saved-list-manage-actions{width:100%}.saved-list-manage-actions .btn{flex:1 1 120px}.saved-bulk-toolbar{align-items:stretch}.saved-bulk-toolbar>button,.saved-bulk-toolbar>select{min-height:36px}}
-      /* ===== v1.22.0 목록 간소화 · 달력 드래그 일정짜기 · 오류내역 ===== */
+      /* ===== v1.22.2 목록 간소화 · 달력 드래그 일정짜기 · 오류내역 ===== */
     .saved-search-date-reset,.saved-table-filter-reset{white-space:nowrap}
     .saved-review-enrichment-toolbar{gap:6px}
     .saved-review-enrichment-toolbar .review-auto-hint a{color:#2563eb;font-weight:850;text-decoration:underline;text-underline-offset:2px}
@@ -1662,7 +1664,7 @@
     @media(max-width:900px){.feedback-planner-layout.planning{grid-template-columns:minmax(0,1fr) 240px}.feedback-planner-sidebar{position:sticky;top:4px;max-height:82vh}}
     @media(max-width:720px){.feedback-planner-layout.planning{display:block}.feedback-planner-sidebar{position:static;max-height:none;margin-top:8px}.feedback-planner-candidates{max-height:300px}.feedback-plan-candidate{cursor:pointer}.feedback-calendar-head{flex-wrap:wrap}.feedback-calendar-nav{flex-wrap:wrap}}
 
-    /* ===== v1.22.0 모바일 정돈 ===== */
+    /* ===== v1.22.2 모바일 정돈 ===== */
     .public-api-settings-mini{align-self:center;color:#2563eb;font-size:10.5px;font-weight:900;text-decoration:none;white-space:nowrap;padding:5px 3px}
     .public-api-settings-mini:hover{text-decoration:underline}
     @media(max-width:720px){
@@ -1771,7 +1773,7 @@
       footer{display:none!important}
     }
   
-    /* ===== v1.22.0 표 필터초기화 · 열너비 드래그 · 공공자료 오류/참고가 ===== */
+    /* ===== v1.22.2 표 필터초기화 · 열너비 드래그 · 공공자료 오류/참고가 ===== */
     .column-filter-active-summary{align-items:center}
     .saved-table-filter-reset{border:1px solid #cbd5e1;background:#fff;color:#475569;border-radius:8px;padding:4px 8px;font-size:9.5px;font-weight:900;cursor:pointer;white-space:nowrap}
     .saved-table-filter-reset:hover{background:#f8fafc;color:#1d4ed8;border-color:#93c5fd}
@@ -1803,7 +1805,7 @@
     }
 
 
-    /* ===== v1.22.0 저장목록 우선 · 자료완성도 단순화 · 저장설정 압축 ===== */
+    /* ===== v1.22.2 저장목록 우선 · 자료완성도 단순화 · 저장설정 압축 ===== */
     #savedEditorCompactCard{display:none;width:100%;padding:7px 9px!important;margin:0!important;border-radius:10px!important;background:#fff}
     body.detail-open #savedEditorCompactCard{display:block}
     #savedEditorCompactCard.editor-collapsed .saved-editor-area{display:none!important}
@@ -1833,7 +1835,7 @@
       .auction1-enrichment-minimal-note{display:none}.saved-completeness-detail-row>td>div{font-size:9px;padding:6px}.saved-missing-item{padding:2px 5px}
     }
 
-    /* ===== v1.22.0 리사이저 단순화 · 폭 통일 · 자료완성도 바로가기 · 저장목록 접기 ===== */
+    /* ===== v1.22.2 리사이저 단순화 · 폭 통일 · 자료완성도 바로가기 · 저장목록 접기 ===== */
     .table-detail-resize-handle{
       width:100%!important;height:14px!important;min-height:14px!important;
       background:transparent!important;border:0!important;border-radius:0!important;
@@ -1873,7 +1875,7 @@
       .table-detail-resize-handle{height:12px!important;min-height:12px!important}
     }
 
-    /* ===== v1.22.0 모바일 저장목록 전체열 + 모바일 높이조절 제거 ===== */
+    /* ===== v1.22.2 모바일 저장목록 전체열 + 모바일 높이조절 제거 ===== */
     @media(max-width:720px){
       /* PC에서 보이는 저장목록 열을 모바일에서도 숨기지 않고 그대로 가로스크롤로 확인 */
       .saved-list{overflow-x:auto!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important}
@@ -1901,7 +1903,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.22.0</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.22.2</span></h1>
       <div class="sub">저장목록에서 물건을 비교하고, 예상 매도가 범위와 목표수익 10~15%를 기준으로 입찰가능가율·순수익·종잣돈 범위를 먼저 판단합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -1995,9 +1997,12 @@
             <div class="market-section-title-row">
               <div>
                 <h3>실거래</h3>
-                <div class="helper">공공자료 자동조회로 가져온 동일면적 실거래입니다. 각 거래 옆 메모에는 부동산 조사 후 확인한 수리·뷰·특수거래 여부 등을 적어두세요.</div>
+                <div class="helper">공공자료 자동조회값과 수기 입력값을 함께 기록합니다. 자동조회가 실패해도 직접 추가할 수 있고, 각 건 옆에 수리·뷰·특수거래 여부 등 메모를 남길 수 있습니다.</div>
               </div>
-              <div id="workspaceMarketStats" class="public-data-summary"></div>
+              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end">
+                <div id="workspaceMarketStats" class="public-data-summary"></div>
+                <button class="btn light no-print" id="marketManualTradeAddBtn" type="button">+ 실거래 수기 추가</button>
+              </div>
             </div>
             <div id="workspacePublicReferenceBox" class="public-reference-box" hidden></div>
             <div id="workspaceMarketTrades" class="market-trade-list market-trade-note-list" style="margin-top:8px"></div>
@@ -2657,7 +2662,7 @@
             <tbody id="summaryTable"></tbody>
           </table>
         </div>
-        <div class="helper" style="margin-top:8px">* v1.22.0에서도 비용메뉴의 <b>최종 필요 종잣돈</b>과 <b>지금 당장 필요 종잣돈</b>은 실제입찰과 같은 상세비용 산식으로 계산합니다. 신탁대출 열의 금액은 저장카드·실제입찰과 같은 신탁대출 기준입니다. 지금 당장 필요 종잣돈은 낙찰가−대출금 + 법무비 + 명도비 + 수리비 + 미납관리비이며, 취등록세(카드납부 전제), 매도 중개수수료, 중도상환수수료, 대출이자는 제외합니다.</div>
+        <div class="helper" style="margin-top:8px">* v1.22.2에서도 비용메뉴의 <b>최종 필요 종잣돈</b>과 <b>지금 당장 필요 종잣돈</b>은 실제입찰과 같은 상세비용 산식으로 계산합니다. 신탁대출 열의 금액은 저장카드·실제입찰과 같은 신탁대출 기준입니다. 지금 당장 필요 종잣돈은 낙찰가−대출금 + 법무비 + 명도비 + 수리비 + 미납관리비이며, 취등록세(카드납부 전제), 매도 중개수수료, 중도상환수수료, 대출이자는 제외합니다.</div>
       </section>
     </main>
     <div id="workspaceResizeHandle" class="no-print" role="separator" aria-orientation="vertical" aria-label="저장목록 너비 조절" title="마우스로 끌어 저장목록 너비 조절"></div>
@@ -2690,8 +2695,9 @@
                 <option value="review">미검토</option>
                 <option value="pending">고민중</option>
                 <option value="bid">입찰하기</option>
-                <option value="completed">입찰완료</option>
                 <option value="no">입찰 안 함</option>
+                <option value="not_bid_record">미입찰기록</option>
+                <option value="completed">입찰완료</option>
               </select>
               <span class="star-control" id="calculatorStarControl">
                 <button class="star-toggle none" id="calculatorStarToggle" type="button" aria-label="관심 별표 선택" title="관심 별표 선택">☆</button>
@@ -2875,7 +2881,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.22.0 엑셀형 열필터·PC 열 드래그·PC→모바일 열순서 자동동기화·검색/날짜/기간검색·필터초기화·선택열 전체선택/해제 · 상태/별/지역폴더 표에서 바로저장·상태/지역폴더는 각 열 필터에서 관리 · 원문 재분석·공공자료 조회는 선택물건 기준 · 공공자료 오류 사건별 상세기록 · 피드백 달력의 매각기일별 마감표시 유지·오른쪽 후보목록 드래그 일정짜기·동시 2건 자동잠금 · 실거래/호가/부동산 건별 시세기록·15항목 피드백 자동완성 · 실제입찰/대출/비용 유지 · 입찰결과에 미입찰 결과기록·매각결과 필터·긴 메모 추가.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.22.2 엑셀형 열필터·PC 열 드래그·PC→모바일 열순서 자동동기화·검색/날짜/기간검색·필터초기화·선택열 전체선택/해제 · 상태/별/지역폴더 표에서 바로저장·상태/지역폴더는 각 열 필터에서 관리 · 원문 재분석·공공자료 조회는 선택물건 기준 · 공공자료 오류 사건별 상세기록 · 피드백 달력의 매각기일별 마감표시 유지·오른쪽 후보목록 드래그 일정짜기·동시 2건 자동잠금 · 실거래/호가/부동산 건별 시세기록·15항목 피드백 자동완성 · 실제입찰/대출/비용 유지 · 입찰결과에 미입찰기록 상태·예정입찰가/낙찰가 차이금액·차이율·매각결과 필터·긴 메모 추가.</footer>
 </div>
 
 
@@ -3036,7 +3042,7 @@
     <div class="auction-result-grid">
       <div class="field"><label for="auctionResultStatus">결과</label><select id="auctionResultStatus"><option value="">선택</option><option value="not_bid">미입찰 · 결과만 기록</option><option value="won">낙찰</option><option value="failed">패찰</option><option value="invalid">무효</option><option value="cancelled">취하·변경</option><option value="absent">불참</option></select></div>
       <div class="field"><label for="auctionResultDate">결과일</label><input id="auctionResultDate" type="date"></div>
-      <div class="field"><label for="auctionResultMyBid">내 실제 입찰가</label><div class="money-wrap"><input id="auctionResultMyBid" type="text" inputmode="numeric" data-money><span class="suffix">원</span></div></div>
+      <div class="field"><label for="auctionResultMyBid" id="auctionResultMyBidLabel">내 실제 입찰가</label><div class="money-wrap"><input id="auctionResultMyBid" type="text" inputmode="numeric" data-money><span class="suffix">원</span></div><div class="helper" id="auctionResultMyBidHelper" hidden>실제로 입찰하지 않았더라도 당시 쓰려고 했던 금액을 기록하세요.</div></div>
       <div class="field"><label for="auctionResultWinningBid">매각금액(실제 낙찰가)</label><div class="money-wrap"><input id="auctionResultWinningBid" type="text" inputmode="numeric" data-money><span class="suffix">원</span></div></div>
       <div class="field"><label for="auctionResultBidderCount">총 입찰자 수</label><input id="auctionResultBidderCount" type="number" min="0" step="1" placeholder="예: 8"></div>
       <div class="field"><label for="auctionResultRank">내 순위(알면)</label><input id="auctionResultRank" type="number" min="1" step="1" placeholder="예: 2"></div>
@@ -3044,8 +3050,9 @@
     </div>
     <div class="auction-result-summary">
       <div class="auction-result-box"><div class="k">낙찰가율</div><div class="v" id="auctionResultWinningRate">-</div></div>
-      <div class="auction-result-box"><div class="k">낙찰가 − 내 입찰가</div><div class="v" id="auctionResultGap">-</div></div>
-      <div class="auction-result-box"><div class="k">내 입찰가율</div><div class="v" id="auctionResultMyRate">-</div></div>
+      <div class="auction-result-box"><div class="k" id="auctionResultGapLabel">낙찰가 − 내 입찰가</div><div class="v" id="auctionResultGap">-</div></div>
+      <div class="auction-result-box"><div class="k">차이율</div><div class="v" id="auctionResultGapRate">-</div></div>
+      <div class="auction-result-box"><div class="k" id="auctionResultMyRateLabel">내 입찰가율</div><div class="v" id="auctionResultMyRate">-</div></div>
     </div>
     <div class="auction-result-actions"><button class="btn" id="auctionResultSaveBtn" type="button">입찰결과 저장</button><button class="btn light" id="auctionResultClearBtn" type="button">결과 삭제</button><button class="btn light" id="auctionResultCloseBottomBtn" type="button">닫기</button></div>
   </div>
@@ -3226,6 +3233,7 @@ const db = getFirestore(firebaseApp);
     {key:"pending",label:"고민중",system:true},
     {key:"bid",label:"입찰 O",system:true},
     {key:"no",label:"입찰 X",system:true},
+    {key:"not_bid_record",label:"미입찰기록",system:true},
     {key:"completed",label:"입찰완료",system:true}
   ];
   const ACTUAL_BID_PRESETS_KEY = "auctionBidCalculator.actualBidPresets.v1";
@@ -3234,7 +3242,7 @@ const db = getFirestore(firebaseApp);
   const PUBLIC_BATCH_ERRORS_KEY = "auctionBidCalculator.publicBatchErrors.v1";
   const PUBLIC_DATA_TTL_MS = 24*60*60*1000;
   const DEFAULT_SECTION_ORDER = ["basic","screening","rates","loan","dsr","result"];
-  const APP_SCHEMA_VERSION = 21;
+  const APP_SCHEMA_VERSION = 22;
   const deviceId = localStorage.getItem(DEVICE_ID_KEY) ||
     (crypto.randomUUID ? crypto.randomUUID() : `device-${Date.now()}-${Math.random().toString(36).slice(2)}`);
   localStorage.setItem(DEVICE_ID_KEY, deviceId);
@@ -5232,7 +5240,8 @@ const db = getFirestore(firebaseApp);
   }
   function recordDecision(item){
     const resultStatus=String(item?.state?.auctionResult?.status||"");
-    if(resultStatus&&resultStatus!=="not_bid")return "completed";
+    if(resultStatus==="not_bid")return "not_bid_record";
+    if(resultStatus)return "completed";
     const actualReady = !!item?.state?.actualBid;
     const value = stateText(item,"bidDecision",actualReady ? "bid" : "review");
     return statusDef(value) ? value : "review";
@@ -5615,7 +5624,7 @@ const db = getFirestore(firebaseApp);
       selectedFolder = String(saved.selectedFolder || "");
       savedSortKey = ["auctionDate","screenGrade","bidRoom","minEquity","householdEquity","trustEquity","mortgageEquity","updatedAt"].includes(saved.savedSortKey) ? saved.savedSortKey : "auctionDate";
       savedSortDirection = saved.savedSortDirection === "desc" ? "desc" : "asc";
-      const validDecisionFilters = ["review","pending","no","bid","completed"];
+      const validDecisionFilters = ["review","pending","no","bid","not_bid_record","completed"];
       if (Array.isArray(saved.savedDecisionFilters)){
         savedDecisionFilters = [...new Set(
           saved.savedDecisionFilters.filter(value => validDecisionFilters.includes(value))
@@ -5928,37 +5937,45 @@ function renderSaved(){
 
   function auctionResultLabel(status){return ({not_bid:"미입찰",won:"낙찰",failed:"패찰",invalid:"무효",cancelled:"취하·변경",absent:"불참"})[status]||"미입력";}
   function auctionResultSavedLine(item,data){
-    const appraisal=stateNumber(item,"appraisal",0),my=Number(data?.myBidPrice)||0,win=Number(data?.winningBidPrice)||0;
+    const appraisal=stateNumber(item,"appraisal",0),notBid=data?.status==="not_bid",my=notBid?(Number(data?.plannedBidPrice)||Number(data?.myBidPrice)||0):(Number(data?.myBidPrice)||0),win=Number(data?.winningBidPrice)||0;
     const parts=[auctionResultLabel(data?.status)];
-    if(my)parts.push(`내 입찰 ${shortWon(my)}${appraisal?`(${pct(my/appraisal*100)})`:""}`);
+    if(my)parts.push(`${notBid?"예정":"내 입찰"} ${shortWon(my)}${appraisal?`(${pct(my/appraisal*100)})`:""}`);
     if(win)parts.push(`낙찰 ${shortWon(win)}${appraisal?`(${pct(win/appraisal*100)})`:""}`);
-    if(my&&win)parts.push(`차이 ${win-my>=0?"+":"−"}${shortWon(Math.abs(win-my))}`);
+    if(my&&win){const gapRate=(win-my)/my*100;parts.push(`차이 ${win-my>=0?"+":"−"}${shortWon(Math.abs(win-my))}(${gapRate>=0?"+":""}${pct(gapRate)})`);}
     if(Number(data?.bidderCount)>0)parts.push(`입찰자 ${Number(data.bidderCount)}명`);
     return `<div class="auction-result-line">${escapeHtml(parts.join(" · "))}</div>`;
   }
   function defaultAuctionResult(item){
-    const saved=item?.state?.auctionResult||{};return {status:"",resultDate:stateText(item,"auctionDate",todayYmd()),myBidPrice:0,winningBidPrice:0,bidderCount:0,rank:0,memo:"",...saved};
+    const saved=item?.state?.auctionResult||{};return {status:"",resultDate:stateText(item,"auctionDate",todayYmd()),myBidPrice:0,plannedBidPrice:0,winningBidPrice:0,bidderCount:0,rank:0,memo:"",...saved};
   }
   function fillAuctionResultForm(data){
     $("auctionResultStatus").value=data.status||"";$("auctionResultDate").value=data.resultDate||"";
-    $("auctionResultMyBid").value=data.myBidPrice||"";formatMoneyInput($("auctionResultMyBid"));
+    const bidValue=data.status==="not_bid"?(Number(data.plannedBidPrice)||Number(data.myBidPrice)||0):(Number(data.myBidPrice)||0);
+    $("auctionResultMyBid").value=bidValue||"";formatMoneyInput($("auctionResultMyBid"));
     $("auctionResultWinningBid").value=data.winningBidPrice||"";formatMoneyInput($("auctionResultWinningBid"));
     $("auctionResultBidderCount").value=data.bidderCount||"";$("auctionResultRank").value=data.rank||"";$("auctionResultMemo").value=data.memo||"";updateAuctionResultParticipationUi(false);renderAuctionResultSummary();
   }
   function updateAuctionResultParticipationUi(clearWhenNotBid=true){
-    const notBid=$("auctionResultStatus")?.value==="not_bid",my=$("auctionResultMyBid"),rank=$("auctionResultRank");
-    if(my){my.disabled=notBid;if(notBid&&clearWhenNotBid){my.value="";}}
-    if(rank){rank.disabled=notBid;if(notBid&&clearWhenNotBid){rank.value="";}}
-    const myField=my?.closest(".field"),rankField=rank?.closest(".field");
-    if(myField)myField.style.opacity=notBid?".45":"";if(rankField)rankField.style.opacity=notBid?".45":"";
+    const notBid=$("auctionResultStatus")?.value==="not_bid",my=$("auctionResultMyBid"),rank=$("auctionResultRank"),label=$("auctionResultMyBidLabel"),helper=$("auctionResultMyBidHelper");
+    if(my){my.disabled=false;my.placeholder=notBid?"입찰했다면 쓰려고 했던 금액":"실제로 쓴 입찰금액";}
+    if(label)label.textContent=notBid?"내가 입찰하려던 금액":"내 실제 입찰가";
+    if(helper)helper.hidden=!notBid;
+    if(rank){rank.disabled=notBid;if(notBid&&clearWhenNotBid)rank.value="";}
+    const rankField=rank?.closest(".field");if(rankField)rankField.style.opacity=notBid?".45":"";
+    if($("auctionResultGapLabel"))$("auctionResultGapLabel").textContent=notBid?"낙찰가 − 예정 입찰가":"낙찰가 − 내 입찰가";
+    if($("auctionResultMyRateLabel"))$("auctionResultMyRateLabel").textContent=notBid?"예정 입찰가율":"내 입찰가율";
   }
-  function collectAuctionResultForm(){return {status:$("auctionResultStatus").value||"",resultDate:$("auctionResultDate").value||"",myBidPrice:num("auctionResultMyBid"),winningBidPrice:num("auctionResultWinningBid"),bidderCount:Math.max(0,Number($("auctionResultBidderCount").value)||0),rank:Math.max(0,Number($("auctionResultRank").value)||0),memo:String($("auctionResultMemo").value||"").trim(),updatedAtMs:Date.now()};}
+  function collectAuctionResultForm(){
+    const status=$("auctionResultStatus").value||"",bid=num("auctionResultMyBid");
+    return {status,resultDate:$("auctionResultDate").value||"",myBidPrice:status==="not_bid"?0:bid,plannedBidPrice:status==="not_bid"?bid:0,winningBidPrice:num("auctionResultWinningBid"),bidderCount:Math.max(0,Number($("auctionResultBidderCount").value)||0),rank:status==="not_bid"?0:Math.max(0,Number($("auctionResultRank").value)||0),memo:String($("auctionResultMemo").value||"").trim(),updatedAtMs:Date.now()};
+  }
   function renderAuctionResultSummary(){
     if(!auctionResultRecordId)return;const item=rawLocalRecords().find(x=>x.id===auctionResultRecordId&&!x.deleted);if(!item)return;
-    const appraisal=stateNumber(item,"appraisal",0),my=num("auctionResultMyBid"),win=num("auctionResultWinningBid");
+    const appraisal=stateNumber(item,"appraisal",0),my=num("auctionResultMyBid"),win=num("auctionResultWinningBid"),gapRate=my>0&&win>0?(win-my)/my*100:null;
     $("auctionResultWinningRate").textContent=appraisal>0&&win>0?pct(win/appraisal*100):"-";
     $("auctionResultMyRate").textContent=appraisal>0&&my>0?pct(my/appraisal*100):"-";
     $("auctionResultGap").textContent=my>0&&win>0?`${win-my>=0?"+":"−"}${shortWon(Math.abs(win-my))}`:"-";
+    $("auctionResultGapRate").textContent=gapRate===null?"-":`${gapRate>=0?"+":""}${pct(gapRate)}`;
   }
   function openAuctionResult(id){
     if (!document.body.classList.contains("detail-open") && $("auctionResultModal")?.parentElement!==document.body){restoreWorkspaceModals();}
@@ -5971,13 +5988,13 @@ function renderSaved(){
     if(!requireCloudReady()||!auctionResultRecordId)return;const data=collectAuctionResultForm();if(!data.status){alert("입찰결과를 선택해주세요.");return;}
     const now=Date.now();$("auctionResultSaveBtn").disabled=true;if($("auctionResultSaveTopBtn"))$("auctionResultSaveTopBtn").disabled=true;setSyncStatus("입찰결과 저장 중…","warn");
     try{
-      const saved=await runTransaction(db,async transaction=>{const ref=recordRef(auctionResultRecordId),snap=await transaction.get(ref);if(!snap.exists())throw new Error("저장자료를 찾을 수 없습니다.");const cloud=snap.data(),rev=Number(cloud.revision||0);if(rev!==auctionResultBaseRevision)throw new SyncConflictError();const priorDecision=String(cloud.state?.fields?.bidDecision||"pending");const savedData={...data};const state={...(cloud.state||{})};state.fields={...(state.fields||{})};if(data.status==="not_bid"){savedData.myBidPrice=0;savedData.rank=0;savedData.previousBidDecision=priorDecision;state.auctionResult=savedData;}else{savedData.previousBidDecision=String(cloud.state?.auctionResult?.previousBidDecision||priorDecision||"bid");state.auctionResult=savedData;state.fields.bidDecision="completed";}state.feedback={...(state.feedback||{})};if(data.status==="won")state.feedback.result="won";else if(data.status==="failed")state.feedback.result="failed";else if(["cancelled","invalid","absent","not_bid"].includes(data.status)&&state.feedback.requested)state.feedback.result="cancelled";const next={...cloud,state,revision:rev+1,deleted:false,checksum:checksum({title:cloud.title,state,deleted:false}),updatedAt:serverTimestamp(),updatedAtMs:now,deviceId,schemaVersion:APP_SCHEMA_VERSION};transaction.set(ref,next,{merge:false});return normalizeCloudRecord(auctionResultRecordId,next);});
+      const saved=await runTransaction(db,async transaction=>{const ref=recordRef(auctionResultRecordId),snap=await transaction.get(ref);if(!snap.exists())throw new Error("저장자료를 찾을 수 없습니다.");const cloud=snap.data(),rev=Number(cloud.revision||0);if(rev!==auctionResultBaseRevision)throw new SyncConflictError();const priorDecision=String(cloud.state?.fields?.bidDecision||"pending");const oldResult=cloud.state?.auctionResult||{};const savedData={...data};const state={...(cloud.state||{})};state.fields={...(state.fields||{})};if(data.status==="not_bid"){savedData.myBidPrice=0;savedData.rank=0;savedData.previousBidDecision=String(oldResult.previousBidDecision||(priorDecision==="not_bid_record"?"no":priorDecision)||"no");state.auctionResult=savedData;state.fields.bidDecision="not_bid_record";}else{savedData.plannedBidPrice=0;savedData.previousBidDecision=String(oldResult.previousBidDecision||(priorDecision==="not_bid_record"?"bid":priorDecision)||"bid");state.auctionResult=savedData;state.fields.bidDecision="completed";}state.feedback={...(state.feedback||{})};if(data.status==="won")state.feedback.result="won";else if(data.status==="failed")state.feedback.result="failed";else if(["cancelled","invalid","absent","not_bid"].includes(data.status)&&state.feedback.requested)state.feedback.result="cancelled";const next={...cloud,state,revision:rev+1,deleted:false,checksum:checksum({title:cloud.title,state,deleted:false}),updatedAt:serverTimestamp(),updatedAtMs:now,deviceId,schemaVersion:APP_SCHEMA_VERSION};transaction.set(ref,next,{merge:false});return normalizeCloudRecord(auctionResultRecordId,next);});
       upsertLocalRecord(saved);auctionResultBaseRevision=Number(saved.revision||0);if(loadedRecordId===saved.id){loadedRecordRevision=Number(saved.revision||0);currentAuctionResultData=saved.state?.auctionResult?{...saved.state.auctionResult}:null;currentFeedbackData=saved.state?.feedback?{...saved.state.feedback}:currentFeedbackData;setState(saved.state);}setSyncStatus(`자동 동기화 완료 · ${formatDateTime(new Date())}`,"good");showToast("입찰결과 저장 완료");renderSaved();renderFeedbackCalendar();const reopenWorkspaceResult=document.body.classList.contains("detail-open")&&workspaceActiveTab==="result";closeAuctionResult();if(reopenWorkspaceResult)setTimeout(()=>setWorkspaceTab("result"),0);
     }catch(error){if(error instanceof SyncConflictError){await refreshRecordFromCloud(auctionResultRecordId);alert("다른 기기에서 이 물건을 먼저 수정해 최신자료를 다시 불러왔습니다. 결과를 다시 열어 입력해주세요.");}else{console.error(error);alert(`입찰결과를 저장하지 못했습니다. ${error?.message||""}`);}}finally{$("auctionResultSaveBtn").disabled=false;if($("auctionResultSaveTopBtn"))$("auctionResultSaveTopBtn").disabled=false;}
   }
   async function clearAuctionResult(){
     if(!requireCloudReady()||!auctionResultRecordId)return;if(!confirm("이 물건의 입찰결과 기록을 삭제할까요?"))return;const id=auctionResultRecordId,now=Date.now();
-    try{const saved=await runTransaction(db,async transaction=>{const ref=recordRef(id),snap=await transaction.get(ref);if(!snap.exists())throw new Error("저장자료를 찾을 수 없습니다.");const cloud=snap.data(),rev=Number(cloud.revision||0);if(rev!==auctionResultBaseRevision)throw new SyncConflictError();const state={...(cloud.state||{})};const oldResult=state.auctionResult||{};delete state.auctionResult;state.fields={...(state.fields||{})};if(oldResult.status!=="not_bid"&&state.fields.bidDecision==="completed")state.fields.bidDecision=String(oldResult.previousBidDecision||"bid");state.feedback={...(state.feedback||{}),result:""};const next={...cloud,state,revision:rev+1,checksum:checksum({title:cloud.title,state,deleted:false}),updatedAt:serverTimestamp(),updatedAtMs:now,deviceId,schemaVersion:APP_SCHEMA_VERSION};transaction.set(ref,next,{merge:false});return normalizeCloudRecord(id,next);});upsertLocalRecord(saved);if(loadedRecordId===id){loadedRecordRevision=Number(saved.revision||0);currentAuctionResultData=null;currentFeedbackData=saved.state?.feedback?{...saved.state.feedback}:null;setState(saved.state);}showToast("입찰결과 삭제 완료");const reopenWorkspaceResult=document.body.classList.contains("detail-open")&&workspaceActiveTab==="result";closeAuctionResult();renderSaved();if(reopenWorkspaceResult)setTimeout(()=>setWorkspaceTab("result"),0);}catch(error){console.error(error);alert("입찰결과를 삭제하지 못했습니다.");}
+    try{const saved=await runTransaction(db,async transaction=>{const ref=recordRef(id),snap=await transaction.get(ref);if(!snap.exists())throw new Error("저장자료를 찾을 수 없습니다.");const cloud=snap.data(),rev=Number(cloud.revision||0);if(rev!==auctionResultBaseRevision)throw new SyncConflictError();const state={...(cloud.state||{})};const oldResult=state.auctionResult||{};delete state.auctionResult;state.fields={...(state.fields||{})};if((state.fields.bidDecision==="completed"||state.fields.bidDecision==="not_bid_record")&&oldResult.status)state.fields.bidDecision=String(oldResult.previousBidDecision||(oldResult.status==="not_bid"?"no":"bid"));state.feedback={...(state.feedback||{}),result:""};const next={...cloud,state,revision:rev+1,checksum:checksum({title:cloud.title,state,deleted:false}),updatedAt:serverTimestamp(),updatedAtMs:now,deviceId,schemaVersion:APP_SCHEMA_VERSION};transaction.set(ref,next,{merge:false});return normalizeCloudRecord(id,next);});upsertLocalRecord(saved);if(loadedRecordId===id){loadedRecordRevision=Number(saved.revision||0);currentAuctionResultData=null;currentFeedbackData=saved.state?.feedback?{...saved.state.feedback}:null;setState(saved.state);}showToast("입찰결과 삭제 완료");const reopenWorkspaceResult=document.body.classList.contains("detail-open")&&workspaceActiveTab==="result";closeAuctionResult();renderSaved();if(reopenWorkspaceResult)setTimeout(()=>setWorkspaceTab("result"),0);}catch(error){console.error(error);alert("입찰결과를 삭제하지 못했습니다.");}
   }
 
 
@@ -6033,7 +6050,7 @@ function renderSaved(){
     savedEditorCollapsed=false;
     applySavedEditorCollapsed();
 
-    /* v1.22.0: 상세/대출/비용/실제입찰 메뉴를 고정 요약박스 안으로 이동 */
+    /* v1.22.2: 상세/대출/비용/실제입찰 메뉴를 고정 요약박스 안으로 이동 */
     const header=$("workspacePropertyHeader"),tabs=$("workspaceTabRail");
     if(header&&tabs&&tabs.parentElement!==header)header.appendChild(tabs);
 
@@ -6120,7 +6137,8 @@ function renderSaved(){
       brokerCalls=[{officeName:"기존 부동산 메모",priceOpinion:"",memo:String(fields.marketBrokerMemo)}];
     }
     const tradeNotes=raw.tradeNotes&&typeof raw.tradeNotes==="object"?{...raw.tradeNotes}:{};
-    return {askingListings,brokerCalls,tradeNotes};
+    const manualTrades=Array.isArray(raw.manualTrades)?raw.manualTrades.map(x=>({date:String(x?.date||""),amount:String(x?.amount||""),dong:String(x?.dong||""),floor:String(x?.floor||""),memo:String(x?.memo||"")})):[];
+    return {askingListings,brokerCalls,tradeNotes,manualTrades};
   }
   function marketTradeNoteKey(t,index=0){
     return [String(t?.date||""),String(t?.dong||t?.building||t?.buildingDong||""),String(t?.floor||""),String(t?.amount||""),String(t?.dealType||"")].join("|")||`trade-${index}`;
@@ -6149,9 +6167,8 @@ function renderSaved(){
   function renderMarketTradeList(item){
     const root=$("workspaceMarketTrades");if(!root)return;
     const ts=item?.state?.publicDataEnrichment?.tradeStats||{},recent=Array.isArray(ts.recent)?ts.recent:[];
-    if(!recent.length){root.innerHTML=`<div class="empty">동일면적 최근 실거래가 없습니다. 공공자료 자동조회를 먼저 실행해보세요.</div>`;return;}
-    const notes=currentMarketResearchData?.tradeNotes||{};
-    root.innerHTML=recent.map((t,i)=>{
+    const notes=currentMarketResearchData?.tradeNotes||{},manual=currentMarketResearchData?.manualTrades||[];
+    const publicHtml=recent.length?recent.map((t,i)=>{
       const key=marketTradeNoteKey(t,i),enc=encodeURIComponent(key),dong=t?.dong||t?.building||t?.buildingDong||"";
       const floor=t?.floor!==undefined&&t?.floor!==null&&String(t.floor)!==""?`${t.floor}층`:"-";
       const legacyKey=[String(t?.date||""),"",String(t?.floor||""),String(t?.amount||""),String(t?.dealType||"")].join("|");
@@ -6160,9 +6177,18 @@ function renderSaved(){
         <span>${escapeHtml(t.date||"-")}${dong?` · ${escapeHtml(String(dong))}`:""}</span>
         <span>${escapeHtml(floor)}</span>
         <span class="price">${shortWon(Number(t.amount)||0)}</span>
-        <input class="trade-note" type="text" data-market-trade-note-key="${enc}" value="${escapeHtml(noteValue)}" placeholder="조사 메모: 수리, 바다뷰, 특수관계인 거래 여부 등">
+        <input class="trade-note" type="text" data-market-trade-note-key="${enc}" value="${escapeHtml(noteValue)}" placeholder="메모: 수리, 뷰, 특수관계인 거래 여부 등">
       </div>`;
-    }).join("");
+    }).join(""):`<div class="market-empty">공공자료 실거래가 없거나 조회에 실패했습니다. 아래 <b>수기 실거래</b>에 직접 입력할 수 있습니다.</div>`;
+    const manualHtml=manual.length?manual.map((r,i)=>`<div class="market-entry-row trade-manual" data-market-manual-trade-row="${i}">
+      <div><div class="market-entry-label">계약일</div><input type="date" data-market-manual-trade-index="${i}" data-market-manual-trade-field="date" value="${escapeHtml(r.date||"")}"></div>
+      <div><div class="market-entry-label">금액</div><input type="text" inputmode="numeric" data-money data-market-manual-trade-index="${i}" data-market-manual-trade-field="amount" value="${escapeHtml(formatMoneyValue(r.amount))}" placeholder="예: 170,000,000"></div>
+      <div><div class="market-entry-label">동</div><input type="text" data-market-manual-trade-index="${i}" data-market-manual-trade-field="dong" value="${escapeHtml(r.dong||"")}" placeholder="예: 105동"></div>
+      <div><div class="market-entry-label">층</div><input type="text" inputmode="numeric" data-market-manual-trade-index="${i}" data-market-manual-trade-field="floor" value="${escapeHtml(r.floor||"")}" placeholder="9"></div>
+      <div class="entry-memo"><div class="market-entry-label">메모</div><textarea data-market-manual-trade-index="${i}" data-market-manual-trade-field="memo" placeholder="예: 기본집 · 바다뷰 없음 · 부동산 확인내용">${escapeHtml(r.memo||"")}</textarea></div>
+      <button class="btn light market-entry-remove no-print" type="button" data-market-manual-trade-remove="${i}">삭제</button>
+    </div>`).join(""):`<div class="market-empty">수기로 입력한 실거래가 없습니다. <b>+ 실거래 수기 추가</b>로 한 건씩 입력하세요.</div>`;
+    root.innerHTML=`<div class="market-trade-subhead"><span>공공자료 자동 실거래</span><span>${recent.length}건</span></div>${publicHtml}<div class="market-trade-subhead"><span>수기 실거래</span><span>${manual.length}건</span></div>${manualHtml}`;
   }
   function syncLegacyMarketMemoFields(){
     const m=currentMarketResearchData||normalizeMarketResearchData({});
@@ -6179,12 +6205,14 @@ function renderSaved(){
     if(importInfo.officialPriceBand)marketMeta.push(`<span class="public-data-chip">공시 ${escapeHtml(importInfo.officialPriceBand)}</span>`);
     if(importInfo.viewCount)marketMeta.push(`<span class="public-data-chip">옥션원 조회 ${Number(importInfo.viewCount).toLocaleString()}</span>`);
     if(ts.count12!==undefined){marketMeta.push(`<span class="public-data-chip">3개월 ${ts.count3||0}건</span><span class="public-data-chip">6개월 ${ts.count6||0}건</span><span class="public-data-chip">12개월 ${ts.count12||0}건</span>${ts.median?`<span class="public-data-chip price">실거래 중앙 ${shortWon(ts.median)}</span>`:""}`);}else marketMeta.push(`<span class="unknown-pill">공공 실거래 미조회</span>`);
+    const manualTradeCount=currentMarketResearchData?.manualTrades?.length||0;if(manualTradeCount)marketMeta.push(`<span class="public-data-chip">수기 ${manualTradeCount}건</span>`);
     $("workspaceMarketStats").innerHTML=marketMeta.join("");
     const refBox=$("workspacePublicReferenceBox"),ref=publicReferenceSaleRange(item),refScreen=ref?publicReferenceScreening(item):null;
     if(refBox){if(ref){refBox.hidden=false;refBox.innerHTML=`<div class="public-reference-main"><b>공공 실거래 참고가 ${shortWon(ref.low)}${ref.high>ref.low?` ~ ${shortWon(ref.high)}`:""}</b> · 최근 동일면적 거래의 25백분위~중앙값 기준입니다.${refScreen?.maxBid>0?` 이 참고가만 사용해 계산하면 목표수익률 기준 가능입찰가율은 <b>${formatPctRange(refScreen.bidRateLow,refScreen.bidRateHigh)}</b>입니다.`:""}<br><span style="font-size:9px;color:#64748b">실제 빠른 매도가는 층·수리·뷰·호가·부동산 조사 후 직접 확정해야 합니다.</span></div><button class="btn light no-print" type="button" id="applyPublicReferenceSaleBtn">이 참고가를 예상매도가 후보로 적용</button>`;}else{refBox.hidden=true;refBox.innerHTML="";}}
     renderMarketTradeList(item);renderMarketAskingList();renderMarketBrokerList();syncLegacyMarketMemoFields();
   }
   function applyWorkspaceMarketToFields(){syncLegacyMarketMemoFields();}
+  function addMarketManualTrade(){currentMarketResearchData=currentMarketResearchData||normalizeMarketResearchData({});currentMarketResearchData.manualTrades=currentMarketResearchData.manualTrades||[];currentMarketResearchData.manualTrades.push({date:"",amount:"",dong:"",floor:"",memo:""});const item=records().find(x=>x.id===loadedRecordId);renderMarketTradeList(item);}
   function addMarketAsking(){currentMarketResearchData=currentMarketResearchData||normalizeMarketResearchData({});currentMarketResearchData.askingListings.push({amount:"",dong:"",floor:"",memo:""});renderMarketAskingList();}
   function addMarketBroker(){currentMarketResearchData=currentMarketResearchData||normalizeMarketResearchData({});currentMarketResearchData.brokerCalls.push({officeName:"",priceOpinion:"",memo:""});renderMarketBrokerList();}
 
@@ -6835,9 +6863,9 @@ ${error?.message||""}`);}finally{if(btn)btn.disabled=false;}
     markAuctionOneMissingInputs();
   }
 
-  // 기존 저장자료는 자동 적용하지 않습니다. v1.22.0의 후보 확인 모달을 통해서만 선택 적용됩니다.
+  // 기존 저장자료는 자동 적용하지 않습니다. v1.22.2의 후보 확인 모달을 통해서만 선택 적용됩니다.
 
-  // ===== v1.22.0: 옥션원 원문 재분석 / 기존자료 확인적용 / 공공데이터 자동조회 =====
+  // ===== v1.22.2: 옥션원 원문 재분석 / 기존자료 확인적용 / 공공데이터 자동조회 =====
   const PUBLIC_FIELD_LABELS={propertyName:'도로명주소',apartmentAge:'사용승인년도',maxFloor:'최고층',householdCount:'세대수',buildingType:'현관구조',roomCount:'방수',bathCount:'욕실수',direction:'향',selectionTradeActivity:'거래활발도',sameRates:'동일번지 낙찰가율',nearRates:'인근 낙찰가율'};
   let historySuggestionRows=[];
   const publicTradeCache=new Map();
@@ -8259,6 +8287,7 @@ ${e?.message||''}`);setSyncStatus('공공자료 일괄조회 중단','bad');}
   window.addEventListener("resize",()=>{if(!$("savedColumnFilterMenu")?.hidden)closeSavedColumnFilterMenu();});
   $("savedSectionToggle")?.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();toggleSavedSectionCollapsed();}});
   $("savedList")?.addEventListener("scroll",()=>{if(!$("savedColumnFilterMenu")?.hidden)closeSavedColumnFilterMenu();},{passive:true});
+  $("marketManualTradeAddBtn")?.addEventListener("click",addMarketManualTrade);
   $("marketAskingAddBtn")?.addEventListener("click",addMarketAsking);
   $("marketBrokerAddBtn")?.addEventListener("click",addMarketBroker);
   $("marketAskingList")?.addEventListener("input",e=>{
@@ -8282,9 +8311,19 @@ ${e?.message||''}`);setSyncStatus('공공자료 일괄조회 중단','bad');}
     currentMarketResearchData.brokerCalls.splice(Number(btn.dataset.marketBrokerRemove),1);renderMarketBrokerList();syncLegacyMarketMemoFields();renderFeedbackRequestOutput();
   });
   $("workspaceMarketTrades")?.addEventListener("input",e=>{
+    const manualEl=e.target.closest("[data-market-manual-trade-index]");
+    if(manualEl&&currentMarketResearchData){
+      const i=Number(manualEl.dataset.marketManualTradeIndex),field=manualEl.dataset.marketManualTradeField,row=currentMarketResearchData.manualTrades?.[i];
+      if(row&&field){row[field]=field==="amount"?numericText(manualEl.value):manualEl.value;if(field==="amount")formatMoneyInput(manualEl);}
+      return;
+    }
     const el=e.target.closest("[data-market-trade-note-key]");if(!el)return;
     currentMarketResearchData=currentMarketResearchData||normalizeMarketResearchData({});
     currentMarketResearchData.tradeNotes[decodeURIComponent(el.dataset.marketTradeNoteKey)]=el.value;
+  });
+  $("workspaceMarketTrades")?.addEventListener("click",e=>{
+    const btn=e.target.closest("[data-market-manual-trade-remove]");if(!btn||!currentMarketResearchData)return;
+    currentMarketResearchData.manualTrades.splice(Number(btn.dataset.marketManualTradeRemove),1);const item=records().find(x=>x.id===loadedRecordId);renderMarketTradeList(item);
   });
   $("workspaceMarketSaveBtn")?.addEventListener("click",()=>{applyWorkspaceMarketToFields();$("saveBtn").click();});
   $("workspaceMarketSaveTopBtn")?.addEventListener("click",()=>{applyWorkspaceMarketToFields();$("saveBtn").click();});
