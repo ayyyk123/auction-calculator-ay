@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
   <link rel="shortcut icon" href="./favicon.ico" />
-  <title>경매 입찰·대출 자금 계산기 v1.22.2</title>
+  <title>경매 입찰·대출 자금 계산기 v1.22.3</title>
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280;
@@ -1237,6 +1237,12 @@
     .saved-list-table thead th.no-sort{cursor:default}
     .saved-list-table tbody tr.saved-item{border:0!important;border-radius:0!important;display:table-row!important;box-shadow:none!important;background:transparent!important;cursor:pointer}
     .saved-list-table tbody tr.saved-item:hover td{background:#f8fbff}
+    /* v1.22.3 저장목록 행 hover 시 선택메모 툴팁 */
+    .saved-selection-memo-tooltip{position:fixed;z-index:10120;max-width:min(380px,calc(100vw - 24px));padding:9px 11px;border-radius:10px;background:#0f172a;color:#fff;box-shadow:0 12px 34px rgba(15,23,42,.28);font-size:11px;line-height:1.5;white-space:normal;overflow-wrap:anywhere;pointer-events:none}
+    .saved-selection-memo-tooltip[hidden]{display:none!important}
+    .saved-selection-memo-tooltip .memo-label{display:block;margin-bottom:3px;color:#bfdbfe;font-size:9.5px;font-weight:950}
+    .saved-selection-memo-tooltip .memo-text{display:block;font-weight:750}
+    @media (max-width:720px),(hover:none){.saved-selection-memo-tooltip{display:none!important}}
     .saved-list-table tbody tr.workspace-selected td{background:#eff6ff!important;border-top:1px solid #93c5fd;border-bottom:1px solid #93c5fd}
     .saved-list-table tbody tr.bulk-selected td{background:#f0f9ff}
     .saved-list-table .sticky-col-1{position:sticky;left:0;z-index:5;background:inherit}
@@ -1903,7 +1909,7 @@
 <div class="app">
   <header>
     <div>
-      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.22.2</span></h1>
+      <h1>경매 입찰·대출 자금 계산기 <span class="version-badge">v1.22.3</span></h1>
       <div class="sub">저장목록에서 물건을 비교하고, 예상 매도가 범위와 목표수익 10~15%를 기준으로 입찰가능가율·순수익·종잣돈 범위를 먼저 판단합니다.</div>
     </div>
     <div class="auth-panel no-print">
@@ -2881,7 +2887,7 @@
     <button class="btn light" id="mobileNewBtn" type="button">새 계산</button>
   </div>
 
-  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.22.2 엑셀형 열필터·PC 열 드래그·PC→모바일 열순서 자동동기화·검색/날짜/기간검색·필터초기화·선택열 전체선택/해제 · 상태/별/지역폴더 표에서 바로저장·상태/지역폴더는 각 열 필터에서 관리 · 원문 재분석·공공자료 조회는 선택물건 기준 · 공공자료 오류 사건별 상세기록 · 피드백 달력의 매각기일별 마감표시 유지·오른쪽 후보목록 드래그 일정짜기·동시 2건 자동잠금 · 실거래/호가/부동산 건별 시세기록·15항목 피드백 자동완성 · 실제입찰/대출/비용 유지 · 입찰결과에 미입찰기록 상태·예정입찰가/낙찰가 차이금액·차이율·매각결과 필터·긴 메모 추가.</footer>
+  <footer>이메일·비밀번호 로그인 · Firebase 자동동기화 · v1.22.3 엑셀형 열필터·PC 열 드래그·PC→모바일 열순서 자동동기화·검색/날짜/기간검색·필터초기화·선택열 전체선택/해제 · 상태/별/지역폴더 표에서 바로저장·상태/지역폴더는 각 열 필터에서 관리 · 원문 재분석·공공자료 조회는 선택물건 기준 · 공공자료 오류 사건별 상세기록 · 피드백 달력의 매각기일별 마감표시 유지·오른쪽 후보목록 드래그 일정짜기·동시 2건 자동잠금 · 실거래/호가/부동산 건별 시세기록·15항목 피드백 자동완성 · 실제입찰/대출/비용 유지 · 입찰결과에 미입찰기록 상태·예정입찰가/낙찰가 차이금액·차이율·매각결과 필터·긴 메모 추가.</footer>
 </div>
 
 
@@ -5935,6 +5941,49 @@ function renderSaved(){
     return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
   }
 
+  // v1.22.3: 저장목록에서 행을 열지 않고 선택메모를 바로 확인합니다.
+  let savedSelectionMemoTooltipRecordId="";
+  function savedSelectionMemoTooltip(){
+    let tip=$("savedSelectionMemoTooltip");
+    if(tip)return tip;
+    tip=document.createElement("div");
+    tip.id="savedSelectionMemoTooltip";
+    tip.className="saved-selection-memo-tooltip";
+    tip.hidden=true;
+    document.body.appendChild(tip);
+    return tip;
+  }
+  function hideSavedSelectionMemoTooltip(){
+    savedSelectionMemoTooltipRecordId="";
+    const tip=$("savedSelectionMemoTooltip");
+    if(tip)tip.hidden=true;
+  }
+  function positionSavedSelectionMemoTooltip(e){
+    const tip=$("savedSelectionMemoTooltip");
+    if(!tip||tip.hidden)return;
+    const gap=14,pad=8;
+    let left=e.clientX+gap,top=e.clientY+gap;
+    const rect=tip.getBoundingClientRect();
+    if(left+rect.width>window.innerWidth-pad)left=e.clientX-rect.width-gap;
+    if(top+rect.height>window.innerHeight-pad)top=e.clientY-rect.height-gap;
+    left=Math.max(pad,Math.min(left,window.innerWidth-rect.width-pad));
+    top=Math.max(pad,Math.min(top,window.innerHeight-rect.height-pad));
+    tip.style.left=`${Math.round(left)}px`;
+    tip.style.top=`${Math.round(top)}px`;
+  }
+  function showSavedSelectionMemoTooltip(row,e){
+    if(!row||((e.pointerType||"mouse")!=="mouse"))return hideSavedSelectionMemoTooltip();
+    const id=row.dataset.loadId||"";
+    const item=rawLocalRecords().find(x=>x.id===id&&!x.deleted);
+    const memo=String(item?stateText(item,"selectionMemo",""):"").trim();
+    if(!memo)return hideSavedSelectionMemoTooltip();
+    const tip=savedSelectionMemoTooltip();
+    savedSelectionMemoTooltipRecordId=id;
+    tip.innerHTML=`<span class="memo-label">선택메모</span><span class="memo-text">${escapeHtml(memo).replace(/\n/g,"<br>")}</span>`;
+    tip.hidden=false;
+    positionSavedSelectionMemoTooltip(e);
+  }
+
   function auctionResultLabel(status){return ({not_bid:"미입찰",won:"낙찰",failed:"패찰",invalid:"무효",cancelled:"취하·변경",absent:"불참"})[status]||"미입력";}
   function auctionResultSavedLine(item,data){
     const appraisal=stateNumber(item,"appraisal",0),notBid=data?.status==="not_bid",my=notBid?(Number(data?.plannedBidPrice)||Number(data?.myBidPrice)||0):(Number(data?.myBidPrice)||0),win=Number(data?.winningBidPrice)||0;
@@ -8286,7 +8335,11 @@ ${e?.message||''}`);setSyncStatus('공공자료 일괄조회 중단','bad');}
   $("savedColumnFilterMenu")?.addEventListener("change",e=>{if(e.target.id==="columnFilterSelectAll"){visibleColumnFilterCheckboxes().forEach(cb=>cb.checked=e.target.checked);updateColumnFilterSelectAll();return;}if(e.target.matches('[data-filter-option]'))updateColumnFilterSelectAll();});
   window.addEventListener("resize",()=>{if(!$("savedColumnFilterMenu")?.hidden)closeSavedColumnFilterMenu();});
   $("savedSectionToggle")?.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();toggleSavedSectionCollapsed();}});
-  $("savedList")?.addEventListener("scroll",()=>{if(!$("savedColumnFilterMenu")?.hidden)closeSavedColumnFilterMenu();},{passive:true});
+  $("savedList")?.addEventListener("scroll",()=>{if(!$("savedColumnFilterMenu")?.hidden)closeSavedColumnFilterMenu();hideSavedSelectionMemoTooltip();},{passive:true});
+  $("savedList")?.addEventListener("pointerover",e=>{const row=e.target.closest?.("tr.saved-item[data-load-id]");if(!row)return;if(row.contains(e.relatedTarget))return;showSavedSelectionMemoTooltip(row,e);});
+  $("savedList")?.addEventListener("pointermove",e=>{if(!savedSelectionMemoTooltipRecordId||((e.pointerType||"mouse")!=="mouse"))return;const row=e.target.closest?.("tr.saved-item[data-load-id]");if(!row||row.dataset.loadId!==savedSelectionMemoTooltipRecordId)return hideSavedSelectionMemoTooltip();positionSavedSelectionMemoTooltip(e);});
+  $("savedList")?.addEventListener("pointerout",e=>{const row=e.target.closest?.("tr.saved-item[data-load-id]");if(!row||row.contains(e.relatedTarget))return;if(row.dataset.loadId===savedSelectionMemoTooltipRecordId)hideSavedSelectionMemoTooltip();});
+  $("savedList")?.addEventListener("pointerleave",hideSavedSelectionMemoTooltip);
   $("marketManualTradeAddBtn")?.addEventListener("click",addMarketManualTrade);
   $("marketAskingAddBtn")?.addEventListener("click",addMarketAsking);
   $("marketBrokerAddBtn")?.addEventListener("click",addMarketBroker);
