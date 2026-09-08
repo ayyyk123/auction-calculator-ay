@@ -1,0 +1,13 @@
+{
+  "name": "auction-calculator-ay-functions",
+  "private": true,
+  "main": "index.js",
+  "engines": {
+    "node": "20"
+  },
+  "dependencies": {
+    "court-auction-notice-search": "0.3.3",
+    "firebase-admin": "^13.0.0",
+    "firebase-functions": "^6.0.0"
+  }
+}
